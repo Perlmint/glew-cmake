@@ -1,6 +1,6 @@
 *.pc
-/src/*.c
-/include/GL/*.h
+.DS_Store
+._.*
 /build/vc6/*.rc
 /auto/extensions
 /auto/registry
