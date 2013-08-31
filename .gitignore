@@ -7,3 +7,7 @@
 /bin
 /lib
 /tmp
+CMakeScripts
+kuuko.build
+*.xcodeproj
+cmake_install.cmake
