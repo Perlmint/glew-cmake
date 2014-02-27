@@ -79,10 +79,6 @@ EOT
     perl -e's/OCCLUSION_TEST_RESULT_HP.*/OCCLUSION_TEST_RESULT_HP 0x8166/' -pi \
 	$1/GL_HP_occlusion_test
 
-# fix GLvoid in GL_ARB_vertex_buffer_objects
-    perl -e 's/ void\*/ GLvoid\*/g' -pi \
-        $1/GL_ARB_vertex_buffer_object
-
 # add deprecated constants to GL_ATI_fragment_shader
     cat >> $1/GL_ATI_fragment_shader <<EOT
 	GL_NUM_FRAGMENT_REGISTERS_ATI 0x896E
@@ -317,19 +313,19 @@ EOT
 # add typedef to GL_AMD_debug_output
 # parse_spec.pl can't parse typedefs from New Types section, but ought to
     cat >> $1/GL_AMD_debug_output <<EOT
-	typedef void (APIENTRY *GLDEBUGPROCAMD)(GLuint id, GLenum category, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam)
+	typedef void (GLAPIENTRY *GLDEBUGPROCAMD)(GLuint id, GLenum category, GLenum severity, GLsizei length, const GLchar* message, void* userParam)
 EOT
 
 # add typedef to GL_ARB_debug_output
 # parse_spec.pl can't parse typedefs from New Types section, but ought to
     cat >> $1/GL_ARB_debug_output <<EOT
-	typedef void (APIENTRY *GLDEBUGPROCARB)(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam)
+	typedef void (GLAPIENTRY *GLDEBUGPROCARB)(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 EOT
 
 # add typedef to GL_KHR_debug
 # parse_spec.pl can't parse typedefs from New Types section, but ought to
     cat >> $1/GL_KHR_debug <<EOT
-	typedef void (APIENTRY *GLDEBUGPROC)(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam)
+	typedef void (GLAPIENTRY *GLDEBUGPROC)(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 EOT
 
 # Remove glGetPointerv from GL_KHR_debug
@@ -371,6 +367,12 @@ EOT
     void glProgramUniformMatrix3x4dvEXT (GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
     void glProgramUniformMatrix4x2dvEXT (GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
     void glProgramUniformMatrix4x3dvEXT (GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+EOT
+
+# add missing functions to GL_EXT_direct_state_access (GL_ARB_instanced_arrays related)
+# https://sourceforge.net/p/glew/bugs/242/
+    cat >> $1/GL_EXT_direct_state_access <<EOT
+    void glVertexArrayVertexAttribDivisorEXT (GLuint vaobj, GLuint index, GLuint divisor)
 EOT
 
 # Filter out GL_UNSIGNED_INT and GL_FLOAT from GL_AMD_performance_monitor
@@ -430,9 +432,47 @@ EOT
 	typedef int GLfixed
 EOT
 
+# Append GLclampx to GL_REGAL_ES1_0_compatibility
+# Probably ought to be explicitly mentioned in the spec language
+
+    cat >> $1/GL_REGAL_ES1_0_compatibility <<EOT
+	typedef int GLclampx
+EOT
+
+# Append GLLOGPROCREGAL to GL_REGAL_log
+# Probably ought to be explicitly mentioned in the spec language
+
+    cat >> $1/GL_REGAL_log <<EOT
+	typedef void (APIENTRY *LOGPROCREGAL)(GLenum stream, GLsizei length, const GLchar *message, void *context)
+EOT
+
+# Fixup LOGPROCREGAL -> GLLOGPROCREGAL
+    perl -e 's/LOGPROCREGAL/GLLOGPROCREGAL/g' -pi $1/GL_REGAL_log
+
 # Filter out GL_BYTE from GL_OES_byte_coordinates
     grep -v 'GL_BYTE' $1/GL_OES_byte_coordinates > tmp
     mv tmp $1/GL_OES_byte_coordinates
+
+# Filter out fp64 (not widely supported) from GL_EXT_direct_state_access
+    egrep -v 'glProgramUniform.*[1234]d[v]?EXT' $1/GL_EXT_direct_state_access > tmp
+    mv tmp $1/GL_EXT_direct_state_access
+
+# Filter out all enums from GL_ANGLE_depth_texture
+    grep -v '0x' $1/GL_ANGLE_depth_texture > tmp
+    mv tmp $1/GL_ANGLE_depth_texture
+
+# Filter out GL_NONE enum from GL_ANGLE_depth_texture
+    grep -v 'GL_NONE' $1/GL_ANGLE_texture_usage > tmp
+    mv tmp $1/GL_ANGLE_texture_usage
+
+# Fixup REGAL and ANGLE urls
+
+    for i in $1/GL_REGAL_*; do perl -e 's#http://www.opengl.org/registry/specs/gl/REGAL/.*#https://github.com/p3/regal/tree/master/doc/extensions#g' -pi $i; done
+    for i in $1/GL_ANGLE_*; do perl -e 's#http://www.opengl.org/registry/specs/gl/ANGLE/.*#https://code.google.com/p/angleproject/source/browse/\#git%2Fextensions#g' -pi $i; done
+
+# Filter out GL_NV_blend_equation_advanced_coherent enums and functions
+    head -n3 $1/GL_NV_blend_equation_advanced_coherent > tmp
+    mv tmp $1/GL_NV_blend_equation_advanced_coherent
 
 # clean up
     rm -f $1/*.bak

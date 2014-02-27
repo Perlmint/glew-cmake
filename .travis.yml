@@ -1,5 +1,0 @@
-language: cpp
-before_script:
- - cmake . -G"Unix Makefiles"
-script: make
-install: true

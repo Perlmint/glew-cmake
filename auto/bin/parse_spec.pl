@@ -237,9 +237,12 @@ sub parse_spec($)
                         {
                             # apply typemaps
                             $return =~ s/$regex{types}/$typemap{$1}/og;
-                            $return =~ s/void\*/GLvoid */og;
+                            $return =~ s/GLvoid/void/og;
+                            $return =~ s/void\*/void */og;
                             $parms =~ s/$regex{types}/$typemap{$1}/og;
                             $parms =~ s/$regex{voidtype}/$voidtypemap{$1}/og;
+                            $parms =~ s/GLvoid/void/og;
+                            $parms =~ s/ void\* / void */og;
                         }
                         # add to functions hash
                         $functions{$name} = {
@@ -306,8 +309,7 @@ my @speclist = ();
 my %extensions = ();
 
 my $ext_dir = shift;
-my $reg_http = "http://www.opengl.org/registry/specs/";
-#my $reg_http = "http://oss.sgi.com/projects/ogl-sample/";
+my $reg_http = "http://www.opengl.org/registry/specs/gl/";
 
 # Take command line arguments or read list from file
 if (@ARGV)
@@ -328,7 +330,7 @@ foreach my $spec (sort @speclist)
         open EXT, ">$info";
         print EXT $ext . "\n";                       # Extension name
         my $specname = $spec;
-        $specname =~ s/registry\///;
+        $specname =~ s/registry\/gl\/specs\///;
         print EXT $reg_http . $specname . "\n";      # Extension info URL
         print EXT $ext . "\n";                       # Extension string
 
