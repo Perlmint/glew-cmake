@@ -467,12 +467,28 @@ EOT
 
 # Fixup REGAL and ANGLE urls
 
-    for i in $1/GL_REGAL_*; do perl -e 's#http://www.opengl.org/registry/specs/gl/REGAL/.*#https://github.com/p3/regal/tree/master/doc/extensions#g' -pi $i; done
-    for i in $1/GL_ANGLE_*; do perl -e 's#http://www.opengl.org/registry/specs/gl/ANGLE/.*#https://code.google.com/p/angleproject/source/browse/\#git%2Fextensions#g' -pi $i; done
+    for i in $1/GL_REGAL_*; do perl -e 's#http://www.opengl.org/registry/specs/REGAL/.*#https://github.com/p3/regal/tree/master/doc/extensions#g' -pi $i; done
+    for i in $1/GL_ANGLE_*; do perl -e 's#http://www.opengl.org/registry/specs/ANGLE/.*#https://code.google.com/p/angleproject/source/browse/\#git%2Fextensions#g' -pi $i; done
 
 # Filter out GL_NV_blend_equation_advanced_coherent enums and functions
     head -n3 $1/GL_NV_blend_equation_advanced_coherent > tmp
     mv tmp $1/GL_NV_blend_equation_advanced_coherent
+
+# Filter out GL_AMD_gpu_shader_int64 enums and functions
+    head -n3 $1/GL_AMD_gpu_shader_int64 > tmp
+    mv tmp $1/GL_AMD_gpu_shader_int64
+
+# Filter out GL_NO_ERROR enum from GL_KHR_robustness
+    grep -v 'GL_NO_ERROR' $1/GL_KHR_robustness > tmp
+    mv tmp $1/GL_KHR_robustness
+
+# Filter out all enums from GL_KHR_blend_equation_advanced_coherent
+    grep -v '0x' $1/GL_KHR_blend_equation_advanced_coherent > tmp
+    mv tmp $1/GL_KHR_blend_equation_advanced_coherent
+
+# Filter out glBlendBarrierKHR enum from GL_KHR_blend_equation_advanced_coherent
+    grep -v 'glBlendBarrierKHR' $1/GL_KHR_blend_equation_advanced_coherent > tmp
+    mv tmp $1/GL_KHR_blend_equation_advanced_coherent
 
 # clean up
     rm -f $1/*.bak
