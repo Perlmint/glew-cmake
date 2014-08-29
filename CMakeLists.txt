@@ -28,13 +28,6 @@ IF( NOT USE_GLU )
 	ADD_DEFINITIONS( -DGLEW_NO_GLU )
 ENDIF(  )
 
-IF ( glew-cmake_BUILD_STATIC )
-	ADD_LIBRARY( libglew_static STATIC ${LIBGLEW_SRCS} )
-ENDIF (  )
-IF ( glew-cmake_BUILD_SHARED )
-	ADD_LIBRARY( libglew_shared SHARED ${LIBGLEW_SRCS} )
-ENDIF (  )
-
 IF( WIN32 )
 	SET( GL_LIBRARY opengl32 )
 ELSEIF( APPLE )
@@ -47,6 +40,8 @@ ELSE(  )
 ENDIF(  )
 
 IF ( glew-cmake_BUILD_STATIC )
+	ADD_LIBRARY( libglew_static STATIC ${LIBGLEW_SRCS} )
+
 	SET_PROPERTY( TARGET libglew_static PROPERTY ARCHIVE_OUTPUT_NAME "glew" )
 	SET_PROPERTY( TARGET libglew_static PROPERTY DEBUG_POSTFIX d )
 	INSTALL( TARGETS libglew_static DESTINATION lib )
@@ -54,6 +49,8 @@ IF ( glew-cmake_BUILD_STATIC )
 ENDIF (  )
 
 IF ( glew-cmake_BUILD_SHARED )
+	ADD_LIBRARY( libglew_shared SHARED ${LIBGLEW_SRCS} )
+
 	IF( WIN32 )
 		SET_PROPERTY( TARGET libglew_shared PROPERTY RUNTIME_OUTPUT_NAME "glew" )
 	ELSE(  )
