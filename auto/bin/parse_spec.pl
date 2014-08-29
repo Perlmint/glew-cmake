@@ -159,6 +159,7 @@ sub normalize_prototype
     s/\s+/ /g;                # multiple whitespace -> single space
     s/\<.*\>//g;              # remove <comments> from direct state access extension
     s/\<.*$//g;               # remove incomplete <comments> from direct state access extension
+    s#/\*.*\*/##g;            # remove /* ... */ comments
     s/\s*\(\s*/ \(/;          # exactly one space before ( and none after
     s/\s*\)\s*/\)/;           # no space before or after )
     s/\s*\*([a-zA-Z])/\* $1/; # "* identifier"
@@ -236,9 +237,12 @@ sub parse_spec($)
                         {
                             # apply typemaps
                             $return =~ s/$regex{types}/$typemap{$1}/og;
-                            $return =~ s/void\*/GLvoid */og;
+                            $return =~ s/GLvoid/void/og;
+                            $return =~ s/void\*/void */og;
                             $parms =~ s/$regex{types}/$typemap{$1}/og;
                             $parms =~ s/$regex{voidtype}/$voidtypemap{$1}/og;
+                            $parms =~ s/GLvoid/void/og;
+                            $parms =~ s/ void\* / void */og;
                         }
                         # add to functions hash
                         $functions{$name} = {
@@ -306,7 +310,6 @@ my %extensions = ();
 
 my $ext_dir = shift;
 my $reg_http = "http://www.opengl.org/registry/specs/";
-#my $reg_http = "http://oss.sgi.com/projects/ogl-sample/";
 
 # Take command line arguments or read list from file
 if (@ARGV)
@@ -327,14 +330,32 @@ foreach my $spec (sort @speclist)
         open EXT, ">$info";
         print EXT $ext . "\n";                       # Extension name
         my $specname = $spec;
-        $specname =~ s/registry\///;
+        $specname =~ s/registry\/gl\/specs\///;
         print EXT $reg_http . $specname . "\n";      # Extension info URL
         print EXT $ext . "\n";                       # Extension string
 
         my $prefix = $ext;
         $prefix =~ s/^(.+?)(_.+)$/$1/;
-        foreach my $token (sort { hex ${$tokens}{$a} <=> hex ${$tokens}{$b} } keys %{$tokens})
-        {
+        foreach my $token (sort { 
+                if (${$tokens}{$a} eq ${$tokens}{$b}) {
+                        $a cmp $b
+                } else {
+                    if (${$tokens}{$a} =~ /_/) {
+                        if (${$tokens}{$b} =~ /_/) {
+                            $a cmp $b
+                        } else {
+                            -1
+                        }
+                    } else {
+                        if (${$tokens}{$b} =~ /_/) {
+                            1
+                        } else {
+                            hex ${$tokens}{$a} <=> hex ${$tokens}{$b}
+                        }                    
+                    }
+                }
+            } keys %{$tokens})
+            {
             if ($token =~ /^$prefix\_.*/i)
             {
                 print EXT "\t" . $token . " " . ${\%{$tokens}}{$token} . "\n";
