@@ -2024,6 +2024,8 @@ GLboolean __GLEW_3DFX_tbuffer = GL_FALSE;
 GLboolean __GLEW_3DFX_texture_compression_FXT1 = GL_FALSE;
 GLboolean __GLEW_AMD_draw_buffers_blend = GL_FALSE;
 GLboolean __GLEW_AMD_performance_monitor = GL_FALSE;
+GLboolean __GLEW_AMD_seamless_cubemap_per_texture = GL_FALSE;
+GLboolean __GLEW_AMD_shader_stencil_export = GL_FALSE;
 GLboolean __GLEW_AMD_texture_texture4 = GL_FALSE;
 GLboolean __GLEW_AMD_vertex_shader_tessellator = GL_FALSE;
 GLboolean __GLEW_APPLE_aux_depth_stencil = GL_FALSE;
@@ -2818,6 +2820,14 @@ static GLboolean _glewInit_GL_AMD_performance_monitor (GLEW_CONTEXT_ARG_DEF_INIT
 }
 
 #endif /* GL_AMD_performance_monitor */
+
+#ifdef GL_AMD_seamless_cubemap_per_texture
+
+#endif /* GL_AMD_seamless_cubemap_per_texture */
+
+#ifdef GL_AMD_shader_stencil_export
+
+#endif /* GL_AMD_shader_stencil_export */
 
 #ifdef GL_AMD_texture_texture4
 
@@ -6838,7 +6848,9 @@ GLenum glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   }
   else
   {
-    CONST_CAST(GLEW_VERSION_3_0) =                                ( major >= 3               ) ? GL_TRUE : GL_FALSE;
+    CONST_CAST(GLEW_VERSION_3_2) = ( major > 3 )               || ( major == 3 && minor >= 2 ) ? GL_TRUE : GL_FALSE;
+    CONST_CAST(GLEW_VERSION_3_1) = GLEW_VERSION_3_2 == GL_TRUE || ( major == 3 && minor >= 1 ) ? GL_TRUE : GL_FALSE;
+    CONST_CAST(GLEW_VERSION_3_0) = GLEW_VERSION_3_1 == GL_TRUE || ( major == 3               ) ? GL_TRUE : GL_FALSE;
     CONST_CAST(GLEW_VERSION_2_1) = GLEW_VERSION_3_0 == GL_TRUE || ( major == 2 && minor >= 1 ) ? GL_TRUE : GL_FALSE;    
     CONST_CAST(GLEW_VERSION_2_0) = GLEW_VERSION_2_1 == GL_TRUE || ( major == 2               ) ? GL_TRUE : GL_FALSE;
     CONST_CAST(GLEW_VERSION_1_5) = GLEW_VERSION_2_0 == GL_TRUE || ( major == 1 && minor >= 5 ) ? GL_TRUE : GL_FALSE;
@@ -6893,6 +6905,12 @@ GLenum glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   CONST_CAST(GLEW_AMD_performance_monitor) = glewGetExtension("GL_AMD_performance_monitor");
   if (glewExperimental || GLEW_AMD_performance_monitor) CONST_CAST(GLEW_AMD_performance_monitor) = !_glewInit_GL_AMD_performance_monitor(GLEW_CONTEXT_ARG_VAR_INIT);
 #endif /* GL_AMD_performance_monitor */
+#ifdef GL_AMD_seamless_cubemap_per_texture
+  CONST_CAST(GLEW_AMD_seamless_cubemap_per_texture) = glewGetExtension("GL_AMD_seamless_cubemap_per_texture");
+#endif /* GL_AMD_seamless_cubemap_per_texture */
+#ifdef GL_AMD_shader_stencil_export
+  CONST_CAST(GLEW_AMD_shader_stencil_export) = glewGetExtension("GL_AMD_shader_stencil_export");
+#endif /* GL_AMD_shader_stencil_export */
 #ifdef GL_AMD_texture_texture4
   CONST_CAST(GLEW_AMD_texture_texture4) = glewGetExtension("GL_AMD_texture_texture4");
 #endif /* GL_AMD_texture_texture4 */
@@ -9120,6 +9138,7 @@ GLboolean __GLXEW_EXT_swap_control = GL_FALSE;
 GLboolean __GLXEW_EXT_texture_from_pixmap = GL_FALSE;
 GLboolean __GLXEW_EXT_visual_info = GL_FALSE;
 GLboolean __GLXEW_EXT_visual_rating = GL_FALSE;
+GLboolean __GLXEW_INTEL_swap_event = GL_FALSE;
 GLboolean __GLXEW_MESA_agp_offset = GL_FALSE;
 GLboolean __GLXEW_MESA_copy_sub_buffer = GL_FALSE;
 GLboolean __GLXEW_MESA_pixmap_colormap = GL_FALSE;
@@ -9319,6 +9338,10 @@ static GLboolean _glewInit_GLX_EXT_texture_from_pixmap (GLXEW_CONTEXT_ARG_DEF_IN
 #ifdef GLX_EXT_visual_rating
 
 #endif /* GLX_EXT_visual_rating */
+
+#ifdef GLX_INTEL_swap_event
+
+#endif /* GLX_INTEL_swap_event */
 
 #ifdef GLX_MESA_agp_offset
 
@@ -9799,6 +9822,9 @@ GLenum glxewContextInit (GLXEW_CONTEXT_ARG_DEF_LIST)
 #ifdef GLX_EXT_visual_rating
   CONST_CAST(GLXEW_EXT_visual_rating) = glxewGetExtension("GLX_EXT_visual_rating");
 #endif /* GLX_EXT_visual_rating */
+#ifdef GLX_INTEL_swap_event
+  CONST_CAST(GLXEW_INTEL_swap_event) = glxewGetExtension("GLX_INTEL_swap_event");
+#endif /* GLX_INTEL_swap_event */
 #ifdef GLX_MESA_agp_offset
   CONST_CAST(GLXEW_MESA_agp_offset) = glxewGetExtension("GLX_MESA_agp_offset");
   if (glewExperimental || GLXEW_MESA_agp_offset) CONST_CAST(GLXEW_MESA_agp_offset) = !_glewInit_GLX_MESA_agp_offset(GLEW_CONTEXT_ARG_VAR_INIT);
@@ -9940,10 +9966,10 @@ const GLubyte* glewGetString (GLenum name)
   static const GLubyte* _glewString[] =
   {
     (const GLubyte*)NULL,
-    (const GLubyte*)"1.5.2",
+    (const GLubyte*)"1.5.3",
     (const GLubyte*)"1",
     (const GLubyte*)"5",
-    (const GLubyte*)"2"
+    (const GLubyte*)"3"
   };
   const int max_string = sizeof(_glewString)/sizeof(*_glewString) - 1;
   return _glewString[(int)name > max_string ? 0 : (int)name];
@@ -10091,6 +10117,20 @@ GLboolean glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"performance_monitor", 19))
         {
           ret = GLEW_AMD_performance_monitor;
+          continue;
+        }
+#endif
+#ifdef GL_AMD_seamless_cubemap_per_texture
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"seamless_cubemap_per_texture", 28))
+        {
+          ret = GLEW_AMD_seamless_cubemap_per_texture;
+          continue;
+        }
+#endif
+#ifdef GL_AMD_shader_stencil_export
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_stencil_export", 21))
+        {
+          ret = GLEW_AMD_shader_stencil_export;
           continue;
         }
 #endif
@@ -13113,6 +13153,16 @@ GLboolean glxewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"visual_rating", 13))
         {
           ret = GLXEW_EXT_visual_rating;
+          continue;
+        }
+#endif
+      }
+      if (_glewStrSame2(&pos, &len, (const GLubyte*)"INTEL_", 6))
+      {
+#ifdef GLX_INTEL_swap_event
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"swap_event", 10))
+        {
+          ret = GLXEW_INTEL_swap_event;
           continue;
         }
 #endif

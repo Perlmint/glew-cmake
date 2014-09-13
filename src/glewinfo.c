@@ -537,6 +537,24 @@ static void _glewInfo_GL_AMD_performance_monitor (void)
 
 #endif /* GL_AMD_performance_monitor */
 
+#ifdef GL_AMD_seamless_cubemap_per_texture
+
+static void _glewInfo_GL_AMD_seamless_cubemap_per_texture (void)
+{
+  glewPrintExt("GL_AMD_seamless_cubemap_per_texture", GLEW_AMD_seamless_cubemap_per_texture, glewIsSupported("GL_AMD_seamless_cubemap_per_texture"), glewGetExtension("GL_AMD_seamless_cubemap_per_texture"));
+}
+
+#endif /* GL_AMD_seamless_cubemap_per_texture */
+
+#ifdef GL_AMD_shader_stencil_export
+
+static void _glewInfo_GL_AMD_shader_stencil_export (void)
+{
+  glewPrintExt("GL_AMD_shader_stencil_export", GLEW_AMD_shader_stencil_export, glewIsSupported("GL_AMD_shader_stencil_export"), glewGetExtension("GL_AMD_shader_stencil_export"));
+}
+
+#endif /* GL_AMD_shader_stencil_export */
+
 #ifdef GL_AMD_texture_texture4
 
 static void _glewInfo_GL_AMD_texture_texture4 (void)
@@ -5853,6 +5871,15 @@ static void _glewInfo_GLX_EXT_visual_rating (void)
 
 #endif /* GLX_EXT_visual_rating */
 
+#ifdef GLX_INTEL_swap_event
+
+static void _glewInfo_GLX_INTEL_swap_event (void)
+{
+  glewPrintExt("GLX_INTEL_swap_event", GLXEW_INTEL_swap_event, glxewIsSupported("GLX_INTEL_swap_event"), glxewGetExtension("GLX_INTEL_swap_event"));
+}
+
+#endif /* GLX_INTEL_swap_event */
+
 #ifdef GLX_MESA_agp_offset
 
 static void _glewInfo_GLX_MESA_agp_offset (void)
@@ -6261,6 +6288,12 @@ static void glewInfo (void)
 #ifdef GL_AMD_performance_monitor
   _glewInfo_GL_AMD_performance_monitor();
 #endif /* GL_AMD_performance_monitor */
+#ifdef GL_AMD_seamless_cubemap_per_texture
+  _glewInfo_GL_AMD_seamless_cubemap_per_texture();
+#endif /* GL_AMD_seamless_cubemap_per_texture */
+#ifdef GL_AMD_shader_stencil_export
+  _glewInfo_GL_AMD_shader_stencil_export();
+#endif /* GL_AMD_shader_stencil_export */
 #ifdef GL_AMD_texture_texture4
   _glewInfo_GL_AMD_texture_texture4();
 #endif /* GL_AMD_texture_texture4 */
@@ -7502,6 +7535,9 @@ static void glxewInfo ()
 #ifdef GLX_EXT_visual_rating
   _glewInfo_GLX_EXT_visual_rating();
 #endif /* GLX_EXT_visual_rating */
+#ifdef GLX_INTEL_swap_event
+  _glewInfo_GLX_INTEL_swap_event();
+#endif /* GLX_INTEL_swap_event */
 #ifdef GLX_MESA_agp_offset
   _glewInfo_GLX_MESA_agp_offset();
 #endif /* GLX_MESA_agp_offset */

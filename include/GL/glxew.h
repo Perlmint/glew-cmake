@@ -644,6 +644,20 @@ typedef void ( * PFNGLXRELEASETEXIMAGEEXTPROC) (Display* display, GLXDrawable dr
 
 #endif /* GLX_EXT_visual_rating */
 
+/* -------------------------- GLX_INTEL_swap_event ------------------------- */
+
+#ifndef GLX_INTEL_swap_event
+#define GLX_INTEL_swap_event 1
+
+#define GLX_EXCHANGE_COMPLETE_INTEL 0x8180
+#define GLX_COPY_COMPLETE_INTEL 0x8181
+#define GLX_FLIP_COMPLETE_INTEL 0x8182
+#define GLX_BUFFER_SWAP_COMPLETE_INTEL_MASK 0x04000000
+
+#define GLXEW_INTEL_swap_event GLXEW_GET_VAR(__GLXEW_INTEL_swap_event)
+
+#endif /* GLX_INTEL_swap_event */
+
 /* -------------------------- GLX_MESA_agp_offset -------------------------- */
 
 #ifndef GLX_MESA_agp_offset
@@ -1379,6 +1393,7 @@ GLXEW_EXPORT GLboolean __GLXEW_EXT_swap_control;
 GLXEW_EXPORT GLboolean __GLXEW_EXT_texture_from_pixmap;
 GLXEW_EXPORT GLboolean __GLXEW_EXT_visual_info;
 GLXEW_EXPORT GLboolean __GLXEW_EXT_visual_rating;
+GLXEW_EXPORT GLboolean __GLXEW_INTEL_swap_event;
 GLXEW_EXPORT GLboolean __GLXEW_MESA_agp_offset;
 GLXEW_EXPORT GLboolean __GLXEW_MESA_copy_sub_buffer;
 GLXEW_EXPORT GLboolean __GLXEW_MESA_pixmap_colormap;
