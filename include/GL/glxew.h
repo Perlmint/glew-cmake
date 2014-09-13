@@ -83,13 +83,16 @@
 #ifdef __glxext_h_
 #error glxext.h included before glxew.h
 #endif
-#ifdef GLX_H
+
+#if defined(GLX_H) || defined(__GLX_glx_h__) || defined(__glx_h__)
 #error glx.h included before glxew.h
 #endif
 
 #define __glxext_h_
-#define __GLX_glx_h__
+
 #define GLX_H
+#define __GLX_glx_h__
+#define __glx_h__
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -420,6 +423,17 @@ extern void ( * glXGetProcAddressARB (const GLubyte *procName)) (void);
 #define GLXEW_ARB_multisample GLXEW_GET_VAR(__GLXEW_ARB_multisample)
 
 #endif /* GLX_ARB_multisample */
+
+/* ---------------------- GLX_ARB_vertex_buffer_object --------------------- */
+
+#ifndef GLX_ARB_vertex_buffer_object
+#define GLX_ARB_vertex_buffer_object 1
+
+#define GLX_CONTEXT_ALLOW_BUFFER_BYTE_ORDER_MISMATCH_ARB 0x2095
+
+#define GLXEW_ARB_vertex_buffer_object GLXEW_GET_VAR(__GLXEW_ARB_vertex_buffer_object)
+
+#endif /* GLX_ARB_vertex_buffer_object */
 
 /* ----------------------- GLX_ATI_pixel_format_float ---------------------- */
 
@@ -1383,6 +1397,7 @@ GLXEW_EXPORT GLboolean __GLXEW_ARB_fbconfig_float;
 GLXEW_EXPORT GLboolean __GLXEW_ARB_framebuffer_sRGB;
 GLXEW_EXPORT GLboolean __GLXEW_ARB_get_proc_address;
 GLXEW_EXPORT GLboolean __GLXEW_ARB_multisample;
+GLXEW_EXPORT GLboolean __GLXEW_ARB_vertex_buffer_object;
 GLXEW_EXPORT GLboolean __GLXEW_ATI_pixel_format_float;
 GLXEW_EXPORT GLboolean __GLXEW_ATI_render_texture;
 GLXEW_EXPORT GLboolean __GLXEW_EXT_fbconfig_packed_float;
