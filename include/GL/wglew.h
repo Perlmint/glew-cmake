@@ -871,6 +871,18 @@ typedef BOOL (WINAPI * PFNWGLENUMGPUSNVPROC) (UINT iGpuIndex, HGPUNV *phGpu);
 
 #endif /* WGL_NV_gpu_affinity */
 
+/* ---------------------- WGL_NV_multisample_coverage ---------------------- */
+
+#ifndef WGL_NV_multisample_coverage
+#define WGL_NV_multisample_coverage 1
+
+#define WGL_COVERAGE_SAMPLES_NV 0x2042
+#define WGL_COLOR_SAMPLES_NV 0x20B9
+
+#define WGLEW_NV_multisample_coverage WGLEW_GET_VAR(__WGLEW_NV_multisample_coverage)
+
+#endif /* WGL_NV_multisample_coverage */
+
 /* -------------------------- WGL_NV_present_video ------------------------- */
 
 #ifndef WGL_NV_present_video
@@ -1201,6 +1213,7 @@ WGLEW_EXPORT GLboolean __WGLEW_I3D_swap_frame_usage;
 WGLEW_EXPORT GLboolean __WGLEW_NV_copy_image;
 WGLEW_EXPORT GLboolean __WGLEW_NV_float_buffer;
 WGLEW_EXPORT GLboolean __WGLEW_NV_gpu_affinity;
+WGLEW_EXPORT GLboolean __WGLEW_NV_multisample_coverage;
 WGLEW_EXPORT GLboolean __WGLEW_NV_present_video;
 WGLEW_EXPORT GLboolean __WGLEW_NV_render_depth_texture;
 WGLEW_EXPORT GLboolean __WGLEW_NV_render_texture_rectangle;

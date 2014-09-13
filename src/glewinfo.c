@@ -478,6 +478,8 @@ static void _glewInfo_GL_VERSION_3_2 (void)
 static void _glewInfo_GL_VERSION_3_3 (void)
 {
   glewPrintExt("GL_VERSION_3_3", GLEW_VERSION_3_3, GLEW_VERSION_3_3, GLEW_VERSION_3_3);
+
+  glewInfoFunc("glVertexAttribDivisor", glVertexAttribDivisor == NULL);
 }
 
 #endif /* GL_VERSION_3_3 */
@@ -535,6 +537,20 @@ static void _glewInfo_GL_AMD_conservative_depth (void)
 
 #endif /* GL_AMD_conservative_depth */
 
+#ifdef GL_AMD_debug_output
+
+static void _glewInfo_GL_AMD_debug_output (void)
+{
+  glewPrintExt("GL_AMD_debug_output", GLEW_AMD_debug_output, glewIsSupported("GL_AMD_debug_output"), glewGetExtension("GL_AMD_debug_output"));
+
+  glewInfoFunc("glDebugMessageCallbackAMD", glDebugMessageCallbackAMD == NULL);
+  glewInfoFunc("glDebugMessageEnableAMD", glDebugMessageEnableAMD == NULL);
+  glewInfoFunc("glDebugMessageInsertAMD", glDebugMessageInsertAMD == NULL);
+  glewInfoFunc("glGetDebugMessageLogAMD", glGetDebugMessageLogAMD == NULL);
+}
+
+#endif /* GL_AMD_debug_output */
+
 #ifdef GL_AMD_draw_buffers_blend
 
 static void _glewInfo_GL_AMD_draw_buffers_blend (void)
@@ -548,6 +564,19 @@ static void _glewInfo_GL_AMD_draw_buffers_blend (void)
 }
 
 #endif /* GL_AMD_draw_buffers_blend */
+
+#ifdef GL_AMD_name_gen_delete
+
+static void _glewInfo_GL_AMD_name_gen_delete (void)
+{
+  glewPrintExt("GL_AMD_name_gen_delete", GLEW_AMD_name_gen_delete, glewIsSupported("GL_AMD_name_gen_delete"), glewGetExtension("GL_AMD_name_gen_delete"));
+
+  glewInfoFunc("glDeleteNamesAMD", glDeleteNamesAMD == NULL);
+  glewInfoFunc("glGenNamesAMD", glGenNamesAMD == NULL);
+  glewInfoFunc("glIsNameAMD", glIsNameAMD == NULL);
+}
+
+#endif /* GL_AMD_name_gen_delete */
 
 #ifdef GL_AMD_performance_monitor
 
@@ -596,6 +625,15 @@ static void _glewInfo_GL_AMD_texture_texture4 (void)
 }
 
 #endif /* GL_AMD_texture_texture4 */
+
+#ifdef GL_AMD_transform_feedback3_lines_triangles
+
+static void _glewInfo_GL_AMD_transform_feedback3_lines_triangles (void)
+{
+  glewPrintExt("GL_AMD_transform_feedback3_lines_triangles", GLEW_AMD_transform_feedback3_lines_triangles, glewIsSupported("GL_AMD_transform_feedback3_lines_triangles"), glewGetExtension("GL_AMD_transform_feedback3_lines_triangles"));
+}
+
+#endif /* GL_AMD_transform_feedback3_lines_triangles */
 
 #ifdef GL_AMD_vertex_shader_tessellator
 
@@ -1049,6 +1087,42 @@ static void _glewInfo_GL_ARB_gpu_shader5 (void)
 static void _glewInfo_GL_ARB_gpu_shader_fp64 (void)
 {
   glewPrintExt("GL_ARB_gpu_shader_fp64", GLEW_ARB_gpu_shader_fp64, glewIsSupported("GL_ARB_gpu_shader_fp64"), glewGetExtension("GL_ARB_gpu_shader_fp64"));
+
+  glewInfoFunc("glGetUniformdv", glGetUniformdv == NULL);
+  glewInfoFunc("glProgramUniform1dEXT", glProgramUniform1dEXT == NULL);
+  glewInfoFunc("glProgramUniform1dvEXT", glProgramUniform1dvEXT == NULL);
+  glewInfoFunc("glProgramUniform2dEXT", glProgramUniform2dEXT == NULL);
+  glewInfoFunc("glProgramUniform2dvEXT", glProgramUniform2dvEXT == NULL);
+  glewInfoFunc("glProgramUniform3dEXT", glProgramUniform3dEXT == NULL);
+  glewInfoFunc("glProgramUniform3dvEXT", glProgramUniform3dvEXT == NULL);
+  glewInfoFunc("glProgramUniform4dEXT", glProgramUniform4dEXT == NULL);
+  glewInfoFunc("glProgramUniform4dvEXT", glProgramUniform4dvEXT == NULL);
+  glewInfoFunc("glProgramUniformMatrix2dvEXT", glProgramUniformMatrix2dvEXT == NULL);
+  glewInfoFunc("glProgramUniformMatrix2x3dvEXT", glProgramUniformMatrix2x3dvEXT == NULL);
+  glewInfoFunc("glProgramUniformMatrix2x4dvEXT", glProgramUniformMatrix2x4dvEXT == NULL);
+  glewInfoFunc("glProgramUniformMatrix3dvEXT", glProgramUniformMatrix3dvEXT == NULL);
+  glewInfoFunc("glProgramUniformMatrix3x2dvEXT", glProgramUniformMatrix3x2dvEXT == NULL);
+  glewInfoFunc("glProgramUniformMatrix3x4dvEXT", glProgramUniformMatrix3x4dvEXT == NULL);
+  glewInfoFunc("glProgramUniformMatrix4dvEXT", glProgramUniformMatrix4dvEXT == NULL);
+  glewInfoFunc("glProgramUniformMatrix4x2dvEXT", glProgramUniformMatrix4x2dvEXT == NULL);
+  glewInfoFunc("glProgramUniformMatrix4x3dvEXT", glProgramUniformMatrix4x3dvEXT == NULL);
+  glewInfoFunc("glUniform1d", glUniform1d == NULL);
+  glewInfoFunc("glUniform1dv", glUniform1dv == NULL);
+  glewInfoFunc("glUniform2d", glUniform2d == NULL);
+  glewInfoFunc("glUniform2dv", glUniform2dv == NULL);
+  glewInfoFunc("glUniform3d", glUniform3d == NULL);
+  glewInfoFunc("glUniform3dv", glUniform3dv == NULL);
+  glewInfoFunc("glUniform4d", glUniform4d == NULL);
+  glewInfoFunc("glUniform4dv", glUniform4dv == NULL);
+  glewInfoFunc("glUniformMatrix2dv", glUniformMatrix2dv == NULL);
+  glewInfoFunc("glUniformMatrix2x3dv", glUniformMatrix2x3dv == NULL);
+  glewInfoFunc("glUniformMatrix2x4dv", glUniformMatrix2x4dv == NULL);
+  glewInfoFunc("glUniformMatrix3dv", glUniformMatrix3dv == NULL);
+  glewInfoFunc("glUniformMatrix3x2dv", glUniformMatrix3x2dv == NULL);
+  glewInfoFunc("glUniformMatrix3x4dv", glUniformMatrix3x4dv == NULL);
+  glewInfoFunc("glUniformMatrix4dv", glUniformMatrix4dv == NULL);
+  glewInfoFunc("glUniformMatrix4x2dv", glUniformMatrix4x2dv == NULL);
+  glewInfoFunc("glUniformMatrix4x3dv", glUniformMatrix4x3dv == NULL);
 }
 
 #endif /* GL_ARB_gpu_shader_fp64 */
@@ -4297,6 +4371,15 @@ static void _glewInfo_GL_NV_light_max_exponent (void)
 
 #endif /* GL_NV_light_max_exponent */
 
+#ifdef GL_NV_multisample_coverage
+
+static void _glewInfo_GL_NV_multisample_coverage (void)
+{
+  glewPrintExt("GL_NV_multisample_coverage", GLEW_NV_multisample_coverage, glewIsSupported("GL_NV_multisample_coverage"), glewGetExtension("GL_NV_multisample_coverage"));
+}
+
+#endif /* GL_NV_multisample_coverage */
+
 #ifdef GL_NV_multisample_filter_hint
 
 static void _glewInfo_GL_NV_multisample_filter_hint (void)
@@ -4602,6 +4685,26 @@ static void _glewInfo_GL_NV_transform_feedback2 (void)
 }
 
 #endif /* GL_NV_transform_feedback2 */
+
+#ifdef GL_NV_vdpau_interop
+
+static void _glewInfo_GL_NV_vdpau_interop (void)
+{
+  glewPrintExt("GL_NV_vdpau_interop", GLEW_NV_vdpau_interop, glewIsSupported("GL_NV_vdpau_interop"), glewGetExtension("GL_NV_vdpau_interop"));
+
+  glewInfoFunc("glVDPAUFiniNV", glVDPAUFiniNV == NULL);
+  glewInfoFunc("glVDPAUGetSurfaceivNV", glVDPAUGetSurfaceivNV == NULL);
+  glewInfoFunc("glVDPAUInitNV", glVDPAUInitNV == NULL);
+  glewInfoFunc("glVDPAUIsSurfaceNV", glVDPAUIsSurfaceNV == NULL);
+  glewInfoFunc("glVDPAUMapSurfacesNV", glVDPAUMapSurfacesNV == NULL);
+  glewInfoFunc("glVDPAURegisterOutputSurfaceNV", glVDPAURegisterOutputSurfaceNV == NULL);
+  glewInfoFunc("glVDPAURegisterVideoSurfaceNV", glVDPAURegisterVideoSurfaceNV == NULL);
+  glewInfoFunc("glVDPAUSurfaceAccessNV", glVDPAUSurfaceAccessNV == NULL);
+  glewInfoFunc("glVDPAUUnmapSurfacesNV", glVDPAUUnmapSurfacesNV == NULL);
+  glewInfoFunc("glVDPAUUnregisterSurfaceNV", glVDPAUUnregisterSurfaceNV == NULL);
+}
+
+#endif /* GL_NV_vdpau_interop */
 
 #ifdef GL_NV_vertex_array_range
 
@@ -5994,6 +6097,15 @@ static void _glewInfo_WGL_NV_gpu_affinity (void)
 
 #endif /* WGL_NV_gpu_affinity */
 
+#ifdef WGL_NV_multisample_coverage
+
+static void _glewInfo_WGL_NV_multisample_coverage (void)
+{
+  glewPrintExt("WGL_NV_multisample_coverage", WGLEW_NV_multisample_coverage, wglewIsSupported("WGL_NV_multisample_coverage"), wglewGetExtension("WGL_NV_multisample_coverage"));
+}
+
+#endif /* WGL_NV_multisample_coverage */
+
 #ifdef WGL_NV_present_video
 
 static void _glewInfo_WGL_NV_present_video (void)
@@ -6142,6 +6254,15 @@ static void _glewInfo_GLX_3DFX_multisample (void)
 }
 
 #endif /* GLX_3DFX_multisample */
+
+#ifdef GLX_AMD_gpu_association
+
+static void _glewInfo_GLX_AMD_gpu_association (void)
+{
+  glewPrintExt("GLX_AMD_gpu_association", GLXEW_AMD_gpu_association, glxewIsSupported("GLX_AMD_gpu_association"), glxewGetExtension("GLX_AMD_gpu_association"));
+}
+
+#endif /* GLX_AMD_gpu_association */
 
 #ifdef GLX_ARB_create_context
 
@@ -6395,6 +6516,15 @@ static void _glewInfo_GLX_NV_float_buffer (void)
 }
 
 #endif /* GLX_NV_float_buffer */
+
+#ifdef GLX_NV_multisample_coverage
+
+static void _glewInfo_GLX_NV_multisample_coverage (void)
+{
+  glewPrintExt("GLX_NV_multisample_coverage", GLXEW_NV_multisample_coverage, glxewIsSupported("GLX_NV_multisample_coverage"), glxewGetExtension("GLX_NV_multisample_coverage"));
+}
+
+#endif /* GLX_NV_multisample_coverage */
 
 #ifdef GLX_NV_present_video
 
@@ -6732,9 +6862,15 @@ static void glewInfo (void)
 #ifdef GL_AMD_conservative_depth
   _glewInfo_GL_AMD_conservative_depth();
 #endif /* GL_AMD_conservative_depth */
+#ifdef GL_AMD_debug_output
+  _glewInfo_GL_AMD_debug_output();
+#endif /* GL_AMD_debug_output */
 #ifdef GL_AMD_draw_buffers_blend
   _glewInfo_GL_AMD_draw_buffers_blend();
 #endif /* GL_AMD_draw_buffers_blend */
+#ifdef GL_AMD_name_gen_delete
+  _glewInfo_GL_AMD_name_gen_delete();
+#endif /* GL_AMD_name_gen_delete */
 #ifdef GL_AMD_performance_monitor
   _glewInfo_GL_AMD_performance_monitor();
 #endif /* GL_AMD_performance_monitor */
@@ -6747,6 +6883,9 @@ static void glewInfo (void)
 #ifdef GL_AMD_texture_texture4
   _glewInfo_GL_AMD_texture_texture4();
 #endif /* GL_AMD_texture_texture4 */
+#ifdef GL_AMD_transform_feedback3_lines_triangles
+  _glewInfo_GL_AMD_transform_feedback3_lines_triangles();
+#endif /* GL_AMD_transform_feedback3_lines_triangles */
 #ifdef GL_AMD_vertex_shader_tessellator
   _glewInfo_GL_AMD_vertex_shader_tessellator();
 #endif /* GL_AMD_vertex_shader_tessellator */
@@ -7545,6 +7684,9 @@ static void glewInfo (void)
 #ifdef GL_NV_light_max_exponent
   _glewInfo_GL_NV_light_max_exponent();
 #endif /* GL_NV_light_max_exponent */
+#ifdef GL_NV_multisample_coverage
+  _glewInfo_GL_NV_multisample_coverage();
+#endif /* GL_NV_multisample_coverage */
 #ifdef GL_NV_multisample_filter_hint
   _glewInfo_GL_NV_multisample_filter_hint();
 #endif /* GL_NV_multisample_filter_hint */
@@ -7620,6 +7762,9 @@ static void glewInfo (void)
 #ifdef GL_NV_transform_feedback2
   _glewInfo_GL_NV_transform_feedback2();
 #endif /* GL_NV_transform_feedback2 */
+#ifdef GL_NV_vdpau_interop
+  _glewInfo_GL_NV_vdpau_interop();
+#endif /* GL_NV_vdpau_interop */
 #ifdef GL_NV_vertex_array_range
   _glewInfo_GL_NV_vertex_array_range();
 #endif /* GL_NV_vertex_array_range */
@@ -7976,6 +8121,9 @@ static void wglewInfo ()
 #ifdef WGL_NV_gpu_affinity
   _glewInfo_WGL_NV_gpu_affinity();
 #endif /* WGL_NV_gpu_affinity */
+#ifdef WGL_NV_multisample_coverage
+  _glewInfo_WGL_NV_multisample_coverage();
+#endif /* WGL_NV_multisample_coverage */
 #ifdef WGL_NV_present_video
   _glewInfo_WGL_NV_present_video();
 #endif /* WGL_NV_present_video */
@@ -8015,6 +8163,9 @@ static void glxewInfo ()
 #ifdef GLX_3DFX_multisample
   _glewInfo_GLX_3DFX_multisample();
 #endif /* GLX_3DFX_multisample */
+#ifdef GLX_AMD_gpu_association
+  _glewInfo_GLX_AMD_gpu_association();
+#endif /* GLX_AMD_gpu_association */
 #ifdef GLX_ARB_create_context
   _glewInfo_GLX_ARB_create_context();
 #endif /* GLX_ARB_create_context */
@@ -8090,6 +8241,9 @@ static void glxewInfo ()
 #ifdef GLX_NV_float_buffer
   _glewInfo_GLX_NV_float_buffer();
 #endif /* GLX_NV_float_buffer */
+#ifdef GLX_NV_multisample_coverage
+  _glewInfo_GLX_NV_multisample_coverage();
+#endif /* GLX_NV_multisample_coverage */
 #ifdef GLX_NV_present_video
   _glewInfo_GLX_NV_present_video();
 #endif /* GLX_NV_present_video */
