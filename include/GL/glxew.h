@@ -458,6 +458,28 @@ extern void ( * glXGetProcAddressARB (const GLubyte *procName)) (void);
 
 #endif /* GLX_ARB_multisample */
 
+/* ---------------- GLX_ARB_robustness_application_isolation --------------- */
+
+#ifndef GLX_ARB_robustness_application_isolation
+#define GLX_ARB_robustness_application_isolation 1
+
+#define GLX_CONTEXT_RESET_ISOLATION_BIT_ARB 0x00000008
+
+#define GLXEW_ARB_robustness_application_isolation GLXEW_GET_VAR(__GLXEW_ARB_robustness_application_isolation)
+
+#endif /* GLX_ARB_robustness_application_isolation */
+
+/* ---------------- GLX_ARB_robustness_share_group_isolation --------------- */
+
+#ifndef GLX_ARB_robustness_share_group_isolation
+#define GLX_ARB_robustness_share_group_isolation 1
+
+#define GLX_CONTEXT_RESET_ISOLATION_BIT_ARB 0x00000008
+
+#define GLXEW_ARB_robustness_share_group_isolation GLXEW_GET_VAR(__GLXEW_ARB_robustness_share_group_isolation)
+
+#endif /* GLX_ARB_robustness_share_group_isolation */
+
 /* ---------------------- GLX_ARB_vertex_buffer_object --------------------- */
 
 #ifndef GLX_ARB_vertex_buffer_object
@@ -543,6 +565,17 @@ typedef void ( * PFNGLXRELEASETEXIMAGEATIPROC) (Display *dpy, GLXPbuffer pbuf, i
 #define GLXEW_EXT_create_context_es2_profile GLXEW_GET_VAR(__GLXEW_EXT_create_context_es2_profile)
 
 #endif /* GLX_EXT_create_context_es2_profile */
+
+/* ------------------- GLX_EXT_create_context_es_profile ------------------- */
+
+#ifndef GLX_EXT_create_context_es_profile
+#define GLX_EXT_create_context_es_profile 1
+
+#define GLX_CONTEXT_ES_PROFILE_BIT_EXT 0x00000004
+
+#define GLXEW_EXT_create_context_es_profile GLXEW_GET_VAR(__GLXEW_EXT_create_context_es_profile)
+
+#endif /* GLX_EXT_create_context_es_profile */
 
 /* --------------------- GLX_EXT_fbconfig_packed_float --------------------- */
 
@@ -1517,10 +1550,13 @@ GLXEW_VAR_EXPORT GLboolean __GLXEW_ARB_fbconfig_float;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_ARB_framebuffer_sRGB;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_ARB_get_proc_address;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_ARB_multisample;
+GLXEW_VAR_EXPORT GLboolean __GLXEW_ARB_robustness_application_isolation;
+GLXEW_VAR_EXPORT GLboolean __GLXEW_ARB_robustness_share_group_isolation;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_ARB_vertex_buffer_object;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_ATI_pixel_format_float;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_ATI_render_texture;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_create_context_es2_profile;
+GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_create_context_es_profile;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_fbconfig_packed_float;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_framebuffer_sRGB;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_import_context;
