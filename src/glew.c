@@ -243,7 +243,7 @@ static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
   return i == n ? GL_TRUE : GL_FALSE;
 }
 
-static GLboolean _glewStrSame1 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+static GLboolean _glewStrSame1 (const GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
 {
   while (*na > 0 && (**a == ' ' || **a == '\n' || **a == '\r' || **a == '\t'))
   {
@@ -264,7 +264,7 @@ static GLboolean _glewStrSame1 (GLubyte** a, GLuint* na, const GLubyte* b, GLuin
   return GL_FALSE;
 }
 
-static GLboolean _glewStrSame2 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+static GLboolean _glewStrSame2 (const GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
 {
   if(*na >= nb)
   {
@@ -280,7 +280,7 @@ static GLboolean _glewStrSame2 (GLubyte** a, GLuint* na, const GLubyte* b, GLuin
   return GL_FALSE;
 }
 
-static GLboolean _glewStrSame3 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+static GLboolean _glewStrSame3 (const GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
 {
   if(*na >= nb)
   {
@@ -14340,7 +14340,7 @@ GLboolean GLEWAPIENTRY glewContextIsSupported (const GLEWContext* ctx, const cha
 GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
 #endif
 {
-  GLubyte* pos = (GLubyte*)name;
+  const GLubyte* pos = (const GLubyte*)name;
   GLuint len = _glewStrLen(pos);
   GLboolean ret = GL_TRUE;
   while (ret && len > 0)
@@ -18300,7 +18300,7 @@ GLboolean GLEWAPIENTRY wglewContextIsSupported (const WGLEWContext* ctx, const c
 GLboolean GLEWAPIENTRY wglewIsSupported (const char* name)
 #endif
 {
-  GLubyte* pos = (GLubyte*)name;
+  const GLubyte* pos = (const GLubyte*)name;
   GLuint len = _glewStrLen(pos);
   GLboolean ret = GL_TRUE;
   while (ret && len > 0)
@@ -18726,7 +18726,7 @@ GLboolean glxewContextIsSupported (const GLXEWContext* ctx, const char* name)
 GLboolean glxewIsSupported (const char* name)
 #endif
 {
-  GLubyte* pos = (GLubyte*)name;
+  const GLubyte* pos = (const GLubyte*)name;
   GLuint len = _glewStrLen(pos);
   GLboolean ret = GL_TRUE;
   while (ret && len > 0)
