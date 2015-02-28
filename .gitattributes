@@ -1,3 +1,4 @@
-*           eol=lf
-*.png       binary
-build/*     eol=crlf
+*              text eol=lf
+*.png          binary
+build/*/*      text eol=crlf
+CMakeLists.txt text eol=lf
