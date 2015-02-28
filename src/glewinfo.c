@@ -1,6 +1,6 @@
 /*
 ** The OpenGL Extension Wrangler Library
-** Copyright (C) 2008-2014, Nigel Stewart <nigels[]users sourceforge net>
+** Copyright (C) 2008-2015, Nigel Stewart <nigels[]users sourceforge net>
 ** Copyright (C) 2002-2008, Milan Ikits <milan ikits[]ieee org>
 ** Copyright (C) 2002-2008, Marcelo E. Magallon <mmagallo[]debian org>
 ** Copyright (C) 2002, Lev Povalahev
@@ -554,6 +554,8 @@ static void _glewInfo_GL_VERSION_4_4 (void)
 static void _glewInfo_GL_VERSION_4_5 (void)
 {
   glewPrintExt("GL_VERSION_4_5", GLEW_VERSION_4_5, GLEW_VERSION_4_5, GLEW_VERSION_4_5);
+
+  glewInfoFunc("glGetGraphicsResetStatus", glGetGraphicsResetStatus == NULL);
 }
 
 #endif /* GL_VERSION_4_5 */
