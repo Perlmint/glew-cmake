@@ -1,0 +1,8 @@
+language: cpp
+compiler:
+    - clang
+    - gcc
+install:
+    - sudo apt-get -qq update
+    - sudo apt-get -qq install -y xorg-dev libglu1-mesa-dev cmake
+script: cmake . && make
