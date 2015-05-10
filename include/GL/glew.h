@@ -19000,6 +19000,17 @@ GLEW_VAR_EXPORT GLboolean __GLEW_WIN_swap_hint;
 #define GLEW_VERSION_MINOR 3
 #define GLEW_VERSION_MICRO 4
 
+/* ------------------------------------------------------------------------- */
+
+/* GLEW version info */
+
+/*
+VERSION 1.12.0
+VERSION_MAJOR 1
+VERSION_MINOR 12
+VERSION_MICRO 0
+*/
+
 /* API */
 #ifdef GLEW_MX
 
