@@ -823,6 +823,10 @@ PFNGLGETNAMEDBUFFERSUBDATAPROC __glewGetNamedBufferSubData = NULL;
 PFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVPROC __glewGetNamedFramebufferAttachmentParameteriv = NULL;
 PFNGLGETNAMEDFRAMEBUFFERPARAMETERIVPROC __glewGetNamedFramebufferParameteriv = NULL;
 PFNGLGETNAMEDRENDERBUFFERPARAMETERIVPROC __glewGetNamedRenderbufferParameteriv = NULL;
+PFNGLGETQUERYBUFFEROBJECTI64VPROC __glewGetQueryBufferObjecti64v = NULL;
+PFNGLGETQUERYBUFFEROBJECTIVPROC __glewGetQueryBufferObjectiv = NULL;
+PFNGLGETQUERYBUFFEROBJECTUI64VPROC __glewGetQueryBufferObjectui64v = NULL;
+PFNGLGETQUERYBUFFEROBJECTUIVPROC __glewGetQueryBufferObjectuiv = NULL;
 PFNGLGETTEXTUREIMAGEPROC __glewGetTextureImage = NULL;
 PFNGLGETTEXTURELEVELPARAMETERFVPROC __glewGetTextureLevelParameterfv = NULL;
 PFNGLGETTEXTURELEVELPARAMETERIVPROC __glewGetTextureLevelParameteriv = NULL;
@@ -2023,7 +2027,14 @@ PFNGLPOINTPARAMETERFVEXTPROC __glewPointParameterfvEXT = NULL;
 
 PFNGLPOLYGONOFFSETEXTPROC __glewPolygonOffsetEXT = NULL;
 
+PFNGLPOLYGONOFFSETCLAMPEXTPROC __glewPolygonOffsetClampEXT = NULL;
+
 PFNGLPROVOKINGVERTEXEXTPROC __glewProvokingVertexEXT = NULL;
+
+PFNGLCOVERAGEMODULATIONNVPROC __glewCoverageModulationNV = NULL;
+PFNGLCOVERAGEMODULATIONTABLENVPROC __glewCoverageModulationTableNV = NULL;
+PFNGLGETCOVERAGEMODULATIONTABLENVPROC __glewGetCoverageModulationTableNV = NULL;
+PFNGLRASTERSAMPLESEXTPROC __glewRasterSamplesEXT = NULL;
 
 PFNGLBEGINSCENEEXTPROC __glewBeginSceneEXT = NULL;
 PFNGLENDSCENEEXTPROC __glewEndSceneEXT = NULL;
@@ -2288,6 +2299,8 @@ PFNGLBLENDPARAMETERINVPROC __glewBlendParameteriNV = NULL;
 PFNGLBEGINCONDITIONALRENDERNVPROC __glewBeginConditionalRenderNV = NULL;
 PFNGLENDCONDITIONALRENDERNVPROC __glewEndConditionalRenderNV = NULL;
 
+PFNGLSUBPIXELPRECISIONBIASNVPROC __glewSubpixelPrecisionBiasNV = NULL;
+
 PFNGLCOPYIMAGESUBDATANVPROC __glewCopyImageSubDataNV = NULL;
 
 PFNGLCLEARDEPTHDNVPROC __glewClearDepthdNV = NULL;
@@ -2317,6 +2330,8 @@ PFNGLGETFENCEIVNVPROC __glewGetFenceivNV = NULL;
 PFNGLISFENCENVPROC __glewIsFenceNV = NULL;
 PFNGLSETFENCENVPROC __glewSetFenceNV = NULL;
 PFNGLTESTFENCENVPROC __glewTestFenceNV = NULL;
+
+PFNGLFRAGMENTCOVERAGECOLORNVPROC __glewFragmentCoverageColorNV = NULL;
 
 PFNGLGETPROGRAMNAMEDPARAMETERDVNVPROC __glewGetProgramNamedParameterdvNV = NULL;
 PFNGLGETPROGRAMNAMEDPARAMETERFVNVPROC __glewGetProgramNamedParameterfvNV = NULL;
@@ -2423,6 +2438,8 @@ PFNGLVERTEXATTRIBS3HVNVPROC __glewVertexAttribs3hvNV = NULL;
 PFNGLVERTEXATTRIBS4HVNVPROC __glewVertexAttribs4hvNV = NULL;
 PFNGLVERTEXWEIGHTHNVPROC __glewVertexWeighthNV = NULL;
 PFNGLVERTEXWEIGHTHVNVPROC __glewVertexWeighthvNV = NULL;
+
+PFNGLGETINTERNALFORMATSAMPLEIVNVPROC __glewGetInternalformatSampleivNV = NULL;
 
 PFNGLBEGINOCCLUSIONQUERYNVPROC __glewBeginOcclusionQueryNV = NULL;
 PFNGLDELETEOCCLUSIONQUERIESNVPROC __glewDeleteOcclusionQueriesNV = NULL;
@@ -2533,6 +2550,9 @@ PFNGLGETFINALCOMBINERINPUTPARAMETERIVNVPROC __glewGetFinalCombinerInputParameter
 
 PFNGLCOMBINERSTAGEPARAMETERFVNVPROC __glewCombinerStageParameterfvNV = NULL;
 PFNGLGETCOMBINERSTAGEPARAMETERFVNVPROC __glewGetCombinerStageParameterfvNV = NULL;
+
+PFNGLFRAMEBUFFERSAMPLELOCATIONSFVNVPROC __glewFramebufferSampleLocationsfvNV = NULL;
+PFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVNVPROC __glewNamedFramebufferSampleLocationsfvNV = NULL;
 
 PFNGLGETBUFFERPARAMETERUI64VNVPROC __glewGetBufferParameterui64vNV = NULL;
 PFNGLGETINTEGERUI64VNVPROC __glewGetIntegerui64vNV = NULL;
@@ -2708,6 +2728,8 @@ PFNGLDEPTHRANGEFOESPROC __glewDepthRangefOES = NULL;
 PFNGLFRUSTUMFOESPROC __glewFrustumfOES = NULL;
 PFNGLGETCLIPPLANEFOESPROC __glewGetClipPlanefOES = NULL;
 PFNGLORTHOFOESPROC __glewOrthofOES = NULL;
+
+PFNGLFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC __glewFramebufferTextureMultiviewOVR = NULL;
 
 PFNGLALPHAFUNCXPROC __glewAlphaFuncx = NULL;
 PFNGLCLEARCOLORXPROC __glewClearColorx = NULL;
@@ -3208,7 +3230,10 @@ GLboolean __GLEW_EXT_pixel_transform = GL_FALSE;
 GLboolean __GLEW_EXT_pixel_transform_color_table = GL_FALSE;
 GLboolean __GLEW_EXT_point_parameters = GL_FALSE;
 GLboolean __GLEW_EXT_polygon_offset = GL_FALSE;
+GLboolean __GLEW_EXT_polygon_offset_clamp = GL_FALSE;
+GLboolean __GLEW_EXT_post_depth_coverage = GL_FALSE;
 GLboolean __GLEW_EXT_provoking_vertex = GL_FALSE;
+GLboolean __GLEW_EXT_raster_multisample = GL_FALSE;
 GLboolean __GLEW_EXT_rescale_normal = GL_FALSE;
 GLboolean __GLEW_EXT_scene_marker = GL_FALSE;
 GLboolean __GLEW_EXT_secondary_color = GL_FALSE;
@@ -3219,6 +3244,7 @@ GLboolean __GLEW_EXT_shader_image_load_store = GL_FALSE;
 GLboolean __GLEW_EXT_shader_integer_mix = GL_FALSE;
 GLboolean __GLEW_EXT_shadow_funcs = GL_FALSE;
 GLboolean __GLEW_EXT_shared_texture_palette = GL_FALSE;
+GLboolean __GLEW_EXT_sparse_texture2 = GL_FALSE;
 GLboolean __GLEW_EXT_stencil_clear_tag = GL_FALSE;
 GLboolean __GLEW_EXT_stencil_two_side = GL_FALSE;
 GLboolean __GLEW_EXT_stencil_wrap = GL_FALSE;
@@ -3238,6 +3264,7 @@ GLboolean __GLEW_EXT_texture_env_add = GL_FALSE;
 GLboolean __GLEW_EXT_texture_env_combine = GL_FALSE;
 GLboolean __GLEW_EXT_texture_env_dot3 = GL_FALSE;
 GLboolean __GLEW_EXT_texture_filter_anisotropic = GL_FALSE;
+GLboolean __GLEW_EXT_texture_filter_minmax = GL_FALSE;
 GLboolean __GLEW_EXT_texture_integer = GL_FALSE;
 GLboolean __GLEW_EXT_texture_lod_bias = GL_FALSE;
 GLboolean __GLEW_EXT_texture_mirror_clamp = GL_FALSE;
@@ -3280,6 +3307,7 @@ GLboolean __GLEW_KHR_blend_equation_advanced = GL_FALSE;
 GLboolean __GLEW_KHR_blend_equation_advanced_coherent = GL_FALSE;
 GLboolean __GLEW_KHR_context_flush_control = GL_FALSE;
 GLboolean __GLEW_KHR_debug = GL_FALSE;
+GLboolean __GLEW_KHR_no_error = GL_FALSE;
 GLboolean __GLEW_KHR_robust_buffer_access_behavior = GL_FALSE;
 GLboolean __GLEW_KHR_robustness = GL_FALSE;
 GLboolean __GLEW_KHR_texture_compression_astc_hdr = GL_FALSE;
@@ -3300,6 +3328,7 @@ GLboolean __GLEW_NV_blend_equation_advanced_coherent = GL_FALSE;
 GLboolean __GLEW_NV_blend_square = GL_FALSE;
 GLboolean __GLEW_NV_compute_program5 = GL_FALSE;
 GLboolean __GLEW_NV_conditional_render = GL_FALSE;
+GLboolean __GLEW_NV_conservative_raster = GL_FALSE;
 GLboolean __GLEW_NV_copy_depth_to_color = GL_FALSE;
 GLboolean __GLEW_NV_copy_image = GL_FALSE;
 GLboolean __GLEW_NV_deep_texture3D = GL_FALSE;
@@ -3310,21 +3339,27 @@ GLboolean __GLEW_NV_draw_texture = GL_FALSE;
 GLboolean __GLEW_NV_evaluators = GL_FALSE;
 GLboolean __GLEW_NV_explicit_multisample = GL_FALSE;
 GLboolean __GLEW_NV_fence = GL_FALSE;
+GLboolean __GLEW_NV_fill_rectangle = GL_FALSE;
 GLboolean __GLEW_NV_float_buffer = GL_FALSE;
 GLboolean __GLEW_NV_fog_distance = GL_FALSE;
+GLboolean __GLEW_NV_fragment_coverage_to_color = GL_FALSE;
 GLboolean __GLEW_NV_fragment_program = GL_FALSE;
 GLboolean __GLEW_NV_fragment_program2 = GL_FALSE;
 GLboolean __GLEW_NV_fragment_program4 = GL_FALSE;
 GLboolean __GLEW_NV_fragment_program_option = GL_FALSE;
+GLboolean __GLEW_NV_fragment_shader_interlock = GL_FALSE;
+GLboolean __GLEW_NV_framebuffer_mixed_samples = GL_FALSE;
 GLboolean __GLEW_NV_framebuffer_multisample_coverage = GL_FALSE;
 GLboolean __GLEW_NV_geometry_program4 = GL_FALSE;
 GLboolean __GLEW_NV_geometry_shader4 = GL_FALSE;
+GLboolean __GLEW_NV_geometry_shader_passthrough = GL_FALSE;
 GLboolean __GLEW_NV_gpu_program4 = GL_FALSE;
 GLboolean __GLEW_NV_gpu_program5 = GL_FALSE;
 GLboolean __GLEW_NV_gpu_program5_mem_extended = GL_FALSE;
 GLboolean __GLEW_NV_gpu_program_fp64 = GL_FALSE;
 GLboolean __GLEW_NV_gpu_shader5 = GL_FALSE;
 GLboolean __GLEW_NV_half_float = GL_FALSE;
+GLboolean __GLEW_NV_internalformat_sample_query = GL_FALSE;
 GLboolean __GLEW_NV_light_max_exponent = GL_FALSE;
 GLboolean __GLEW_NV_multisample_coverage = GL_FALSE;
 GLboolean __GLEW_NV_multisample_filter_hint = GL_FALSE;
@@ -3333,14 +3368,18 @@ GLboolean __GLEW_NV_packed_depth_stencil = GL_FALSE;
 GLboolean __GLEW_NV_parameter_buffer_object = GL_FALSE;
 GLboolean __GLEW_NV_parameter_buffer_object2 = GL_FALSE;
 GLboolean __GLEW_NV_path_rendering = GL_FALSE;
+GLboolean __GLEW_NV_path_rendering_shared_edge = GL_FALSE;
 GLboolean __GLEW_NV_pixel_data_range = GL_FALSE;
 GLboolean __GLEW_NV_point_sprite = GL_FALSE;
 GLboolean __GLEW_NV_present_video = GL_FALSE;
 GLboolean __GLEW_NV_primitive_restart = GL_FALSE;
 GLboolean __GLEW_NV_register_combiners = GL_FALSE;
 GLboolean __GLEW_NV_register_combiners2 = GL_FALSE;
+GLboolean __GLEW_NV_sample_locations = GL_FALSE;
+GLboolean __GLEW_NV_sample_mask_override_coverage = GL_FALSE;
 GLboolean __GLEW_NV_shader_atomic_counters = GL_FALSE;
 GLboolean __GLEW_NV_shader_atomic_float = GL_FALSE;
+GLboolean __GLEW_NV_shader_atomic_fp16_vector = GL_FALSE;
 GLboolean __GLEW_NV_shader_atomic_int64 = GL_FALSE;
 GLboolean __GLEW_NV_shader_buffer_load = GL_FALSE;
 GLboolean __GLEW_NV_shader_storage_buffer_object = GL_FALSE;
@@ -3360,6 +3399,7 @@ GLboolean __GLEW_NV_texture_shader2 = GL_FALSE;
 GLboolean __GLEW_NV_texture_shader3 = GL_FALSE;
 GLboolean __GLEW_NV_transform_feedback = GL_FALSE;
 GLboolean __GLEW_NV_transform_feedback2 = GL_FALSE;
+GLboolean __GLEW_NV_uniform_buffer_unified_memory = GL_FALSE;
 GLboolean __GLEW_NV_vdpau_interop = GL_FALSE;
 GLboolean __GLEW_NV_vertex_array_range = GL_FALSE;
 GLboolean __GLEW_NV_vertex_array_range2 = GL_FALSE;
@@ -3372,6 +3412,7 @@ GLboolean __GLEW_NV_vertex_program2_option = GL_FALSE;
 GLboolean __GLEW_NV_vertex_program3 = GL_FALSE;
 GLboolean __GLEW_NV_vertex_program4 = GL_FALSE;
 GLboolean __GLEW_NV_video_capture = GL_FALSE;
+GLboolean __GLEW_NV_viewport_array2 = GL_FALSE;
 GLboolean __GLEW_OES_byte_coordinates = GL_FALSE;
 GLboolean __GLEW_OES_compressed_paletted_texture = GL_FALSE;
 GLboolean __GLEW_OES_read_format = GL_FALSE;
@@ -3379,6 +3420,8 @@ GLboolean __GLEW_OES_single_precision = GL_FALSE;
 GLboolean __GLEW_OML_interlace = GL_FALSE;
 GLboolean __GLEW_OML_resample = GL_FALSE;
 GLboolean __GLEW_OML_subsample = GL_FALSE;
+GLboolean __GLEW_OVR_multiview = GL_FALSE;
+GLboolean __GLEW_OVR_multiview2 = GL_FALSE;
 GLboolean __GLEW_PGI_misc_hints = GL_FALSE;
 GLboolean __GLEW_PGI_vertex_hints = GL_FALSE;
 GLboolean __GLEW_REGAL_ES1_0_compatibility = GL_FALSE;
@@ -4547,6 +4590,10 @@ static GLboolean _glewInit_GL_ARB_direct_state_access (GLEW_CONTEXT_ARG_DEF_INIT
   r = ((glGetNamedFramebufferAttachmentParameteriv = (PFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVPROC)glewGetProcAddress((const GLubyte*)"glGetNamedFramebufferAttachmentParameteriv")) == NULL) || r;
   r = ((glGetNamedFramebufferParameteriv = (PFNGLGETNAMEDFRAMEBUFFERPARAMETERIVPROC)glewGetProcAddress((const GLubyte*)"glGetNamedFramebufferParameteriv")) == NULL) || r;
   r = ((glGetNamedRenderbufferParameteriv = (PFNGLGETNAMEDRENDERBUFFERPARAMETERIVPROC)glewGetProcAddress((const GLubyte*)"glGetNamedRenderbufferParameteriv")) == NULL) || r;
+  r = ((glGetQueryBufferObjecti64v = (PFNGLGETQUERYBUFFEROBJECTI64VPROC)glewGetProcAddress((const GLubyte*)"glGetQueryBufferObjecti64v")) == NULL) || r;
+  r = ((glGetQueryBufferObjectiv = (PFNGLGETQUERYBUFFEROBJECTIVPROC)glewGetProcAddress((const GLubyte*)"glGetQueryBufferObjectiv")) == NULL) || r;
+  r = ((glGetQueryBufferObjectui64v = (PFNGLGETQUERYBUFFEROBJECTUI64VPROC)glewGetProcAddress((const GLubyte*)"glGetQueryBufferObjectui64v")) == NULL) || r;
+  r = ((glGetQueryBufferObjectuiv = (PFNGLGETQUERYBUFFEROBJECTUIVPROC)glewGetProcAddress((const GLubyte*)"glGetQueryBufferObjectuiv")) == NULL) || r;
   r = ((glGetTextureImage = (PFNGLGETTEXTUREIMAGEPROC)glewGetProcAddress((const GLubyte*)"glGetTextureImage")) == NULL) || r;
   r = ((glGetTextureLevelParameterfv = (PFNGLGETTEXTURELEVELPARAMETERFVPROC)glewGetProcAddress((const GLubyte*)"glGetTextureLevelParameterfv")) == NULL) || r;
   r = ((glGetTextureLevelParameteriv = (PFNGLGETTEXTURELEVELPARAMETERIVPROC)glewGetProcAddress((const GLubyte*)"glGetTextureLevelParameteriv")) == NULL) || r;
@@ -6963,6 +7010,19 @@ static GLboolean _glewInit_GL_EXT_polygon_offset (GLEW_CONTEXT_ARG_DEF_INIT)
 
 #endif /* GL_EXT_polygon_offset */
 
+#ifdef GL_EXT_polygon_offset_clamp
+
+static GLboolean _glewInit_GL_EXT_polygon_offset_clamp (GLEW_CONTEXT_ARG_DEF_INIT)
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glPolygonOffsetClampEXT = (PFNGLPOLYGONOFFSETCLAMPEXTPROC)glewGetProcAddress((const GLubyte*)"glPolygonOffsetClampEXT")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_EXT_polygon_offset_clamp */
+
 #ifdef GL_EXT_provoking_vertex
 
 static GLboolean _glewInit_GL_EXT_provoking_vertex (GLEW_CONTEXT_ARG_DEF_INIT)
@@ -6975,6 +7035,22 @@ static GLboolean _glewInit_GL_EXT_provoking_vertex (GLEW_CONTEXT_ARG_DEF_INIT)
 }
 
 #endif /* GL_EXT_provoking_vertex */
+
+#ifdef GL_EXT_raster_multisample
+
+static GLboolean _glewInit_GL_EXT_raster_multisample (GLEW_CONTEXT_ARG_DEF_INIT)
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glCoverageModulationNV = (PFNGLCOVERAGEMODULATIONNVPROC)glewGetProcAddress((const GLubyte*)"glCoverageModulationNV")) == NULL) || r;
+  r = ((glCoverageModulationTableNV = (PFNGLCOVERAGEMODULATIONTABLENVPROC)glewGetProcAddress((const GLubyte*)"glCoverageModulationTableNV")) == NULL) || r;
+  r = ((glGetCoverageModulationTableNV = (PFNGLGETCOVERAGEMODULATIONTABLENVPROC)glewGetProcAddress((const GLubyte*)"glGetCoverageModulationTableNV")) == NULL) || r;
+  r = ((glRasterSamplesEXT = (PFNGLRASTERSAMPLESEXTPROC)glewGetProcAddress((const GLubyte*)"glRasterSamplesEXT")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_EXT_raster_multisample */
 
 #ifdef GL_EXT_scene_marker
 
@@ -7679,6 +7755,19 @@ static GLboolean _glewInit_GL_NV_conditional_render (GLEW_CONTEXT_ARG_DEF_INIT)
 
 #endif /* GL_NV_conditional_render */
 
+#ifdef GL_NV_conservative_raster
+
+static GLboolean _glewInit_GL_NV_conservative_raster (GLEW_CONTEXT_ARG_DEF_INIT)
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glSubpixelPrecisionBiasNV = (PFNGLSUBPIXELPRECISIONBIASNVPROC)glewGetProcAddress((const GLubyte*)"glSubpixelPrecisionBiasNV")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_NV_conservative_raster */
+
 #ifdef GL_NV_copy_image
 
 static GLboolean _glewInit_GL_NV_copy_image (GLEW_CONTEXT_ARG_DEF_INIT)
@@ -7774,6 +7863,19 @@ static GLboolean _glewInit_GL_NV_fence (GLEW_CONTEXT_ARG_DEF_INIT)
 }
 
 #endif /* GL_NV_fence */
+
+#ifdef GL_NV_fragment_coverage_to_color
+
+static GLboolean _glewInit_GL_NV_fragment_coverage_to_color (GLEW_CONTEXT_ARG_DEF_INIT)
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glFragmentCoverageColorNV = (PFNGLFRAGMENTCOVERAGECOLORNVPROC)glewGetProcAddress((const GLubyte*)"glFragmentCoverageColorNV")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_NV_fragment_coverage_to_color */
 
 #ifdef GL_NV_fragment_program
 
@@ -7946,6 +8048,19 @@ static GLboolean _glewInit_GL_NV_half_float (GLEW_CONTEXT_ARG_DEF_INIT)
 }
 
 #endif /* GL_NV_half_float */
+
+#ifdef GL_NV_internalformat_sample_query
+
+static GLboolean _glewInit_GL_NV_internalformat_sample_query (GLEW_CONTEXT_ARG_DEF_INIT)
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glGetInternalformatSampleivNV = (PFNGLGETINTERNALFORMATSAMPLEIVNVPROC)glewGetProcAddress((const GLubyte*)"glGetInternalformatSampleivNV")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_NV_internalformat_sample_query */
 
 #ifdef GL_NV_occlusion_query
 
@@ -8155,6 +8270,20 @@ static GLboolean _glewInit_GL_NV_register_combiners2 (GLEW_CONTEXT_ARG_DEF_INIT)
 }
 
 #endif /* GL_NV_register_combiners2 */
+
+#ifdef GL_NV_sample_locations
+
+static GLboolean _glewInit_GL_NV_sample_locations (GLEW_CONTEXT_ARG_DEF_INIT)
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glFramebufferSampleLocationsfvNV = (PFNGLFRAMEBUFFERSAMPLELOCATIONSFVNVPROC)glewGetProcAddress((const GLubyte*)"glFramebufferSampleLocationsfvNV")) == NULL) || r;
+  r = ((glNamedFramebufferSampleLocationsfvNV = (PFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVNVPROC)glewGetProcAddress((const GLubyte*)"glNamedFramebufferSampleLocationsfvNV")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_NV_sample_locations */
 
 #ifdef GL_NV_shader_buffer_load
 
@@ -8462,6 +8591,19 @@ static GLboolean _glewInit_GL_OES_single_precision (GLEW_CONTEXT_ARG_DEF_INIT)
 }
 
 #endif /* GL_OES_single_precision */
+
+#ifdef GL_OVR_multiview
+
+static GLboolean _glewInit_GL_OVR_multiview (GLEW_CONTEXT_ARG_DEF_INIT)
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glFramebufferTextureMultiviewOVR = (PFNGLFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC)glewGetProcAddress((const GLubyte*)"glFramebufferTextureMultiviewOVR")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_OVR_multiview */
 
 #ifdef GL_REGAL_ES1_0_compatibility
 
@@ -10099,10 +10241,21 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   GLEW_EXT_polygon_offset = _glewSearchExtension("GL_EXT_polygon_offset", extStart, extEnd);
   if (glewExperimental || GLEW_EXT_polygon_offset) GLEW_EXT_polygon_offset = !_glewInit_GL_EXT_polygon_offset(GLEW_CONTEXT_ARG_VAR_INIT);
 #endif /* GL_EXT_polygon_offset */
+#ifdef GL_EXT_polygon_offset_clamp
+  GLEW_EXT_polygon_offset_clamp = _glewSearchExtension("GL_EXT_polygon_offset_clamp", extStart, extEnd);
+  if (glewExperimental || GLEW_EXT_polygon_offset_clamp) GLEW_EXT_polygon_offset_clamp = !_glewInit_GL_EXT_polygon_offset_clamp(GLEW_CONTEXT_ARG_VAR_INIT);
+#endif /* GL_EXT_polygon_offset_clamp */
+#ifdef GL_EXT_post_depth_coverage
+  GLEW_EXT_post_depth_coverage = _glewSearchExtension("GL_EXT_post_depth_coverage", extStart, extEnd);
+#endif /* GL_EXT_post_depth_coverage */
 #ifdef GL_EXT_provoking_vertex
   GLEW_EXT_provoking_vertex = _glewSearchExtension("GL_EXT_provoking_vertex", extStart, extEnd);
   if (glewExperimental || GLEW_EXT_provoking_vertex) GLEW_EXT_provoking_vertex = !_glewInit_GL_EXT_provoking_vertex(GLEW_CONTEXT_ARG_VAR_INIT);
 #endif /* GL_EXT_provoking_vertex */
+#ifdef GL_EXT_raster_multisample
+  GLEW_EXT_raster_multisample = _glewSearchExtension("GL_EXT_raster_multisample", extStart, extEnd);
+  if (glewExperimental || GLEW_EXT_raster_multisample) GLEW_EXT_raster_multisample = !_glewInit_GL_EXT_raster_multisample(GLEW_CONTEXT_ARG_VAR_INIT);
+#endif /* GL_EXT_raster_multisample */
 #ifdef GL_EXT_rescale_normal
   GLEW_EXT_rescale_normal = _glewSearchExtension("GL_EXT_rescale_normal", extStart, extEnd);
 #endif /* GL_EXT_rescale_normal */
@@ -10137,6 +10290,9 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 #ifdef GL_EXT_shared_texture_palette
   GLEW_EXT_shared_texture_palette = _glewSearchExtension("GL_EXT_shared_texture_palette", extStart, extEnd);
 #endif /* GL_EXT_shared_texture_palette */
+#ifdef GL_EXT_sparse_texture2
+  GLEW_EXT_sparse_texture2 = _glewSearchExtension("GL_EXT_sparse_texture2", extStart, extEnd);
+#endif /* GL_EXT_sparse_texture2 */
 #ifdef GL_EXT_stencil_clear_tag
   GLEW_EXT_stencil_clear_tag = _glewSearchExtension("GL_EXT_stencil_clear_tag", extStart, extEnd);
 #endif /* GL_EXT_stencil_clear_tag */
@@ -10199,6 +10355,9 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 #ifdef GL_EXT_texture_filter_anisotropic
   GLEW_EXT_texture_filter_anisotropic = _glewSearchExtension("GL_EXT_texture_filter_anisotropic", extStart, extEnd);
 #endif /* GL_EXT_texture_filter_anisotropic */
+#ifdef GL_EXT_texture_filter_minmax
+  GLEW_EXT_texture_filter_minmax = _glewSearchExtension("GL_EXT_texture_filter_minmax", extStart, extEnd);
+#endif /* GL_EXT_texture_filter_minmax */
 #ifdef GL_EXT_texture_integer
   GLEW_EXT_texture_integer = _glewSearchExtension("GL_EXT_texture_integer", extStart, extEnd);
   if (glewExperimental || GLEW_EXT_texture_integer) GLEW_EXT_texture_integer = !_glewInit_GL_EXT_texture_integer(GLEW_CONTEXT_ARG_VAR_INIT);
@@ -10346,6 +10505,9 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   GLEW_KHR_debug = _glewSearchExtension("GL_KHR_debug", extStart, extEnd);
   if (glewExperimental || GLEW_KHR_debug) GLEW_KHR_debug = !_glewInit_GL_KHR_debug(GLEW_CONTEXT_ARG_VAR_INIT);
 #endif /* GL_KHR_debug */
+#ifdef GL_KHR_no_error
+  GLEW_KHR_no_error = _glewSearchExtension("GL_KHR_no_error", extStart, extEnd);
+#endif /* GL_KHR_no_error */
 #ifdef GL_KHR_robust_buffer_access_behavior
   GLEW_KHR_robust_buffer_access_behavior = _glewSearchExtension("GL_KHR_robust_buffer_access_behavior", extStart, extEnd);
 #endif /* GL_KHR_robust_buffer_access_behavior */
@@ -10416,6 +10578,10 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   GLEW_NV_conditional_render = _glewSearchExtension("GL_NV_conditional_render", extStart, extEnd);
   if (glewExperimental || GLEW_NV_conditional_render) GLEW_NV_conditional_render = !_glewInit_GL_NV_conditional_render(GLEW_CONTEXT_ARG_VAR_INIT);
 #endif /* GL_NV_conditional_render */
+#ifdef GL_NV_conservative_raster
+  GLEW_NV_conservative_raster = _glewSearchExtension("GL_NV_conservative_raster", extStart, extEnd);
+  if (glewExperimental || GLEW_NV_conservative_raster) GLEW_NV_conservative_raster = !_glewInit_GL_NV_conservative_raster(GLEW_CONTEXT_ARG_VAR_INIT);
+#endif /* GL_NV_conservative_raster */
 #ifdef GL_NV_copy_depth_to_color
   GLEW_NV_copy_depth_to_color = _glewSearchExtension("GL_NV_copy_depth_to_color", extStart, extEnd);
 #endif /* GL_NV_copy_depth_to_color */
@@ -10452,12 +10618,19 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   GLEW_NV_fence = _glewSearchExtension("GL_NV_fence", extStart, extEnd);
   if (glewExperimental || GLEW_NV_fence) GLEW_NV_fence = !_glewInit_GL_NV_fence(GLEW_CONTEXT_ARG_VAR_INIT);
 #endif /* GL_NV_fence */
+#ifdef GL_NV_fill_rectangle
+  GLEW_NV_fill_rectangle = _glewSearchExtension("GL_NV_fill_rectangle", extStart, extEnd);
+#endif /* GL_NV_fill_rectangle */
 #ifdef GL_NV_float_buffer
   GLEW_NV_float_buffer = _glewSearchExtension("GL_NV_float_buffer", extStart, extEnd);
 #endif /* GL_NV_float_buffer */
 #ifdef GL_NV_fog_distance
   GLEW_NV_fog_distance = _glewSearchExtension("GL_NV_fog_distance", extStart, extEnd);
 #endif /* GL_NV_fog_distance */
+#ifdef GL_NV_fragment_coverage_to_color
+  GLEW_NV_fragment_coverage_to_color = _glewSearchExtension("GL_NV_fragment_coverage_to_color", extStart, extEnd);
+  if (glewExperimental || GLEW_NV_fragment_coverage_to_color) GLEW_NV_fragment_coverage_to_color = !_glewInit_GL_NV_fragment_coverage_to_color(GLEW_CONTEXT_ARG_VAR_INIT);
+#endif /* GL_NV_fragment_coverage_to_color */
 #ifdef GL_NV_fragment_program
   GLEW_NV_fragment_program = _glewSearchExtension("GL_NV_fragment_program", extStart, extEnd);
   if (glewExperimental || GLEW_NV_fragment_program) GLEW_NV_fragment_program = !_glewInit_GL_NV_fragment_program(GLEW_CONTEXT_ARG_VAR_INIT);
@@ -10471,6 +10644,12 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 #ifdef GL_NV_fragment_program_option
   GLEW_NV_fragment_program_option = _glewSearchExtension("GL_NV_fragment_program_option", extStart, extEnd);
 #endif /* GL_NV_fragment_program_option */
+#ifdef GL_NV_fragment_shader_interlock
+  GLEW_NV_fragment_shader_interlock = _glewSearchExtension("GL_NV_fragment_shader_interlock", extStart, extEnd);
+#endif /* GL_NV_fragment_shader_interlock */
+#ifdef GL_NV_framebuffer_mixed_samples
+  GLEW_NV_framebuffer_mixed_samples = _glewSearchExtension("GL_NV_framebuffer_mixed_samples", extStart, extEnd);
+#endif /* GL_NV_framebuffer_mixed_samples */
 #ifdef GL_NV_framebuffer_multisample_coverage
   GLEW_NV_framebuffer_multisample_coverage = _glewSearchExtension("GL_NV_framebuffer_multisample_coverage", extStart, extEnd);
   if (glewExperimental || GLEW_NV_framebuffer_multisample_coverage) GLEW_NV_framebuffer_multisample_coverage = !_glewInit_GL_NV_framebuffer_multisample_coverage(GLEW_CONTEXT_ARG_VAR_INIT);
@@ -10482,6 +10661,9 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 #ifdef GL_NV_geometry_shader4
   GLEW_NV_geometry_shader4 = _glewSearchExtension("GL_NV_geometry_shader4", extStart, extEnd);
 #endif /* GL_NV_geometry_shader4 */
+#ifdef GL_NV_geometry_shader_passthrough
+  GLEW_NV_geometry_shader_passthrough = _glewSearchExtension("GL_NV_geometry_shader_passthrough", extStart, extEnd);
+#endif /* GL_NV_geometry_shader_passthrough */
 #ifdef GL_NV_gpu_program4
   GLEW_NV_gpu_program4 = _glewSearchExtension("GL_NV_gpu_program4", extStart, extEnd);
   if (glewExperimental || GLEW_NV_gpu_program4) GLEW_NV_gpu_program4 = !_glewInit_GL_NV_gpu_program4(GLEW_CONTEXT_ARG_VAR_INIT);
@@ -10503,6 +10685,10 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   GLEW_NV_half_float = _glewSearchExtension("GL_NV_half_float", extStart, extEnd);
   if (glewExperimental || GLEW_NV_half_float) GLEW_NV_half_float = !_glewInit_GL_NV_half_float(GLEW_CONTEXT_ARG_VAR_INIT);
 #endif /* GL_NV_half_float */
+#ifdef GL_NV_internalformat_sample_query
+  GLEW_NV_internalformat_sample_query = _glewSearchExtension("GL_NV_internalformat_sample_query", extStart, extEnd);
+  if (glewExperimental || GLEW_NV_internalformat_sample_query) GLEW_NV_internalformat_sample_query = !_glewInit_GL_NV_internalformat_sample_query(GLEW_CONTEXT_ARG_VAR_INIT);
+#endif /* GL_NV_internalformat_sample_query */
 #ifdef GL_NV_light_max_exponent
   GLEW_NV_light_max_exponent = _glewSearchExtension("GL_NV_light_max_exponent", extStart, extEnd);
 #endif /* GL_NV_light_max_exponent */
@@ -10530,6 +10716,9 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   GLEW_NV_path_rendering = _glewSearchExtension("GL_NV_path_rendering", extStart, extEnd);
   if (glewExperimental || GLEW_NV_path_rendering) GLEW_NV_path_rendering = !_glewInit_GL_NV_path_rendering(GLEW_CONTEXT_ARG_VAR_INIT);
 #endif /* GL_NV_path_rendering */
+#ifdef GL_NV_path_rendering_shared_edge
+  GLEW_NV_path_rendering_shared_edge = _glewSearchExtension("GL_NV_path_rendering_shared_edge", extStart, extEnd);
+#endif /* GL_NV_path_rendering_shared_edge */
 #ifdef GL_NV_pixel_data_range
   GLEW_NV_pixel_data_range = _glewSearchExtension("GL_NV_pixel_data_range", extStart, extEnd);
   if (glewExperimental || GLEW_NV_pixel_data_range) GLEW_NV_pixel_data_range = !_glewInit_GL_NV_pixel_data_range(GLEW_CONTEXT_ARG_VAR_INIT);
@@ -10554,12 +10743,22 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   GLEW_NV_register_combiners2 = _glewSearchExtension("GL_NV_register_combiners2", extStart, extEnd);
   if (glewExperimental || GLEW_NV_register_combiners2) GLEW_NV_register_combiners2 = !_glewInit_GL_NV_register_combiners2(GLEW_CONTEXT_ARG_VAR_INIT);
 #endif /* GL_NV_register_combiners2 */
+#ifdef GL_NV_sample_locations
+  GLEW_NV_sample_locations = _glewSearchExtension("GL_NV_sample_locations", extStart, extEnd);
+  if (glewExperimental || GLEW_NV_sample_locations) GLEW_NV_sample_locations = !_glewInit_GL_NV_sample_locations(GLEW_CONTEXT_ARG_VAR_INIT);
+#endif /* GL_NV_sample_locations */
+#ifdef GL_NV_sample_mask_override_coverage
+  GLEW_NV_sample_mask_override_coverage = _glewSearchExtension("GL_NV_sample_mask_override_coverage", extStart, extEnd);
+#endif /* GL_NV_sample_mask_override_coverage */
 #ifdef GL_NV_shader_atomic_counters
   GLEW_NV_shader_atomic_counters = _glewSearchExtension("GL_NV_shader_atomic_counters", extStart, extEnd);
 #endif /* GL_NV_shader_atomic_counters */
 #ifdef GL_NV_shader_atomic_float
   GLEW_NV_shader_atomic_float = _glewSearchExtension("GL_NV_shader_atomic_float", extStart, extEnd);
 #endif /* GL_NV_shader_atomic_float */
+#ifdef GL_NV_shader_atomic_fp16_vector
+  GLEW_NV_shader_atomic_fp16_vector = _glewSearchExtension("GL_NV_shader_atomic_fp16_vector", extStart, extEnd);
+#endif /* GL_NV_shader_atomic_fp16_vector */
 #ifdef GL_NV_shader_atomic_int64
   GLEW_NV_shader_atomic_int64 = _glewSearchExtension("GL_NV_shader_atomic_int64", extStart, extEnd);
 #endif /* GL_NV_shader_atomic_int64 */
@@ -10622,6 +10821,9 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   GLEW_NV_transform_feedback2 = _glewSearchExtension("GL_NV_transform_feedback2", extStart, extEnd);
   if (glewExperimental || GLEW_NV_transform_feedback2) GLEW_NV_transform_feedback2 = !_glewInit_GL_NV_transform_feedback2(GLEW_CONTEXT_ARG_VAR_INIT);
 #endif /* GL_NV_transform_feedback2 */
+#ifdef GL_NV_uniform_buffer_unified_memory
+  GLEW_NV_uniform_buffer_unified_memory = _glewSearchExtension("GL_NV_uniform_buffer_unified_memory", extStart, extEnd);
+#endif /* GL_NV_uniform_buffer_unified_memory */
 #ifdef GL_NV_vdpau_interop
   GLEW_NV_vdpau_interop = _glewSearchExtension("GL_NV_vdpau_interop", extStart, extEnd);
   if (glewExperimental || GLEW_NV_vdpau_interop) GLEW_NV_vdpau_interop = !_glewInit_GL_NV_vdpau_interop(GLEW_CONTEXT_ARG_VAR_INIT);
@@ -10664,6 +10866,9 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   GLEW_NV_video_capture = _glewSearchExtension("GL_NV_video_capture", extStart, extEnd);
   if (glewExperimental || GLEW_NV_video_capture) GLEW_NV_video_capture = !_glewInit_GL_NV_video_capture(GLEW_CONTEXT_ARG_VAR_INIT);
 #endif /* GL_NV_video_capture */
+#ifdef GL_NV_viewport_array2
+  GLEW_NV_viewport_array2 = _glewSearchExtension("GL_NV_viewport_array2", extStart, extEnd);
+#endif /* GL_NV_viewport_array2 */
 #ifdef GL_OES_byte_coordinates
   GLEW_OES_byte_coordinates = _glewSearchExtension("GL_OES_byte_coordinates", extStart, extEnd);
 #endif /* GL_OES_byte_coordinates */
@@ -10686,6 +10891,13 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 #ifdef GL_OML_subsample
   GLEW_OML_subsample = _glewSearchExtension("GL_OML_subsample", extStart, extEnd);
 #endif /* GL_OML_subsample */
+#ifdef GL_OVR_multiview
+  GLEW_OVR_multiview = _glewSearchExtension("GL_OVR_multiview", extStart, extEnd);
+  if (glewExperimental || GLEW_OVR_multiview) GLEW_OVR_multiview = !_glewInit_GL_OVR_multiview(GLEW_CONTEXT_ARG_VAR_INIT);
+#endif /* GL_OVR_multiview */
+#ifdef GL_OVR_multiview2
+  GLEW_OVR_multiview2 = _glewSearchExtension("GL_OVR_multiview2", extStart, extEnd);
+#endif /* GL_OVR_multiview2 */
 #ifdef GL_PGI_misc_hints
   GLEW_PGI_misc_hints = _glewSearchExtension("GL_PGI_misc_hints", extStart, extEnd);
 #endif /* GL_PGI_misc_hints */
@@ -15182,10 +15394,31 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_EXT_polygon_offset_clamp
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"polygon_offset_clamp", 20))
+        {
+          ret = GLEW_EXT_polygon_offset_clamp;
+          continue;
+        }
+#endif
+#ifdef GL_EXT_post_depth_coverage
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"post_depth_coverage", 19))
+        {
+          ret = GLEW_EXT_post_depth_coverage;
+          continue;
+        }
+#endif
 #ifdef GL_EXT_provoking_vertex
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"provoking_vertex", 16))
         {
           ret = GLEW_EXT_provoking_vertex;
+          continue;
+        }
+#endif
+#ifdef GL_EXT_raster_multisample
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"raster_multisample", 18))
+        {
+          ret = GLEW_EXT_raster_multisample;
           continue;
         }
 #endif
@@ -15256,6 +15489,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"shared_texture_palette", 22))
         {
           ret = GLEW_EXT_shared_texture_palette;
+          continue;
+        }
+#endif
+#ifdef GL_EXT_sparse_texture2
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"sparse_texture2", 15))
+        {
+          ret = GLEW_EXT_sparse_texture2;
           continue;
         }
 #endif
@@ -15389,6 +15629,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_filter_anisotropic", 26))
         {
           ret = GLEW_EXT_texture_filter_anisotropic;
+          continue;
+        }
+#endif
+#ifdef GL_EXT_texture_filter_minmax
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_filter_minmax", 21))
+        {
+          ret = GLEW_EXT_texture_filter_minmax;
           continue;
         }
 #endif
@@ -15704,6 +15951,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_KHR_no_error
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"no_error", 8))
+        {
+          ret = GLEW_KHR_no_error;
+          continue;
+        }
+#endif
 #ifdef GL_KHR_robust_buffer_access_behavior
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"robust_buffer_access_behavior", 29))
         {
@@ -15859,6 +16113,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_NV_conservative_raster
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"conservative_raster", 19))
+        {
+          ret = GLEW_NV_conservative_raster;
+          continue;
+        }
+#endif
 #ifdef GL_NV_copy_depth_to_color
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"copy_depth_to_color", 19))
         {
@@ -15929,6 +16190,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_NV_fill_rectangle
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"fill_rectangle", 14))
+        {
+          ret = GLEW_NV_fill_rectangle;
+          continue;
+        }
+#endif
 #ifdef GL_NV_float_buffer
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"float_buffer", 12))
         {
@@ -15940,6 +16208,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"fog_distance", 12))
         {
           ret = GLEW_NV_fog_distance;
+          continue;
+        }
+#endif
+#ifdef GL_NV_fragment_coverage_to_color
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"fragment_coverage_to_color", 26))
+        {
+          ret = GLEW_NV_fragment_coverage_to_color;
           continue;
         }
 #endif
@@ -15971,6 +16246,20 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_NV_fragment_shader_interlock
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"fragment_shader_interlock", 25))
+        {
+          ret = GLEW_NV_fragment_shader_interlock;
+          continue;
+        }
+#endif
+#ifdef GL_NV_framebuffer_mixed_samples
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"framebuffer_mixed_samples", 25))
+        {
+          ret = GLEW_NV_framebuffer_mixed_samples;
+          continue;
+        }
+#endif
 #ifdef GL_NV_framebuffer_multisample_coverage
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"framebuffer_multisample_coverage", 32))
         {
@@ -15989,6 +16278,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"geometry_shader4", 16))
         {
           ret = GLEW_NV_geometry_shader4;
+          continue;
+        }
+#endif
+#ifdef GL_NV_geometry_shader_passthrough
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"geometry_shader_passthrough", 27))
+        {
+          ret = GLEW_NV_geometry_shader_passthrough;
           continue;
         }
 #endif
@@ -16031,6 +16327,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"half_float", 10))
         {
           ret = GLEW_NV_half_float;
+          continue;
+        }
+#endif
+#ifdef GL_NV_internalformat_sample_query
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"internalformat_sample_query", 27))
+        {
+          ret = GLEW_NV_internalformat_sample_query;
           continue;
         }
 #endif
@@ -16090,6 +16393,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_NV_path_rendering_shared_edge
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"path_rendering_shared_edge", 26))
+        {
+          ret = GLEW_NV_path_rendering_shared_edge;
+          continue;
+        }
+#endif
 #ifdef GL_NV_pixel_data_range
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"pixel_data_range", 16))
         {
@@ -16132,6 +16442,20 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_NV_sample_locations
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"sample_locations", 16))
+        {
+          ret = GLEW_NV_sample_locations;
+          continue;
+        }
+#endif
+#ifdef GL_NV_sample_mask_override_coverage
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"sample_mask_override_coverage", 29))
+        {
+          ret = GLEW_NV_sample_mask_override_coverage;
+          continue;
+        }
+#endif
 #ifdef GL_NV_shader_atomic_counters
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_atomic_counters", 22))
         {
@@ -16143,6 +16467,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_atomic_float", 19))
         {
           ret = GLEW_NV_shader_atomic_float;
+          continue;
+        }
+#endif
+#ifdef GL_NV_shader_atomic_fp16_vector
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_atomic_fp16_vector", 25))
+        {
+          ret = GLEW_NV_shader_atomic_fp16_vector;
           continue;
         }
 #endif
@@ -16279,6 +16610,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_NV_uniform_buffer_unified_memory
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"uniform_buffer_unified_memory", 29))
+        {
+          ret = GLEW_NV_uniform_buffer_unified_memory;
+          continue;
+        }
+#endif
 #ifdef GL_NV_vdpau_interop
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"vdpau_interop", 13))
         {
@@ -16363,6 +16701,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_NV_viewport_array2
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"viewport_array2", 15))
+        {
+          ret = GLEW_NV_viewport_array2;
+          continue;
+        }
+#endif
       }
       if (_glewStrSame2(&pos, &len, (const GLubyte*)"OES_", 4))
       {
@@ -16415,6 +16760,23 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"subsample", 9))
         {
           ret = GLEW_OML_subsample;
+          continue;
+        }
+#endif
+      }
+      if (_glewStrSame2(&pos, &len, (const GLubyte*)"OVR_", 4))
+      {
+#ifdef GL_OVR_multiview
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"multiview", 9))
+        {
+          ret = GLEW_OVR_multiview;
+          continue;
+        }
+#endif
+#ifdef GL_OVR_multiview2
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"multiview2", 10))
+        {
+          ret = GLEW_OVR_multiview2;
           continue;
         }
 #endif

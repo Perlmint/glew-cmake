@@ -392,6 +392,10 @@ typedef Bool ( * PFNGLXMAKEASSOCIATEDCONTEXTCURRENTAMDPROC) (GLXContext ctx);
 #ifndef GLX_ARB_context_flush_control
 #define GLX_ARB_context_flush_control 1
 
+#define GLX_CONTEXT_RELEASE_BEHAVIOR_NONE_ARB 0x0000
+#define GLX_CONTEXT_RELEASE_BEHAVIOR_ARB 0x2097
+#define GLX_CONTEXT_RELEASE_BEHAVIOR_FLUSH_ARB 0x2098
+
 #define GLXEW_ARB_context_flush_control GLXEW_GET_VAR(__GLXEW_ARB_context_flush_control)
 
 #endif /* GLX_ARB_context_flush_control */
@@ -447,8 +451,8 @@ typedef GLXContext ( * PFNGLXCREATECONTEXTATTRIBSARBPROC) (Display* dpy, GLXFBCo
 #ifndef GLX_ARB_fbconfig_float
 #define GLX_ARB_fbconfig_float 1
 
-#define GLX_RGBA_FLOAT_BIT 0x00000004
-#define GLX_RGBA_FLOAT_TYPE 0x20B9
+#define GLX_RGBA_FLOAT_BIT_ARB 0x00000004
+#define GLX_RGBA_FLOAT_TYPE_ARB 0x20B9
 
 #define GLXEW_ARB_fbconfig_float GLXEW_GET_VAR(__GLXEW_ARB_fbconfig_float)
 
