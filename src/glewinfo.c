@@ -569,7 +569,9 @@ static void _glewInfo_GL_VERSION_4_5 (void)
   glewPrintExt("GL_VERSION_4_5", GLEW_VERSION_4_5, GLEW_VERSION_4_5, GLEW_VERSION_4_5);
 
   glewInfoFunc("glGetGraphicsResetStatus", glGetGraphicsResetStatus == NULL);
+  glewInfoFunc("glGetnCompressedTexImage", glGetnCompressedTexImage == NULL);
   glewInfoFunc("glGetnTexImage", glGetnTexImage == NULL);
+  glewInfoFunc("glGetnUniformdv", glGetnUniformdv == NULL);
 }
 
 #endif /* GL_VERSION_4_5 */
