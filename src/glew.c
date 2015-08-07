@@ -11873,7 +11873,11 @@ GLboolean GLEWAPIENTRY wglewGetExtension (const char* name)
   return _glewSearchExtension(name, start, end);
 }
 
+#ifdef GLEW_MX
 GLenum GLEWAPIENTRY wglewContextInit (WGLEW_CONTEXT_ARG_DEF_LIST)
+#else
+GLenum GLEWAPIENTRY wglewInit (WGLEW_CONTEXT_ARG_DEF_LIST)
+#endif
 {
   GLboolean crippled;
   const GLubyte* extStart;
@@ -12878,7 +12882,11 @@ GLboolean glxewGetExtension (const char* name)
   return _glewSearchExtension(name, start, end);
 }
 
+#ifdef GLEW_MX
 GLenum glxewContextInit (GLXEW_CONTEXT_ARG_DEF_LIST)
+#else
+GLenum glxewInit (GLXEW_CONTEXT_ARG_DEF_LIST)
+#endif
 {
   int major, minor;
   const GLubyte* extStart;
@@ -13191,21 +13199,15 @@ GLboolean glewExperimental = GL_FALSE;
 
 #if !defined(GLEW_MX)
 
-#if defined(_WIN32)
-extern GLenum GLEWAPIENTRY wglewContextInit (void);
-#elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
-extern GLenum GLEWAPIENTRY glxewContextInit (void);
-#endif /* _WIN32 */
-
 GLenum GLEWAPIENTRY glewInit (void)
 {
   GLenum r;
   r = glewContextInit();
   if ( r != 0 ) return r;
 #if defined(_WIN32)
-  return wglewContextInit();
+  return wglewInit();
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX)) /* _UNIX */
-  return glxewContextInit();
+  return glxewInit();
 #else
   return r;
 #endif /* _WIN32 */

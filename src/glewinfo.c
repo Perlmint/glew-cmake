@@ -11557,7 +11557,7 @@ GLboolean glewCreateContext (struct createParams* params)
     int contextAttrs[20];
     int i;
 
-    wglewContextInit();
+    wglewInit();
 
     /* Intel HD 3000 has WGL_ARB_create_context, but not WGL_ARB_create_context_profile */
     if (!wglewGetExtension("WGL_ARB_create_context"))
@@ -11730,7 +11730,7 @@ GLboolean glewCreateContext (struct createParams *params)
     int contextAttrs[20];
     int nelems, i;
 
-    glxewContextInit();
+    glxewInit();
 
     if (!glxewGetExtension("GLX_ARB_create_context"))
       return GL_TRUE;
