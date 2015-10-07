@@ -9,8 +9,8 @@ SET( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 
-OPTION( glew-cmake_BUILD_SHARED "Build the shared glew library" ON)
-OPTION( glew-cmake_BUILD_STATIC "Build the static glew library" ON)
+OPTION( glew-cmake_BUILD_SHARED "Build the shared glew library" ON )
+OPTION( glew-cmake_BUILD_STATIC "Build the static glew library" ON )
 OPTION( glew-cmake_BUILD_SINGLE_CONTEXT "Build the single context glew library" ON )
 OPTION( glew-cmake_BUILD_MULTI_CONTEXT "Build the multi context glew library" ON )
 
