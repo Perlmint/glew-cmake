@@ -32,7 +32,10 @@
 
 #include <GL/glew.h>
 
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+#  define GLAPI extern
+#  include <GL/osmesa.h>
+#elif defined(_WIN32)
 #  include <GL/wglew.h>
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
 #  include <GL/glxew.h>
@@ -170,7 +173,9 @@ void* NSGLGetProcAddress (const GLubyte *name)
  * Define glewGetProcAddress.
  */
 #if defined(GLEW_REGAL)
-#  define glewGetProcAddress(name) regalGetProcAddress((const GLchar *) name)
+#  define glewGetProcAddress(name) regalGetProcAddress((const GLchar *)name)
+#elif defined(GLEW_OSMESA)
+#  define glewGetProcAddress(name) OSMesaGetProcAddress((const char *)name)
 #elif defined(_WIN32)
 #  define glewGetProcAddress(name) wglGetProcAddress((LPCSTR)name)
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
@@ -11150,7 +11155,7 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 }
 
 
-#if defined(_WIN32)
+#if defined(_WIN32) && ! defined(GLEW_OSMESA)
 
 #if !defined(GLEW_MX)
 
@@ -12093,7 +12098,7 @@ GLenum GLEWAPIENTRY wglewInit (WGLEW_CONTEXT_ARG_DEF_LIST)
   return GLEW_OK;
 }
 
-#elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
+#elif !defined(GLEW_OSMESA) && !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
 
 PFNGLXGETCURRENTDISPLAYPROC __glewXGetCurrentDisplay = NULL;
 
@@ -13204,9 +13209,11 @@ GLenum GLEWAPIENTRY glewInit (void)
   GLenum r;
   r = glewContextInit();
   if ( r != 0 ) return r;
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA) || defined(__ANDROID__) || defined(__native_client__) || defined(__HAIKU__)
+  return r;
+#elif defined(_WIN32)
   return wglewInit();
-#elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX)) /* _UNIX */
+#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX) /* _UNIX */
   return glxewInit();
 #else
   return r;
@@ -17322,7 +17329,7 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
   return ret;
 }
 
-#if defined(_WIN32)
+#if defined(_WIN32) && !defined(GLEW_OSMESA)
 
 #if defined(GLEW_MX)
 GLboolean GLEWAPIENTRY wglewContextIsSupported (const WGLEWContext* ctx, const char* name)
@@ -17748,7 +17755,7 @@ GLboolean GLEWAPIENTRY wglewIsSupported (const char* name)
   return ret;
 }
 
-#elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+#elif !defined(GLEW_OSMESA) && !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 
 #if defined(GLEW_MX)
 GLboolean glxewContextIsSupported (const GLXEWContext* ctx, const char* name)
