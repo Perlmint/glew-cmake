@@ -32,7 +32,7 @@ if (@ARGV)
 
 	foreach my $ext (sort @extlist)
 	{
-		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+		my ($extname, $exturl, $extstring, $reuse, $types, $tokens, $functions, $exacts) = parse_ext($ext);
 
 		my $extvar = $extname;
 		$extvar =~ s/GL(X*)_/GL$1EW_/;
@@ -42,25 +42,32 @@ if (@ARGV)
 
 		#my $pextvar = prefix_varname($extvar);
 
-		print "#ifdef $extname\n";
-
-		if (length($extstring))
+		if (length($extstring) && $extstring !~ /^GL_/ || keys %$functions)
 		{
-				print "  " . $extvar . " = _glewSearchExtension(\"$extstring\", extStart, extEnd);\n";
+			print "#ifdef $extname\n";
+		}
+
+		if (length($extstring) && $extstring !~ /^GL_/)
+		{
+			print "  " . $extvar . " = _glewSearchExtension(\"$extstring\", extStart, extEnd);\n";
 		}
 
 		if (keys %$functions)
 		{
 			if ($extname =~ /WGL_.*/)
 			{
-				print "  if (glewExperimental || " . $extvar . "|| crippled) " . $extvar . "= !_glewInit_$extname(GLEW_CONTEXT_ARG_VAR_INIT);\n";
+				print "  if (glewExperimental || " . $extvar . "|| crippled) " . $extvar . "= !_glewInit_$extname();\n";
 			}
 			else
 			{
-				print "  if (glewExperimental || " . $extvar . ") " . $extvar . " = !_glewInit_$extname(GLEW_CONTEXT_ARG_VAR_INIT);\n";
+				print "  if (glewExperimental || " . $extvar . ") " . $extvar . " = !_glewInit_$extname();\n";
 			}
 		}
-		print "#endif /* $extname */\n";
+
+		if (length($extstring) && $extstring !~ /^GL_/ || keys %$functions)
+		{
+			print "#endif /* $extname */\n";
+		}
 	}
 
 }

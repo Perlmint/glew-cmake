@@ -10,35 +10,8 @@
 #endif
 
 #include <stddef.h>  /* For size_t */
-
-/*
- * Define glewGetContext and related helper macros.
- */
-#ifdef GLEW_MX
-#  define glewGetContext() ctx
-#  ifdef _WIN32
-#    define GLEW_CONTEXT_ARG_DEF_INIT GLEWContext* ctx
-#    define GLEW_CONTEXT_ARG_VAR_INIT ctx
-#    define wglewGetContext() ctx
-#    define WGLEW_CONTEXT_ARG_DEF_INIT WGLEWContext* ctx
-#    define WGLEW_CONTEXT_ARG_DEF_LIST WGLEWContext* ctx
-#  else /* _WIN32 */
-#    define GLEW_CONTEXT_ARG_DEF_INIT void
-#    define GLEW_CONTEXT_ARG_VAR_INIT
-#    define glxewGetContext() ctx
-#    define GLXEW_CONTEXT_ARG_DEF_INIT void
-#    define GLXEW_CONTEXT_ARG_DEF_LIST GLXEWContext* ctx
-#  endif /* _WIN32 */
-#  define GLEW_CONTEXT_ARG_DEF_LIST GLEWContext* ctx
-#else /* GLEW_MX */
-#  define GLEW_CONTEXT_ARG_DEF_INIT void
-#  define GLEW_CONTEXT_ARG_VAR_INIT
-#  define GLEW_CONTEXT_ARG_DEF_LIST void
-#  define WGLEW_CONTEXT_ARG_DEF_INIT void
-#  define WGLEW_CONTEXT_ARG_DEF_LIST void
-#  define GLXEW_CONTEXT_ARG_DEF_INIT void
-#  define GLXEW_CONTEXT_ARG_DEF_LIST void
-#endif /* GLEW_MX */
+#include <stdlib.h>  /* For malloc, free */
+#include <string.h>  /* For memset */
 
 #if defined(GLEW_REGAL)
 
@@ -163,34 +136,23 @@ void* NSGLGetProcAddress (const GLubyte *name)
  */
 
 #undef GLEW_GET_VAR
-#ifdef GLEW_MX
-# define GLEW_GET_VAR(x) (glewGetContext()->x)
-#else /* GLEW_MX */
 # define GLEW_GET_VAR(x) (x)
-#endif /* GLEW_MX */
 
 #ifdef WGLEW_GET_VAR
 # undef WGLEW_GET_VAR
-# ifdef GLEW_MX
-#  define WGLEW_GET_VAR(x) (wglewGetContext()->x)
-# else /* GLEW_MX */
-#  define WGLEW_GET_VAR(x) (x)
-# endif /* GLEW_MX */
+# define WGLEW_GET_VAR(x) (x)
 #endif /* WGLEW_GET_VAR */
 
 #ifdef GLXEW_GET_VAR
 # undef GLXEW_GET_VAR
-# ifdef GLEW_MX
-#  define GLXEW_GET_VAR(x) (glxewGetContext()->x)
-# else /* GLEW_MX */
-#  define GLXEW_GET_VAR(x) (x)
-# endif /* GLEW_MX */
+# define GLXEW_GET_VAR(x) (x)
 #endif /* GLXEW_GET_VAR */
 
 /*
  * GLEW, just like OpenGL or GLU, does not rely on the standard C library.
  * These functions implement the functionality required in this file.
  */
+
 static GLuint _glewStrLen (const GLubyte* s)
 {
   GLuint i=0;
@@ -207,6 +169,23 @@ static GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
   return (s[i] == '\0' || s[i] == c) ? i : 0;
 }
 
+static GLubyte *_glewStrDup (const GLubyte *s)
+{
+    int n = _glewStrLen(s);
+    GLubyte *dup = malloc(n+1);
+    if (dup)
+    {
+        GLubyte *i = dup;
+        for (;;)
+        {
+            *i = *s;
+            if (*i) { ++i; ++s; } else break;
+        }
+    }
+    return dup;
+}
+
+#if !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
 {
   GLuint i=0;
@@ -215,6 +194,7 @@ static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
   while (i < n && a[i] != '\0' && b[i] != '\0' && a[i] == b[i]) i++;
   return i == n ? GL_TRUE : GL_FALSE;
 }
+#endif
 
 static GLboolean _glewStrSame1 (const GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
 {
@@ -275,6 +255,7 @@ static GLboolean _glewStrSame3 (const GLubyte** a, GLuint* na, const GLubyte* b,
  * other extension names. Could use strtok() but the constant
  * string returned by glGetString might be in read-only memory.
  */
+#if !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 static GLboolean _glewSearchExtension (const char* name, const GLubyte *start, const GLubyte *end)
 {
   const GLubyte* p;
@@ -288,3 +269,4 @@ static GLboolean _glewSearchExtension (const char* name, const GLubyte *start, c
   }
   return GL_FALSE;
 }
+#endif

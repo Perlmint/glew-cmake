@@ -12,24 +12,27 @@ use warnings;
 
 do 'bin/make.pl';
 
-# function pointer declaration
-sub make_pfn_decl($%)
-{
-    return "PFN" . (uc $_[0]) . "PROC " . prefixname($_[0]) . " = NULL;";
-}
+##
+## Make Index
+##
+## Output sorted array of extension strings for indexing into extension
+## enable/disable flags.  This provides a way to convert an extension string
+## into an integer index.
+##
 
 my @extlist = ();
-my %extensions = ();
-
-our $type = shift;
 
 if (@ARGV)
 {
-    @extlist = @ARGV;
+	@extlist = @ARGV;
 
 	foreach my $ext (sort @extlist)
 	{
-		my ($extname, $exturl, $extstring, $reuse, $types, $tokens, $functions, $exacts) = parse_ext($ext);
-		output_decls($functions, \&make_pfn_decl);
+		my ($extname, $exturl, $extstring, $reuse, $types, $tokens, $functions, $exacts) = 
+			parse_ext($ext);
+
+		print "#ifdef $extname\n";
+		print "  \"$extname\",\n";
+		print "#endif\n";
 	}
 }
