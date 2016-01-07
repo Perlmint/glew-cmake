@@ -10,7 +10,7 @@
 #endif
 
 #include <stddef.h>  /* For size_t */
-#include <stdlib.h>  /* For malloc, free */
+#include <stdlib.h>  /* For bsearch */
 #include <string.h>  /* For memset */
 
 #if defined(GLEW_REGAL)
@@ -65,7 +65,7 @@ void* NSGLGetProcAddress (const GLubyte *name)
 {
   static void* image = NULL;
   void* addr;
-  if (NULL == image) 
+  if (NULL == image)
   {
     image = dlopen("/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL", RTLD_LAZY);
   }
@@ -166,25 +166,19 @@ static GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
   GLuint i=0;
   if (s == NULL) return 0;
   while (s[i] != '\0' && s[i] != c) i++;
-  return (s[i] == '\0' || s[i] == c) ? i : 0;
+  return i;
 }
 
-static GLubyte *_glewStrDup (const GLubyte *s)
+static GLuint _glewStrCopy(char *d, const char *s, char c)
 {
-    int n = _glewStrLen(s);
-    GLubyte *dup = malloc(n+1);
-    if (dup)
-    {
-        GLubyte *i = dup;
-        for (;;)
-        {
-            *i = *s;
-            if (*i) { ++i; ++s; } else break;
-        }
-    }
-    return dup;
+  GLuint i=0;
+  if (s == NULL) return 0;
+  while (s[i] != '\0' && s[i] != c) { d[i] = s[i]; i++; }
+  d[i] = '\0';
+  return i;
 }
 
+#if !defined(GLEW_OSMESA)
 #if !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
 {
@@ -194,6 +188,7 @@ static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
   while (i < n && a[i] != '\0' && b[i] != '\0' && a[i] == b[i]) i++;
   return i == n ? GL_TRUE : GL_FALSE;
 }
+#endif
 #endif
 
 static GLboolean _glewStrSame1 (const GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
@@ -255,6 +250,7 @@ static GLboolean _glewStrSame3 (const GLubyte** a, GLuint* na, const GLubyte* b,
  * other extension names. Could use strtok() but the constant
  * string returned by glGetString might be in read-only memory.
  */
+#if !defined(GLEW_OSMESA)
 #if !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 static GLboolean _glewSearchExtension (const char* name, const GLubyte *start, const GLubyte *end)
 {
@@ -269,4 +265,5 @@ static GLboolean _glewSearchExtension (const char* name, const GLubyte *start, c
   }
   return GL_FALSE;
 }
+#endif
 #endif
