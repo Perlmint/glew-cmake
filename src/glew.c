@@ -17640,6 +17640,18 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 #ifdef GL_SUN_vertex
   if (glewExperimental || GLEW_SUN_vertex) GLEW_SUN_vertex = !_glewInit_GL_SUN_vertex();
 #endif /* GL_SUN_vertex */
+#ifdef GL_NV_fragment_program4
+  GLEW_NV_fragment_program4 = GLEW_NV_gpu_program4;
+#endif /* GL_NV_fragment_program4 */
+#ifdef GL_NV_geometry_program4
+  GLEW_NV_geometry_program4 = GLEW_NV_gpu_program4;
+#endif /* GL_NV_geometry_program4 */
+#ifdef GL_NV_tessellation_program5
+  GLEW_NV_tessellation_program5 = GLEW_NV_gpu_program5;
+#endif /* GL_NV_tessellation_program5 */
+#ifdef GL_NV_vertex_program4
+  GLEW_NV_vertex_program4 = GLEW_NV_gpu_program4;
+#endif /* GL_NV_vertex_program4 */
 
   return GLEW_OK;
 }
