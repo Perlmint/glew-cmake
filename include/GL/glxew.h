@@ -1509,12 +1509,6 @@ GLXEW_FUN_EXPORT PFNGLXWAITVIDEOSYNCSGIPROC __glewXWaitVideoSyncSGI;
 
 GLXEW_FUN_EXPORT PFNGLXGETVIDEORESIZESUNPROC __glewXGetVideoResizeSUN;
 GLXEW_FUN_EXPORT PFNGLXVIDEORESIZESUNPROC __glewXVideoResizeSUN;
-
-#if defined(GLEW_MX)
-struct GLXEWContextStruct
-{
-#endif /* GLEW_MX */
-
 GLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_0;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_1;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_2;
@@ -1585,18 +1579,18 @@ GLXEW_VAR_EXPORT GLboolean __GLXEW_SGI_swap_control;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_SGI_video_sync;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_SUN_get_transparent_index;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_SUN_video_resize;
-
-#ifdef GLEW_MX
-}; /* GLXEWContextStruct */
-#endif /* GLEW_MX */
-
 /* ------------------------------------------------------------------------ */
 
 GLEWAPI GLenum GLEWAPIENTRY glxewInit ();
 GLEWAPI GLboolean GLEWAPIENTRY glxewIsSupported (const char *name);
 
+#ifndef GLXEW_GET_VAR
 #define GLXEW_GET_VAR(x) (*(const GLboolean*)&x)
+#endif
+
+#ifndef GLXEW_GET_FUN
 #define GLXEW_GET_FUN(x) x
+#endif
 
 GLEWAPI GLboolean GLEWAPIENTRY glxewGetExtension (const char *name);
 

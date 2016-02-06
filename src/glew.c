@@ -35,6 +35,8 @@
 #if defined(GLEW_OSMESA)
 #  define GLAPI extern
 #  include <GL/osmesa.h>
+#elif defined(GLEW_EGL)
+#  include <GL/eglew.h>
 #elif defined(_WIN32)
 #  include <GL/wglew.h>
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
@@ -45,7 +47,8 @@
 #include <stdlib.h>  /* For bsearch */
 #include <string.h>  /* For memset */
 
-#if defined(GLEW_REGAL)
+#if defined(GLEW_EGL)
+#elif defined(GLEW_REGAL)
 
 /* In GLEW_REGAL mode we call direcly into the linked
    libRegal.so glGetProcAddressREGAL for looking up
@@ -149,6 +152,8 @@ void* NSGLGetProcAddress (const GLubyte *name)
 #  define glewGetProcAddress(name) regalGetProcAddress((const GLchar *)name)
 #elif defined(GLEW_OSMESA)
 #  define glewGetProcAddress(name) OSMesaGetProcAddress((const char *)name)
+#elif defined(GLEW_EGL)
+#  define glewGetProcAddress(name) eglGetProcAddress((const char *)name)
 #elif defined(_WIN32)
 #  define glewGetProcAddress(name) wglGetProcAddress((LPCSTR)name)
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
@@ -179,6 +184,11 @@ void* NSGLGetProcAddress (const GLubyte *name)
 # undef GLXEW_GET_VAR
 # define GLXEW_GET_VAR(x) (x)
 #endif /* GLXEW_GET_VAR */
+
+#ifdef EGLEW_GET_VAR
+# undef EGLEW_GET_VAR
+# define EGLEW_GET_VAR(x) (x)
+#endif /* EGLEW_GET_VAR */
 
 /*
  * GLEW, just like OpenGL or GLU, does not rely on the standard C library.
@@ -299,8 +309,6 @@ static GLboolean _glewSearchExtension (const char* name, const GLubyte *start, c
 }
 #endif
 #endif
-
-#if !defined(_WIN32) || !defined(GLEW_MX)
 
 PFNGLCOPYTEXSUBIMAGE3DPROC __glewCopyTexSubImage3D = NULL;
 PFNGLDRAWRANGEELEMENTSPROC __glewDrawRangeElements = NULL;
@@ -2818,10 +2826,6 @@ PFNGLTEXCOORD4FCOLOR4FNORMAL3FVERTEX4FVSUNPROC __glewTexCoord4fColor4fNormal3fVe
 PFNGLTEXCOORD4FVERTEX4FSUNPROC __glewTexCoord4fVertex4fSUN = NULL;
 PFNGLTEXCOORD4FVERTEX4FVSUNPROC __glewTexCoord4fVertex4fvSUN = NULL;
 
-#endif /* !WIN32 || !GLEW_MX */
-
-#if !defined(GLEW_MX)
-
 GLboolean __GLEW_VERSION_1_1 = GL_FALSE;
 GLboolean __GLEW_VERSION_1_2 = GL_FALSE;
 GLboolean __GLEW_VERSION_1_2_1 = GL_FALSE;
@@ -3393,9 +3397,6 @@ GLboolean __GLEW_SUN_vertex = GL_FALSE;
 GLboolean __GLEW_WIN_phong_shading = GL_FALSE;
 GLboolean __GLEW_WIN_specular_fog = GL_FALSE;
 GLboolean __GLEW_WIN_swap_hint = GL_FALSE;
-
-#endif /* !GLEW_MX */
-
 
 static const char * _glewExtensionLookup[] = {
 #ifdef GL_VERSION_1_2
@@ -5111,8 +5112,6 @@ static const char * _glewExtensionLookup[] = {
   NULL
 };
 
-
-#if !defined(GLEW_MX)
 /* Detected in the extension string or strings */
 static GLboolean  _glewExtensionString[570];
 /* Detected via extension string or experimental mode */
@@ -6829,9 +6828,6 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
   NULL
 };
-
-#endif /* !GLEW_MX */
-
 static GLboolean _glewInit_GL_VERSION_1_2 ();
 static GLboolean _glewInit_GL_VERSION_1_3 ();
 static GLboolean _glewInit_GL_VERSION_1_4 ();
@@ -16772,14 +16768,22 @@ GLboolean GLEWAPIENTRY glewGetExtension (const char* name)
 
 /* ------------------------------------------------------------------------- */
 
+typedef const GLubyte* (GLAPIENTRY * PFNGLGETSTRINGPROC) (GLenum name);
+typedef void (GLAPIENTRY * PFNGLGETINTEGERVPROC) (GLenum pname, GLint *params);
+
 static GLenum GLEWAPIENTRY glewContextInit ()
 {
+  PFNGLGETSTRINGPROC getString;
   const GLubyte* s;
   GLuint dot;
   GLint major, minor;
 
   /* query opengl version */
-  s = glGetString(GL_VERSION);
+  getString = (PFNGLGETSTRINGPROC)  glewGetProcAddress((const GLubyte*)"glGetString");
+  if (!getString)
+    return GLEW_ERROR_NO_GL_VERSION;
+
+  s = getString(GL_VERSION);
   dot = _glewStrCLen(s, '.');
   if (dot == 0)
     return GLEW_ERROR_NO_GL_VERSION;
@@ -16824,11 +16828,14 @@ static GLenum GLEWAPIENTRY glewContextInit ()
   {
     GLint n = 0;
     GLint i;
+    PFNGLGETINTEGERVPROC getIntegerv;
     PFNGLGETSTRINGIPROC getStringi;
     const char *ext;
     GLboolean *enable;
 
-    glGetIntegerv(GL_NUM_EXTENSIONS, &n);
+    getIntegerv = (PFNGLGETINTEGERVPROC) glewGetProcAddress((const GLubyte*)"glGetIntegerv");
+    if (getIntegerv)
+      getIntegerv(GL_NUM_EXTENSIONS, &n);
 
     /* glGetStringi is OpenGL 3.0 */
     getStringi = (PFNGLGETSTRINGIPROC) glewGetProcAddress((const GLubyte*)"glGetStringi");
@@ -16857,7 +16864,7 @@ static GLenum GLEWAPIENTRY glewContextInit ()
     char ext[128];
     GLboolean *enable;
 
-    extensions = (const char *) glGetString(GL_EXTENSIONS);
+    extensions = (const char *) getString(GL_EXTENSIONS);
 
     if (extensions)
     {
@@ -17657,9 +17664,61 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 }
 
 
-#if defined(_WIN32) && ! defined(GLEW_OSMESA)
+#if defined(GLEW_OSMESA)
 
-#if !defined(GLEW_MX)
+#elif defined(GLEW_EGL)
+GLboolean  = GL_FALSE;
+GLboolean  = GL_FALSE;
+  /* ------------------------------------------------------------------------ */
+
+GLboolean eglewGetExtension (const char* name)
+{
+  const GLubyte* start;
+  const GLubyte* end;
+
+  start = (const GLubyte*) eglQueryString(eglGetCurrentDisplay(), EGL_EXTENSIONS);
+  if (0 == start) return GL_FALSE;
+  end = start + _glewStrLen(start);
+  return _glewSearchExtension(name, start, end);
+}
+
+GLenum eglewInit (EGLDisplay display)
+{
+  EGLint major, minor;
+  const GLubyte* extStart;
+  const GLubyte* extEnd;
+  PFNEGLINITIALIZEPROC initialize = NULL;
+  PFNEGLQUERYSTRINGPROC queryString = NULL;
+
+  /* Load necessary entry points */
+  initialize = (PFNEGLINITIALIZEPROC)   glewGetProcAddress("eglInitialize");
+  queryString = (PFNEGLQUERYSTRINGPROC) glewGetProcAddress("eglQueryString");
+  if (!initialize || !queryString)
+    return 1;
+
+  /* query EGK version */
+  if (initialize(display, &major, &minor) != EGL_TRUE)
+    return 1;
+
+  EGLEW_VERSION_1_5   = ( major > 1 )                || ( major == 1 && minor >= 5 ) ? GL_TRUE : GL_FALSE;
+  EGLEW_VERSION_1_4   = EGLEW_VERSION_1_5 == GL_TRUE || ( major == 1 && minor >= 4 ) ? GL_TRUE : GL_FALSE;
+  EGLEW_VERSION_1_3   = EGLEW_VERSION_1_4 == GL_TRUE || ( major == 1 && minor >= 3 ) ? GL_TRUE : GL_FALSE;
+  EGLEW_VERSION_1_2   = EGLEW_VERSION_1_3 == GL_TRUE || ( major == 1 && minor >= 2 ) ? GL_TRUE : GL_FALSE;
+  EGLEW_VERSION_1_1   = EGLEW_VERSION_1_2 == GL_TRUE || ( major == 1 && minor >= 1 ) ? GL_TRUE : GL_FALSE;
+  EGLEW_VERSION_1_0   = EGLEW_VERSION_1_1 == GL_TRUE || ( major == 1 && minor >= 0 ) ? GL_TRUE : GL_FALSE;
+
+  /* query EGL extension string */
+  extStart = (const GLubyte*) queryString(display, EGL_EXTENSIONS);
+  if (extStart == 0)
+    extStart = (const GLubyte *)"";
+  extEnd = extStart + _glewStrLen(extStart);
+
+  /* initialize extensions */
+
+  return GLEW_OK;
+}
+
+#elif defined(_WIN32)
 
 PFNWGLSETSTEREOEMITTERSTATE3DLPROC __wglewSetStereoEmitterState3DL = NULL;
 
@@ -17847,9 +17906,6 @@ GLboolean __WGLEW_NV_vertex_array_range = GL_FALSE;
 GLboolean __WGLEW_NV_video_capture = GL_FALSE;
 GLboolean __WGLEW_NV_video_output = GL_FALSE;
 GLboolean __WGLEW_OML_sync_control = GL_FALSE;
-
-#endif /* !GLEW_MX */
-
 #ifdef WGL_3DFX_multisample
 
 static GLboolean _glewInit_WGL_3DFX_multisample ()
@@ -19014,7 +19070,7 @@ GLenum GLEWAPIENTRY wglewInit ()
   return GLEW_OK;
 }
 
-#elif !defined(GLEW_OSMESA) && !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
+#elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
 
 PFNGLXGETCURRENTDISPLAYPROC __glewXGetCurrentDisplay = NULL;
 
@@ -19139,8 +19195,6 @@ PFNGLXWAITVIDEOSYNCSGIPROC __glewXWaitVideoSyncSGI = NULL;
 PFNGLXGETVIDEORESIZESUNPROC __glewXGetVideoResizeSUN = NULL;
 PFNGLXVIDEORESIZESUNPROC __glewXVideoResizeSUN = NULL;
 
-#if !defined(GLEW_MX)
-
 GLboolean __GLXEW_VERSION_1_0 = GL_FALSE;
 GLboolean __GLXEW_VERSION_1_1 = GL_FALSE;
 GLboolean __GLXEW_VERSION_1_2 = GL_FALSE;
@@ -19211,9 +19265,6 @@ GLboolean __GLXEW_SGI_swap_control = GL_FALSE;
 GLboolean __GLXEW_SGI_video_sync = GL_FALSE;
 GLboolean __GLXEW_SUN_get_transparent_index = GL_FALSE;
 GLboolean __GLXEW_SUN_video_resize = GL_FALSE;
-
-#endif /* !GLEW_MX */
-
 #ifdef GLX_VERSION_1_2
 
 static GLboolean _glewInit_GLX_VERSION_1_2 ()
@@ -20709,9 +20760,15 @@ GLboolean glewExperimental = GL_FALSE;
 GLenum GLEWAPIENTRY glewInit (void)
 {
   GLenum r;
+#if defined(GLEW_EGL)
+  PFNEGLGETCURRENTDISPLAYPROC getCurrentDisplay = NULL;
+#endif
   r = glewContextInit();
   if ( r != 0 ) return r;
-#if defined(GLEW_OSMESA) || defined(__ANDROID__) || defined(__native_client__) || defined(__HAIKU__)
+#if defined(GLEW_EGL)
+  getCurrentDisplay = (PFNEGLGETCURRENTDISPLAYPROC) glewGetProcAddress("eglGetCurrentDisplay");
+  return eglewInit(getCurrentDisplay());
+#elif defined(GLEW_OSMESA) || defined(__ANDROID__) || defined(__native_client__) || defined(__HAIKU__)
   return r;
 #elif defined(_WIN32)
   return wglewInit();
@@ -24825,7 +24882,7 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
   return ret;
 }
 
-#if defined(_WIN32) && !defined(GLEW_OSMESA)
+#if defined(_WIN32) && !defined(GLEW_EGL) && !defined(GLEW_OSMESA)
 
 GLboolean GLEWAPIENTRY wglewIsSupported (const char* name)
 {
@@ -25247,7 +25304,7 @@ GLboolean GLEWAPIENTRY wglewIsSupported (const char* name)
   return ret;
 }
 
-#elif !defined(GLEW_OSMESA) && !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+#elif !defined(GLEW_OSMESA) && !defined(GLEW_EGL) && !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 
 GLboolean glxewIsSupported (const char* name)
 {
@@ -25772,6 +25829,38 @@ GLboolean glxewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"video_resize", 12))
         {
           ret = GLXEW_SUN_video_resize;
+          continue;
+        }
+#endif
+      }
+    }
+    ret = (len == 0);
+  }
+  return ret;
+}
+
+#elif defined(GLEW_EGL)
+
+GLboolean eglewIsSupported (const char* name)
+{
+  const GLubyte* pos = (const GLubyte*)name;
+  GLuint len = _glewStrLen(pos);
+  GLboolean ret = GL_TRUE;
+  while (ret && len > 0)
+  {
+    if(_glewStrSame1(&pos, &len, (const GLubyte*)"EGL_", 4))
+    {
+#ifdef 
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"", ))
+        {
+          ret = ;
+          continue;
+        }
+#endif
+#ifdef 
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"", ))
+        {
+          ret = ;
           continue;
         }
 #endif

@@ -1116,11 +1116,6 @@ typedef BOOL (WINAPI * PFNWGLWAITFORSBCOMLPROC) (HDC hdc, INT64 target_sbc, INT6
 #define WGLEW_FUN_EXPORT GLEW_FUN_EXPORT
 #define WGLEW_VAR_EXPORT GLEW_VAR_EXPORT
 
-#ifdef GLEW_MX
-struct WGLEWContextStruct
-{
-#endif /* GLEW_MX */
-
 WGLEW_FUN_EXPORT PFNWGLSETSTEREOEMITTERSTATE3DLPROC __wglewSetStereoEmitterState3DL;
 
 WGLEW_FUN_EXPORT PFNWGLBLITCONTEXTFRAMEBUFFERAMDPROC __wglewBlitContextFramebufferAMD;
@@ -1307,18 +1302,18 @@ WGLEW_VAR_EXPORT GLboolean __WGLEW_NV_vertex_array_range;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_NV_video_capture;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_NV_video_output;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_OML_sync_control;
-
-#ifdef GLEW_MX
-}; /* WGLEWContextStruct */
-#endif /* GLEW_MX */
-
 /* ------------------------------------------------------------------------- */
 
 GLEWAPI GLenum GLEWAPIENTRY wglewInit ();
 GLEWAPI GLboolean GLEWAPIENTRY wglewIsSupported (const char *name);
 
+#ifndef WGLEW_GET_VAR
 #define WGLEW_GET_VAR(x) (*(const GLboolean*)&x)
+#endif
+
+#ifndef WGLEW_GET_FUN
 #define WGLEW_GET_FUN(x) x
+#endif
 
 GLEWAPI GLboolean GLEWAPIENTRY wglewGetExtension (const char *name);
 

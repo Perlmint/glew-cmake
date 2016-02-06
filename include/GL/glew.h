@@ -263,6 +263,9 @@ typedef _W64 int ptrdiff_t;
 #define GLEWAPIENTRY
 #endif
 
+#define GLEW_VAR_EXPORT GLEWAPI
+#define GLEW_FUN_EXPORT GLEWAPI
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -15498,22 +15501,7 @@ typedef void (GLAPIENTRY * PFNGLTEXCOORD4FVERTEX4FVSUNPROC) (const GLfloat* tc, 
 
 /* ------------------------------------------------------------------------- */
 
-#if defined(GLEW_MX) && defined(_WIN32)
-#define GLEW_FUN_EXPORT
-#else
-#define GLEW_FUN_EXPORT GLEWAPI
-#endif /* GLEW_MX */
 
-#if defined(GLEW_MX)
-#define GLEW_VAR_EXPORT
-#else
-#define GLEW_VAR_EXPORT GLEWAPI
-#endif /* GLEW_MX */
-
-#if defined(GLEW_MX) && defined(_WIN32)
-struct GLEWContextStruct
-{
-#endif /* GLEW_MX */
 
 GLEW_FUN_EXPORT PFNGLCOPYTEXSUBIMAGE3DPROC __glewCopyTexSubImage3D;
 GLEW_FUN_EXPORT PFNGLDRAWRANGEELEMENTSPROC __glewDrawRangeElements;
@@ -18030,12 +18018,6 @@ GLEW_FUN_EXPORT PFNGLTEXCOORD4FCOLOR4FNORMAL3FVERTEX4FSUNPROC __glewTexCoord4fCo
 GLEW_FUN_EXPORT PFNGLTEXCOORD4FCOLOR4FNORMAL3FVERTEX4FVSUNPROC __glewTexCoord4fColor4fNormal3fVertex4fvSUN;
 GLEW_FUN_EXPORT PFNGLTEXCOORD4FVERTEX4FSUNPROC __glewTexCoord4fVertex4fSUN;
 GLEW_FUN_EXPORT PFNGLTEXCOORD4FVERTEX4FVSUNPROC __glewTexCoord4fVertex4fvSUN;
-
-#if defined(GLEW_MX) && !defined(_WIN32)
-struct GLEWContextStruct
-{
-#endif /* GLEW_MX */
-
 GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_1;
 GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;
 GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2_1;
@@ -18607,11 +18589,6 @@ GLEW_VAR_EXPORT GLboolean __GLEW_SUN_vertex;
 GLEW_VAR_EXPORT GLboolean __GLEW_WIN_phong_shading;
 GLEW_VAR_EXPORT GLboolean __GLEW_WIN_specular_fog;
 GLEW_VAR_EXPORT GLboolean __GLEW_WIN_swap_hint;
-
-#ifdef GLEW_MX
-}; /* GLEWContextStruct */
-#endif /* GLEW_MX */
-
 /* ------------------------------------------------------------------------- */
 
 /* error codes */
@@ -18643,8 +18620,13 @@ GLEWAPI GLenum GLEWAPIENTRY glewInit (void);
 GLEWAPI GLboolean GLEWAPIENTRY glewIsSupported (const char *name);
 #define glewIsExtensionSupported(x) glewIsSupported(x)
 
+#ifndef GLEW_GET_VAR
 #define GLEW_GET_VAR(x) (*(const GLboolean*)&x)
+#endif
+
+#ifndef GLEW_GET_FUN
 #define GLEW_GET_FUN(x) x
+#endif
 
 GLEWAPI GLboolean glewExperimental;
 GLEWAPI GLboolean GLEWAPIENTRY glewGetExtension (const char *name);
