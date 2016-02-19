@@ -4,7 +4,7 @@ endif ()
 
 project (glew)
 
-cmake_minimum_required (VERSION 2.4)
+cmake_minimum_required (VERSION 2.8.7)
 
 if (COMMAND cmake_policy)
   cmake_policy (SET CMP0003 NEW)
@@ -84,7 +84,24 @@ add_library (glew SHARED ${GLEW_SRC_FILES})
 set_target_properties (glew PROPERTIES COMPILE_DEFINITIONS "GLEW_BUILD" OUTPUT_NAME "${GLEW_LIB_NAME}" PREFIX "${DLL_PREFIX}")
 add_library (glew_s STATIC ${GLEW_SRC_FILES})
 set_target_properties (glew_s PROPERTIES COMPILE_DEFINITIONS "GLEW_STATIC" OUTPUT_NAME "${GLEW_LIB_NAME}" PREFIX lib)
-target_link_libraries (glew ${GLEW_LIBRARIES})
+if (MSVC)
+  # add options from visual studio project
+  target_compile_definitions (glew PRIVATE "GLEW_BUILD;VC_EXTRALEAN")
+  target_compile_definitions (glew_s PRIVATE "GLEW_STATIC;VC_EXTRALEAN")
+  target_link_libraries (glew LINK_PRIVATE -BASE:0x62AA0000)
+  # kill security checks which are dependent on stdlib
+  target_compile_options (glew PRIVATE -GS-)
+  target_compile_options (glew_s PRIVATE -GS-)
+  # remove stdlib dependency
+  target_link_libraries (glew LINK_PRIVATE -nodefaultlib -noentry)
+elseif (WIN32 AND ((CMAKE_C_COMPILER_ID MATCHES "GNU") OR (CMAKE_C_COMPILER_ID MATCHES "Clang")))
+  # remove stdlib dependency on windows with GCC and Clang (for similar reasons
+  # as to MSVC - to allow it to be used with any Windows compiler)
+  target_compile_options (glew PRIVATE -fno-builtin -fno-stack-protector)
+  target_compile_options (glew_s PRIVATE -fno-builtin -fno-stack-protector)
+  target_link_libraries (glew LINK_PRIVATE -nostdlib)
+endif ()
+target_link_libraries (glew LINK_PUBLIC ${GLEW_LIBRARIES})
 target_link_libraries (glew_s ${GLEW_LIBRARIES})
 
 if(CMAKE_VERSION VERSION_LESS 2.8.12)
@@ -119,14 +136,20 @@ if (BUILD_UTILS)
     list (APPEND GLEWINFO_SRC_FILES ${GLEW_DIR}/build/glewinfo.rc)
   endif ()
   add_executable (glewinfo ${GLEWINFO_SRC_FILES})
-  target_link_libraries (glewinfo glew ${X11_LIBRARIES})
+  target_link_libraries (glewinfo glew)
+  if (NOT WIN32)
+    target_link_libraries(glewinfo ${X11_LIBRARIES})
+  endif ()
 
   set (VISUALINFO_SRC_FILES ${GLEW_DIR}/src/visualinfo.c)
   if (WIN32)
     list (APPEND VISUALINFO_SRC_FILES ${GLEW_DIR}/build/visualinfo.rc)
   endif ()
   add_executable (visualinfo ${VISUALINFO_SRC_FILES})
-  target_link_libraries (visualinfo glew ${X11_LIBRARIES}) 
+  target_link_libraries (visualinfo glew)
+  if (NOT WIN32)
+    target_link_libraries(visualinfo ${X11_LIBRARIES})
+  endif ()
 
   install ( TARGETS glewinfo visualinfo
             DESTINATION bin)
