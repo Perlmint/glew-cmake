@@ -8736,6 +8736,15 @@ static void _glewInfo_EGL_KHR_lock_surface3 (void)
 
 #endif /* EGL_KHR_lock_surface3 */
 
+#ifdef EGL_KHR_mutable_render_buffer
+
+static void _glewInfo_EGL_KHR_mutable_render_buffer (void)
+{
+  glewPrintExt("EGL_KHR_mutable_render_buffer", EGLEW_KHR_mutable_render_buffer, eglewIsSupported("EGL_KHR_mutable_render_buffer"), eglewGetExtension("EGL_KHR_mutable_render_buffer"));
+}
+
+#endif /* EGL_KHR_mutable_render_buffer */
+
 #ifdef EGL_KHR_partial_update
 
 static void _glewInfo_EGL_KHR_partial_update (void)
@@ -12889,6 +12898,9 @@ static void eglewInfo ()
 #ifdef EGL_KHR_lock_surface3
   _glewInfo_EGL_KHR_lock_surface3();
 #endif /* EGL_KHR_lock_surface3 */
+#ifdef EGL_KHR_mutable_render_buffer
+  _glewInfo_EGL_KHR_mutable_render_buffer();
+#endif /* EGL_KHR_mutable_render_buffer */
 #ifdef EGL_KHR_partial_update
   _glewInfo_EGL_KHR_partial_update();
 #endif /* EGL_KHR_partial_update */

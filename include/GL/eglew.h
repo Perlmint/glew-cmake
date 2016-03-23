@@ -1311,6 +1311,17 @@ typedef EGLBoolean  ( * PFNEGLQUERYSURFACE64KHRPROC) (EGLDisplay  dpy, EGLSurfac
 
 #endif /* EGL_KHR_lock_surface3 */
 
+/* --------------------- EGL_KHR_mutable_render_buffer --------------------- */
+
+#ifndef EGL_KHR_mutable_render_buffer
+#define EGL_KHR_mutable_render_buffer 1
+
+#define EGL_MUTABLE_RENDER_BUFFER_BIT_KHR 0x1000
+
+#define EGLEW_KHR_mutable_render_buffer EGLEW_GET_VAR(__EGLEW_KHR_mutable_render_buffer)
+
+#endif /* EGL_KHR_mutable_render_buffer */
+
 /* ------------------------- EGL_KHR_partial_update ------------------------ */
 
 #ifndef EGL_KHR_partial_update
@@ -2120,6 +2131,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_image_pixmap;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_lock_surface;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_lock_surface2;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_lock_surface3;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_mutable_render_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_partial_update;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_platform_android;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_platform_gbm;

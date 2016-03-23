@@ -14427,6 +14427,7 @@ GLboolean __EGLEW_KHR_image_pixmap = GL_FALSE;
 GLboolean __EGLEW_KHR_lock_surface = GL_FALSE;
 GLboolean __EGLEW_KHR_lock_surface2 = GL_FALSE;
 GLboolean __EGLEW_KHR_lock_surface3 = GL_FALSE;
+GLboolean __EGLEW_KHR_mutable_render_buffer = GL_FALSE;
 GLboolean __EGLEW_KHR_partial_update = GL_FALSE;
 GLboolean __EGLEW_KHR_platform_android = GL_FALSE;
 GLboolean __EGLEW_KHR_platform_gbm = GL_FALSE;
@@ -15304,6 +15305,9 @@ GLenum eglewInit (EGLDisplay display)
   EGLEW_KHR_lock_surface3 = _glewSearchExtension("EGL_KHR_lock_surface3", extStart, extEnd);
   if (glewExperimental || EGLEW_KHR_lock_surface3) EGLEW_KHR_lock_surface3 = !_glewInit_EGL_KHR_lock_surface3();
 #endif /* EGL_KHR_lock_surface3 */
+#ifdef EGL_KHR_mutable_render_buffer
+  EGLEW_KHR_mutable_render_buffer = _glewSearchExtension("EGL_KHR_mutable_render_buffer", extStart, extEnd);
+#endif /* EGL_KHR_mutable_render_buffer */
 #ifdef EGL_KHR_partial_update
   EGLEW_KHR_partial_update = _glewSearchExtension("EGL_KHR_partial_update", extStart, extEnd);
   if (glewExperimental || EGLEW_KHR_partial_update) EGLEW_KHR_partial_update = !_glewInit_EGL_KHR_partial_update();
@@ -23156,6 +23160,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"lock_surface3", 13))
         {
           ret = EGLEW_KHR_lock_surface3;
+          continue;
+        }
+#endif
+#ifdef EGL_KHR_mutable_render_buffer
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"mutable_render_buffer", 21))
+        {
+          ret = EGLEW_KHR_mutable_render_buffer;
           continue;
         }
 #endif
