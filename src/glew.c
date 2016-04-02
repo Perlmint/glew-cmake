@@ -13235,11 +13235,15 @@ static GLenum GLEWAPIENTRY glewContextInit ()
   GLint major, minor;
   size_t n;
 
-  /* query opengl version */
-  getString = (PFNGLGETSTRINGPROC)  glewGetProcAddress((const GLubyte*)"glGetString");
+  #ifdef _WIN32
+  getString = glGetString;
+  #else
+  getString = (PFNGLGETSTRINGPROC) glewGetProcAddress((const GLubyte*)"glGetString");
   if (!getString)
     return GLEW_ERROR_NO_GL_VERSION;
+  #endif
 
+  /* query opengl version */
   s = getString(GL_VERSION);
   dot = _glewStrCLen(s, '.');
   if (dot == 0)
@@ -13291,7 +13295,12 @@ static GLenum GLEWAPIENTRY glewContextInit ()
     const char *ext;
     GLboolean *enable;
 
+    #ifdef _WIN32
+    getIntegerv = glGetIntegerv;
+    #else
     getIntegerv = (PFNGLGETINTEGERVPROC) glewGetProcAddress((const GLubyte*)"glGetIntegerv");
+    #endif
+
     if (getIntegerv)
       getIntegerv(GL_NUM_EXTENSIONS, &n);
 
