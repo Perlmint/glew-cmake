@@ -149,7 +149,7 @@ install ( TARGETS ${targets_to_install}
           RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
           LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
           ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-          FRAMEWORK DESTINATION lib${LIB_SUFFIX}
+          FRAMEWORK DESTINATION ${CMAKE_INSTALL_PREFIX}
 )
 
 if (BUILD_UTILS)
@@ -178,10 +178,9 @@ if (BUILD_UTILS)
 endif ()
 
 set (prefix ${CMAKE_INSTALL_PREFIX})
-set (exec_prefix \${prefix})
-set (libdir \${prefix}/lib)
-set (includedir \${prefix}/include)
-set (includedir \${prefix}/include)
+set (exec_prefix ${CMAKE_INSTALL_PREFIX})
+set (libdir ${CMAKE_INSTALL_FULL_LIBDIR})
+set (includedir ${CMAKE_INSTALL_FULL_INCLUDEDIR})
 set (version ${GLEW_VERSION})
 set (libname ${GLEW_LIB_NAME})
 set (cflags)
