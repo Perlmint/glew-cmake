@@ -12783,6 +12783,29 @@ typedef void (GLAPIENTRY * PFNGLDRAWTEXTURENVPROC) (GLuint texture, GLuint sampl
 
 #endif /* GL_NV_draw_texture */
 
+/* ------------------------ GL_NV_draw_vulkan_image ------------------------ */
+
+#ifndef GL_NV_draw_vulkan_image
+#define GL_NV_draw_vulkan_image 1
+
+typedef void (APIENTRY *GLVULKANPROCNV)(void);
+
+typedef void (GLAPIENTRY * PFNGLDRAWVKIMAGENVPROC) (GLuint64 vkImage, GLuint sampler, GLfloat x0, GLfloat y0, GLfloat x1, GLfloat y1, GLfloat z, GLfloat s0, GLfloat t0, GLfloat s1, GLfloat t1);
+typedef GLVULKANPROCNV (GLAPIENTRY * PFNGLGETVKPROCADDRNVPROC) (const GLchar* name);
+typedef void (GLAPIENTRY * PFNGLSIGNALVKFENCENVPROC) (GLuint64 vkFence);
+typedef void (GLAPIENTRY * PFNGLSIGNALVKSEMAPHORENVPROC) (GLuint64 vkSemaphore);
+typedef void (GLAPIENTRY * PFNGLWAITVKSEMAPHORENVPROC) (GLuint64 vkSemaphore);
+
+#define glDrawVkImageNV GLEW_GET_FUN(__glewDrawVkImageNV)
+#define glGetVkProcAddrNV GLEW_GET_FUN(__glewGetVkProcAddrNV)
+#define glSignalVkFenceNV GLEW_GET_FUN(__glewSignalVkFenceNV)
+#define glSignalVkSemaphoreNV GLEW_GET_FUN(__glewSignalVkSemaphoreNV)
+#define glWaitVkSemaphoreNV GLEW_GET_FUN(__glewWaitVkSemaphoreNV)
+
+#define GLEW_NV_draw_vulkan_image GLEW_GET_VAR(__GLEW_NV_draw_vulkan_image)
+
+#endif /* GL_NV_draw_vulkan_image */
+
 /* ---------------------------- GL_NV_evaluators --------------------------- */
 
 #ifndef GL_NV_evaluators
@@ -18567,6 +18590,12 @@ GLEW_FUN_EXPORT PFNGLDEPTHRANGEDNVPROC __glewDepthRangedNV;
 
 GLEW_FUN_EXPORT PFNGLDRAWTEXTURENVPROC __glewDrawTextureNV;
 
+GLEW_FUN_EXPORT PFNGLDRAWVKIMAGENVPROC __glewDrawVkImageNV;
+GLEW_FUN_EXPORT PFNGLGETVKPROCADDRNVPROC __glewGetVkProcAddrNV;
+GLEW_FUN_EXPORT PFNGLSIGNALVKFENCENVPROC __glewSignalVkFenceNV;
+GLEW_FUN_EXPORT PFNGLSIGNALVKSEMAPHORENVPROC __glewSignalVkSemaphoreNV;
+GLEW_FUN_EXPORT PFNGLWAITVKSEMAPHORENVPROC __glewWaitVkSemaphoreNV;
+
 GLEW_FUN_EXPORT PFNGLEVALMAPSNVPROC __glewEvalMapsNV;
 GLEW_FUN_EXPORT PFNGLGETMAPATTRIBPARAMETERFVNVPROC __glewGetMapAttribParameterfvNV;
 GLEW_FUN_EXPORT PFNGLGETMAPATTRIBPARAMETERIVNVPROC __glewGetMapAttribParameterivNV;
@@ -19607,6 +19636,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_NV_depth_buffer_float;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_depth_clamp;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_depth_range_unclamped;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_draw_texture;
+GLEW_VAR_EXPORT GLboolean __GLEW_NV_draw_vulkan_image;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_evaluators;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_explicit_multisample;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_fence;

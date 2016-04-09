@@ -2370,6 +2370,12 @@ PFNGLDEPTHRANGEDNVPROC __glewDepthRangedNV = NULL;
 
 PFNGLDRAWTEXTURENVPROC __glewDrawTextureNV = NULL;
 
+PFNGLDRAWVKIMAGENVPROC __glewDrawVkImageNV = NULL;
+PFNGLGETVKPROCADDRNVPROC __glewGetVkProcAddrNV = NULL;
+PFNGLSIGNALVKFENCENVPROC __glewSignalVkFenceNV = NULL;
+PFNGLSIGNALVKSEMAPHORENVPROC __glewSignalVkSemaphoreNV = NULL;
+PFNGLWAITVKSEMAPHORENVPROC __glewWaitVkSemaphoreNV = NULL;
+
 PFNGLEVALMAPSNVPROC __glewEvalMapsNV = NULL;
 PFNGLGETMAPATTRIBPARAMETERFVNVPROC __glewGetMapAttribParameterfvNV = NULL;
 PFNGLGETMAPATTRIBPARAMETERIVNVPROC __glewGetMapAttribParameterivNV = NULL;
@@ -3411,6 +3417,7 @@ GLboolean __GLEW_NV_depth_buffer_float = GL_FALSE;
 GLboolean __GLEW_NV_depth_clamp = GL_FALSE;
 GLboolean __GLEW_NV_depth_range_unclamped = GL_FALSE;
 GLboolean __GLEW_NV_draw_texture = GL_FALSE;
+GLboolean __GLEW_NV_draw_vulkan_image = GL_FALSE;
 GLboolean __GLEW_NV_evaluators = GL_FALSE;
 GLboolean __GLEW_NV_explicit_multisample = GL_FALSE;
 GLboolean __GLEW_NV_fence = GL_FALSE;
@@ -4863,6 +4870,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_NV_draw_texture
   "GL_NV_draw_texture",
 #endif
+#ifdef GL_NV_draw_vulkan_image
+  "GL_NV_draw_vulkan_image",
+#endif
 #ifdef GL_NV_evaluators
   "GL_NV_evaluators",
 #endif
@@ -5338,7 +5348,7 @@ static const char * _glewExtensionLookup[] = {
 };
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[588];
+static GLboolean  _glewExtensionString[589];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_VERSION_1_2
@@ -6634,6 +6644,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_NV_draw_texture
   &__GLEW_NV_draw_texture,
 #endif
+#ifdef GL_NV_draw_vulkan_image
+  &__GLEW_NV_draw_vulkan_image,
+#endif
 #ifdef GL_NV_evaluators
   &__GLEW_NV_evaluators,
 #endif
@@ -7325,6 +7338,7 @@ static GLboolean _glewInit_GL_NV_conservative_raster_dilate ();
 static GLboolean _glewInit_GL_NV_copy_image ();
 static GLboolean _glewInit_GL_NV_depth_buffer_float ();
 static GLboolean _glewInit_GL_NV_draw_texture ();
+static GLboolean _glewInit_GL_NV_draw_vulkan_image ();
 static GLboolean _glewInit_GL_NV_evaluators ();
 static GLboolean _glewInit_GL_NV_explicit_multisample ();
 static GLboolean _glewInit_GL_NV_fence ();
@@ -11861,6 +11875,23 @@ static GLboolean _glewInit_GL_NV_draw_texture ()
 
 #endif /* GL_NV_draw_texture */
 
+#ifdef GL_NV_draw_vulkan_image
+
+static GLboolean _glewInit_GL_NV_draw_vulkan_image ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glDrawVkImageNV = (PFNGLDRAWVKIMAGENVPROC)glewGetProcAddress((const GLubyte*)"glDrawVkImageNV")) == NULL) || r;
+  r = ((glGetVkProcAddrNV = (PFNGLGETVKPROCADDRNVPROC)glewGetProcAddress((const GLubyte*)"glGetVkProcAddrNV")) == NULL) || r;
+  r = ((glSignalVkFenceNV = (PFNGLSIGNALVKFENCENVPROC)glewGetProcAddress((const GLubyte*)"glSignalVkFenceNV")) == NULL) || r;
+  r = ((glSignalVkSemaphoreNV = (PFNGLSIGNALVKSEMAPHORENVPROC)glewGetProcAddress((const GLubyte*)"glSignalVkSemaphoreNV")) == NULL) || r;
+  r = ((glWaitVkSemaphoreNV = (PFNGLWAITVKSEMAPHORENVPROC)glewGetProcAddress((const GLubyte*)"glWaitVkSemaphoreNV")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_NV_draw_vulkan_image */
+
 #ifdef GL_NV_evaluators
 
 static GLboolean _glewInit_GL_NV_evaluators ()
@@ -14012,6 +14043,9 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 #ifdef GL_NV_draw_texture
   if (glewExperimental || GLEW_NV_draw_texture) GLEW_NV_draw_texture = !_glewInit_GL_NV_draw_texture();
 #endif /* GL_NV_draw_texture */
+#ifdef GL_NV_draw_vulkan_image
+  if (glewExperimental || GLEW_NV_draw_vulkan_image) GLEW_NV_draw_vulkan_image = !_glewInit_GL_NV_draw_vulkan_image();
+#endif /* GL_NV_draw_vulkan_image */
 #ifdef GL_NV_evaluators
   if (glewExperimental || GLEW_NV_evaluators) GLEW_NV_evaluators = !_glewInit_GL_NV_evaluators();
 #endif /* GL_NV_evaluators */
@@ -20599,6 +20633,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"draw_texture", 12))
         {
           ret = GLEW_NV_draw_texture;
+          continue;
+        }
+#endif
+#ifdef GL_NV_draw_vulkan_image
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"draw_vulkan_image", 17))
+        {
+          ret = GLEW_NV_draw_vulkan_image;
           continue;
         }
 #endif

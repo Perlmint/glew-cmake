@@ -6061,6 +6061,21 @@ static void _glewInfo_GL_NV_draw_texture (void)
 
 #endif /* GL_NV_draw_texture */
 
+#ifdef GL_NV_draw_vulkan_image
+
+static void _glewInfo_GL_NV_draw_vulkan_image (void)
+{
+  glewPrintExt("GL_NV_draw_vulkan_image", GLEW_NV_draw_vulkan_image, glewIsSupported("GL_NV_draw_vulkan_image"), glewGetExtension("GL_NV_draw_vulkan_image"));
+
+  glewInfoFunc("glDrawVkImageNV", glDrawVkImageNV == NULL);
+  glewInfoFunc("glGetVkProcAddrNV", glGetVkProcAddrNV == NULL);
+  glewInfoFunc("glSignalVkFenceNV", glSignalVkFenceNV == NULL);
+  glewInfoFunc("glSignalVkSemaphoreNV", glSignalVkSemaphoreNV == NULL);
+  glewInfoFunc("glWaitVkSemaphoreNV", glWaitVkSemaphoreNV == NULL);
+}
+
+#endif /* GL_NV_draw_vulkan_image */
+
 #ifdef GL_NV_evaluators
 
 static void _glewInfo_GL_NV_evaluators (void)
@@ -11855,6 +11870,9 @@ static void glewInfo (void)
 #ifdef GL_NV_draw_texture
   _glewInfo_GL_NV_draw_texture();
 #endif /* GL_NV_draw_texture */
+#ifdef GL_NV_draw_vulkan_image
+  _glewInfo_GL_NV_draw_vulkan_image();
+#endif /* GL_NV_draw_vulkan_image */
 #ifdef GL_NV_evaluators
   _glewInfo_GL_NV_evaluators();
 #endif /* GL_NV_evaluators */
