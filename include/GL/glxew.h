@@ -670,6 +670,17 @@ typedef int ( * PFNGLXQUERYCONTEXTINFOEXTPROC) (Display* dpy, GLXContext context
 
 #endif /* GLX_EXT_import_context */
 
+/* ---------------------------- GLX_EXT_libglvnd --------------------------- */
+
+#ifndef GLX_EXT_libglvnd
+#define GLX_EXT_libglvnd 1
+
+#define GLX_VENDOR_NAMES_EXT 0x20F6
+
+#define GLXEW_EXT_libglvnd GLXEW_GET_VAR(__GLXEW_EXT_libglvnd)
+
+#endif /* GLX_EXT_libglvnd */
+
 /* -------------------------- GLX_EXT_scene_marker ------------------------- */
 
 #ifndef GLX_EXT_scene_marker
@@ -1679,6 +1690,7 @@ GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_create_context_es_profile;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_fbconfig_packed_float;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_framebuffer_sRGB;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_import_context;
+GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_libglvnd;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_scene_marker;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_stereo_tree;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_swap_control;

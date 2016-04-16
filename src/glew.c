@@ -16602,6 +16602,7 @@ GLboolean __GLXEW_EXT_create_context_es_profile = GL_FALSE;
 GLboolean __GLXEW_EXT_fbconfig_packed_float = GL_FALSE;
 GLboolean __GLXEW_EXT_framebuffer_sRGB = GL_FALSE;
 GLboolean __GLXEW_EXT_import_context = GL_FALSE;
+GLboolean __GLXEW_EXT_libglvnd = GL_FALSE;
 GLboolean __GLXEW_EXT_scene_marker = GL_FALSE;
 GLboolean __GLXEW_EXT_stereo_tree = GL_FALSE;
 GLboolean __GLXEW_EXT_swap_control = GL_FALSE;
@@ -17316,6 +17317,9 @@ GLenum glxewInit ()
   GLXEW_EXT_import_context = _glewSearchExtension("GLX_EXT_import_context", extStart, extEnd);
   if (glewExperimental || GLXEW_EXT_import_context) GLXEW_EXT_import_context = !_glewInit_GLX_EXT_import_context();
 #endif /* GLX_EXT_import_context */
+#ifdef GLX_EXT_libglvnd
+  GLXEW_EXT_libglvnd = _glewSearchExtension("GLX_EXT_libglvnd", extStart, extEnd);
+#endif /* GLX_EXT_libglvnd */
 #ifdef GLX_EXT_scene_marker
   GLXEW_EXT_scene_marker = _glewSearchExtension("GLX_EXT_scene_marker", extStart, extEnd);
 #endif /* GLX_EXT_scene_marker */
@@ -22403,6 +22407,13 @@ GLboolean glxewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"import_context", 14))
         {
           ret = GLXEW_EXT_import_context;
+          continue;
+        }
+#endif
+#ifdef GLX_EXT_libglvnd
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"libglvnd", 8))
+        {
+          ret = GLXEW_EXT_libglvnd;
           continue;
         }
 #endif

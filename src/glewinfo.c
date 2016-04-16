@@ -10062,6 +10062,15 @@ static void _glewInfo_GLX_EXT_import_context (void)
 
 #endif /* GLX_EXT_import_context */
 
+#ifdef GLX_EXT_libglvnd
+
+static void _glewInfo_GLX_EXT_libglvnd (void)
+{
+  glewPrintExt("GLX_EXT_libglvnd", GLXEW_EXT_libglvnd, glxewIsSupported("GLX_EXT_libglvnd"), glxewGetExtension("GLX_EXT_libglvnd"));
+}
+
+#endif /* GLX_EXT_libglvnd */
+
 #ifdef GLX_EXT_scene_marker
 
 static void _glewInfo_GLX_EXT_scene_marker (void)
@@ -12592,6 +12601,9 @@ static void glxewInfo ()
 #ifdef GLX_EXT_import_context
   _glewInfo_GLX_EXT_import_context();
 #endif /* GLX_EXT_import_context */
+#ifdef GLX_EXT_libglvnd
+  _glewInfo_GLX_EXT_libglvnd();
+#endif /* GLX_EXT_libglvnd */
 #ifdef GLX_EXT_scene_marker
   _glewInfo_GLX_EXT_scene_marker();
 #endif /* GLX_EXT_scene_marker */
