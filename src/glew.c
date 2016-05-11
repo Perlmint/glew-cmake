@@ -14442,6 +14442,7 @@ GLboolean __EGLEW_EXT_platform_base = GL_FALSE;
 GLboolean __EGLEW_EXT_platform_device = GL_FALSE;
 GLboolean __EGLEW_EXT_platform_wayland = GL_FALSE;
 GLboolean __EGLEW_EXT_platform_x11 = GL_FALSE;
+GLboolean __EGLEW_EXT_protected_content = GL_FALSE;
 GLboolean __EGLEW_EXT_protected_surface = GL_FALSE;
 GLboolean __EGLEW_EXT_stream_consumer_egloutput = GL_FALSE;
 GLboolean __EGLEW_EXT_swap_buffers_with_damage = GL_FALSE;
@@ -15256,6 +15257,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_EXT_platform_x11
   EGLEW_EXT_platform_x11 = _glewSearchExtension("EGL_EXT_platform_x11", extStart, extEnd);
 #endif /* EGL_EXT_platform_x11 */
+#ifdef EGL_EXT_protected_content
+  EGLEW_EXT_protected_content = _glewSearchExtension("EGL_EXT_protected_content", extStart, extEnd);
+#endif /* EGL_EXT_protected_content */
 #ifdef EGL_EXT_protected_surface
   EGLEW_EXT_protected_surface = _glewSearchExtension("EGL_EXT_protected_surface", extStart, extEnd);
 #endif /* EGL_EXT_protected_surface */
@@ -23016,6 +23020,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"platform_x11", 12))
         {
           ret = EGLEW_EXT_platform_x11;
+          continue;
+        }
+#endif
+#ifdef EGL_EXT_protected_content
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"protected_content", 17))
+        {
+          ret = EGLEW_EXT_protected_content;
           continue;
         }
 #endif

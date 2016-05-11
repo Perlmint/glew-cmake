@@ -8479,6 +8479,15 @@ static void _glewInfo_EGL_EXT_platform_x11 (void)
 
 #endif /* EGL_EXT_platform_x11 */
 
+#ifdef EGL_EXT_protected_content
+
+static void _glewInfo_EGL_EXT_protected_content (void)
+{
+  glewPrintExt("EGL_EXT_protected_content", EGLEW_EXT_protected_content, eglewIsSupported("EGL_EXT_protected_content"), eglewGetExtension("EGL_EXT_protected_content"));
+}
+
+#endif /* EGL_EXT_protected_content */
+
 #ifdef EGL_EXT_protected_surface
 
 static void _glewInfo_EGL_EXT_protected_surface (void)
@@ -12844,6 +12853,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_platform_x11
   _glewInfo_EGL_EXT_platform_x11();
 #endif /* EGL_EXT_platform_x11 */
+#ifdef EGL_EXT_protected_content
+  _glewInfo_EGL_EXT_protected_content();
+#endif /* EGL_EXT_protected_content */
 #ifdef EGL_EXT_protected_surface
   _glewInfo_EGL_EXT_protected_surface();
 #endif /* EGL_EXT_protected_surface */
