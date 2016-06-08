@@ -788,6 +788,15 @@ static void _glewInfo_GL_AMD_shader_atomic_counter_ops (void)
 
 #endif /* GL_AMD_shader_atomic_counter_ops */
 
+#ifdef GL_AMD_shader_explicit_vertex_parameter
+
+static void _glewInfo_GL_AMD_shader_explicit_vertex_parameter (void)
+{
+  glewPrintExt("GL_AMD_shader_explicit_vertex_parameter", GLEW_AMD_shader_explicit_vertex_parameter, glewIsSupported("GL_AMD_shader_explicit_vertex_parameter"), glewGetExtension("GL_AMD_shader_explicit_vertex_parameter"));
+}
+
+#endif /* GL_AMD_shader_explicit_vertex_parameter */
+
 #ifdef GL_AMD_shader_stencil_export
 
 static void _glewInfo_GL_AMD_shader_stencil_export (void)
@@ -3859,6 +3868,15 @@ static void _glewInfo_GL_ATI_vertex_streams (void)
 
 #endif /* GL_ATI_vertex_streams */
 
+#ifdef GL_EGL_NV_robustness_video_memory_purge
+
+static void _glewInfo_GL_EGL_NV_robustness_video_memory_purge (void)
+{
+  glewPrintExt("GL_EGL_NV_robustness_video_memory_purge", GLEW_EGL_NV_robustness_video_memory_purge, glewIsSupported("GL_EGL_NV_robustness_video_memory_purge"), glewGetExtension("GL_EGL_NV_robustness_video_memory_purge"));
+}
+
+#endif /* GL_EGL_NV_robustness_video_memory_purge */
+
 #ifdef GL_EXT_422_pixels
 
 static void _glewInfo_GL_EXT_422_pixels (void)
@@ -5920,6 +5938,17 @@ static void _glewInfo_GL_NV_blend_square (void)
 
 #endif /* GL_NV_blend_square */
 
+#ifdef GL_NV_clip_space_w_scaling
+
+static void _glewInfo_GL_NV_clip_space_w_scaling (void)
+{
+  glewPrintExt("GL_NV_clip_space_w_scaling", GLEW_NV_clip_space_w_scaling, glewIsSupported("GL_NV_clip_space_w_scaling"), glewGetExtension("GL_NV_clip_space_w_scaling"));
+
+  glewInfoFunc("glViewportPositionWScaleNV", glViewportPositionWScaleNV == NULL);
+}
+
+#endif /* GL_NV_clip_space_w_scaling */
+
 #ifdef GL_NV_command_list
 
 static void _glewInfo_GL_NV_command_list (void)
@@ -5989,6 +6018,17 @@ static void _glewInfo_GL_NV_conservative_raster_dilate (void)
 }
 
 #endif /* GL_NV_conservative_raster_dilate */
+
+#ifdef GL_NV_conservative_raster_pre_snap_triangles
+
+static void _glewInfo_GL_NV_conservative_raster_pre_snap_triangles (void)
+{
+  glewPrintExt("GL_NV_conservative_raster_pre_snap_triangles", GLEW_NV_conservative_raster_pre_snap_triangles, glewIsSupported("GL_NV_conservative_raster_pre_snap_triangles"), glewGetExtension("GL_NV_conservative_raster_pre_snap_triangles"));
+
+  glewInfoFunc("glConservativeRasterParameteriNV", glConservativeRasterParameteriNV == NULL);
+}
+
+#endif /* GL_NV_conservative_raster_pre_snap_triangles */
 
 #ifdef GL_NV_copy_depth_to_color
 
@@ -6669,6 +6709,15 @@ static void _glewInfo_GL_NV_register_combiners2 (void)
 
 #endif /* GL_NV_register_combiners2 */
 
+#ifdef GL_NV_robustness_video_memory_purge
+
+static void _glewInfo_GL_NV_robustness_video_memory_purge (void)
+{
+  glewPrintExt("GL_NV_robustness_video_memory_purge", GLEW_NV_robustness_video_memory_purge, glewIsSupported("GL_NV_robustness_video_memory_purge"), glewGetExtension("GL_NV_robustness_video_memory_purge"));
+}
+
+#endif /* GL_NV_robustness_video_memory_purge */
+
 #ifdef GL_NV_sample_locations
 
 static void _glewInfo_GL_NV_sample_locations (void)
@@ -6707,6 +6756,15 @@ static void _glewInfo_GL_NV_shader_atomic_float (void)
 }
 
 #endif /* GL_NV_shader_atomic_float */
+
+#ifdef GL_NV_shader_atomic_float64
+
+static void _glewInfo_GL_NV_shader_atomic_float64 (void)
+{
+  glewPrintExt("GL_NV_shader_atomic_float64", GLEW_NV_shader_atomic_float64, glewIsSupported("GL_NV_shader_atomic_float64"), glewGetExtension("GL_NV_shader_atomic_float64"));
+}
+
+#endif /* GL_NV_shader_atomic_float64 */
 
 #ifdef GL_NV_shader_atomic_fp16_vector
 
@@ -6775,6 +6833,15 @@ static void _glewInfo_GL_NV_shader_thread_shuffle (void)
 }
 
 #endif /* GL_NV_shader_thread_shuffle */
+
+#ifdef GL_NV_stereo_view_rendering
+
+static void _glewInfo_GL_NV_stereo_view_rendering (void)
+{
+  glewPrintExt("GL_NV_stereo_view_rendering", GLEW_NV_stereo_view_rendering, glewIsSupported("GL_NV_stereo_view_rendering"), glewGetExtension("GL_NV_stereo_view_rendering"));
+}
+
+#endif /* GL_NV_stereo_view_rendering */
 
 #ifdef GL_NV_tessellation_program5
 
@@ -7181,6 +7248,17 @@ static void _glewInfo_GL_NV_viewport_array2 (void)
 }
 
 #endif /* GL_NV_viewport_array2 */
+
+#ifdef GL_NV_viewport_swizzle
+
+static void _glewInfo_GL_NV_viewport_swizzle (void)
+{
+  glewPrintExt("GL_NV_viewport_swizzle", GLEW_NV_viewport_swizzle, glewIsSupported("GL_NV_viewport_swizzle"), glewGetExtension("GL_NV_viewport_swizzle"));
+
+  glewInfoFunc("glViewportSwizzleNV", glViewportSwizzleNV == NULL);
+}
+
+#endif /* GL_NV_viewport_swizzle */
 
 #ifdef GL_OES_byte_coordinates
 
@@ -8213,6 +8291,17 @@ static void _glewInfo_EGL_ANDROID_blob_cache (void)
 
 #endif /* EGL_ANDROID_blob_cache */
 
+#ifdef EGL_ANDROID_create_native_client_buffer
+
+static void _glewInfo_EGL_ANDROID_create_native_client_buffer (void)
+{
+  glewPrintExt("EGL_ANDROID_create_native_client_buffer", EGLEW_ANDROID_create_native_client_buffer, eglewIsSupported("EGL_ANDROID_create_native_client_buffer"), eglewGetExtension("EGL_ANDROID_create_native_client_buffer"));
+
+  glewInfoFunc("eglCreateNativeClientBufferANDROID", eglCreateNativeClientBufferANDROID == NULL);
+}
+
+#endif /* EGL_ANDROID_create_native_client_buffer */
+
 #ifdef EGL_ANDROID_framebuffer_target
 
 static void _glewInfo_EGL_ANDROID_framebuffer_target (void)
@@ -8221,6 +8310,15 @@ static void _glewInfo_EGL_ANDROID_framebuffer_target (void)
 }
 
 #endif /* EGL_ANDROID_framebuffer_target */
+
+#ifdef EGL_ANDROID_front_buffer_auto_refresh
+
+static void _glewInfo_EGL_ANDROID_front_buffer_auto_refresh (void)
+{
+  glewPrintExt("EGL_ANDROID_front_buffer_auto_refresh", EGLEW_ANDROID_front_buffer_auto_refresh, eglewIsSupported("EGL_ANDROID_front_buffer_auto_refresh"), eglewGetExtension("EGL_ANDROID_front_buffer_auto_refresh"));
+}
+
+#endif /* EGL_ANDROID_front_buffer_auto_refresh */
 
 #ifdef EGL_ANDROID_image_native_buffer
 
@@ -8241,6 +8339,17 @@ static void _glewInfo_EGL_ANDROID_native_fence_sync (void)
 }
 
 #endif /* EGL_ANDROID_native_fence_sync */
+
+#ifdef EGL_ANDROID_presentation_time
+
+static void _glewInfo_EGL_ANDROID_presentation_time (void)
+{
+  glewPrintExt("EGL_ANDROID_presentation_time", EGLEW_ANDROID_presentation_time, eglewIsSupported("EGL_ANDROID_presentation_time"), eglewGetExtension("EGL_ANDROID_presentation_time"));
+
+  glewInfoFunc("eglPresentationTimeANDROID", eglPresentationTimeANDROID == NULL);
+}
+
+#endif /* EGL_ANDROID_presentation_time */
 
 #ifdef EGL_ANDROID_recordable
 
@@ -9092,6 +9201,15 @@ static void _glewInfo_EGL_NV_post_sub_buffer (void)
 }
 
 #endif /* EGL_NV_post_sub_buffer */
+
+#ifdef EGL_NV_robustness_video_memory_purge
+
+static void _glewInfo_EGL_NV_robustness_video_memory_purge (void)
+{
+  glewPrintExt("EGL_NV_robustness_video_memory_purge", EGLEW_NV_robustness_video_memory_purge, eglewIsSupported("EGL_NV_robustness_video_memory_purge"), eglewGetExtension("EGL_NV_robustness_video_memory_purge"));
+}
+
+#endif /* EGL_NV_robustness_video_memory_purge */
 
 #ifdef EGL_NV_stream_consumer_gltexture_yuv
 
@@ -10302,6 +10420,15 @@ static void _glewInfo_GLX_NV_present_video (void)
 
 #endif /* GLX_NV_present_video */
 
+#ifdef GLX_NV_robustness_video_memory_purge
+
+static void _glewInfo_GLX_NV_robustness_video_memory_purge (void)
+{
+  glewPrintExt("GLX_NV_robustness_video_memory_purge", GLXEW_NV_robustness_video_memory_purge, glxewIsSupported("GLX_NV_robustness_video_memory_purge"), glxewGetExtension("GLX_NV_robustness_video_memory_purge"));
+}
+
+#endif /* GLX_NV_robustness_video_memory_purge */
+
 #ifdef GLX_NV_swap_group
 
 static void _glewInfo_GLX_NV_swap_group (void)
@@ -10706,6 +10833,9 @@ static void glewInfo (void)
 #ifdef GL_AMD_shader_atomic_counter_ops
   _glewInfo_GL_AMD_shader_atomic_counter_ops();
 #endif /* GL_AMD_shader_atomic_counter_ops */
+#ifdef GL_AMD_shader_explicit_vertex_parameter
+  _glewInfo_GL_AMD_shader_explicit_vertex_parameter();
+#endif /* GL_AMD_shader_explicit_vertex_parameter */
 #ifdef GL_AMD_shader_stencil_export
   _glewInfo_GL_AMD_shader_stencil_export();
 #endif /* GL_AMD_shader_stencil_export */
@@ -11393,6 +11523,9 @@ static void glewInfo (void)
 #ifdef GL_ATI_vertex_streams
   _glewInfo_GL_ATI_vertex_streams();
 #endif /* GL_ATI_vertex_streams */
+#ifdef GL_EGL_NV_robustness_video_memory_purge
+  _glewInfo_GL_EGL_NV_robustness_video_memory_purge();
+#endif /* GL_EGL_NV_robustness_video_memory_purge */
 #ifdef GL_EXT_422_pixels
   _glewInfo_GL_EXT_422_pixels();
 #endif /* GL_EXT_422_pixels */
@@ -11852,6 +11985,9 @@ static void glewInfo (void)
 #ifdef GL_NV_blend_square
   _glewInfo_GL_NV_blend_square();
 #endif /* GL_NV_blend_square */
+#ifdef GL_NV_clip_space_w_scaling
+  _glewInfo_GL_NV_clip_space_w_scaling();
+#endif /* GL_NV_clip_space_w_scaling */
 #ifdef GL_NV_command_list
   _glewInfo_GL_NV_command_list();
 #endif /* GL_NV_command_list */
@@ -11867,6 +12003,9 @@ static void glewInfo (void)
 #ifdef GL_NV_conservative_raster_dilate
   _glewInfo_GL_NV_conservative_raster_dilate();
 #endif /* GL_NV_conservative_raster_dilate */
+#ifdef GL_NV_conservative_raster_pre_snap_triangles
+  _glewInfo_GL_NV_conservative_raster_pre_snap_triangles();
+#endif /* GL_NV_conservative_raster_pre_snap_triangles */
 #ifdef GL_NV_copy_depth_to_color
   _glewInfo_GL_NV_copy_depth_to_color();
 #endif /* GL_NV_copy_depth_to_color */
@@ -12008,6 +12147,9 @@ static void glewInfo (void)
 #ifdef GL_NV_register_combiners2
   _glewInfo_GL_NV_register_combiners2();
 #endif /* GL_NV_register_combiners2 */
+#ifdef GL_NV_robustness_video_memory_purge
+  _glewInfo_GL_NV_robustness_video_memory_purge();
+#endif /* GL_NV_robustness_video_memory_purge */
 #ifdef GL_NV_sample_locations
   _glewInfo_GL_NV_sample_locations();
 #endif /* GL_NV_sample_locations */
@@ -12020,6 +12162,9 @@ static void glewInfo (void)
 #ifdef GL_NV_shader_atomic_float
   _glewInfo_GL_NV_shader_atomic_float();
 #endif /* GL_NV_shader_atomic_float */
+#ifdef GL_NV_shader_atomic_float64
+  _glewInfo_GL_NV_shader_atomic_float64();
+#endif /* GL_NV_shader_atomic_float64 */
 #ifdef GL_NV_shader_atomic_fp16_vector
   _glewInfo_GL_NV_shader_atomic_fp16_vector();
 #endif /* GL_NV_shader_atomic_fp16_vector */
@@ -12038,6 +12183,9 @@ static void glewInfo (void)
 #ifdef GL_NV_shader_thread_shuffle
   _glewInfo_GL_NV_shader_thread_shuffle();
 #endif /* GL_NV_shader_thread_shuffle */
+#ifdef GL_NV_stereo_view_rendering
+  _glewInfo_GL_NV_stereo_view_rendering();
+#endif /* GL_NV_stereo_view_rendering */
 #ifdef GL_NV_tessellation_program5
   _glewInfo_GL_NV_tessellation_program5();
 #endif /* GL_NV_tessellation_program5 */
@@ -12122,6 +12270,9 @@ static void glewInfo (void)
 #ifdef GL_NV_viewport_array2
   _glewInfo_GL_NV_viewport_array2();
 #endif /* GL_NV_viewport_array2 */
+#ifdef GL_NV_viewport_swizzle
+  _glewInfo_GL_NV_viewport_swizzle();
+#endif /* GL_NV_viewport_swizzle */
 #ifdef GL_OES_byte_coordinates
   _glewInfo_GL_OES_byte_coordinates();
 #endif /* GL_OES_byte_coordinates */
@@ -12676,6 +12827,9 @@ static void glxewInfo ()
 #ifdef GLX_NV_present_video
   _glewInfo_GLX_NV_present_video();
 #endif /* GLX_NV_present_video */
+#ifdef GLX_NV_robustness_video_memory_purge
+  _glewInfo_GLX_NV_robustness_video_memory_purge();
+#endif /* GLX_NV_robustness_video_memory_purge */
 #ifdef GLX_NV_swap_group
   _glewInfo_GLX_NV_swap_group();
 #endif /* GLX_NV_swap_group */
@@ -12772,15 +12926,24 @@ static void eglewInfo ()
 #ifdef EGL_ANDROID_blob_cache
   _glewInfo_EGL_ANDROID_blob_cache();
 #endif /* EGL_ANDROID_blob_cache */
+#ifdef EGL_ANDROID_create_native_client_buffer
+  _glewInfo_EGL_ANDROID_create_native_client_buffer();
+#endif /* EGL_ANDROID_create_native_client_buffer */
 #ifdef EGL_ANDROID_framebuffer_target
   _glewInfo_EGL_ANDROID_framebuffer_target();
 #endif /* EGL_ANDROID_framebuffer_target */
+#ifdef EGL_ANDROID_front_buffer_auto_refresh
+  _glewInfo_EGL_ANDROID_front_buffer_auto_refresh();
+#endif /* EGL_ANDROID_front_buffer_auto_refresh */
 #ifdef EGL_ANDROID_image_native_buffer
   _glewInfo_EGL_ANDROID_image_native_buffer();
 #endif /* EGL_ANDROID_image_native_buffer */
 #ifdef EGL_ANDROID_native_fence_sync
   _glewInfo_EGL_ANDROID_native_fence_sync();
 #endif /* EGL_ANDROID_native_fence_sync */
+#ifdef EGL_ANDROID_presentation_time
+  _glewInfo_EGL_ANDROID_presentation_time();
+#endif /* EGL_ANDROID_presentation_time */
 #ifdef EGL_ANDROID_recordable
   _glewInfo_EGL_ANDROID_recordable();
 #endif /* EGL_ANDROID_recordable */
@@ -13036,6 +13199,9 @@ static void eglewInfo ()
 #ifdef EGL_NV_post_sub_buffer
   _glewInfo_EGL_NV_post_sub_buffer();
 #endif /* EGL_NV_post_sub_buffer */
+#ifdef EGL_NV_robustness_video_memory_purge
+  _glewInfo_EGL_NV_robustness_video_memory_purge();
+#endif /* EGL_NV_robustness_video_memory_purge */
 #ifdef EGL_NV_stream_consumer_gltexture_yuv
   _glewInfo_EGL_NV_stream_consumer_gltexture_yuv();
 #endif /* EGL_NV_stream_consumer_gltexture_yuv */

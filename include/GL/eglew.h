@@ -488,6 +488,24 @@ typedef void  ( * PFNEGLSETBLOBCACHEFUNCSANDROIDPROC) (EGLDisplay  dpy, EGLSetBl
 
 #endif /* EGL_ANDROID_blob_cache */
 
+/* ---------------- EGL_ANDROID_create_native_client_buffer ---------------- */
+
+#ifndef EGL_ANDROID_create_native_client_buffer
+#define EGL_ANDROID_create_native_client_buffer 1
+
+#define EGL_NATIVE_BUFFER_USAGE_PROTECTED_BIT_ANDROID 0x00000001
+#define EGL_NATIVE_BUFFER_USAGE_RENDERBUFFER_BIT_ANDROID 0x00000002
+#define EGL_NATIVE_BUFFER_USAGE_TEXTURE_BIT_ANDROID 0x00000004
+#define EGL_NATIVE_BUFFER_USAGE_ANDROID 0x3143
+
+typedef EGLClientBuffer  ( * PFNEGLCREATENATIVECLIENTBUFFERANDROIDPROC) (const EGLint * attrib_list);
+
+#define eglCreateNativeClientBufferANDROID EGLEW_GET_FUN(__eglewCreateNativeClientBufferANDROID)
+
+#define EGLEW_ANDROID_create_native_client_buffer EGLEW_GET_VAR(__EGLEW_ANDROID_create_native_client_buffer)
+
+#endif /* EGL_ANDROID_create_native_client_buffer */
+
 /* --------------------- EGL_ANDROID_framebuffer_target -------------------- */
 
 #ifndef EGL_ANDROID_framebuffer_target
@@ -498,6 +516,17 @@ typedef void  ( * PFNEGLSETBLOBCACHEFUNCSANDROIDPROC) (EGLDisplay  dpy, EGLSetBl
 #define EGLEW_ANDROID_framebuffer_target EGLEW_GET_VAR(__EGLEW_ANDROID_framebuffer_target)
 
 #endif /* EGL_ANDROID_framebuffer_target */
+
+/* ----------------- EGL_ANDROID_front_buffer_auto_refresh ----------------- */
+
+#ifndef EGL_ANDROID_front_buffer_auto_refresh
+#define EGL_ANDROID_front_buffer_auto_refresh 1
+
+#define EGL_FRONT_BUFFER_AUTO_REFRESH_ANDROID 0x314C
+
+#define EGLEW_ANDROID_front_buffer_auto_refresh EGLEW_GET_VAR(__EGLEW_ANDROID_front_buffer_auto_refresh)
+
+#endif /* EGL_ANDROID_front_buffer_auto_refresh */
 
 /* -------------------- EGL_ANDROID_image_native_buffer -------------------- */
 
@@ -526,6 +555,19 @@ typedef EGLint  ( * PFNEGLDUPNATIVEFENCEFDANDROIDPROC) (EGLDisplay  dpy, EGLSync
 #define EGLEW_ANDROID_native_fence_sync EGLEW_GET_VAR(__EGLEW_ANDROID_native_fence_sync)
 
 #endif /* EGL_ANDROID_native_fence_sync */
+
+/* --------------------- EGL_ANDROID_presentation_time --------------------- */
+
+#ifndef EGL_ANDROID_presentation_time
+#define EGL_ANDROID_presentation_time 1
+
+typedef EGLBoolean  ( * PFNEGLPRESENTATIONTIMEANDROIDPROC) (EGLDisplay  dpy, EGLSurface  surface, EGLnsecsANDROID  time);
+
+#define eglPresentationTimeANDROID EGLEW_GET_FUN(__eglewPresentationTimeANDROID)
+
+#define EGLEW_ANDROID_presentation_time EGLEW_GET_VAR(__EGLEW_ANDROID_presentation_time)
+
+#endif /* EGL_ANDROID_presentation_time */
 
 /* ------------------------- EGL_ANDROID_recordable ------------------------ */
 
@@ -1780,6 +1822,17 @@ typedef EGLBoolean  ( * PFNEGLPOSTSUBBUFFERNVPROC) (EGLDisplay  dpy, EGLSurface 
 
 #endif /* EGL_NV_post_sub_buffer */
 
+/* ------------------ EGL_NV_robustness_video_memory_purge ----------------- */
+
+#ifndef EGL_NV_robustness_video_memory_purge
+#define EGL_NV_robustness_video_memory_purge 1
+
+#define EGL_GENERATE_RESET_ON_VIDEO_MEMORY_PURGE_NV 0x334C
+
+#define EGLEW_NV_robustness_video_memory_purge EGLEW_GET_VAR(__EGLEW_NV_robustness_video_memory_purge)
+
+#endif /* EGL_NV_robustness_video_memory_purge */
+
 /* ------------------ EGL_NV_stream_consumer_gltexture_yuv ----------------- */
 
 #ifndef EGL_NV_stream_consumer_gltexture_yuv
@@ -1975,7 +2028,11 @@ EGLEW_FUN_EXPORT PFNEGLWAITSYNCPROC __eglewWaitSync;
 
 EGLEW_FUN_EXPORT PFNEGLSETBLOBCACHEFUNCSANDROIDPROC __eglewSetBlobCacheFuncsANDROID;
 
+EGLEW_FUN_EXPORT PFNEGLCREATENATIVECLIENTBUFFERANDROIDPROC __eglewCreateNativeClientBufferANDROID;
+
 EGLEW_FUN_EXPORT PFNEGLDUPNATIVEFENCEFDANDROIDPROC __eglewDupNativeFenceFDANDROID;
+
+EGLEW_FUN_EXPORT PFNEGLPRESENTATIONTIMEANDROIDPROC __eglewPresentationTimeANDROID;
 
 EGLEW_FUN_EXPORT PFNEGLQUERYSURFACEPOINTERANGLEPROC __eglewQuerySurfacePointerANGLE;
 
@@ -2087,9 +2144,12 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_VERSION_1_3;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_VERSION_1_4;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_VERSION_1_5;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_blob_cache;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_create_native_client_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_framebuffer_target;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_front_buffer_auto_refresh;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_image_native_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_native_fence_sync;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_presentation_time;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_recordable;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANGLE_d3d_share_handle_client_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANGLE_device_d3d;
@@ -2175,6 +2235,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_device_cuda;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_native_query;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_post_convert_rounding;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_post_sub_buffer;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_robustness_video_memory_purge;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_consumer_gltexture_yuv;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_metadata;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_sync;
