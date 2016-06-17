@@ -2208,6 +2208,8 @@ PFNGLVERTEXWEIGHTPOINTEREXTPROC __glewVertexWeightPointerEXT = NULL;
 PFNGLVERTEXWEIGHTFEXTPROC __glewVertexWeightfEXT = NULL;
 PFNGLVERTEXWEIGHTFVEXTPROC __glewVertexWeightfvEXT = NULL;
 
+PFNGLWINDOWRECTANGLESEXTPROC __glewWindowRectanglesEXT = NULL;
+
 PFNGLIMPORTSYNCEXTPROC __glewImportSyncEXT = NULL;
 
 PFNGLFRAMETERMINATORGREMEDYPROC __glewFrameTerminatorGREMEDY = NULL;
@@ -3367,6 +3369,7 @@ GLboolean __GLEW_EXT_vertex_array_bgra = GL_FALSE;
 GLboolean __GLEW_EXT_vertex_attrib_64bit = GL_FALSE;
 GLboolean __GLEW_EXT_vertex_shader = GL_FALSE;
 GLboolean __GLEW_EXT_vertex_weighting = GL_FALSE;
+GLboolean __GLEW_EXT_window_rectangles = GL_FALSE;
 GLboolean __GLEW_EXT_x11_sync_object = GL_FALSE;
 GLboolean __GLEW_GREMEDY_frame_terminator = GL_FALSE;
 GLboolean __GLEW_GREMEDY_string_marker = GL_FALSE;
@@ -4716,6 +4719,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_EXT_vertex_weighting
   "GL_EXT_vertex_weighting",
 #endif
+#ifdef GL_EXT_window_rectangles
+  "GL_EXT_window_rectangles",
+#endif
 #ifdef GL_EXT_x11_sync_object
   "GL_EXT_x11_sync_object",
 #endif
@@ -5386,7 +5392,7 @@ static const char * _glewExtensionLookup[] = {
 };
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[597];
+static GLboolean  _glewExtensionString[598];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_VERSION_1_2
@@ -6514,6 +6520,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_EXT_vertex_weighting
   &__GLEW_EXT_vertex_weighting,
 #endif
+#ifdef GL_EXT_window_rectangles
+  &__GLEW_EXT_window_rectangles,
+#endif
 #ifdef GL_EXT_x11_sync_object
   &__GLEW_EXT_x11_sync_object,
 #endif
@@ -7371,6 +7380,7 @@ static GLboolean _glewInit_GL_EXT_vertex_array ();
 static GLboolean _glewInit_GL_EXT_vertex_attrib_64bit ();
 static GLboolean _glewInit_GL_EXT_vertex_shader ();
 static GLboolean _glewInit_GL_EXT_vertex_weighting ();
+static GLboolean _glewInit_GL_EXT_window_rectangles ();
 static GLboolean _glewInit_GL_EXT_x11_sync_object ();
 static GLboolean _glewInit_GL_GREMEDY_frame_terminator ();
 static GLboolean _glewInit_GL_GREMEDY_string_marker ();
@@ -11459,6 +11469,19 @@ static GLboolean _glewInit_GL_EXT_vertex_weighting ()
 
 #endif /* GL_EXT_vertex_weighting */
 
+#ifdef GL_EXT_window_rectangles
+
+static GLboolean _glewInit_GL_EXT_window_rectangles ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glWindowRectanglesEXT = (PFNGLWINDOWRECTANGLESEXTPROC)glewGetProcAddress((const GLubyte*)"glWindowRectanglesEXT")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_EXT_window_rectangles */
+
 #ifdef GL_EXT_x11_sync_object
 
 static GLboolean _glewInit_GL_EXT_x11_sync_object ()
@@ -14060,6 +14083,9 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 #ifdef GL_EXT_vertex_weighting
   if (glewExperimental || GLEW_EXT_vertex_weighting) GLEW_EXT_vertex_weighting = !_glewInit_GL_EXT_vertex_weighting();
 #endif /* GL_EXT_vertex_weighting */
+#ifdef GL_EXT_window_rectangles
+  if (glewExperimental || GLEW_EXT_window_rectangles) GLEW_EXT_window_rectangles = !_glewInit_GL_EXT_window_rectangles();
+#endif /* GL_EXT_window_rectangles */
 #ifdef GL_EXT_x11_sync_object
   if (glewExperimental || GLEW_EXT_x11_sync_object) GLEW_EXT_x11_sync_object = !_glewInit_GL_EXT_x11_sync_object();
 #endif /* GL_EXT_x11_sync_object */
@@ -20384,6 +20410,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"vertex_weighting", 16))
         {
           ret = GLEW_EXT_vertex_weighting;
+          continue;
+        }
+#endif
+#ifdef GL_EXT_window_rectangles
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"window_rectangles", 17))
+        {
+          ret = GLEW_EXT_window_rectangles;
           continue;
         }
 #endif

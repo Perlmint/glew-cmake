@@ -5395,6 +5395,17 @@ static void _glewInfo_GL_EXT_vertex_weighting (void)
 
 #endif /* GL_EXT_vertex_weighting */
 
+#ifdef GL_EXT_window_rectangles
+
+static void _glewInfo_GL_EXT_window_rectangles (void)
+{
+  glewPrintExt("GL_EXT_window_rectangles", GLEW_EXT_window_rectangles, glewIsSupported("GL_EXT_window_rectangles"), glewGetExtension("GL_EXT_window_rectangles"));
+
+  glewInfoFunc("glWindowRectanglesEXT", glWindowRectanglesEXT == NULL);
+}
+
+#endif /* GL_EXT_window_rectangles */
+
 #ifdef GL_EXT_x11_sync_object
 
 static void _glewInfo_GL_EXT_x11_sync_object (void)
@@ -11847,6 +11858,9 @@ static void glewInfo (void)
 #ifdef GL_EXT_vertex_weighting
   _glewInfo_GL_EXT_vertex_weighting();
 #endif /* GL_EXT_vertex_weighting */
+#ifdef GL_EXT_window_rectangles
+  _glewInfo_GL_EXT_window_rectangles();
+#endif /* GL_EXT_window_rectangles */
 #ifdef GL_EXT_x11_sync_object
   _glewInfo_GL_EXT_x11_sync_object();
 #endif /* GL_EXT_x11_sync_object */
