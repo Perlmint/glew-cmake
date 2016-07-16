@@ -3385,6 +3385,7 @@ GLboolean __GLEW_IBM_texture_mirrored_repeat = GL_FALSE;
 GLboolean __GLEW_IBM_vertex_array_lists = GL_FALSE;
 GLboolean __GLEW_INGR_color_clamp = GL_FALSE;
 GLboolean __GLEW_INGR_interlace_read = GL_FALSE;
+GLboolean __GLEW_INTEL_conservative_rasterization = GL_FALSE;
 GLboolean __GLEW_INTEL_fragment_shader_ordering = GL_FALSE;
 GLboolean __GLEW_INTEL_framebuffer_CMAA = GL_FALSE;
 GLboolean __GLEW_INTEL_map_texture = GL_FALSE;
@@ -4767,6 +4768,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_INGR_interlace_read
   "GL_INGR_interlace_read",
 #endif
+#ifdef GL_INTEL_conservative_rasterization
+  "GL_INTEL_conservative_rasterization",
+#endif
 #ifdef GL_INTEL_fragment_shader_ordering
   "GL_INTEL_fragment_shader_ordering",
 #endif
@@ -5392,7 +5396,7 @@ static const char * _glewExtensionLookup[] = {
 };
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[598];
+static GLboolean  _glewExtensionString[599];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_VERSION_1_2
@@ -6567,6 +6571,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_INGR_interlace_read
   &__GLEW_INGR_interlace_read,
+#endif
+#ifdef GL_INTEL_conservative_rasterization
+  &__GLEW_INTEL_conservative_rasterization,
 #endif
 #ifdef GL_INTEL_fragment_shader_ordering
   &__GLEW_INTEL_fragment_shader_ordering,
@@ -20540,6 +20547,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
       }
       if (_glewStrSame2(&pos, &len, (const GLubyte*)"INTEL_", 6))
       {
+#ifdef GL_INTEL_conservative_rasterization
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"conservative_rasterization", 26))
+        {
+          ret = GLEW_INTEL_conservative_rasterization;
+          continue;
+        }
+#endif
 #ifdef GL_INTEL_fragment_shader_ordering
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"fragment_shader_ordering", 24))
         {

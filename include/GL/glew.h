@@ -11865,6 +11865,17 @@ typedef void (GLAPIENTRY * PFNGLVERTEXPOINTERLISTIBMPROC) (GLint size, GLenum ty
 
 #endif /* GL_INGR_interlace_read */
 
+/* ------------------ GL_INTEL_conservative_rasterization ------------------ */
+
+#ifndef GL_INTEL_conservative_rasterization
+#define GL_INTEL_conservative_rasterization 1
+
+#define GL_CONSERVATIVE_RASTERIZATION_INTEL 0x83FE
+
+#define GLEW_INTEL_conservative_rasterization GLEW_GET_VAR(__GLEW_INTEL_conservative_rasterization)
+
+#endif /* GL_INTEL_conservative_rasterization */
+
 /* ------------------- GL_INTEL_fragment_shader_ordering ------------------- */
 
 #ifndef GL_INTEL_fragment_shader_ordering
@@ -19731,6 +19742,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_IBM_texture_mirrored_repeat;
 GLEW_VAR_EXPORT GLboolean __GLEW_IBM_vertex_array_lists;
 GLEW_VAR_EXPORT GLboolean __GLEW_INGR_color_clamp;
 GLEW_VAR_EXPORT GLboolean __GLEW_INGR_interlace_read;
+GLEW_VAR_EXPORT GLboolean __GLEW_INTEL_conservative_rasterization;
 GLEW_VAR_EXPORT GLboolean __GLEW_INTEL_fragment_shader_ordering;
 GLEW_VAR_EXPORT GLboolean __GLEW_INTEL_framebuffer_CMAA;
 GLEW_VAR_EXPORT GLboolean __GLEW_INTEL_map_texture;

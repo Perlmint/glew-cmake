@@ -5566,6 +5566,15 @@ static void _glewInfo_GL_INGR_interlace_read (void)
 
 #endif /* GL_INGR_interlace_read */
 
+#ifdef GL_INTEL_conservative_rasterization
+
+static void _glewInfo_GL_INTEL_conservative_rasterization (void)
+{
+  glewPrintExt("GL_INTEL_conservative_rasterization", GLEW_INTEL_conservative_rasterization, glewIsSupported("GL_INTEL_conservative_rasterization"), glewGetExtension("GL_INTEL_conservative_rasterization"));
+}
+
+#endif /* GL_INTEL_conservative_rasterization */
+
 #ifdef GL_INTEL_fragment_shader_ordering
 
 static void _glewInfo_GL_INTEL_fragment_shader_ordering (void)
@@ -11906,6 +11915,9 @@ static void glewInfo (void)
 #ifdef GL_INGR_interlace_read
   _glewInfo_GL_INGR_interlace_read();
 #endif /* GL_INGR_interlace_read */
+#ifdef GL_INTEL_conservative_rasterization
+  _glewInfo_GL_INTEL_conservative_rasterization();
+#endif /* GL_INTEL_conservative_rasterization */
 #ifdef GL_INTEL_fragment_shader_ordering
   _glewInfo_GL_INTEL_fragment_shader_ordering();
 #endif /* GL_INTEL_fragment_shader_ordering */
