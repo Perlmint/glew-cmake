@@ -2632,6 +2632,29 @@ typedef void (GLAPIENTRY * PFNGLBLENDFUNCSEPARATEINDEXEDAMDPROC) (GLuint buf, GL
 
 #endif /* GL_AMD_gcn_shader */
 
+/* ---------------------- GL_AMD_gpu_shader_half_float --------------------- */
+
+#ifndef GL_AMD_gpu_shader_half_float
+#define GL_AMD_gpu_shader_half_float 1
+
+#define GL_FLOAT16_NV 0x8FF8
+#define GL_FLOAT16_VEC2_NV 0x8FF9
+#define GL_FLOAT16_VEC3_NV 0x8FFA
+#define GL_FLOAT16_VEC4_NV 0x8FFB
+#define GL_FLOAT16_MAT2_AMD 0x91C5
+#define GL_FLOAT16_MAT3_AMD 0x91C6
+#define GL_FLOAT16_MAT4_AMD 0x91C7
+#define GL_FLOAT16_MAT2x3_AMD 0x91C8
+#define GL_FLOAT16_MAT2x4_AMD 0x91C9
+#define GL_FLOAT16_MAT3x2_AMD 0x91CA
+#define GL_FLOAT16_MAT3x4_AMD 0x91CB
+#define GL_FLOAT16_MAT4x2_AMD 0x91CC
+#define GL_FLOAT16_MAT4x3_AMD 0x91CD
+
+#define GLEW_AMD_gpu_shader_half_float GLEW_GET_VAR(__GLEW_AMD_gpu_shader_half_float)
+
+#endif /* GL_AMD_gpu_shader_half_float */
+
 /* ------------------------ GL_AMD_gpu_shader_int64 ------------------------ */
 
 #ifndef GL_AMD_gpu_shader_int64
@@ -2821,6 +2844,15 @@ typedef void (GLAPIENTRY * PFNGLSETMULTISAMPLEFVAMDPROC) (GLenum pname, GLuint i
 #define GLEW_AMD_shader_atomic_counter_ops GLEW_GET_VAR(__GLEW_AMD_shader_atomic_counter_ops)
 
 #endif /* GL_AMD_shader_atomic_counter_ops */
+
+/* -------------------------- GL_AMD_shader_ballot ------------------------- */
+
+#ifndef GL_AMD_shader_ballot
+#define GL_AMD_shader_ballot 1
+
+#define GLEW_AMD_shader_ballot GLEW_GET_VAR(__GLEW_AMD_shader_ballot)
+
+#endif /* GL_AMD_shader_ballot */
 
 /* ---------------- GL_AMD_shader_explicit_vertex_parameter ---------------- */
 
@@ -8648,6 +8680,21 @@ typedef void (GLAPIENTRY * PFNGLVERTEXSTREAM4SVATIPROC) (GLenum stream, const GL
 
 #endif /* GL_ATI_vertex_streams */
 
+/* -------------------- GL_EGL_KHR_context_flush_control ------------------- */
+
+#ifndef GL_EGL_KHR_context_flush_control
+#define GL_EGL_KHR_context_flush_control 1
+
+#define GL_EGL_CONTEXT_RELEASE_BEHAVIOR_NONE_KHR 0x0000
+#define GL_EGL_CONTEXT_RELEASE_BEHAVIOR_KHR 0x2097
+#define GL_EGL_CONTEXT_RELEASE_BEHAVIOR_FLUSH_KHR 0x2098
+#define GL_CONTEXT_RELEASE_BEHAVIOR 0x82FB
+#define GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH 0x82FC
+
+#define GLEW_EGL_KHR_context_flush_control GLEW_GET_VAR(__GLEW_EGL_KHR_context_flush_control)
+
+#endif /* GL_EGL_KHR_context_flush_control */
+
 /* ---------------- GL_EGL_NV_robustness_video_memory_purge ---------------- */
 
 #ifndef GL_EGL_NV_robustness_video_memory_purge
@@ -12068,6 +12115,9 @@ typedef void (GLAPIENTRY * PFNGLBLENDBARRIERKHRPROC) (void);
 #ifndef GL_KHR_context_flush_control
 #define GL_KHR_context_flush_control 1
 
+#define GL_EGL_CONTEXT_RELEASE_BEHAVIOR_NONE_KHR 0x0000
+#define GL_EGL_CONTEXT_RELEASE_BEHAVIOR_KHR 0x2097
+#define GL_EGL_CONTEXT_RELEASE_BEHAVIOR_FLUSH_KHR 0x2098
 #define GL_CONTEXT_RELEASE_BEHAVIOR 0x82FB
 #define GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH 0x82FC
 
@@ -19467,6 +19517,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_AMD_debug_output;
 GLEW_VAR_EXPORT GLboolean __GLEW_AMD_depth_clamp_separate;
 GLEW_VAR_EXPORT GLboolean __GLEW_AMD_draw_buffers_blend;
 GLEW_VAR_EXPORT GLboolean __GLEW_AMD_gcn_shader;
+GLEW_VAR_EXPORT GLboolean __GLEW_AMD_gpu_shader_half_float;
 GLEW_VAR_EXPORT GLboolean __GLEW_AMD_gpu_shader_int64;
 GLEW_VAR_EXPORT GLboolean __GLEW_AMD_interleaved_elements;
 GLEW_VAR_EXPORT GLboolean __GLEW_AMD_multi_draw_indirect;
@@ -19478,6 +19529,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_AMD_query_buffer_object;
 GLEW_VAR_EXPORT GLboolean __GLEW_AMD_sample_positions;
 GLEW_VAR_EXPORT GLboolean __GLEW_AMD_seamless_cubemap_per_texture;
 GLEW_VAR_EXPORT GLboolean __GLEW_AMD_shader_atomic_counter_ops;
+GLEW_VAR_EXPORT GLboolean __GLEW_AMD_shader_ballot;
 GLEW_VAR_EXPORT GLboolean __GLEW_AMD_shader_explicit_vertex_parameter;
 GLEW_VAR_EXPORT GLboolean __GLEW_AMD_shader_stencil_export;
 GLEW_VAR_EXPORT GLboolean __GLEW_AMD_shader_stencil_value_export;
@@ -19709,6 +19761,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_ATI_texture_mirror_once;
 GLEW_VAR_EXPORT GLboolean __GLEW_ATI_vertex_array_object;
 GLEW_VAR_EXPORT GLboolean __GLEW_ATI_vertex_attrib_array_object;
 GLEW_VAR_EXPORT GLboolean __GLEW_ATI_vertex_streams;
+GLEW_VAR_EXPORT GLboolean __GLEW_EGL_KHR_context_flush_control;
 GLEW_VAR_EXPORT GLboolean __GLEW_EGL_NV_robustness_video_memory_purge;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_422_pixels;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_Cg_shader;

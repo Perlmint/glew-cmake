@@ -664,6 +664,15 @@ static void _glewInfo_GL_AMD_gcn_shader (void)
 
 #endif /* GL_AMD_gcn_shader */
 
+#ifdef GL_AMD_gpu_shader_half_float
+
+static void _glewInfo_GL_AMD_gpu_shader_half_float (void)
+{
+  glewPrintExt("GL_AMD_gpu_shader_half_float", GLEW_AMD_gpu_shader_half_float, glewIsSupported("GL_AMD_gpu_shader_half_float"), glewGetExtension("GL_AMD_gpu_shader_half_float"));
+}
+
+#endif /* GL_AMD_gpu_shader_half_float */
+
 #ifdef GL_AMD_gpu_shader_int64
 
 static void _glewInfo_GL_AMD_gpu_shader_int64 (void)
@@ -787,6 +796,15 @@ static void _glewInfo_GL_AMD_shader_atomic_counter_ops (void)
 }
 
 #endif /* GL_AMD_shader_atomic_counter_ops */
+
+#ifdef GL_AMD_shader_ballot
+
+static void _glewInfo_GL_AMD_shader_ballot (void)
+{
+  glewPrintExt("GL_AMD_shader_ballot", GLEW_AMD_shader_ballot, glewIsSupported("GL_AMD_shader_ballot"), glewGetExtension("GL_AMD_shader_ballot"));
+}
+
+#endif /* GL_AMD_shader_ballot */
 
 #ifdef GL_AMD_shader_explicit_vertex_parameter
 
@@ -3878,6 +3896,15 @@ static void _glewInfo_GL_ATI_vertex_streams (void)
 }
 
 #endif /* GL_ATI_vertex_streams */
+
+#ifdef GL_EGL_KHR_context_flush_control
+
+static void _glewInfo_GL_EGL_KHR_context_flush_control (void)
+{
+  glewPrintExt("GL_EGL_KHR_context_flush_control", GLEW_EGL_KHR_context_flush_control, glewIsSupported("GL_EGL_KHR_context_flush_control"), glewGetExtension("GL_EGL_KHR_context_flush_control"));
+}
+
+#endif /* GL_EGL_KHR_context_flush_control */
 
 #ifdef GL_EGL_NV_robustness_video_memory_purge
 
@@ -8478,6 +8505,15 @@ static void _glewInfo_EGL_ANGLE_window_fixed_size (void)
 
 #endif /* EGL_ANGLE_window_fixed_size */
 
+#ifdef EGL_ARM_implicit_external_sync
+
+static void _glewInfo_EGL_ARM_implicit_external_sync (void)
+{
+  glewPrintExt("EGL_ARM_implicit_external_sync", EGLEW_ARM_implicit_external_sync, eglewIsSupported("EGL_ARM_implicit_external_sync"), eglewGetExtension("EGL_ARM_implicit_external_sync"));
+}
+
+#endif /* EGL_ARM_implicit_external_sync */
+
 #ifdef EGL_ARM_pixmap_multisample_discard
 
 static void _glewInfo_EGL_ARM_pixmap_multisample_discard (void)
@@ -8784,6 +8820,15 @@ static void _glewInfo_EGL_KHR_config_attribs (void)
 
 #endif /* EGL_KHR_config_attribs */
 
+#ifdef EGL_KHR_context_flush_control
+
+static void _glewInfo_EGL_KHR_context_flush_control (void)
+{
+  glewPrintExt("EGL_KHR_context_flush_control", EGLEW_KHR_context_flush_control, eglewIsSupported("EGL_KHR_context_flush_control"), eglewGetExtension("EGL_KHR_context_flush_control"));
+}
+
+#endif /* EGL_KHR_context_flush_control */
+
 #ifdef EGL_KHR_create_context
 
 static void _glewInfo_EGL_KHR_create_context (void)
@@ -8949,6 +8994,15 @@ static void _glewInfo_EGL_KHR_mutable_render_buffer (void)
 
 #endif /* EGL_KHR_mutable_render_buffer */
 
+#ifdef EGL_KHR_no_config_context
+
+static void _glewInfo_EGL_KHR_no_config_context (void)
+{
+  glewPrintExt("EGL_KHR_no_config_context", EGLEW_KHR_no_config_context, eglewIsSupported("EGL_KHR_no_config_context"), eglewGetExtension("EGL_KHR_no_config_context"));
+}
+
+#endif /* EGL_KHR_no_config_context */
+
 #ifdef EGL_KHR_partial_update
 
 static void _glewInfo_EGL_KHR_partial_update (void)
@@ -9025,6 +9079,21 @@ static void _glewInfo_EGL_KHR_stream (void)
 }
 
 #endif /* EGL_KHR_stream */
+
+#ifdef EGL_KHR_stream_attrib
+
+static void _glewInfo_EGL_KHR_stream_attrib (void)
+{
+  glewPrintExt("EGL_KHR_stream_attrib", EGLEW_KHR_stream_attrib, eglewIsSupported("EGL_KHR_stream_attrib"), eglewGetExtension("EGL_KHR_stream_attrib"));
+
+  glewInfoFunc("eglCreateStreamAttribKHR", eglCreateStreamAttribKHR == NULL);
+  glewInfoFunc("eglQueryStreamAttribKHR", eglQueryStreamAttribKHR == NULL);
+  glewInfoFunc("eglSetStreamAttribKHR", eglSetStreamAttribKHR == NULL);
+  glewInfoFunc("eglStreamConsumerAcquireAttribKHR", eglStreamConsumerAcquireAttribKHR == NULL);
+  glewInfoFunc("eglStreamConsumerReleaseAttribKHR", eglStreamConsumerReleaseAttribKHR == NULL);
+}
+
+#endif /* EGL_KHR_stream_attrib */
 
 #ifdef EGL_KHR_stream_consumer_gltexture
 
@@ -10871,6 +10940,9 @@ static void glewInfo (void)
 #ifdef GL_AMD_gcn_shader
   _glewInfo_GL_AMD_gcn_shader();
 #endif /* GL_AMD_gcn_shader */
+#ifdef GL_AMD_gpu_shader_half_float
+  _glewInfo_GL_AMD_gpu_shader_half_float();
+#endif /* GL_AMD_gpu_shader_half_float */
 #ifdef GL_AMD_gpu_shader_int64
   _glewInfo_GL_AMD_gpu_shader_int64();
 #endif /* GL_AMD_gpu_shader_int64 */
@@ -10904,6 +10976,9 @@ static void glewInfo (void)
 #ifdef GL_AMD_shader_atomic_counter_ops
   _glewInfo_GL_AMD_shader_atomic_counter_ops();
 #endif /* GL_AMD_shader_atomic_counter_ops */
+#ifdef GL_AMD_shader_ballot
+  _glewInfo_GL_AMD_shader_ballot();
+#endif /* GL_AMD_shader_ballot */
 #ifdef GL_AMD_shader_explicit_vertex_parameter
   _glewInfo_GL_AMD_shader_explicit_vertex_parameter();
 #endif /* GL_AMD_shader_explicit_vertex_parameter */
@@ -11597,6 +11672,9 @@ static void glewInfo (void)
 #ifdef GL_ATI_vertex_streams
   _glewInfo_GL_ATI_vertex_streams();
 #endif /* GL_ATI_vertex_streams */
+#ifdef GL_EGL_KHR_context_flush_control
+  _glewInfo_GL_EGL_KHR_context_flush_control();
+#endif /* GL_EGL_KHR_context_flush_control */
 #ifdef GL_EGL_NV_robustness_video_memory_purge
   _glewInfo_GL_EGL_NV_robustness_video_memory_purge();
 #endif /* GL_EGL_NV_robustness_video_memory_purge */
@@ -13051,6 +13129,9 @@ static void eglewInfo ()
 #ifdef EGL_ANGLE_window_fixed_size
   _glewInfo_EGL_ANGLE_window_fixed_size();
 #endif /* EGL_ANGLE_window_fixed_size */
+#ifdef EGL_ARM_implicit_external_sync
+  _glewInfo_EGL_ARM_implicit_external_sync();
+#endif /* EGL_ARM_implicit_external_sync */
 #ifdef EGL_ARM_pixmap_multisample_discard
   _glewInfo_EGL_ARM_pixmap_multisample_discard();
 #endif /* EGL_ARM_pixmap_multisample_discard */
@@ -13144,6 +13225,9 @@ static void eglewInfo ()
 #ifdef EGL_KHR_config_attribs
   _glewInfo_EGL_KHR_config_attribs();
 #endif /* EGL_KHR_config_attribs */
+#ifdef EGL_KHR_context_flush_control
+  _glewInfo_EGL_KHR_context_flush_control();
+#endif /* EGL_KHR_context_flush_control */
 #ifdef EGL_KHR_create_context
   _glewInfo_EGL_KHR_create_context();
 #endif /* EGL_KHR_create_context */
@@ -13195,6 +13279,9 @@ static void eglewInfo ()
 #ifdef EGL_KHR_mutable_render_buffer
   _glewInfo_EGL_KHR_mutable_render_buffer();
 #endif /* EGL_KHR_mutable_render_buffer */
+#ifdef EGL_KHR_no_config_context
+  _glewInfo_EGL_KHR_no_config_context();
+#endif /* EGL_KHR_no_config_context */
 #ifdef EGL_KHR_partial_update
   _glewInfo_EGL_KHR_partial_update();
 #endif /* EGL_KHR_partial_update */
@@ -13216,6 +13303,9 @@ static void eglewInfo ()
 #ifdef EGL_KHR_stream
   _glewInfo_EGL_KHR_stream();
 #endif /* EGL_KHR_stream */
+#ifdef EGL_KHR_stream_attrib
+  _glewInfo_EGL_KHR_stream_attrib();
+#endif /* EGL_KHR_stream_attrib */
 #ifdef EGL_KHR_stream_consumer_gltexture
   _glewInfo_EGL_KHR_stream_consumer_gltexture();
 #endif /* EGL_KHR_stream_consumer_gltexture */

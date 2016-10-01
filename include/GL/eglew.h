@@ -639,6 +639,17 @@ typedef EGLBoolean  ( * PFNEGLQUERYSURFACEPOINTERANGLEPROC) (EGLDisplay  dpy, EG
 
 #endif /* EGL_ANGLE_window_fixed_size */
 
+/* --------------------- EGL_ARM_implicit_external_sync -------------------- */
+
+#ifndef EGL_ARM_implicit_external_sync
+#define EGL_ARM_implicit_external_sync 1
+
+#define EGL_SYNC_PRIOR_COMMANDS_IMPLICIT_EXTERNAL_ARM 0x328A
+
+#define EGLEW_ARM_implicit_external_sync EGLEW_GET_VAR(__EGLEW_ARM_implicit_external_sync)
+
+#endif /* EGL_ARM_implicit_external_sync */
+
 /* ------------------- EGL_ARM_pixmap_multisample_discard ------------------ */
 
 #ifndef EGL_ARM_pixmap_multisample_discard
@@ -1091,6 +1102,19 @@ typedef EGLSyncKHR  ( * PFNEGLCREATESYNC64KHRPROC) (EGLDisplay  dpy, EGLenum  ty
 
 #endif /* EGL_KHR_config_attribs */
 
+/* --------------------- EGL_KHR_context_flush_control --------------------- */
+
+#ifndef EGL_KHR_context_flush_control
+#define EGL_KHR_context_flush_control 1
+
+#define EGL_CONTEXT_RELEASE_BEHAVIOR_NONE_KHR 0
+#define EGL_CONTEXT_RELEASE_BEHAVIOR_KHR 0x2097
+#define EGL_CONTEXT_RELEASE_BEHAVIOR_FLUSH_KHR 0x2098
+
+#define EGLEW_KHR_context_flush_control EGLEW_GET_VAR(__EGLEW_KHR_context_flush_control)
+
+#endif /* EGL_KHR_context_flush_control */
+
 /* ------------------------- EGL_KHR_create_context ------------------------ */
 
 #ifndef EGL_KHR_create_context
@@ -1376,6 +1400,15 @@ typedef EGLBoolean  ( * PFNEGLQUERYSURFACE64KHRPROC) (EGLDisplay  dpy, EGLSurfac
 
 #endif /* EGL_KHR_mutable_render_buffer */
 
+/* ----------------------- EGL_KHR_no_config_context ----------------------- */
+
+#ifndef EGL_KHR_no_config_context
+#define EGL_KHR_no_config_context 1
+
+#define EGLEW_KHR_no_config_context EGLEW_GET_VAR(__EGLEW_KHR_no_config_context)
+
+#endif /* EGL_KHR_no_config_context */
+
 /* ------------------------- EGL_KHR_partial_update ------------------------ */
 
 #ifndef EGL_KHR_partial_update
@@ -1500,6 +1533,32 @@ typedef EGLBoolean  ( * PFNEGLSTREAMATTRIBKHRPROC) (EGLDisplay  dpy, EGLStreamKH
 #define EGLEW_KHR_stream EGLEW_GET_VAR(__EGLEW_KHR_stream)
 
 #endif /* EGL_KHR_stream */
+
+/* ------------------------- EGL_KHR_stream_attrib ------------------------- */
+
+#ifndef EGL_KHR_stream_attrib
+#define EGL_KHR_stream_attrib 1
+
+#define EGL_CONSUMER_LATENCY_USEC_KHR 0x3210
+#define EGL_STREAM_STATE_KHR 0x3214
+#define EGL_STREAM_STATE_CREATED_KHR 0x3215
+#define EGL_STREAM_STATE_CONNECTING_KHR 0x3216
+
+typedef EGLStreamKHR  ( * PFNEGLCREATESTREAMATTRIBKHRPROC) (EGLDisplay  dpy, const EGLAttrib * attrib_list);
+typedef EGLBoolean  ( * PFNEGLQUERYSTREAMATTRIBKHRPROC) (EGLDisplay  dpy, EGLStreamKHR  stream, EGLenum  attribute, EGLAttrib * value);
+typedef EGLBoolean  ( * PFNEGLSETSTREAMATTRIBKHRPROC) (EGLDisplay  dpy, EGLStreamKHR  stream, EGLenum  attribute, EGLAttrib  value);
+typedef EGLBoolean  ( * PFNEGLSTREAMCONSUMERACQUIREATTRIBKHRPROC) (EGLDisplay  dpy, EGLStreamKHR  stream, const EGLAttrib * attrib_list);
+typedef EGLBoolean  ( * PFNEGLSTREAMCONSUMERRELEASEATTRIBKHRPROC) (EGLDisplay  dpy, EGLStreamKHR  stream, const EGLAttrib * attrib_list);
+
+#define eglCreateStreamAttribKHR EGLEW_GET_FUN(__eglewCreateStreamAttribKHR)
+#define eglQueryStreamAttribKHR EGLEW_GET_FUN(__eglewQueryStreamAttribKHR)
+#define eglSetStreamAttribKHR EGLEW_GET_FUN(__eglewSetStreamAttribKHR)
+#define eglStreamConsumerAcquireAttribKHR EGLEW_GET_FUN(__eglewStreamConsumerAcquireAttribKHR)
+#define eglStreamConsumerReleaseAttribKHR EGLEW_GET_FUN(__eglewStreamConsumerReleaseAttribKHR)
+
+#define EGLEW_KHR_stream_attrib EGLEW_GET_VAR(__EGLEW_KHR_stream_attrib)
+
+#endif /* EGL_KHR_stream_attrib */
 
 /* ------------------- EGL_KHR_stream_consumer_gltexture ------------------- */
 
@@ -2090,6 +2149,12 @@ EGLEW_FUN_EXPORT PFNEGLQUERYSTREAMKHRPROC __eglewQueryStreamKHR;
 EGLEW_FUN_EXPORT PFNEGLQUERYSTREAMU64KHRPROC __eglewQueryStreamu64KHR;
 EGLEW_FUN_EXPORT PFNEGLSTREAMATTRIBKHRPROC __eglewStreamAttribKHR;
 
+EGLEW_FUN_EXPORT PFNEGLCREATESTREAMATTRIBKHRPROC __eglewCreateStreamAttribKHR;
+EGLEW_FUN_EXPORT PFNEGLQUERYSTREAMATTRIBKHRPROC __eglewQueryStreamAttribKHR;
+EGLEW_FUN_EXPORT PFNEGLSETSTREAMATTRIBKHRPROC __eglewSetStreamAttribKHR;
+EGLEW_FUN_EXPORT PFNEGLSTREAMCONSUMERACQUIREATTRIBKHRPROC __eglewStreamConsumerAcquireAttribKHR;
+EGLEW_FUN_EXPORT PFNEGLSTREAMCONSUMERRELEASEATTRIBKHRPROC __eglewStreamConsumerReleaseAttribKHR;
+
 EGLEW_FUN_EXPORT PFNEGLSTREAMCONSUMERACQUIREKHRPROC __eglewStreamConsumerAcquireKHR;
 EGLEW_FUN_EXPORT PFNEGLSTREAMCONSUMERGLTEXTUREEXTERNALKHRPROC __eglewStreamConsumerGLTextureExternalKHR;
 EGLEW_FUN_EXPORT PFNEGLSTREAMCONSUMERRELEASEKHRPROC __eglewStreamConsumerReleaseKHR;
@@ -2157,6 +2222,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_ANGLE_device_d3d;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANGLE_query_surface_pointer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANGLE_surface_d3d_texture_2d_share_handle;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANGLE_window_fixed_size;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_ARM_implicit_external_sync;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ARM_pixmap_multisample_discard;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_buffer_age;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_client_extensions;
@@ -2188,6 +2254,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_cl_event;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_cl_event2;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_client_get_all_proc_addresses;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_config_attribs;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_context_flush_control;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_create_context;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_create_context_no_error;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_debug;
@@ -2205,6 +2272,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_lock_surface;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_lock_surface2;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_lock_surface3;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_mutable_render_buffer;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_no_config_context;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_partial_update;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_platform_android;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_platform_gbm;
@@ -2212,6 +2280,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_platform_wayland;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_platform_x11;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_reusable_sync;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_stream;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_stream_attrib;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_stream_consumer_gltexture;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_stream_cross_process_fd;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_stream_fifo;

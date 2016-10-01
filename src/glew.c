@@ -3043,6 +3043,7 @@ GLboolean __GLEW_AMD_debug_output = GL_FALSE;
 GLboolean __GLEW_AMD_depth_clamp_separate = GL_FALSE;
 GLboolean __GLEW_AMD_draw_buffers_blend = GL_FALSE;
 GLboolean __GLEW_AMD_gcn_shader = GL_FALSE;
+GLboolean __GLEW_AMD_gpu_shader_half_float = GL_FALSE;
 GLboolean __GLEW_AMD_gpu_shader_int64 = GL_FALSE;
 GLboolean __GLEW_AMD_interleaved_elements = GL_FALSE;
 GLboolean __GLEW_AMD_multi_draw_indirect = GL_FALSE;
@@ -3054,6 +3055,7 @@ GLboolean __GLEW_AMD_query_buffer_object = GL_FALSE;
 GLboolean __GLEW_AMD_sample_positions = GL_FALSE;
 GLboolean __GLEW_AMD_seamless_cubemap_per_texture = GL_FALSE;
 GLboolean __GLEW_AMD_shader_atomic_counter_ops = GL_FALSE;
+GLboolean __GLEW_AMD_shader_ballot = GL_FALSE;
 GLboolean __GLEW_AMD_shader_explicit_vertex_parameter = GL_FALSE;
 GLboolean __GLEW_AMD_shader_stencil_export = GL_FALSE;
 GLboolean __GLEW_AMD_shader_stencil_value_export = GL_FALSE;
@@ -3285,6 +3287,7 @@ GLboolean __GLEW_ATI_texture_mirror_once = GL_FALSE;
 GLboolean __GLEW_ATI_vertex_array_object = GL_FALSE;
 GLboolean __GLEW_ATI_vertex_attrib_array_object = GL_FALSE;
 GLboolean __GLEW_ATI_vertex_streams = GL_FALSE;
+GLboolean __GLEW_EGL_KHR_context_flush_control = GL_FALSE;
 GLboolean __GLEW_EGL_NV_robustness_video_memory_purge = GL_FALSE;
 GLboolean __GLEW_EXT_422_pixels = GL_FALSE;
 GLboolean __GLEW_EXT_Cg_shader = GL_FALSE;
@@ -3700,6 +3703,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_AMD_gcn_shader
   "GL_AMD_gcn_shader",
 #endif
+#ifdef GL_AMD_gpu_shader_half_float
+  "GL_AMD_gpu_shader_half_float",
+#endif
 #ifdef GL_AMD_gpu_shader_int64
   "GL_AMD_gpu_shader_int64",
 #endif
@@ -3732,6 +3738,9 @@ static const char * _glewExtensionLookup[] = {
 #endif
 #ifdef GL_AMD_shader_atomic_counter_ops
   "GL_AMD_shader_atomic_counter_ops",
+#endif
+#ifdef GL_AMD_shader_ballot
+  "GL_AMD_shader_ballot",
 #endif
 #ifdef GL_AMD_shader_explicit_vertex_parameter
   "GL_AMD_shader_explicit_vertex_parameter",
@@ -4425,6 +4434,9 @@ static const char * _glewExtensionLookup[] = {
 #endif
 #ifdef GL_ATI_vertex_streams
   "GL_ATI_vertex_streams",
+#endif
+#ifdef GL_EGL_KHR_context_flush_control
+  "GL_EGL_KHR_context_flush_control",
 #endif
 #ifdef GL_EGL_NV_robustness_video_memory_purge
   "GL_EGL_NV_robustness_video_memory_purge",
@@ -5435,7 +5447,7 @@ static const char * _glewExtensionLookup[] = {
 };
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[603];
+static GLboolean  _glewExtensionString[606];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_VERSION_1_2
@@ -5516,6 +5528,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_AMD_gcn_shader
   &__GLEW_AMD_gcn_shader,
 #endif
+#ifdef GL_AMD_gpu_shader_half_float
+  &__GLEW_AMD_gpu_shader_half_float,
+#endif
 #ifdef GL_AMD_gpu_shader_int64
   &__GLEW_AMD_gpu_shader_int64,
 #endif
@@ -5548,6 +5563,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_AMD_shader_atomic_counter_ops
   &__GLEW_AMD_shader_atomic_counter_ops,
+#endif
+#ifdef GL_AMD_shader_ballot
+  &__GLEW_AMD_shader_ballot,
 #endif
 #ifdef GL_AMD_shader_explicit_vertex_parameter
   &__GLEW_AMD_shader_explicit_vertex_parameter,
@@ -6241,6 +6259,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_ATI_vertex_streams
   &__GLEW_ATI_vertex_streams,
+#endif
+#ifdef GL_EGL_KHR_context_flush_control
+  &__GLEW_EGL_KHR_context_flush_control,
 #endif
 #ifdef GL_EGL_NV_robustness_video_memory_purge
   &__GLEW_EGL_NV_robustness_video_memory_purge,
@@ -14606,6 +14627,12 @@ PFNEGLQUERYSTREAMKHRPROC __eglewQueryStreamKHR = NULL;
 PFNEGLQUERYSTREAMU64KHRPROC __eglewQueryStreamu64KHR = NULL;
 PFNEGLSTREAMATTRIBKHRPROC __eglewStreamAttribKHR = NULL;
 
+PFNEGLCREATESTREAMATTRIBKHRPROC __eglewCreateStreamAttribKHR = NULL;
+PFNEGLQUERYSTREAMATTRIBKHRPROC __eglewQueryStreamAttribKHR = NULL;
+PFNEGLSETSTREAMATTRIBKHRPROC __eglewSetStreamAttribKHR = NULL;
+PFNEGLSTREAMCONSUMERACQUIREATTRIBKHRPROC __eglewStreamConsumerAcquireAttribKHR = NULL;
+PFNEGLSTREAMCONSUMERRELEASEATTRIBKHRPROC __eglewStreamConsumerReleaseAttribKHR = NULL;
+
 PFNEGLSTREAMCONSUMERACQUIREKHRPROC __eglewStreamConsumerAcquireKHR = NULL;
 PFNEGLSTREAMCONSUMERGLTEXTUREEXTERNALKHRPROC __eglewStreamConsumerGLTextureExternalKHR = NULL;
 PFNEGLSTREAMCONSUMERRELEASEKHRPROC __eglewStreamConsumerReleaseKHR = NULL;
@@ -14673,6 +14700,7 @@ GLboolean __EGLEW_ANGLE_device_d3d = GL_FALSE;
 GLboolean __EGLEW_ANGLE_query_surface_pointer = GL_FALSE;
 GLboolean __EGLEW_ANGLE_surface_d3d_texture_2d_share_handle = GL_FALSE;
 GLboolean __EGLEW_ANGLE_window_fixed_size = GL_FALSE;
+GLboolean __EGLEW_ARM_implicit_external_sync = GL_FALSE;
 GLboolean __EGLEW_ARM_pixmap_multisample_discard = GL_FALSE;
 GLboolean __EGLEW_EXT_buffer_age = GL_FALSE;
 GLboolean __EGLEW_EXT_client_extensions = GL_FALSE;
@@ -14704,6 +14732,7 @@ GLboolean __EGLEW_KHR_cl_event = GL_FALSE;
 GLboolean __EGLEW_KHR_cl_event2 = GL_FALSE;
 GLboolean __EGLEW_KHR_client_get_all_proc_addresses = GL_FALSE;
 GLboolean __EGLEW_KHR_config_attribs = GL_FALSE;
+GLboolean __EGLEW_KHR_context_flush_control = GL_FALSE;
 GLboolean __EGLEW_KHR_create_context = GL_FALSE;
 GLboolean __EGLEW_KHR_create_context_no_error = GL_FALSE;
 GLboolean __EGLEW_KHR_debug = GL_FALSE;
@@ -14721,6 +14750,7 @@ GLboolean __EGLEW_KHR_lock_surface = GL_FALSE;
 GLboolean __EGLEW_KHR_lock_surface2 = GL_FALSE;
 GLboolean __EGLEW_KHR_lock_surface3 = GL_FALSE;
 GLboolean __EGLEW_KHR_mutable_render_buffer = GL_FALSE;
+GLboolean __EGLEW_KHR_no_config_context = GL_FALSE;
 GLboolean __EGLEW_KHR_partial_update = GL_FALSE;
 GLboolean __EGLEW_KHR_platform_android = GL_FALSE;
 GLboolean __EGLEW_KHR_platform_gbm = GL_FALSE;
@@ -14728,6 +14758,7 @@ GLboolean __EGLEW_KHR_platform_wayland = GL_FALSE;
 GLboolean __EGLEW_KHR_platform_x11 = GL_FALSE;
 GLboolean __EGLEW_KHR_reusable_sync = GL_FALSE;
 GLboolean __EGLEW_KHR_stream = GL_FALSE;
+GLboolean __EGLEW_KHR_stream_attrib = GL_FALSE;
 GLboolean __EGLEW_KHR_stream_consumer_gltexture = GL_FALSE;
 GLboolean __EGLEW_KHR_stream_cross_process_fd = GL_FALSE;
 GLboolean __EGLEW_KHR_stream_fifo = GL_FALSE;
@@ -15146,6 +15177,23 @@ static GLboolean _glewInit_EGL_KHR_stream ()
 
 #endif /* EGL_KHR_stream */
 
+#ifdef EGL_KHR_stream_attrib
+
+static GLboolean _glewInit_EGL_KHR_stream_attrib ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((eglCreateStreamAttribKHR = (PFNEGLCREATESTREAMATTRIBKHRPROC)glewGetProcAddress((const GLubyte*)"eglCreateStreamAttribKHR")) == NULL) || r;
+  r = ((eglQueryStreamAttribKHR = (PFNEGLQUERYSTREAMATTRIBKHRPROC)glewGetProcAddress((const GLubyte*)"eglQueryStreamAttribKHR")) == NULL) || r;
+  r = ((eglSetStreamAttribKHR = (PFNEGLSETSTREAMATTRIBKHRPROC)glewGetProcAddress((const GLubyte*)"eglSetStreamAttribKHR")) == NULL) || r;
+  r = ((eglStreamConsumerAcquireAttribKHR = (PFNEGLSTREAMCONSUMERACQUIREATTRIBKHRPROC)glewGetProcAddress((const GLubyte*)"eglStreamConsumerAcquireAttribKHR")) == NULL) || r;
+  r = ((eglStreamConsumerReleaseAttribKHR = (PFNEGLSTREAMCONSUMERRELEASEATTRIBKHRPROC)glewGetProcAddress((const GLubyte*)"eglStreamConsumerReleaseAttribKHR")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* EGL_KHR_stream_attrib */
+
 #ifdef EGL_KHR_stream_consumer_gltexture
 
 static GLboolean _glewInit_EGL_KHR_stream_consumer_gltexture ()
@@ -15486,6 +15534,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_ANGLE_window_fixed_size
   EGLEW_ANGLE_window_fixed_size = _glewSearchExtension("EGL_ANGLE_window_fixed_size", extStart, extEnd);
 #endif /* EGL_ANGLE_window_fixed_size */
+#ifdef EGL_ARM_implicit_external_sync
+  EGLEW_ARM_implicit_external_sync = _glewSearchExtension("EGL_ARM_implicit_external_sync", extStart, extEnd);
+#endif /* EGL_ARM_implicit_external_sync */
 #ifdef EGL_ARM_pixmap_multisample_discard
   EGLEW_ARM_pixmap_multisample_discard = _glewSearchExtension("EGL_ARM_pixmap_multisample_discard", extStart, extEnd);
 #endif /* EGL_ARM_pixmap_multisample_discard */
@@ -15587,6 +15638,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_KHR_config_attribs
   EGLEW_KHR_config_attribs = _glewSearchExtension("EGL_KHR_config_attribs", extStart, extEnd);
 #endif /* EGL_KHR_config_attribs */
+#ifdef EGL_KHR_context_flush_control
+  EGLEW_KHR_context_flush_control = _glewSearchExtension("EGL_KHR_context_flush_control", extStart, extEnd);
+#endif /* EGL_KHR_context_flush_control */
 #ifdef EGL_KHR_create_context
   EGLEW_KHR_create_context = _glewSearchExtension("EGL_KHR_create_context", extStart, extEnd);
 #endif /* EGL_KHR_create_context */
@@ -15642,6 +15696,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_KHR_mutable_render_buffer
   EGLEW_KHR_mutable_render_buffer = _glewSearchExtension("EGL_KHR_mutable_render_buffer", extStart, extEnd);
 #endif /* EGL_KHR_mutable_render_buffer */
+#ifdef EGL_KHR_no_config_context
+  EGLEW_KHR_no_config_context = _glewSearchExtension("EGL_KHR_no_config_context", extStart, extEnd);
+#endif /* EGL_KHR_no_config_context */
 #ifdef EGL_KHR_partial_update
   EGLEW_KHR_partial_update = _glewSearchExtension("EGL_KHR_partial_update", extStart, extEnd);
   if (glewExperimental || EGLEW_KHR_partial_update) EGLEW_KHR_partial_update = !_glewInit_EGL_KHR_partial_update();
@@ -15666,6 +15723,10 @@ GLenum eglewInit (EGLDisplay display)
   EGLEW_KHR_stream = _glewSearchExtension("EGL_KHR_stream", extStart, extEnd);
   if (glewExperimental || EGLEW_KHR_stream) EGLEW_KHR_stream = !_glewInit_EGL_KHR_stream();
 #endif /* EGL_KHR_stream */
+#ifdef EGL_KHR_stream_attrib
+  EGLEW_KHR_stream_attrib = _glewSearchExtension("EGL_KHR_stream_attrib", extStart, extEnd);
+  if (glewExperimental || EGLEW_KHR_stream_attrib) EGLEW_KHR_stream_attrib = !_glewInit_EGL_KHR_stream_attrib();
+#endif /* EGL_KHR_stream_attrib */
 #ifdef EGL_KHR_stream_consumer_gltexture
   EGLEW_KHR_stream_consumer_gltexture = _glewSearchExtension("EGL_KHR_stream_consumer_gltexture", extStart, extEnd);
   if (glewExperimental || EGLEW_KHR_stream_consumer_gltexture) EGLEW_KHR_stream_consumer_gltexture = !_glewInit_EGL_KHR_stream_consumer_gltexture();
@@ -18052,6 +18113,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_AMD_gpu_shader_half_float
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"gpu_shader_half_float", 21))
+        {
+          ret = GLEW_AMD_gpu_shader_half_float;
+          continue;
+        }
+#endif
 #ifdef GL_AMD_gpu_shader_int64
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"gpu_shader_int64", 16))
         {
@@ -18126,6 +18194,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_atomic_counter_ops", 25))
         {
           ret = GLEW_AMD_shader_atomic_counter_ops;
+          continue;
+        }
+#endif
+#ifdef GL_AMD_shader_ballot
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_ballot", 13))
+        {
+          ret = GLEW_AMD_shader_ballot;
           continue;
         }
 #endif
@@ -19764,6 +19839,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
       }
       if (_glewStrSame2(&pos, &len, (const GLubyte*)"EGL_", 4))
       {
+#ifdef GL_EGL_KHR_context_flush_control
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"KHR_context_flush_control", 25))
+        {
+          ret = GLEW_EGL_KHR_context_flush_control;
+          continue;
+        }
+#endif
 #ifdef GL_EGL_NV_robustness_video_memory_purge
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"NV_robustness_video_memory_purge", 32))
         {
@@ -23317,6 +23399,13 @@ GLboolean eglewIsSupported (const char* name)
       }
       if (_glewStrSame2(&pos, &len, (const GLubyte*)"ARM_", 4))
       {
+#ifdef EGL_ARM_implicit_external_sync
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"implicit_external_sync", 22))
+        {
+          ret = EGLEW_ARM_implicit_external_sync;
+          continue;
+        }
+#endif
 #ifdef EGL_ARM_pixmap_multisample_discard
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"pixmap_multisample_discard", 26))
         {
@@ -23546,6 +23635,13 @@ GLboolean eglewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef EGL_KHR_context_flush_control
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"context_flush_control", 21))
+        {
+          ret = EGLEW_KHR_context_flush_control;
+          continue;
+        }
+#endif
 #ifdef EGL_KHR_create_context
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"create_context", 14))
         {
@@ -23665,6 +23761,13 @@ GLboolean eglewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef EGL_KHR_no_config_context
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"no_config_context", 17))
+        {
+          ret = EGLEW_KHR_no_config_context;
+          continue;
+        }
+#endif
 #ifdef EGL_KHR_partial_update
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"partial_update", 14))
         {
@@ -23711,6 +23814,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"stream", 6))
         {
           ret = EGLEW_KHR_stream;
+          continue;
+        }
+#endif
+#ifdef EGL_KHR_stream_attrib
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"stream_attrib", 13))
+        {
+          ret = EGLEW_KHR_stream_attrib;
           continue;
         }
 #endif
