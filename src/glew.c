@@ -14771,6 +14771,7 @@ GLboolean __EGLEW_KHR_wait_sync = GL_FALSE;
 GLboolean __EGLEW_MESA_drm_image = GL_FALSE;
 GLboolean __EGLEW_MESA_image_dma_buf_export = GL_FALSE;
 GLboolean __EGLEW_MESA_platform_gbm = GL_FALSE;
+GLboolean __EGLEW_MESA_platform_surfaceless = GL_FALSE;
 GLboolean __EGLEW_NOK_swap_region = GL_FALSE;
 GLboolean __EGLEW_NOK_swap_region2 = GL_FALSE;
 GLboolean __EGLEW_NOK_texture_from_pixmap = GL_FALSE;
@@ -15771,6 +15772,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_MESA_platform_gbm
   EGLEW_MESA_platform_gbm = _glewSearchExtension("EGL_MESA_platform_gbm", extStart, extEnd);
 #endif /* EGL_MESA_platform_gbm */
+#ifdef EGL_MESA_platform_surfaceless
+  EGLEW_MESA_platform_surfaceless = _glewSearchExtension("EGL_MESA_platform_surfaceless", extStart, extEnd);
+#endif /* EGL_MESA_platform_surfaceless */
 #ifdef EGL_NOK_swap_region
   EGLEW_NOK_swap_region = _glewSearchExtension("EGL_NOK_swap_region", extStart, extEnd);
   if (glewExperimental || EGLEW_NOK_swap_region) EGLEW_NOK_swap_region = !_glewInit_EGL_NOK_swap_region();
@@ -23908,6 +23912,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"platform_gbm", 12))
         {
           ret = EGLEW_MESA_platform_gbm;
+          continue;
+        }
+#endif
+#ifdef EGL_MESA_platform_surfaceless
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"platform_surfaceless", 20))
+        {
+          ret = EGLEW_MESA_platform_surfaceless;
           continue;
         }
 #endif

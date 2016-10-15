@@ -1731,6 +1731,17 @@ typedef EGLBoolean  ( * PFNEGLEXPORTDMABUFIMAGEQUERYMESAPROC) (EGLDisplay  dpy, 
 
 #endif /* EGL_MESA_platform_gbm */
 
+/* --------------------- EGL_MESA_platform_surfaceless --------------------- */
+
+#ifndef EGL_MESA_platform_surfaceless
+#define EGL_MESA_platform_surfaceless 1
+
+#define EGL_PLATFORM_SURFACELESS_MESA 0x31DD
+
+#define EGLEW_MESA_platform_surfaceless EGLEW_GET_VAR(__EGLEW_MESA_platform_surfaceless)
+
+#endif /* EGL_MESA_platform_surfaceless */
+
 /* -------------------------- EGL_NOK_swap_region -------------------------- */
 
 #ifndef EGL_NOK_swap_region
@@ -2293,6 +2304,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_KHR_wait_sync;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_MESA_drm_image;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_MESA_image_dma_buf_export;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_MESA_platform_gbm;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_MESA_platform_surfaceless;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NOK_swap_region;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NOK_swap_region2;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NOK_texture_from_pixmap;

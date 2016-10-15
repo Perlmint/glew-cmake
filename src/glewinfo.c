@@ -9224,6 +9224,15 @@ static void _glewInfo_EGL_MESA_platform_gbm (void)
 
 #endif /* EGL_MESA_platform_gbm */
 
+#ifdef EGL_MESA_platform_surfaceless
+
+static void _glewInfo_EGL_MESA_platform_surfaceless (void)
+{
+  glewPrintExt("EGL_MESA_platform_surfaceless", EGLEW_MESA_platform_surfaceless, eglewIsSupported("EGL_MESA_platform_surfaceless"), eglewGetExtension("EGL_MESA_platform_surfaceless"));
+}
+
+#endif /* EGL_MESA_platform_surfaceless */
+
 #ifdef EGL_NOK_swap_region
 
 static void _glewInfo_EGL_NOK_swap_region (void)
@@ -13342,6 +13351,9 @@ static void eglewInfo ()
 #ifdef EGL_MESA_platform_gbm
   _glewInfo_EGL_MESA_platform_gbm();
 #endif /* EGL_MESA_platform_gbm */
+#ifdef EGL_MESA_platform_surfaceless
+  _glewInfo_EGL_MESA_platform_surfaceless();
+#endif /* EGL_MESA_platform_surfaceless */
 #ifdef EGL_NOK_swap_region
   _glewInfo_EGL_NOK_swap_region();
 #endif /* EGL_NOK_swap_region */
