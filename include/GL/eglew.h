@@ -794,6 +794,33 @@ typedef EGLBoolean  ( * PFNEGLQUERYDISPLAYATTRIBEXTPROC) (EGLDisplay  dpy, EGLin
 
 #endif /* EGL_EXT_image_dma_buf_import */
 
+/* ----------------- EGL_EXT_image_dma_buf_import_modifiers ---------------- */
+
+#ifndef EGL_EXT_image_dma_buf_import_modifiers
+#define EGL_EXT_image_dma_buf_import_modifiers 1
+
+#define EGL_DMA_BUF_PLANE3_FD_EXT 0x3440
+#define EGL_DMA_BUF_PLANE3_OFFSET_EXT 0x3441
+#define EGL_DMA_BUF_PLANE3_PITCH_EXT 0x3442
+#define EGL_DMA_BUF_PLANE0_MODIFIER_LO_EXT 0x3443
+#define EGL_DMA_BUF_PLANE0_MODIFIER_HI_EXT 0x3444
+#define EGL_DMA_BUF_PLANE1_MODIFIER_LO_EXT 0x3445
+#define EGL_DMA_BUF_PLANE1_MODIFIER_HI_EXT 0x3446
+#define EGL_DMA_BUF_PLANE2_MODIFIER_LO_EXT 0x3447
+#define EGL_DMA_BUF_PLANE2_MODIFIER_HI_EXT 0x3448
+#define EGL_DMA_BUF_PLANE3_MODIFIER_LO_EXT 0x3449
+#define EGL_DMA_BUF_PLANE3_MODIFIER_HI_EXT 0x344A
+
+typedef EGLBoolean  ( * PFNEGLQUERYDMABUFFORMATSEXTPROC) (EGLDisplay  dpy, EGLint  max_formats, EGLint  *formats, EGLint  *num_formats);
+typedef EGLBoolean  ( * PFNEGLQUERYDMABUFMODIFIERSEXTPROC) (EGLDisplay  dpy, EGLint  format, EGLint  max_modifiers, EGLuint64KHR  *modifiers, EGLBoolean  *external_only, EGLint  *num_modifiers);
+
+#define eglQueryDmaBufFormatsEXT EGLEW_GET_FUN(__eglewQueryDmaBufFormatsEXT)
+#define eglQueryDmaBufModifiersEXT EGLEW_GET_FUN(__eglewQueryDmaBufModifiersEXT)
+
+#define EGLEW_EXT_image_dma_buf_import_modifiers EGLEW_GET_VAR(__EGLEW_EXT_image_dma_buf_import_modifiers)
+
+#endif /* EGL_EXT_image_dma_buf_import_modifiers */
+
 /* ------------------------ EGL_EXT_multiview_window ----------------------- */
 
 #ifndef EGL_EXT_multiview_window
@@ -2113,6 +2140,9 @@ EGLEW_FUN_EXPORT PFNEGLQUERYDEVICEATTRIBEXTPROC __eglewQueryDeviceAttribEXT;
 EGLEW_FUN_EXPORT PFNEGLQUERYDEVICESTRINGEXTPROC __eglewQueryDeviceStringEXT;
 EGLEW_FUN_EXPORT PFNEGLQUERYDISPLAYATTRIBEXTPROC __eglewQueryDisplayAttribEXT;
 
+EGLEW_FUN_EXPORT PFNEGLQUERYDMABUFFORMATSEXTPROC __eglewQueryDmaBufFormatsEXT;
+EGLEW_FUN_EXPORT PFNEGLQUERYDMABUFMODIFIERSEXTPROC __eglewQueryDmaBufModifiersEXT;
+
 EGLEW_FUN_EXPORT PFNEGLGETOUTPUTLAYERSEXTPROC __eglewGetOutputLayersEXT;
 EGLEW_FUN_EXPORT PFNEGLGETOUTPUTPORTSEXTPROC __eglewGetOutputPortsEXT;
 EGLEW_FUN_EXPORT PFNEGLOUTPUTLAYERATTRIBEXTPROC __eglewOutputLayerAttribEXT;
@@ -2244,6 +2274,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_enumeration;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_openwf;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_query;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_image_dma_buf_import;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_image_dma_buf_import_modifiers;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_multiview_window;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_output_base;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_output_drm;

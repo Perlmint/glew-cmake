@@ -8610,6 +8610,18 @@ static void _glewInfo_EGL_EXT_image_dma_buf_import (void)
 
 #endif /* EGL_EXT_image_dma_buf_import */
 
+#ifdef EGL_EXT_image_dma_buf_import_modifiers
+
+static void _glewInfo_EGL_EXT_image_dma_buf_import_modifiers (void)
+{
+  glewPrintExt("EGL_EXT_image_dma_buf_import_modifiers", EGLEW_EXT_image_dma_buf_import_modifiers, eglewIsSupported("EGL_EXT_image_dma_buf_import_modifiers"), eglewGetExtension("EGL_EXT_image_dma_buf_import_modifiers"));
+
+  glewInfoFunc("eglQueryDmaBufFormatsEXT", eglQueryDmaBufFormatsEXT == NULL);
+  glewInfoFunc("eglQueryDmaBufModifiersEXT", eglQueryDmaBufModifiersEXT == NULL);
+}
+
+#endif /* EGL_EXT_image_dma_buf_import_modifiers */
+
 #ifdef EGL_EXT_multiview_window
 
 static void _glewInfo_EGL_EXT_multiview_window (void)
@@ -13171,6 +13183,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_image_dma_buf_import
   _glewInfo_EGL_EXT_image_dma_buf_import();
 #endif /* EGL_EXT_image_dma_buf_import */
+#ifdef EGL_EXT_image_dma_buf_import_modifiers
+  _glewInfo_EGL_EXT_image_dma_buf_import_modifiers();
+#endif /* EGL_EXT_image_dma_buf_import_modifiers */
 #ifdef EGL_EXT_multiview_window
   _glewInfo_EGL_EXT_multiview_window();
 #endif /* EGL_EXT_multiview_window */

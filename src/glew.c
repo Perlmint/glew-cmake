@@ -14580,6 +14580,9 @@ PFNEGLQUERYDEVICEATTRIBEXTPROC __eglewQueryDeviceAttribEXT = NULL;
 PFNEGLQUERYDEVICESTRINGEXTPROC __eglewQueryDeviceStringEXT = NULL;
 PFNEGLQUERYDISPLAYATTRIBEXTPROC __eglewQueryDisplayAttribEXT = NULL;
 
+PFNEGLQUERYDMABUFFORMATSEXTPROC __eglewQueryDmaBufFormatsEXT = NULL;
+PFNEGLQUERYDMABUFMODIFIERSEXTPROC __eglewQueryDmaBufModifiersEXT = NULL;
+
 PFNEGLGETOUTPUTLAYERSEXTPROC __eglewGetOutputLayersEXT = NULL;
 PFNEGLGETOUTPUTPORTSEXTPROC __eglewGetOutputPortsEXT = NULL;
 PFNEGLOUTPUTLAYERATTRIBEXTPROC __eglewOutputLayerAttribEXT = NULL;
@@ -14711,6 +14714,7 @@ GLboolean __EGLEW_EXT_device_enumeration = GL_FALSE;
 GLboolean __EGLEW_EXT_device_openwf = GL_FALSE;
 GLboolean __EGLEW_EXT_device_query = GL_FALSE;
 GLboolean __EGLEW_EXT_image_dma_buf_import = GL_FALSE;
+GLboolean __EGLEW_EXT_image_dma_buf_import_modifiers = GL_FALSE;
 GLboolean __EGLEW_EXT_multiview_window = GL_FALSE;
 GLboolean __EGLEW_EXT_output_base = GL_FALSE;
 GLboolean __EGLEW_EXT_output_drm = GL_FALSE;
@@ -14987,6 +14991,20 @@ static GLboolean _glewInit_EGL_EXT_device_query ()
 }
 
 #endif /* EGL_EXT_device_query */
+
+#ifdef EGL_EXT_image_dma_buf_import_modifiers
+
+static GLboolean _glewInit_EGL_EXT_image_dma_buf_import_modifiers ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((eglQueryDmaBufFormatsEXT = (PFNEGLQUERYDMABUFFORMATSEXTPROC)glewGetProcAddress((const GLubyte*)"eglQueryDmaBufFormatsEXT")) == NULL) || r;
+  r = ((eglQueryDmaBufModifiersEXT = (PFNEGLQUERYDMABUFMODIFIERSEXTPROC)glewGetProcAddress((const GLubyte*)"eglQueryDmaBufModifiersEXT")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* EGL_EXT_image_dma_buf_import_modifiers */
 
 #ifdef EGL_EXT_output_base
 
@@ -15570,6 +15588,10 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_EXT_image_dma_buf_import
   EGLEW_EXT_image_dma_buf_import = _glewSearchExtension("EGL_EXT_image_dma_buf_import", extStart, extEnd);
 #endif /* EGL_EXT_image_dma_buf_import */
+#ifdef EGL_EXT_image_dma_buf_import_modifiers
+  EGLEW_EXT_image_dma_buf_import_modifiers = _glewSearchExtension("EGL_EXT_image_dma_buf_import_modifiers", extStart, extEnd);
+  if (glewExperimental || EGLEW_EXT_image_dma_buf_import_modifiers) EGLEW_EXT_image_dma_buf_import_modifiers = !_glewInit_EGL_EXT_image_dma_buf_import_modifiers();
+#endif /* EGL_EXT_image_dma_buf_import_modifiers */
 #ifdef EGL_EXT_multiview_window
   EGLEW_EXT_multiview_window = _glewSearchExtension("EGL_EXT_multiview_window", extStart, extEnd);
 #endif /* EGL_EXT_multiview_window */
@@ -23480,6 +23502,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"image_dma_buf_import", 20))
         {
           ret = EGLEW_EXT_image_dma_buf_import;
+          continue;
+        }
+#endif
+#ifdef EGL_EXT_image_dma_buf_import_modifiers
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"image_dma_buf_import_modifiers", 30))
+        {
+          ret = EGLEW_EXT_image_dma_buf_import_modifiers;
           continue;
         }
 #endif
