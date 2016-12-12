@@ -8601,6 +8601,33 @@ static void _glewInfo_EGL_EXT_device_query (void)
 
 #endif /* EGL_EXT_device_query */
 
+#ifdef EGL_EXT_gl_colorspace_bt2020_linear
+
+static void _glewInfo_EGL_EXT_gl_colorspace_bt2020_linear (void)
+{
+  glewPrintExt("EGL_EXT_gl_colorspace_bt2020_linear", EGLEW_EXT_gl_colorspace_bt2020_linear, eglewIsSupported("EGL_EXT_gl_colorspace_bt2020_linear"), eglewGetExtension("EGL_EXT_gl_colorspace_bt2020_linear"));
+}
+
+#endif /* EGL_EXT_gl_colorspace_bt2020_linear */
+
+#ifdef EGL_EXT_gl_colorspace_bt2020_pq
+
+static void _glewInfo_EGL_EXT_gl_colorspace_bt2020_pq (void)
+{
+  glewPrintExt("EGL_EXT_gl_colorspace_bt2020_pq", EGLEW_EXT_gl_colorspace_bt2020_pq, eglewIsSupported("EGL_EXT_gl_colorspace_bt2020_pq"), eglewGetExtension("EGL_EXT_gl_colorspace_bt2020_pq"));
+}
+
+#endif /* EGL_EXT_gl_colorspace_bt2020_pq */
+
+#ifdef EGL_EXT_gl_colorspace_scrgb_linear
+
+static void _glewInfo_EGL_EXT_gl_colorspace_scrgb_linear (void)
+{
+  glewPrintExt("EGL_EXT_gl_colorspace_scrgb_linear", EGLEW_EXT_gl_colorspace_scrgb_linear, eglewIsSupported("EGL_EXT_gl_colorspace_scrgb_linear"), eglewGetExtension("EGL_EXT_gl_colorspace_scrgb_linear"));
+}
+
+#endif /* EGL_EXT_gl_colorspace_scrgb_linear */
+
 #ifdef EGL_EXT_image_dma_buf_import
 
 static void _glewInfo_EGL_EXT_image_dma_buf_import (void)
@@ -8666,6 +8693,15 @@ static void _glewInfo_EGL_EXT_output_openwf (void)
 }
 
 #endif /* EGL_EXT_output_openwf */
+
+#ifdef EGL_EXT_pixel_format_float
+
+static void _glewInfo_EGL_EXT_pixel_format_float (void)
+{
+  glewPrintExt("EGL_EXT_pixel_format_float", EGLEW_EXT_pixel_format_float, eglewIsSupported("EGL_EXT_pixel_format_float"), eglewGetExtension("EGL_EXT_pixel_format_float"));
+}
+
+#endif /* EGL_EXT_pixel_format_float */
 
 #ifdef EGL_EXT_platform_base
 
@@ -8735,6 +8771,15 @@ static void _glewInfo_EGL_EXT_stream_consumer_egloutput (void)
 }
 
 #endif /* EGL_EXT_stream_consumer_egloutput */
+
+#ifdef EGL_EXT_surface_SMPTE2086_metadata
+
+static void _glewInfo_EGL_EXT_surface_SMPTE2086_metadata (void)
+{
+  glewPrintExt("EGL_EXT_surface_SMPTE2086_metadata", EGLEW_EXT_surface_SMPTE2086_metadata, eglewIsSupported("EGL_EXT_surface_SMPTE2086_metadata"), eglewGetExtension("EGL_EXT_surface_SMPTE2086_metadata"));
+}
+
+#endif /* EGL_EXT_surface_SMPTE2086_metadata */
 
 #ifdef EGL_EXT_swap_buffers_with_damage
 
@@ -9383,6 +9428,78 @@ static void _glewInfo_EGL_NV_stream_consumer_gltexture_yuv (void)
 
 #endif /* EGL_NV_stream_consumer_gltexture_yuv */
 
+#ifdef EGL_NV_stream_cross_display
+
+static void _glewInfo_EGL_NV_stream_cross_display (void)
+{
+  glewPrintExt("EGL_NV_stream_cross_display", EGLEW_NV_stream_cross_display, eglewIsSupported("EGL_NV_stream_cross_display"), eglewGetExtension("EGL_NV_stream_cross_display"));
+}
+
+#endif /* EGL_NV_stream_cross_display */
+
+#ifdef EGL_NV_stream_cross_object
+
+static void _glewInfo_EGL_NV_stream_cross_object (void)
+{
+  glewPrintExt("EGL_NV_stream_cross_object", EGLEW_NV_stream_cross_object, eglewIsSupported("EGL_NV_stream_cross_object"), eglewGetExtension("EGL_NV_stream_cross_object"));
+}
+
+#endif /* EGL_NV_stream_cross_object */
+
+#ifdef EGL_NV_stream_cross_partition
+
+static void _glewInfo_EGL_NV_stream_cross_partition (void)
+{
+  glewPrintExt("EGL_NV_stream_cross_partition", EGLEW_NV_stream_cross_partition, eglewIsSupported("EGL_NV_stream_cross_partition"), eglewGetExtension("EGL_NV_stream_cross_partition"));
+}
+
+#endif /* EGL_NV_stream_cross_partition */
+
+#ifdef EGL_NV_stream_cross_process
+
+static void _glewInfo_EGL_NV_stream_cross_process (void)
+{
+  glewPrintExt("EGL_NV_stream_cross_process", EGLEW_NV_stream_cross_process, eglewIsSupported("EGL_NV_stream_cross_process"), eglewGetExtension("EGL_NV_stream_cross_process"));
+}
+
+#endif /* EGL_NV_stream_cross_process */
+
+#ifdef EGL_NV_stream_cross_system
+
+static void _glewInfo_EGL_NV_stream_cross_system (void)
+{
+  glewPrintExt("EGL_NV_stream_cross_system", EGLEW_NV_stream_cross_system, eglewIsSupported("EGL_NV_stream_cross_system"), eglewGetExtension("EGL_NV_stream_cross_system"));
+}
+
+#endif /* EGL_NV_stream_cross_system */
+
+#ifdef EGL_NV_stream_fifo_next
+
+static void _glewInfo_EGL_NV_stream_fifo_next (void)
+{
+  glewPrintExt("EGL_NV_stream_fifo_next", EGLEW_NV_stream_fifo_next, eglewIsSupported("EGL_NV_stream_fifo_next"), eglewGetExtension("EGL_NV_stream_fifo_next"));
+}
+
+#endif /* EGL_NV_stream_fifo_next */
+
+#ifdef EGL_NV_stream_fifo_synchronous
+
+static void _glewInfo_EGL_NV_stream_fifo_synchronous (void)
+{
+  glewPrintExt("EGL_NV_stream_fifo_synchronous", EGLEW_NV_stream_fifo_synchronous, eglewIsSupported("EGL_NV_stream_fifo_synchronous"), eglewGetExtension("EGL_NV_stream_fifo_synchronous"));
+}
+
+#endif /* EGL_NV_stream_fifo_synchronous */
+
+#ifdef EGL_NV_stream_frame_limits
+
+static void _glewInfo_EGL_NV_stream_frame_limits (void)
+{
+  glewPrintExt("EGL_NV_stream_frame_limits", EGLEW_NV_stream_frame_limits, eglewIsSupported("EGL_NV_stream_frame_limits"), eglewGetExtension("EGL_NV_stream_frame_limits"));
+}
+
+#endif /* EGL_NV_stream_frame_limits */
+
 #ifdef EGL_NV_stream_metadata
 
 static void _glewInfo_EGL_NV_stream_metadata (void)
@@ -9395,6 +9512,53 @@ static void _glewInfo_EGL_NV_stream_metadata (void)
 }
 
 #endif /* EGL_NV_stream_metadata */
+
+#ifdef EGL_NV_stream_remote
+
+static void _glewInfo_EGL_NV_stream_remote (void)
+{
+  glewPrintExt("EGL_NV_stream_remote", EGLEW_NV_stream_remote, eglewIsSupported("EGL_NV_stream_remote"), eglewGetExtension("EGL_NV_stream_remote"));
+}
+
+#endif /* EGL_NV_stream_remote */
+
+#ifdef EGL_NV_stream_reset
+
+static void _glewInfo_EGL_NV_stream_reset (void)
+{
+  glewPrintExt("EGL_NV_stream_reset", EGLEW_NV_stream_reset, eglewIsSupported("EGL_NV_stream_reset"), eglewGetExtension("EGL_NV_stream_reset"));
+
+  glewInfoFunc("eglResetStreamNV", eglResetStreamNV == NULL);
+}
+
+#endif /* EGL_NV_stream_reset */
+
+#ifdef EGL_NV_stream_socket
+
+static void _glewInfo_EGL_NV_stream_socket (void)
+{
+  glewPrintExt("EGL_NV_stream_socket", EGLEW_NV_stream_socket, eglewIsSupported("EGL_NV_stream_socket"), eglewGetExtension("EGL_NV_stream_socket"));
+}
+
+#endif /* EGL_NV_stream_socket */
+
+#ifdef EGL_NV_stream_socket_inet
+
+static void _glewInfo_EGL_NV_stream_socket_inet (void)
+{
+  glewPrintExt("EGL_NV_stream_socket_inet", EGLEW_NV_stream_socket_inet, eglewIsSupported("EGL_NV_stream_socket_inet"), eglewGetExtension("EGL_NV_stream_socket_inet"));
+}
+
+#endif /* EGL_NV_stream_socket_inet */
+
+#ifdef EGL_NV_stream_socket_unix
+
+static void _glewInfo_EGL_NV_stream_socket_unix (void)
+{
+  glewPrintExt("EGL_NV_stream_socket_unix", EGLEW_NV_stream_socket_unix, eglewIsSupported("EGL_NV_stream_socket_unix"), eglewGetExtension("EGL_NV_stream_socket_unix"));
+}
+
+#endif /* EGL_NV_stream_socket_unix */
 
 #ifdef EGL_NV_stream_sync
 
@@ -13180,6 +13344,15 @@ static void eglewInfo ()
 #ifdef EGL_EXT_device_query
   _glewInfo_EGL_EXT_device_query();
 #endif /* EGL_EXT_device_query */
+#ifdef EGL_EXT_gl_colorspace_bt2020_linear
+  _glewInfo_EGL_EXT_gl_colorspace_bt2020_linear();
+#endif /* EGL_EXT_gl_colorspace_bt2020_linear */
+#ifdef EGL_EXT_gl_colorspace_bt2020_pq
+  _glewInfo_EGL_EXT_gl_colorspace_bt2020_pq();
+#endif /* EGL_EXT_gl_colorspace_bt2020_pq */
+#ifdef EGL_EXT_gl_colorspace_scrgb_linear
+  _glewInfo_EGL_EXT_gl_colorspace_scrgb_linear();
+#endif /* EGL_EXT_gl_colorspace_scrgb_linear */
 #ifdef EGL_EXT_image_dma_buf_import
   _glewInfo_EGL_EXT_image_dma_buf_import();
 #endif /* EGL_EXT_image_dma_buf_import */
@@ -13198,6 +13371,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_output_openwf
   _glewInfo_EGL_EXT_output_openwf();
 #endif /* EGL_EXT_output_openwf */
+#ifdef EGL_EXT_pixel_format_float
+  _glewInfo_EGL_EXT_pixel_format_float();
+#endif /* EGL_EXT_pixel_format_float */
 #ifdef EGL_EXT_platform_base
   _glewInfo_EGL_EXT_platform_base();
 #endif /* EGL_EXT_platform_base */
@@ -13219,6 +13395,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_stream_consumer_egloutput
   _glewInfo_EGL_EXT_stream_consumer_egloutput();
 #endif /* EGL_EXT_stream_consumer_egloutput */
+#ifdef EGL_EXT_surface_SMPTE2086_metadata
+  _glewInfo_EGL_EXT_surface_SMPTE2086_metadata();
+#endif /* EGL_EXT_surface_SMPTE2086_metadata */
 #ifdef EGL_EXT_swap_buffers_with_damage
   _glewInfo_EGL_EXT_swap_buffers_with_damage();
 #endif /* EGL_EXT_swap_buffers_with_damage */
@@ -13411,9 +13590,48 @@ static void eglewInfo ()
 #ifdef EGL_NV_stream_consumer_gltexture_yuv
   _glewInfo_EGL_NV_stream_consumer_gltexture_yuv();
 #endif /* EGL_NV_stream_consumer_gltexture_yuv */
+#ifdef EGL_NV_stream_cross_display
+  _glewInfo_EGL_NV_stream_cross_display();
+#endif /* EGL_NV_stream_cross_display */
+#ifdef EGL_NV_stream_cross_object
+  _glewInfo_EGL_NV_stream_cross_object();
+#endif /* EGL_NV_stream_cross_object */
+#ifdef EGL_NV_stream_cross_partition
+  _glewInfo_EGL_NV_stream_cross_partition();
+#endif /* EGL_NV_stream_cross_partition */
+#ifdef EGL_NV_stream_cross_process
+  _glewInfo_EGL_NV_stream_cross_process();
+#endif /* EGL_NV_stream_cross_process */
+#ifdef EGL_NV_stream_cross_system
+  _glewInfo_EGL_NV_stream_cross_system();
+#endif /* EGL_NV_stream_cross_system */
+#ifdef EGL_NV_stream_fifo_next
+  _glewInfo_EGL_NV_stream_fifo_next();
+#endif /* EGL_NV_stream_fifo_next */
+#ifdef EGL_NV_stream_fifo_synchronous
+  _glewInfo_EGL_NV_stream_fifo_synchronous();
+#endif /* EGL_NV_stream_fifo_synchronous */
+#ifdef EGL_NV_stream_frame_limits
+  _glewInfo_EGL_NV_stream_frame_limits();
+#endif /* EGL_NV_stream_frame_limits */
 #ifdef EGL_NV_stream_metadata
   _glewInfo_EGL_NV_stream_metadata();
 #endif /* EGL_NV_stream_metadata */
+#ifdef EGL_NV_stream_remote
+  _glewInfo_EGL_NV_stream_remote();
+#endif /* EGL_NV_stream_remote */
+#ifdef EGL_NV_stream_reset
+  _glewInfo_EGL_NV_stream_reset();
+#endif /* EGL_NV_stream_reset */
+#ifdef EGL_NV_stream_socket
+  _glewInfo_EGL_NV_stream_socket();
+#endif /* EGL_NV_stream_socket */
+#ifdef EGL_NV_stream_socket_inet
+  _glewInfo_EGL_NV_stream_socket_inet();
+#endif /* EGL_NV_stream_socket_inet */
+#ifdef EGL_NV_stream_socket_unix
+  _glewInfo_EGL_NV_stream_socket_unix();
+#endif /* EGL_NV_stream_socket_unix */
 #ifdef EGL_NV_stream_sync
   _glewInfo_EGL_NV_stream_sync();
 #endif /* EGL_NV_stream_sync */
