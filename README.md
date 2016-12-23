@@ -54,6 +54,8 @@ Targets:    `all, glew.lib (sub-targets: glew.lib.shared, glew.lib.static), glew
 
 Variables:  `SYSTEM=linux-clang, GLEW_DEST=/usr/local, STRIP=`
 
+_Note: may need to make **auto** folder_
+
 #### Using cmake
 
 *CMake 2.8.12 or higher is required.*
@@ -149,7 +151,7 @@ OpenGL implementation and GLEW support for that.  Please include the output of
 
 ## Code Generation
 
-A Unix or Mac environment is neded for building GLEW from scratch to
+A Unix or Mac environment is needed for building GLEW from scratch to
 include new extensions, or customize the code generation. The extension
 data is regenerated from the top level source directory with:
 
