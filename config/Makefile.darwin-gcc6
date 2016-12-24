@@ -1,24 +1,23 @@
-#
-# Needs to be clang toolchain for universal: -arch i386 -arch x86_64
-#
+# For building with Brew gcc:
+# $ brew install gcc
 GLEW_DEST = /usr/local
 NAME = $(GLEW_NAME)
-CC = cc
-LD = cc
-AR = 
-LIBTOOL = libtool -static -o
-STRIP = 
+CC = gcc-6
+LD = gcc-6
 CFLAGS.EXTRA = -dynamic -fno-common
-CFLAGS.EXTRA += -std=c89 -pedantic
+CFLAGS.EXTRA += -std=c89
+# Lots of warnings with -pedantic
+# warning: ISO C forbids conversion of object pointer to function pointer type
+#CFLAGS.EXTRA += -pedantic
 #CFLAGS.EXTRA += -no-cpp-precomp
-CFLAGS.EXTRA += -arch i386 -arch x86_64
-LDFLAGS.EXTRA = -arch i386 -arch x86_64
+LDFLAGS.EXTRA =
 ifneq (undefined, $(origin GLEW_APPLE_GLX))
 CFLAGS.EXTRA += -I/usr/X11R6/include -D'GLEW_APPLE_GLX'
 LDFLAGS.GL = -L/usr/X11R6/lib -lGL -lX11
 else
 LDFLAGS.GL = -framework OpenGL
 endif
+LDFLAGS.STATIC =
 LDFLAGS.DYNAMIC =
 WARN = -Wall -W
 POPT = -Os
