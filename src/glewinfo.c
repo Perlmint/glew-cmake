@@ -9837,6 +9837,15 @@ static void _glewInfo_WGL_ATI_render_texture_rectangle (void)
 
 #endif /* WGL_ATI_render_texture_rectangle */
 
+#ifdef WGL_EXT_colorspace
+
+static void _glewInfo_WGL_EXT_colorspace (void)
+{
+  glewPrintExt("WGL_EXT_colorspace", WGLEW_EXT_colorspace, wglewIsSupported("WGL_EXT_colorspace"), wglewGetExtension("WGL_EXT_colorspace"));
+}
+
+#endif /* WGL_EXT_colorspace */
+
 #ifdef WGL_EXT_create_context_es2_profile
 
 static void _glewInfo_WGL_EXT_create_context_es2_profile (void)
@@ -12933,6 +12942,9 @@ static void wglewInfo ()
 #ifdef WGL_ATI_render_texture_rectangle
   _glewInfo_WGL_ATI_render_texture_rectangle();
 #endif /* WGL_ATI_render_texture_rectangle */
+#ifdef WGL_EXT_colorspace
+  _glewInfo_WGL_EXT_colorspace();
+#endif /* WGL_EXT_colorspace */
 #ifdef WGL_EXT_create_context_es2_profile
   _glewInfo_WGL_EXT_create_context_es2_profile();
 #endif /* WGL_EXT_create_context_es2_profile */

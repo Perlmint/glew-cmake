@@ -506,6 +506,19 @@ typedef BOOL (WINAPI * PFNWGLSETPBUFFERATTRIBARBPROC) (HPBUFFERARB hPbuffer, con
 
 #endif /* WGL_ATI_render_texture_rectangle */
 
+/* --------------------------- WGL_EXT_colorspace -------------------------- */
+
+#ifndef WGL_EXT_colorspace
+#define WGL_EXT_colorspace 1
+
+#define WGL_COLORSPACE_SRGB_EXT 0x3089
+#define WGL_COLORSPACE_LINEAR_EXT 0x308A
+#define WGL_COLORSPACE_EXT 0x309D
+
+#define WGLEW_EXT_colorspace WGLEW_GET_VAR(__WGLEW_EXT_colorspace)
+
+#endif /* WGL_EXT_colorspace */
+
 /* ------------------- WGL_EXT_create_context_es2_profile ------------------ */
 
 #ifndef WGL_EXT_create_context_es2_profile
@@ -1369,6 +1382,7 @@ WGLEW_VAR_EXPORT GLboolean __WGLEW_ARB_robustness_application_isolation;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_ARB_robustness_share_group_isolation;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_ATI_pixel_format_float;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_ATI_render_texture_rectangle;
+WGLEW_VAR_EXPORT GLboolean __WGLEW_EXT_colorspace;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_EXT_create_context_es2_profile;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_EXT_create_context_es_profile;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_EXT_depth_float;

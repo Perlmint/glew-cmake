@@ -16129,6 +16129,7 @@ GLboolean __WGLEW_ARB_robustness_application_isolation = GL_FALSE;
 GLboolean __WGLEW_ARB_robustness_share_group_isolation = GL_FALSE;
 GLboolean __WGLEW_ATI_pixel_format_float = GL_FALSE;
 GLboolean __WGLEW_ATI_render_texture_rectangle = GL_FALSE;
+GLboolean __WGLEW_EXT_colorspace = GL_FALSE;
 GLboolean __WGLEW_EXT_create_context_es2_profile = GL_FALSE;
 GLboolean __WGLEW_EXT_create_context_es_profile = GL_FALSE;
 GLboolean __WGLEW_EXT_depth_float = GL_FALSE;
@@ -16764,6 +16765,9 @@ GLenum GLEWAPIENTRY wglewInit ()
 #ifdef WGL_ATI_render_texture_rectangle
   WGLEW_ATI_render_texture_rectangle = _glewSearchExtension("WGL_ATI_render_texture_rectangle", extStart, extEnd);
 #endif /* WGL_ATI_render_texture_rectangle */
+#ifdef WGL_EXT_colorspace
+  WGLEW_EXT_colorspace = _glewSearchExtension("WGL_EXT_colorspace", extStart, extEnd);
+#endif /* WGL_EXT_colorspace */
 #ifdef WGL_EXT_create_context_es2_profile
   WGLEW_EXT_create_context_es2_profile = _glewSearchExtension("WGL_EXT_create_context_es2_profile", extStart, extEnd);
 #endif /* WGL_EXT_create_context_es2_profile */
@@ -22559,6 +22563,13 @@ GLboolean GLEWAPIENTRY wglewIsSupported (const char* name)
       }
       if (_glewStrSame2(&pos, &len, (const GLubyte*)"EXT_", 4))
       {
+#ifdef WGL_EXT_colorspace
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"colorspace", 10))
+        {
+          ret = WGLEW_EXT_colorspace;
+          continue;
+        }
+#endif
 #ifdef WGL_EXT_create_context_es2_profile
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"create_context_es2_profile", 26))
         {
