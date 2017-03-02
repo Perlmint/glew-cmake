@@ -14,7 +14,6 @@ OPTION( glew-cmake_BUILD_STATIC "Build the static glew library" ON )
 OPTION( glew-cmake_BUILD_SINGLE_CONTEXT "Build the single context glew library" ON )
 OPTION( glew-cmake_BUILD_MULTI_CONTEXT "Build the multi context glew library" ON )
 
-INCLUDE_DIRECTORIES( ${INCLUDE_DIR} )
 
 SET( LIBGLEW_SRCS ${SRC_DIR}/glew.c )
 
@@ -48,8 +47,9 @@ IF ( glew-cmake_BUILD_STATIC )
 		SET_TARGET_PROPERTIES( libglew_static PROPERTIES
 		                       ARCHIVE_OUTPUT_NAME "glew"
 		                       DEBUG_POSTFIX d )
-		INSTALL( TARGETS libglew_static DESTINATION lib )
+		TARGET_INCLUDE_DIRECTORIES( libglew_static PUBLIC ${INCLUDE_DIR} )
 		TARGET_LINK_LIBRARIES( libglew_static ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES} )
+		INSTALL( TARGETS libglew_static DESTINATION lib )
 	ENDIF (  )
 
 	IF ( glew-cmake_BUILD_MULTI_CONTEXT )
@@ -58,9 +58,10 @@ IF ( glew-cmake_BUILD_STATIC )
 		SET_TARGET_PROPERTIES( libglewmx_static PROPERTIES
 		                       ARCHIVE_OUTPUT_NAME "glewmx"
 		                       DEBUG_POSTFIX d )
-		INSTALL( TARGETS libglewmx_static DESTINATION lib )
 		TARGET_COMPILE_DEFINITIONS( libglewmx_static INTERFACE GLEW_MX)
+		TARGET_INCLUDE_DIRECTORIES( libglewmx_static PUBLIC ${INCLUDE_DIR} )
 		TARGET_LINK_LIBRARIES( libglewmx_static ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES} )
+		INSTALL( TARGETS libglewmx_static DESTINATION lib )
 	ENDIF (  )
 ENDIF (  )
 
@@ -73,6 +74,7 @@ IF ( glew-cmake_BUILD_SHARED )
 		                       LIBRARY_OUTPUT_NAME "glew"
 		                       DEBUG_POSTFIX d )
 
+		TARGET_INCLUDE_DIRECTORIES( libglew_shared PUBLIC ${INCLUDE_DIR} )
 		TARGET_LINK_LIBRARIES( libglew_shared ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES} )
 		INSTALL( TARGETS libglew_shared DESTINATION lib )
 	ENDIF (  )
@@ -85,10 +87,10 @@ IF ( glew-cmake_BUILD_SHARED )
 		                       LIBRARY_OUTPUT_NAME "glewmx"
 		                       DEBUG_POSTFIX d )
 
+		TARGET_COMPILE_DEFINITIONS( libglewmx_shared INTERFACE GLEW_MX)
+		TARGET_INCLUDE_DIRECTORIES( libglewmx_shared PUBLIC ${INCLUDE_DIR} )
 		TARGET_LINK_LIBRARIES( libglewmx_shared ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES} )
 		INSTALL( TARGETS libglewmx_shared DESTINATION lib )
-
-		TARGET_COMPILE_DEFINITIONS( libglewmx_shared INTERFACE GLEW_MX)
 	ENDIF (  )
 ENDIF (  )
 
