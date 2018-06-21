@@ -188,10 +188,6 @@ typedef BOOL (WINAPI * PFNWGLSAVEBUFFERREGIONARBPROC) (HANDLE hRegion, int x, in
 #ifndef WGL_ARB_context_flush_control
 #define WGL_ARB_context_flush_control 1
 
-#define WGL_CONTEXT_RELEASE_BEHAVIOR_NONE_ARB 0x0000
-#define WGL_CONTEXT_RELEASE_BEHAVIOR_ARB 0x2097
-#define WGL_CONTEXT_RELEASE_BEHAVIOR_FLUSH_ARB 0x2098
-
 #define WGLEW_ARB_context_flush_control WGLEW_GET_VAR(__WGLEW_ARB_context_flush_control)
 
 #endif /* WGL_ARB_context_flush_control */
@@ -217,6 +213,15 @@ typedef HGLRC (WINAPI * PFNWGLCREATECONTEXTATTRIBSARBPROC) (HDC hDC, HGLRC hShar
 #define WGLEW_ARB_create_context WGLEW_GET_VAR(__WGLEW_ARB_create_context)
 
 #endif /* WGL_ARB_create_context */
+
+/* -------------------- WGL_ARB_create_context_no_error -------------------- */
+
+#ifndef WGL_ARB_create_context_no_error
+#define WGL_ARB_create_context_no_error 1
+
+#define WGLEW_ARB_create_context_no_error WGLEW_GET_VAR(__WGLEW_ARB_create_context_no_error)
+
+#endif /* WGL_ARB_create_context_no_error */
 
 /* --------------------- WGL_ARB_create_context_profile -------------------- */
 
@@ -1368,6 +1373,7 @@ WGLEW_VAR_EXPORT GLboolean __WGLEW_AMD_gpu_association;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_ARB_buffer_region;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_ARB_context_flush_control;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_ARB_create_context;
+WGLEW_VAR_EXPORT GLboolean __WGLEW_ARB_create_context_no_error;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_ARB_create_context_profile;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_ARB_create_context_robustness;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_ARB_extensions_string;
