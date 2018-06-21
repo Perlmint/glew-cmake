@@ -1,5 +1,7 @@
 # GLEW - The OpenGL Extension Wrangler Library
 
+The OpenGL Extension Wrangler Library (GLEW) is a cross-platform open-source C/C++ extension loading library. GLEW provides efficient run-time mechanisms for determining which OpenGL extensions are supported on the target platform. OpenGL core and extension functionality is exposed in a single header file. GLEW has been tested on a variety of operating systems, including Windows, Linux, Mac OS X, FreeBSD, Irix, and Solaris.
+
 ![](http://glew.sourceforge.net/glew.png)
 
 http://glew.sourceforge.net/
@@ -12,21 +14,18 @@ https://github.com/nigels-com/glew
 
 ## Downloads
 
-Current release is [2.0.0](https://sourceforge.net/projects/glew/files/glew/2.0.0/).
+Current release is [2.1.0](https://sourceforge.net/projects/glew/files/glew/2.1.0/).
 [(Change Log)](http://glew.sourceforge.net/log.html)
 
 Sources available as 
-[ZIP](https://sourceforge.net/projects/glew/files/glew/2.0.0/glew-2.0.0.zip/download) or
-[TGZ](https://sourceforge.net/projects/glew/files/glew/2.0.0/glew-2.0.0.tgz/download).
+[ZIP](https://sourceforge.net/projects/glew/files/glew/2.1.0/glew-2.1.0.zip/download) or
+[TGZ](https://sourceforge.net/projects/glew/files/glew/2.1.0/glew-2.1.0.tgz/download).
 
-Windows binaries for [32-bit and 64-bit](https://sourceforge.net/projects/glew/files/glew/2.0.0/glew-2.0.0-win32.zip/download).
+Windows binaries for [32-bit and 64-bit](https://sourceforge.net/projects/glew/files/glew/2.1.0/glew-2.1.0-win32.zip/download).
 
 ### Recent snapshots
 
 Snapshots may contain new features, bug-fixes or new OpenGL extensions ahead of tested, official releases.
-
-[glew-20160708.tgz](http://sourceforge.net/projects/glew/files/glew/snapshots/glew-20160708.tgz/download)
-*GLEW 2.0.0 RC: Core context, EGL support, no MX*
 
 ## Build
 
@@ -93,9 +92,9 @@ RedHat/CentOS/Fedora: `$ sudo yum install libXmu-devel libXi-devel libGL-devel c
 
 #### Visual Studio
 
-Use the provided Visual Studio project file in build/vc12/
+Use the provided Visual Studio project file in build/vc15/
 
-Projects for vc6 and vc10 are also provided
+Projects for vc6, vc10, vc12 and vc14 are also provided
 
 #### MSYS/Mingw
 
@@ -125,8 +124,8 @@ Alternative toolchain:  `SYSTEM=msys, SYSTEM=msys-win32, SYSTEM=msys-win64`
 ## glewinfo
 
 `glewinfo` is a command-line tool useful for inspecting the capabilities of an
-OpenGL implementation and GLEW support for that.  Please include the output of
-`glewinfo` with bug reports, as appropriate.	
+OpenGL implementation and GLEW support for that.  Please include `glewinfo.txt`
+with bug reports, as appropriate.	
 
 	---------------------------
 	    GLEW Extension Info
