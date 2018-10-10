@@ -392,6 +392,10 @@ typedef Bool ( * PFNGLXMAKEASSOCIATEDCONTEXTCURRENTAMDPROC) (GLXContext ctx);
 #ifndef GLX_ARB_context_flush_control
 #define GLX_ARB_context_flush_control 1
 
+#define GLX_CONTEXT_RELEASE_BEHAVIOR_NONE_ARB 0x0000
+#define GLX_CONTEXT_RELEASE_BEHAVIOR_ARB 0x2097
+#define GLX_CONTEXT_RELEASE_BEHAVIOR_FLUSH_ARB 0x2098
+
 #define GLXEW_ARB_context_flush_control GLXEW_GET_VAR(__GLXEW_ARB_context_flush_control)
 
 #endif /* GLX_ARB_context_flush_control */
@@ -685,6 +689,15 @@ typedef int ( * PFNGLXQUERYCONTEXTINFOEXTPROC) (Display* dpy, GLXContext context
 #define GLXEW_EXT_libglvnd GLXEW_GET_VAR(__GLXEW_EXT_libglvnd)
 
 #endif /* GLX_EXT_libglvnd */
+
+/* ----------------------- GLX_EXT_no_config_context ----------------------- */
+
+#ifndef GLX_EXT_no_config_context
+#define GLX_EXT_no_config_context 1
+
+#define GLXEW_EXT_no_config_context GLXEW_GET_VAR(__GLXEW_EXT_no_config_context)
+
+#endif /* GLX_EXT_no_config_context */
 
 /* -------------------------- GLX_EXT_scene_marker ------------------------- */
 
@@ -1708,6 +1721,7 @@ GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_fbconfig_packed_float;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_framebuffer_sRGB;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_import_context;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_libglvnd;
+GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_no_config_context;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_scene_marker;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_stereo_tree;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_swap_control;
