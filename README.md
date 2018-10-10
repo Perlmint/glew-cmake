@@ -27,6 +27,8 @@ Windows binaries for [32-bit and 64-bit](https://sourceforge.net/projects/glew/f
 
 Snapshots may contain new features, bug-fixes or new OpenGL extensions ahead of tested, official releases.
 
+[glew-20181010.tgz](https://sourceforge.net/projects/glew/files/glew/snapshots/glew-20181010.tgz/download) *GLEW 2.2.0 RC1: New extensions, bug fixes*
+
 ## Build
 
 It is highly recommended to build from a tgz or zip release snapshot.
@@ -39,7 +41,7 @@ For most end-users of GLEW the official releases are the best choice, with first
 
 ##### Install build tools
 
-Debian/Ubuntu/Mint:    `$ sudo apt-get install build-essential libxmu-dev libxi-dev libgl-dev libosmesa-dev`
+Debian/Ubuntu/Mint:    `$ sudo apt-get install build-essential libxmu-dev libxi-dev libgl-dev`
 
 RedHat/CentOS/Fedora:  `$ sudo yum install libXmu-devel libXi-devel libGL-devel`
 
@@ -55,15 +57,31 @@ Variables:  `SYSTEM=linux-clang, GLEW_DEST=/usr/local, STRIP=`
 
 _Note: may need to make **auto** folder_
 
+##### Linux EGL
+
+	$ sudo apt install libegl1-mesa-dev
+	$ make SYSTEM=linux-egl
+
+##### Linux OSMesa
+
+	$ sudo apt install libosmesa-dev
+	$ make SYSTEM=linux-osmesa
+
+##### Linux mingw-w64
+
+	$ sudo apt install mingw-w64
+	$ make SYSTEM=linux-mingw32
+	$ make SYSTEM=linux-mingw64
+
 #### Using cmake
 
 *CMake 2.8.12 or higher is required.*
 
 ##### Install build tools
 
-Debian/Ubuntu/Mint:   `$ sudo apt-get install build-essential libXmu-dev libXi-dev libgl-dev cmake`
+Debian/Ubuntu/Mint:   `$ sudo apt-get install build-essential libxmu-dev libxi-dev libgl-dev cmake git`
 
-RedHat/CentOS/Fedora: `$ sudo yum install libXmu-devel libXi-devel libGL-devel cmake`
+RedHat/CentOS/Fedora: `$ sudo yum install libXmu-devel libXi-devel libGL-devel cmake git`
 
 ##### Build
 
@@ -179,6 +197,21 @@ The acronym GLEW originates from Aaron Lefohn.
 Pasi K&auml;rkk&auml;inen identified and fixed several problems with
 GLX and SDL.  Nate Robins created the `wglinfo` utility, to
 which modifications were made by Michael Wimmer.  
+
+## Contributions
+
+GLEW welcomes community contributions.  Typically these are co-ordinated
+via [Issues](https://github.com/nigels-com/glew/issues) or 
+[Pull Requests](https://github.com/nigels-com/glew/pulls) in the
+GitHub web interface.
+
+Be sure to mention platform and compiler toolchain details when filing
+a bug report.  The output of `glewinfo` can be quite useful for discussion
+also.
+
+Generally GLEW is released once a year, around the time of the Siggraph
+computer graphics conference.  If you're not using the current release
+version of GLEW, be sure to check if the issue or bug is fixed there.
 
 ## Copyright and Licensing
 

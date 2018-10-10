@@ -69,6 +69,10 @@ my %typemap = (
     uint64 => "GLuint64",
     sync   => "GLsync",
 
+    # GL_EXT_EGL_image_storage
+
+    eglImageOES => "GLeglImageOES",
+
     # AMD_debug_output
 
     DEBUGPROCAMD => "GLDEBUGPROCAMD",
@@ -137,6 +141,14 @@ my %fnc_ignore_list = (
     "ProgramLocalParameter4fARB"    => "ARB_vertex_program",
     "ProgramLocalParameter4fvARB"   => "ARB_vertex_program",
     "ProgramStringARB"              => "ARB_vertex_program",
+    "EGLImageTargetTexture2DOES"    => "OES_EGL_image",
+    "FramebufferTextureOES"         => "GL_OES_geometry_shader",
+    "PatchParameteriOES"            => "GL_OES_tessellation_shader",
+    "PointSizePointerOES"           => "GL_OES_point_size_array",
+    "LockArraysEXT"                 => "EXT_compiled_vertex_array",
+    "UnlockArraysEXT"               => "EXT_compiled_vertex_array",
+    "CoverageMaskNV"                => "NV_coverage_sample",
+    "CoverageOperationNV"           => "NV_coverage_sample",
     "glXCreateContextAttribsARB"    => "ARB_create_context_profile",
     "wglCreateContextAttribsARB"    => "WGL_ARB_create_context_profile",
 );
@@ -146,8 +158,8 @@ my %regex = (
     extname  => qr/^[A-Z][A-Za-z0-9_]+$/,
     none     => qr/^\(none\)$/,
     function => qr/^(.+) ([a-z][a-z0-9_]*) \((.+)\)$/i,
-    prefix   => qr/^(?:[aw]?gl|glX)/, # gl | agl | wgl | glX
-    tprefix  => qr/^(?:[AW]?GL|GLX)_/, # GL_ | AGL_ | WGL_ | GLX_
+    prefix   => qr/^(?:[aw]?gl|glX|egl)/, # gl | agl | wgl | glX
+    tprefix  => qr/^(?:[AW]?GL|GLX|EGL)_/, # GL_ | AGL_ | WGL_ | GLX_
     section  => compile_regex('^(', join('|', @sections), ')$'), # sections in spec
     token    => qr/^([A-Z0-9][A-Z0-9_x]*):?\s+((?:0x)?[0-9A-Fa-f]+(u(ll)?)?)(|\s[^\?]*)$/, # define tokens
     types    => compile_regex('\b(', join('|', keys %typemap), ')\b'), # var types
@@ -311,7 +323,7 @@ my @speclist = ();
 my %extensions = ();
 
 my $ext_dir = shift;
-my $reg_http = "http://www.opengl.org/registry/specs/";
+my $reg_http = "https://www.khronos.org/registry/OpenGL/extensions/";
 
 # Take command line arguments or read list from file
 if (@ARGV)
@@ -332,7 +344,7 @@ foreach my $spec (sort @speclist)
         open EXT, ">$info";
         print EXT $ext . "\n";                       # Extension name
         my $specname = $spec;
-        $specname =~ s/registry\/gl\/specs\///;
+        $specname =~ s/OpenGL-Registry\/extensions\///;
         print EXT $reg_http . $specname . "\n";      # Extension info URL
         print EXT $ext . "\n";                       # Extension string
         print EXT "\n";                              # Resuses nothing by default
