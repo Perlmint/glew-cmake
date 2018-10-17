@@ -17925,6 +17925,19 @@ typedef void (GLAPIENTRY * PFNGLVDPAUUNREGISTERSURFACENVPROC) (GLvdpauSurfaceNV 
 
 #endif /* GL_NV_vdpau_interop */
 
+/* -------------------------- GL_NV_vdpau_interop2 ------------------------- */
+
+#ifndef GL_NV_vdpau_interop2
+#define GL_NV_vdpau_interop2 1
+
+typedef GLvdpauSurfaceNV (GLAPIENTRY * PFNGLVDPAUREGISTERVIDEOSURFACEWITHPICTURESTRUCTURENVPROC) (const void *vdpSurface, GLenum target, GLsizei numTextureNames, const GLuint *textureNames, GLboolean isFrameStructure);
+
+#define glVDPAURegisterVideoSurfaceWithPictureStructureNV GLEW_GET_FUN(__glewVDPAURegisterVideoSurfaceWithPictureStructureNV)
+
+#define GLEW_NV_vdpau_interop2 GLEW_GET_VAR(__GLEW_NV_vdpau_interop2)
+
+#endif /* GL_NV_vdpau_interop2 */
+
 /* ------------------------ GL_NV_vertex_array_range ----------------------- */
 
 #ifndef GL_NV_vertex_array_range
@@ -24740,6 +24753,8 @@ GLEW_FUN_EXPORT PFNGLVDPAUSURFACEACCESSNVPROC __glewVDPAUSurfaceAccessNV;
 GLEW_FUN_EXPORT PFNGLVDPAUUNMAPSURFACESNVPROC __glewVDPAUUnmapSurfacesNV;
 GLEW_FUN_EXPORT PFNGLVDPAUUNREGISTERSURFACENVPROC __glewVDPAUUnregisterSurfaceNV;
 
+GLEW_FUN_EXPORT PFNGLVDPAUREGISTERVIDEOSURFACEWITHPICTURESTRUCTURENVPROC __glewVDPAURegisterVideoSurfaceWithPictureStructureNV;
+
 GLEW_FUN_EXPORT PFNGLFLUSHVERTEXARRAYRANGENVPROC __glewFlushVertexArrayRangeNV;
 GLEW_FUN_EXPORT PFNGLVERTEXARRAYRANGENVPROC __glewVertexArrayRangeNV;
 
@@ -25936,6 +25951,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_NV_transform_feedback;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_transform_feedback2;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_uniform_buffer_unified_memory;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_vdpau_interop;
+GLEW_VAR_EXPORT GLboolean __GLEW_NV_vdpau_interop2;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_vertex_array_range;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_vertex_array_range2;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_vertex_attrib_integer_64bit;

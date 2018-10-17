@@ -8993,6 +8993,17 @@ static void _glewInfo_GL_NV_vdpau_interop (void)
 
 #endif /* GL_NV_vdpau_interop */
 
+#ifdef GL_NV_vdpau_interop2
+
+static void _glewInfo_GL_NV_vdpau_interop2 (void)
+{
+  glewPrintExt("GL_NV_vdpau_interop2", GLEW_NV_vdpau_interop2, glewIsSupported("GL_NV_vdpau_interop2"), glewGetExtension("GL_NV_vdpau_interop2"));
+
+  glewInfoFunc("glVDPAURegisterVideoSurfaceWithPictureStructureNV", glVDPAURegisterVideoSurfaceWithPictureStructureNV == NULL);
+}
+
+#endif /* GL_NV_vdpau_interop2 */
+
 #ifdef GL_NV_vertex_array_range
 
 static void _glewInfo_GL_NV_vertex_array_range (void)
@@ -16570,6 +16581,9 @@ static void glewInfo (void)
 #ifdef GL_NV_vdpau_interop
   _glewInfo_GL_NV_vdpau_interop();
 #endif /* GL_NV_vdpau_interop */
+#ifdef GL_NV_vdpau_interop2
+  _glewInfo_GL_NV_vdpau_interop2();
+#endif /* GL_NV_vdpau_interop2 */
 #ifdef GL_NV_vertex_array_range
   _glewInfo_GL_NV_vertex_array_range();
 #endif /* GL_NV_vertex_array_range */

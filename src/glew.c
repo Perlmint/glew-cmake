@@ -2947,6 +2947,8 @@ PFNGLVDPAUSURFACEACCESSNVPROC __glewVDPAUSurfaceAccessNV = NULL;
 PFNGLVDPAUUNMAPSURFACESNVPROC __glewVDPAUUnmapSurfacesNV = NULL;
 PFNGLVDPAUUNREGISTERSURFACENVPROC __glewVDPAUUnregisterSurfaceNV = NULL;
 
+PFNGLVDPAUREGISTERVIDEOSURFACEWITHPICTURESTRUCTURENVPROC __glewVDPAURegisterVideoSurfaceWithPictureStructureNV = NULL;
+
 PFNGLFLUSHVERTEXARRAYRANGENVPROC __glewFlushVertexArrayRangeNV = NULL;
 PFNGLVERTEXARRAYRANGENVPROC __glewVertexArrayRangeNV = NULL;
 
@@ -4144,6 +4146,7 @@ GLboolean __GLEW_NV_transform_feedback = GL_FALSE;
 GLboolean __GLEW_NV_transform_feedback2 = GL_FALSE;
 GLboolean __GLEW_NV_uniform_buffer_unified_memory = GL_FALSE;
 GLboolean __GLEW_NV_vdpau_interop = GL_FALSE;
+GLboolean __GLEW_NV_vdpau_interop2 = GL_FALSE;
 GLboolean __GLEW_NV_vertex_array_range = GL_FALSE;
 GLboolean __GLEW_NV_vertex_array_range2 = GL_FALSE;
 GLboolean __GLEW_NV_vertex_attrib_integer_64bit = GL_FALSE;
@@ -6399,6 +6402,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_NV_vdpau_interop
   "GL_NV_vdpau_interop",
 #endif
+#ifdef GL_NV_vdpau_interop2
+  "GL_NV_vdpau_interop2",
+#endif
 #ifdef GL_NV_vertex_array_range
   "GL_NV_vertex_array_range",
 #endif
@@ -7133,7 +7139,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[919];
+static GLboolean  _glewExtensionString[920];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -9164,6 +9170,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_NV_vdpau_interop
   &__GLEW_NV_vdpau_interop,
 #endif
+#ifdef GL_NV_vdpau_interop2
+  &__GLEW_NV_vdpau_interop2,
+#endif
 #ifdef GL_NV_vertex_array_range
   &__GLEW_NV_vertex_array_range,
 #endif
@@ -10209,6 +10218,7 @@ static GLboolean _glewInit_GL_NV_texture_multisample ();
 static GLboolean _glewInit_GL_NV_transform_feedback ();
 static GLboolean _glewInit_GL_NV_transform_feedback2 ();
 static GLboolean _glewInit_GL_NV_vdpau_interop ();
+static GLboolean _glewInit_GL_NV_vdpau_interop2 ();
 static GLboolean _glewInit_GL_NV_vertex_array_range ();
 static GLboolean _glewInit_GL_NV_vertex_attrib_integer_64bit ();
 static GLboolean _glewInit_GL_NV_vertex_buffer_unified_memory ();
@@ -16369,6 +16379,19 @@ static GLboolean _glewInit_GL_NV_vdpau_interop ()
 
 #endif /* GL_NV_vdpau_interop */
 
+#ifdef GL_NV_vdpau_interop2
+
+static GLboolean _glewInit_GL_NV_vdpau_interop2 ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glVDPAURegisterVideoSurfaceWithPictureStructureNV = (PFNGLVDPAUREGISTERVIDEOSURFACEWITHPICTURESTRUCTURENVPROC)glewGetProcAddress((const GLubyte*)"glVDPAURegisterVideoSurfaceWithPictureStructureNV")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_NV_vdpau_interop2 */
+
 #ifdef GL_NV_vertex_array_range
 
 static GLboolean _glewInit_GL_NV_vertex_array_range ()
@@ -18853,6 +18876,9 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 #ifdef GL_NV_vdpau_interop
   if (glewExperimental || GLEW_NV_vdpau_interop) GLEW_NV_vdpau_interop = !_glewInit_GL_NV_vdpau_interop();
 #endif /* GL_NV_vdpau_interop */
+#ifdef GL_NV_vdpau_interop2
+  if (glewExperimental || GLEW_NV_vdpau_interop2) GLEW_NV_vdpau_interop2 = !_glewInit_GL_NV_vdpau_interop2();
+#endif /* GL_NV_vdpau_interop2 */
 #ifdef GL_NV_vertex_array_range
   if (glewExperimental || GLEW_NV_vertex_array_range) GLEW_NV_vertex_array_range = !_glewInit_GL_NV_vertex_array_range();
 #endif /* GL_NV_vertex_array_range */
@@ -27767,6 +27793,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"vdpau_interop", 13))
         {
           ret = GLEW_NV_vdpau_interop;
+          continue;
+        }
+#endif
+#ifdef GL_NV_vdpau_interop2
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"vdpau_interop2", 14))
+        {
+          ret = GLEW_NV_vdpau_interop2;
           continue;
         }
 #endif
