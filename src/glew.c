@@ -4231,6 +4231,7 @@ GLboolean __GLEW_OVR_multiview2 = GL_FALSE;
 GLboolean __GLEW_OVR_multiview_multisampled_render_to_texture = GL_FALSE;
 GLboolean __GLEW_PGI_misc_hints = GL_FALSE;
 GLboolean __GLEW_PGI_vertex_hints = GL_FALSE;
+GLboolean __GLEW_QCOM_YUV_texture_gather = GL_FALSE;
 GLboolean __GLEW_QCOM_alpha_test = GL_FALSE;
 GLboolean __GLEW_QCOM_binning_control = GL_FALSE;
 GLboolean __GLEW_QCOM_driver_control = GL_FALSE;
@@ -6657,6 +6658,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_PGI_vertex_hints
   "GL_PGI_vertex_hints",
 #endif
+#ifdef GL_QCOM_YUV_texture_gather
+  "GL_QCOM_YUV_texture_gather",
+#endif
 #ifdef GL_QCOM_alpha_test
   "GL_QCOM_alpha_test",
 #endif
@@ -7139,7 +7143,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[920];
+static GLboolean  _glewExtensionString[921];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -9424,6 +9428,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_PGI_vertex_hints
   &__GLEW_PGI_vertex_hints,
+#endif
+#ifdef GL_QCOM_YUV_texture_gather
+  &__GLEW_QCOM_YUV_texture_gather,
 #endif
 #ifdef GL_QCOM_alpha_test
   &__GLEW_QCOM_alpha_test,
@@ -28406,6 +28413,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
       }
       if (_glewStrSame2(&pos, &len, (const GLubyte*)"QCOM_", 5))
       {
+#ifdef GL_QCOM_YUV_texture_gather
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"YUV_texture_gather", 18))
+        {
+          ret = GLEW_QCOM_YUV_texture_gather;
+          continue;
+        }
+#endif
 #ifdef GL_QCOM_alpha_test
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"alpha_test", 10))
         {

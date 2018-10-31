@@ -9988,6 +9988,15 @@ static void _glewInfo_GL_PGI_vertex_hints (void)
 
 #endif /* GL_PGI_vertex_hints */
 
+#ifdef GL_QCOM_YUV_texture_gather
+
+static void _glewInfo_GL_QCOM_YUV_texture_gather (void)
+{
+  glewPrintExt("GL_QCOM_YUV_texture_gather", GLEW_QCOM_YUV_texture_gather, glewIsSupported("GL_QCOM_YUV_texture_gather"), glewGetExtension("GL_QCOM_YUV_texture_gather"));
+}
+
+#endif /* GL_QCOM_YUV_texture_gather */
+
 #ifdef GL_QCOM_alpha_test
 
 static void _glewInfo_GL_QCOM_alpha_test (void)
@@ -16836,6 +16845,9 @@ static void glewInfo (void)
 #ifdef GL_PGI_vertex_hints
   _glewInfo_GL_PGI_vertex_hints();
 #endif /* GL_PGI_vertex_hints */
+#ifdef GL_QCOM_YUV_texture_gather
+  _glewInfo_GL_QCOM_YUV_texture_gather();
+#endif /* GL_QCOM_YUV_texture_gather */
 #ifdef GL_QCOM_alpha_test
   _glewInfo_GL_QCOM_alpha_test();
 #endif /* GL_QCOM_alpha_test */

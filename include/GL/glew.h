@@ -19839,6 +19839,15 @@ typedef void (GLAPIENTRY * PFNGLFRAMEBUFFERTEXTUREMULTISAMPLEMULTIVIEWOVRPROC) (
 
 #endif /* GL_PGI_vertex_hints */
 
+/* ----------------------- GL_QCOM_YUV_texture_gather ---------------------- */
+
+#ifndef GL_QCOM_YUV_texture_gather
+#define GL_QCOM_YUV_texture_gather 1
+
+#define GLEW_QCOM_YUV_texture_gather GLEW_GET_VAR(__GLEW_QCOM_YUV_texture_gather)
+
+#endif /* GL_QCOM_YUV_texture_gather */
+
 /* --------------------------- GL_QCOM_alpha_test -------------------------- */
 
 #ifndef GL_QCOM_alpha_test
@@ -26036,6 +26045,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_OVR_multiview2;
 GLEW_VAR_EXPORT GLboolean __GLEW_OVR_multiview_multisampled_render_to_texture;
 GLEW_VAR_EXPORT GLboolean __GLEW_PGI_misc_hints;
 GLEW_VAR_EXPORT GLboolean __GLEW_PGI_vertex_hints;
+GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_YUV_texture_gather;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_alpha_test;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_binning_control;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_driver_control;
