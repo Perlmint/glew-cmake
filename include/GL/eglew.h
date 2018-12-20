@@ -913,6 +913,17 @@ typedef EGLBoolean  ( * PFNEGLQUERYDISPLAYATTRIBEXTPROC) (EGLDisplay  dpy, EGLin
 
 #endif /* EGL_EXT_gl_colorspace_display_p3_linear */
 
+/* -------------- EGL_EXT_gl_colorspace_display_p3_passthrough ------------- */
+
+#ifndef EGL_EXT_gl_colorspace_display_p3_passthrough
+#define EGL_EXT_gl_colorspace_display_p3_passthrough 1
+
+#define EGL_GL_COLORSPACE_DISPLAY_P3_PASSTHROUGH_EXT 0x3490
+
+#define EGLEW_EXT_gl_colorspace_display_p3_passthrough EGLEW_GET_VAR(__EGLEW_EXT_gl_colorspace_display_p3_passthrough)
+
+#endif /* EGL_EXT_gl_colorspace_display_p3_passthrough */
+
 /* ---------------------- EGL_EXT_gl_colorspace_scrgb ---------------------- */
 
 #ifndef EGL_EXT_gl_colorspace_scrgb
@@ -2764,6 +2775,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_bt2020_linear;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_bt2020_pq;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_display_p3;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_display_p3_linear;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_display_p3_passthrough;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_scrgb;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_scrgb_linear;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_image_dma_buf_import;

@@ -11966,6 +11966,15 @@ static void _glewInfo_EGL_EXT_gl_colorspace_display_p3_linear (void)
 
 #endif /* EGL_EXT_gl_colorspace_display_p3_linear */
 
+#ifdef EGL_EXT_gl_colorspace_display_p3_passthrough
+
+static void _glewInfo_EGL_EXT_gl_colorspace_display_p3_passthrough (void)
+{
+  glewPrintExt("EGL_EXT_gl_colorspace_display_p3_passthrough", EGLEW_EXT_gl_colorspace_display_p3_passthrough, eglewIsSupported("EGL_EXT_gl_colorspace_display_p3_passthrough"), eglewGetExtension("EGL_EXT_gl_colorspace_display_p3_passthrough"));
+}
+
+#endif /* EGL_EXT_gl_colorspace_display_p3_passthrough */
+
 #ifdef EGL_EXT_gl_colorspace_scrgb
 
 static void _glewInfo_EGL_EXT_gl_colorspace_scrgb (void)
@@ -17789,6 +17798,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_gl_colorspace_display_p3_linear
   _glewInfo_EGL_EXT_gl_colorspace_display_p3_linear();
 #endif /* EGL_EXT_gl_colorspace_display_p3_linear */
+#ifdef EGL_EXT_gl_colorspace_display_p3_passthrough
+  _glewInfo_EGL_EXT_gl_colorspace_display_p3_passthrough();
+#endif /* EGL_EXT_gl_colorspace_display_p3_passthrough */
 #ifdef EGL_EXT_gl_colorspace_scrgb
   _glewInfo_EGL_EXT_gl_colorspace_scrgb();
 #endif /* EGL_EXT_gl_colorspace_scrgb */

@@ -19367,6 +19367,7 @@ GLboolean __EGLEW_EXT_gl_colorspace_bt2020_linear = GL_FALSE;
 GLboolean __EGLEW_EXT_gl_colorspace_bt2020_pq = GL_FALSE;
 GLboolean __EGLEW_EXT_gl_colorspace_display_p3 = GL_FALSE;
 GLboolean __EGLEW_EXT_gl_colorspace_display_p3_linear = GL_FALSE;
+GLboolean __EGLEW_EXT_gl_colorspace_display_p3_passthrough = GL_FALSE;
 GLboolean __EGLEW_EXT_gl_colorspace_scrgb = GL_FALSE;
 GLboolean __EGLEW_EXT_gl_colorspace_scrgb_linear = GL_FALSE;
 GLboolean __EGLEW_EXT_image_dma_buf_import = GL_FALSE;
@@ -20408,6 +20409,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_EXT_gl_colorspace_display_p3_linear
   EGLEW_EXT_gl_colorspace_display_p3_linear = _glewSearchExtension("EGL_EXT_gl_colorspace_display_p3_linear", extStart, extEnd);
 #endif /* EGL_EXT_gl_colorspace_display_p3_linear */
+#ifdef EGL_EXT_gl_colorspace_display_p3_passthrough
+  EGLEW_EXT_gl_colorspace_display_p3_passthrough = _glewSearchExtension("EGL_EXT_gl_colorspace_display_p3_passthrough", extStart, extEnd);
+#endif /* EGL_EXT_gl_colorspace_display_p3_passthrough */
 #ifdef EGL_EXT_gl_colorspace_scrgb
   EGLEW_EXT_gl_colorspace_scrgb = _glewSearchExtension("EGL_EXT_gl_colorspace_scrgb", extStart, extEnd);
 #endif /* EGL_EXT_gl_colorspace_scrgb */
@@ -30731,6 +30735,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"gl_colorspace_display_p3_linear", 31))
         {
           ret = EGLEW_EXT_gl_colorspace_display_p3_linear;
+          continue;
+        }
+#endif
+#ifdef EGL_EXT_gl_colorspace_display_p3_passthrough
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"gl_colorspace_display_p3_passthrough", 36))
+        {
+          ret = EGLEW_EXT_gl_colorspace_display_p3_passthrough;
           continue;
         }
 #endif
