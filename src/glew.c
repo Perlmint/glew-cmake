@@ -19298,6 +19298,9 @@ PFNEGLEXPORTDRMIMAGEMESAPROC __eglewExportDRMImageMESA = NULL;
 PFNEGLEXPORTDMABUFIMAGEMESAPROC __eglewExportDMABUFImageMESA = NULL;
 PFNEGLEXPORTDMABUFIMAGEQUERYMESAPROC __eglewExportDMABUFImageQueryMESA = NULL;
 
+PFNEGLGETDISPLAYDRIVERCONFIGPROC __eglewGetDisplayDriverConfig = NULL;
+PFNEGLGETDISPLAYDRIVERNAMEPROC __eglewGetDisplayDriverName = NULL;
+
 PFNEGLSWAPBUFFERSREGIONNOKPROC __eglewSwapBuffersRegionNOK = NULL;
 
 PFNEGLSWAPBUFFERSREGION2NOKPROC __eglewSwapBuffersRegion2NOK = NULL;
@@ -19440,6 +19443,7 @@ GLboolean __EGLEW_MESA_drm_image = GL_FALSE;
 GLboolean __EGLEW_MESA_image_dma_buf_export = GL_FALSE;
 GLboolean __EGLEW_MESA_platform_gbm = GL_FALSE;
 GLboolean __EGLEW_MESA_platform_surfaceless = GL_FALSE;
+GLboolean __EGLEW_MESA_query_driver = GL_FALSE;
 GLboolean __EGLEW_NOK_swap_region = GL_FALSE;
 GLboolean __EGLEW_NOK_swap_region2 = GL_FALSE;
 GLboolean __EGLEW_NOK_texture_from_pixmap = GL_FALSE;
@@ -20089,6 +20093,20 @@ static GLboolean _glewInit_EGL_MESA_image_dma_buf_export ()
 
 #endif /* EGL_MESA_image_dma_buf_export */
 
+#ifdef EGL_MESA_query_driver
+
+static GLboolean _glewInit_EGL_MESA_query_driver ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((eglGetDisplayDriverConfig = (PFNEGLGETDISPLAYDRIVERCONFIGPROC)glewGetProcAddress((const GLubyte*)"eglGetDisplayDriverConfig")) == NULL) || r;
+  r = ((eglGetDisplayDriverName = (PFNEGLGETDISPLAYDRIVERNAMEPROC)glewGetProcAddress((const GLubyte*)"eglGetDisplayDriverName")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* EGL_MESA_query_driver */
+
 #ifdef EGL_NOK_swap_region
 
 static GLboolean _glewInit_EGL_NOK_swap_region ()
@@ -20653,6 +20671,10 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_MESA_platform_surfaceless
   EGLEW_MESA_platform_surfaceless = _glewSearchExtension("EGL_MESA_platform_surfaceless", extStart, extEnd);
 #endif /* EGL_MESA_platform_surfaceless */
+#ifdef EGL_MESA_query_driver
+  EGLEW_MESA_query_driver = _glewSearchExtension("EGL_MESA_query_driver", extStart, extEnd);
+  if (glewExperimental || EGLEW_MESA_query_driver) EGLEW_MESA_query_driver = !_glewInit_EGL_MESA_query_driver();
+#endif /* EGL_MESA_query_driver */
 #ifdef EGL_NOK_swap_region
   EGLEW_NOK_swap_region = _glewSearchExtension("EGL_NOK_swap_region", extStart, extEnd);
   if (glewExperimental || EGLEW_NOK_swap_region) EGLEW_NOK_swap_region = !_glewInit_EGL_NOK_swap_region();
@@ -31258,6 +31280,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"platform_surfaceless", 20))
         {
           ret = EGLEW_MESA_platform_surfaceless;
+          continue;
+        }
+#endif
+#ifdef EGL_MESA_query_driver
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"query_driver", 12))
+        {
+          ret = EGLEW_MESA_query_driver;
           continue;
         }
 #endif
