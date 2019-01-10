@@ -12704,18 +12704,6 @@ static void _glewInfo_EGL_MESA_platform_surfaceless (void)
 
 #endif /* EGL_MESA_platform_surfaceless */
 
-#ifdef EGL_MESA_query_driver
-
-static void _glewInfo_EGL_MESA_query_driver (void)
-{
-  glewPrintExt("EGL_MESA_query_driver", EGLEW_MESA_query_driver, eglewIsSupported("EGL_MESA_query_driver"), eglewGetExtension("EGL_MESA_query_driver"));
-
-  glewInfoFunc("eglGetDisplayDriverConfig", eglGetDisplayDriverConfig == NULL);
-  glewInfoFunc("eglGetDisplayDriverName", eglGetDisplayDriverName == NULL);
-}
-
-#endif /* EGL_MESA_query_driver */
-
 #ifdef EGL_NOK_swap_region
 
 static void _glewInfo_EGL_NOK_swap_region (void)
@@ -18029,9 +18017,6 @@ static void eglewInfo ()
 #ifdef EGL_MESA_platform_surfaceless
   _glewInfo_EGL_MESA_platform_surfaceless();
 #endif /* EGL_MESA_platform_surfaceless */
-#ifdef EGL_MESA_query_driver
-  _glewInfo_EGL_MESA_query_driver();
-#endif /* EGL_MESA_query_driver */
 #ifdef EGL_NOK_swap_region
   _glewInfo_EGL_NOK_swap_region();
 #endif /* EGL_NOK_swap_region */
