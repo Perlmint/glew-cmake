@@ -19625,7 +19625,7 @@ typedef void (GLAPIENTRY * PFNGLTEXGENXVOESPROC) (GLenum coord, GLenum pname, co
 #define GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY_OES 0x910C
 #define GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY_OES 0x910D
 
-typedef void (GLAPIENTRY * PFNGLTEXSTORAGE3DMULTISAMPLEOESPROC) (GLenum target, GLsizei samples, GLenum sizedinternalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations);
+typedef void (GLAPIENTRY * PFNGLTEXSTORAGE3DMULTISAMPLEOESPROC) (GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations);
 
 #define glTexStorage3DMultisampleOES GLEW_GET_FUN(__glewTexStorage3DMultisampleOES)
 
