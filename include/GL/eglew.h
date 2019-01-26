@@ -2053,6 +2053,21 @@ typedef EGLBoolean  ( * PFNEGLEXPORTDMABUFIMAGEQUERYMESAPROC) (EGLDisplay  dpy, 
 
 #endif /* EGL_MESA_platform_surfaceless */
 
+/* ------------------------- EGL_MESA_query_driver ------------------------- */
+
+#ifndef EGL_MESA_query_driver
+#define EGL_MESA_query_driver 1
+
+typedef char * ( * PFNEGLGETDISPLAYDRIVERCONFIGPROC) (EGLDisplay  dpy);
+typedef const char * ( * PFNEGLGETDISPLAYDRIVERNAMEPROC) (EGLDisplay  dpy);
+
+#define eglGetDisplayDriverConfig EGLEW_GET_FUN(__eglewGetDisplayDriverConfig)
+#define eglGetDisplayDriverName EGLEW_GET_FUN(__eglewGetDisplayDriverName)
+
+#define EGLEW_MESA_query_driver EGLEW_GET_VAR(__EGLEW_MESA_query_driver)
+
+#endif /* EGL_MESA_query_driver */
+
 /* -------------------------- EGL_NOK_swap_region -------------------------- */
 
 #ifndef EGL_NOK_swap_region
@@ -2706,6 +2721,9 @@ EGLEW_FUN_EXPORT PFNEGLEXPORTDRMIMAGEMESAPROC __eglewExportDRMImageMESA;
 EGLEW_FUN_EXPORT PFNEGLEXPORTDMABUFIMAGEMESAPROC __eglewExportDMABUFImageMESA;
 EGLEW_FUN_EXPORT PFNEGLEXPORTDMABUFIMAGEQUERYMESAPROC __eglewExportDMABUFImageQueryMESA;
 
+EGLEW_FUN_EXPORT PFNEGLGETDISPLAYDRIVERCONFIGPROC __eglewGetDisplayDriverConfig;
+EGLEW_FUN_EXPORT PFNEGLGETDISPLAYDRIVERNAMEPROC __eglewGetDisplayDriverName;
+
 EGLEW_FUN_EXPORT PFNEGLSWAPBUFFERSREGIONNOKPROC __eglewSwapBuffersRegionNOK;
 
 EGLEW_FUN_EXPORT PFNEGLSWAPBUFFERSREGION2NOKPROC __eglewSwapBuffersRegion2NOK;
@@ -2848,6 +2866,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_MESA_drm_image;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_MESA_image_dma_buf_export;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_MESA_platform_gbm;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_MESA_platform_surfaceless;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_MESA_query_driver;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NOK_swap_region;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NOK_swap_region2;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NOK_texture_from_pixmap;
