@@ -114,7 +114,7 @@ ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 	xargs -J % cp % $(EXT)
 else
 	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | grep -v "~" | \
-	xargs cp --target-directory=$(EXT)
+	xargs -I % -n 1 cp % $(EXT)
 endif
 	touch $@
 
@@ -290,7 +290,7 @@ $(S.DEST)/glewinfo.c: $(EXT)/.dummy
 	$(BIN)/make_info_list.pl $(EGL_CORE_SPEC) >> $@
 	$(BIN)/make_info_list.pl $(EGL_EXT_SPEC) >> $@
 	cat $(SRC)/glewinfo_tail.c >> $@
-	perl -e 's/"glColorSubTable"/"glBlendEquation", glBlendEquation == NULL);\n  glewInfoFunc("glColorSubTable"/g' -pi $@
+	perl -e 's/"glColorSubTable"/"glBlendEquation", glBlendEquation == NULL);\n  glewInfoFunc(fi, "glColorSubTable"/g' -pi $@
 	rm -f $@.bak
 
 # Update documentation

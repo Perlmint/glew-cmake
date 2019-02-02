@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ##
+## Copyright (C) 2008-2019, Nigel Stewart <nigels[]users sourceforge net>
 ## Copyright (C) 2002-2008, Marcelo E. Magallon <mmagallo[]debian org>
 ## Copyright (C) 2002-2008, Milan Ikits <milan ikits[]ieee org>
 ##
@@ -77,10 +78,6 @@ EOT
 # fix GL_NV_occlusion_query and GL_HP_occlusion_test
     grep -v '_HP' $1/GL_NV_occlusion_query > tmp
     mv tmp $1/GL_NV_occlusion_query
-    perl -e's/OCCLUSION_TEST_HP.*/OCCLUSION_TEST_HP 0x8165/' -pi \
-	$1/GL_HP_occlusion_test
-    perl -e's/OCCLUSION_TEST_RESULT_HP.*/OCCLUSION_TEST_RESULT_HP 0x8166/' -pi \
-	$1/GL_HP_occlusion_test
 
 # add deprecated constants to GL_ATI_fragment_shader
     cat >> $1/GL_ATI_fragment_shader <<EOT
@@ -337,11 +334,6 @@ EOT
 # Remove glGetPointerv from GL_KHR_debug
     grep -v "glGetPointerv" $1/GL_KHR_debug > tmp
     mv tmp $1/GL_KHR_debug
-
-# Remove GL_ARB_debug_group, GL_ARB_debug_label and GL_ARB_debug_output2, for now
-    rm -f $1/GL_ARB_debug_group
-    rm -f $1/GL_ARB_debug_label
-    rm -f $1/GL_ARB_debug_output2
 
 # add typedefs to GL_ARB_cl_event
 # parse_spec.pl can't parse typedefs from New Types section, but ought to
