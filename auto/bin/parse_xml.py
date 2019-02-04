@@ -1,8 +1,12 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import re
 import sys
 from xml.dom.minidom import parse, Node
+
+#
+# DOM traversal utility functions
+#
 
 def findChildren(node, path):
     result = []
@@ -21,6 +25,8 @@ def findChildren(node, path):
 def findData(node, path):
     return [ i.firstChild.data for i in findChildren(node, path) ]
 
+isPointer = re.compile('(.*)([ ]+)([*]+)')
+
 def findParams(node):
     n = findData(node, ['name'])[0]
     t = ''
@@ -29,7 +35,12 @@ def findParams(node):
             t += i.data
         if i.nodeType==Node.ELEMENT_NODE and i.tagName=='ptype':
             t += i.firstChild.data
-    return ( t, n)
+
+    t.strip()
+    m = isPointer.match(t)
+    if m:
+        t = ('%s%s'%(m.group(1), m.group(3))).strip()
+    return ( t, n.strip())
 
 def findEnums(dom):
     ret = {}
@@ -80,23 +91,39 @@ def findApi(dom, name):
     extensions = findExtensions(dom)
     return (enums, commands, features, extensions)
 
+#
+#
+#
+
+isWGL = re.compile('WGL_([A-Z0-9]+)_.*')
+
 def writeExtension(f, name, extension, enums, commands):
     f.write('%s\n'%name)
-    f.write('%s\n'%'https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf')
+
+    url = 'https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf'
+
+    m = isWGL.match(name)
+    if m:
+        url = 'https://www.khronos.org/registry/OpenGL/extensions/%s/%s.txt'%(m.group(1), name)
+
+    f.write('%s\n'%(url))
+
     if name.find('_VERSION_')==-1:
         f.write('%s\n'%name)
     else:
         f.write('\n')
     f.write('\n')
+
     enums = [ (j, enums[j]) for j in extension[0] ]
     for e in sorted(enums, key=lambda i: i[1]):
         f.write('\t%s %s\n'%(e[0], e[1]))
+
     commands = [ (j, commands[j]) for j in extension[1] ]
     for c in sorted(commands):
-        params = ', '.join( [ '%s %s'%(j[0], j[1]) for j in c[1][1] ] )
+        params = ', '.join( [ '%s %s'%(j[0].strip(), j[1].strip()) for j in c[1][1] ] )
         if len(params)==0:
-            params = ' void '
-        f.write('\t%s %s (%s)\n'%(c[1][0], c[0], params))
+            params = 'void'
+        f.write('\t%s %s (%s)\n'%(c[1][0].strip(), c[0].strip(), params))
 
 if __name__ == '__main__':
 
@@ -105,6 +132,7 @@ if __name__ == '__main__':
 
   parser = OptionParser('usage: %prog [options] [XML specs...]')
   parser.add_option("--core", dest="core", help="location for core outputs", default='')
+  parser.add_option("--api", dest="name", help="API name: egl, wgl, glx, etc", default='')
   parser.add_option("--extensions", dest="extensions", help="location for extensions outputs", default='')
 
   (options, args) = parser.parse_args()
@@ -112,7 +140,7 @@ if __name__ == '__main__':
   for i in args:
 
     dom = parse(i)
-    api = findApi(dom, 'egl')
+    api = findApi(dom, options.name)
 
     print('Found {} enums, {} commands, {} features and {} extensions.'.format(
         len(api[0]), len(api[1]), len(api[2]), len(api[3])))
