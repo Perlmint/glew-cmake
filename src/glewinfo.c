@@ -4603,6 +4603,15 @@ static void _glewInfo_GL_EXT_depth_bounds_test (void)
 
 #endif /* GL_EXT_depth_bounds_test */
 
+#ifdef GL_EXT_depth_clamp
+
+static void _glewInfo_GL_EXT_depth_clamp (void)
+{
+  glewPrintExt("GL_EXT_depth_clamp", GLEW_EXT_depth_clamp, glewIsSupported("GL_EXT_depth_clamp"), glewGetExtension("GL_EXT_depth_clamp"));
+}
+
+#endif /* GL_EXT_depth_clamp */
+
 #ifdef GL_EXT_direct_state_access
 
 static void _glewInfo_GL_EXT_direct_state_access (void)
@@ -10599,6 +10608,15 @@ static void _glewInfo_GL_SGIX_color_table_index_mode (void)
 
 #endif /* GL_SGIX_color_table_index_mode */
 
+#ifdef GL_SGIX_color_type
+
+static void _glewInfo_GL_SGIX_color_type (void)
+{
+  glewPrintExt("GL_SGIX_color_type", GLEW_SGIX_color_type, glewIsSupported("GL_SGIX_color_type"), glewGetExtension("GL_SGIX_color_type"));
+}
+
+#endif /* GL_SGIX_color_type */
+
 #ifdef GL_SGIX_complex_polar
 
 static void _glewInfo_GL_SGIX_complex_polar (void)
@@ -13988,6 +14006,7 @@ static void _glewInfo_GLX_EXT_import_context (void)
 
   glewInfoFunc(fi, "glXFreeContextEXT", glXFreeContextEXT == NULL);
   glewInfoFunc(fi, "glXGetContextIDEXT", glXGetContextIDEXT == NULL);
+  glewInfoFunc(fi, "glXGetCurrentDisplayEXT", glXGetCurrentDisplayEXT == NULL);
   glewInfoFunc(fi, "glXImportContextEXT", glXImportContextEXT == NULL);
   glewInfoFunc(fi, "glXQueryContextInfoEXT", glXQueryContextInfoEXT == NULL);
 }
@@ -15547,6 +15566,9 @@ static void glewInfo (void)
 #ifdef GL_EXT_depth_bounds_test
   _glewInfo_GL_EXT_depth_bounds_test();
 #endif /* GL_EXT_depth_bounds_test */
+#ifdef GL_EXT_depth_clamp
+  _glewInfo_GL_EXT_depth_clamp();
+#endif /* GL_EXT_depth_clamp */
 #ifdef GL_EXT_direct_state_access
   _glewInfo_GL_EXT_direct_state_access();
 #endif /* GL_EXT_direct_state_access */
@@ -17035,6 +17057,9 @@ static void glewInfo (void)
 #ifdef GL_SGIX_color_table_index_mode
   _glewInfo_GL_SGIX_color_table_index_mode();
 #endif /* GL_SGIX_color_table_index_mode */
+#ifdef GL_SGIX_color_type
+  _glewInfo_GL_SGIX_color_type();
+#endif /* GL_SGIX_color_type */
 #ifdef GL_SGIX_complex_polar
   _glewInfo_GL_SGIX_complex_polar();
 #endif /* GL_SGIX_complex_polar */

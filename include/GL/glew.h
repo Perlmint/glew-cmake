@@ -9768,6 +9768,17 @@ typedef void (GLAPIENTRY * PFNGLDEPTHBOUNDSEXTPROC) (GLclampd zmin, GLclampd zma
 
 #endif /* GL_EXT_depth_bounds_test */
 
+/* --------------------------- GL_EXT_depth_clamp -------------------------- */
+
+#ifndef GL_EXT_depth_clamp
+#define GL_EXT_depth_clamp 1
+
+#define GL_DEPTH_CLAMP_EXT 0x864F
+
+#define GLEW_EXT_depth_clamp GLEW_GET_VAR(__GLEW_EXT_depth_clamp)
+
+#endif /* GL_EXT_depth_clamp */
+
 /* ----------------------- GL_EXT_direct_state_access ---------------------- */
 
 #ifndef GL_EXT_direct_state_access
@@ -20762,6 +20773,15 @@ typedef GLint (GLAPIENTRY * PFNGLPOLLASYNCSGIXPROC) (GLuint* markerp);
 
 #endif /* GL_SGIX_color_table_index_mode */
 
+/* --------------------------- GL_SGIX_color_type -------------------------- */
+
+#ifndef GL_SGIX_color_type
+#define GL_SGIX_color_type 1
+
+#define GLEW_SGIX_color_type GLEW_GET_VAR(__GLEW_SGIX_color_type)
+
+#endif /* GL_SGIX_color_type */
+
 /* ------------------------- GL_SGIX_complex_polar ------------------------- */
 
 #ifndef GL_SGIX_complex_polar
@@ -25604,6 +25624,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_EXT_cull_vertex;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_debug_label;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_debug_marker;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_depth_bounds_test;
+GLEW_VAR_EXPORT GLboolean __GLEW_EXT_depth_clamp;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_direct_state_access;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_discard_framebuffer;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_disjoint_timer_query;
@@ -26100,6 +26121,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_calligraphic_fragment;
 GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_clipmap;
 GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_color_matrix_accuracy;
 GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_color_table_index_mode;
+GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_color_type;
 GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_complex_polar;
 GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_convolution_accuracy;
 GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_cube_map;

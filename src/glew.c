@@ -3789,6 +3789,7 @@ GLboolean __GLEW_EXT_cull_vertex = GL_FALSE;
 GLboolean __GLEW_EXT_debug_label = GL_FALSE;
 GLboolean __GLEW_EXT_debug_marker = GL_FALSE;
 GLboolean __GLEW_EXT_depth_bounds_test = GL_FALSE;
+GLboolean __GLEW_EXT_depth_clamp = GL_FALSE;
 GLboolean __GLEW_EXT_direct_state_access = GL_FALSE;
 GLboolean __GLEW_EXT_discard_framebuffer = GL_FALSE;
 GLboolean __GLEW_EXT_disjoint_timer_query = GL_FALSE;
@@ -4285,6 +4286,7 @@ GLboolean __GLEW_SGIX_calligraphic_fragment = GL_FALSE;
 GLboolean __GLEW_SGIX_clipmap = GL_FALSE;
 GLboolean __GLEW_SGIX_color_matrix_accuracy = GL_FALSE;
 GLboolean __GLEW_SGIX_color_table_index_mode = GL_FALSE;
+GLboolean __GLEW_SGIX_color_type = GL_FALSE;
 GLboolean __GLEW_SGIX_complex_polar = GL_FALSE;
 GLboolean __GLEW_SGIX_convolution_accuracy = GL_FALSE;
 GLboolean __GLEW_SGIX_cube_map = GL_FALSE;
@@ -5331,6 +5333,9 @@ static const char * _glewExtensionLookup[] = {
 #endif
 #ifdef GL_EXT_depth_bounds_test
   "GL_EXT_depth_bounds_test",
+#endif
+#ifdef GL_EXT_depth_clamp
+  "GL_EXT_depth_clamp",
 #endif
 #ifdef GL_EXT_direct_state_access
   "GL_EXT_direct_state_access",
@@ -6820,6 +6825,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_SGIX_color_table_index_mode
   "GL_SGIX_color_table_index_mode",
 #endif
+#ifdef GL_SGIX_color_type
+  "GL_SGIX_color_type",
+#endif
 #ifdef GL_SGIX_complex_polar
   "GL_SGIX_complex_polar",
 #endif
@@ -7143,7 +7151,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[921];
+static GLboolean  _glewExtensionString[923];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8102,6 +8110,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_EXT_depth_bounds_test
   &__GLEW_EXT_depth_bounds_test,
+#endif
+#ifdef GL_EXT_depth_clamp
+  &__GLEW_EXT_depth_clamp,
 #endif
 #ifdef GL_EXT_direct_state_access
   &__GLEW_EXT_direct_state_access,
@@ -9590,6 +9601,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_SGIX_color_table_index_mode
   &__GLEW_SGIX_color_table_index_mode,
+#endif
+#ifdef GL_SGIX_color_type
+  &__GLEW_SGIX_color_type,
 #endif
 #ifdef GL_SGIX_complex_polar
   &__GLEW_SGIX_complex_polar,
@@ -21777,6 +21791,7 @@ PFNGLXRELEASETEXIMAGEATIPROC __glewXReleaseTexImageATI = NULL;
 
 PFNGLXFREECONTEXTEXTPROC __glewXFreeContextEXT = NULL;
 PFNGLXGETCONTEXTIDEXTPROC __glewXGetContextIDEXT = NULL;
+PFNGLXGETCURRENTDISPLAYEXTPROC __glewXGetCurrentDisplayEXT = NULL;
 PFNGLXIMPORTCONTEXTEXTPROC __glewXImportContextEXT = NULL;
 PFNGLXQUERYCONTEXTINFOEXTPROC __glewXQueryContextInfoEXT = NULL;
 
@@ -22063,6 +22078,7 @@ static GLboolean _glewInit_GLX_EXT_import_context ()
 
   r = ((glXFreeContextEXT = (PFNGLXFREECONTEXTEXTPROC)glewGetProcAddress((const GLubyte*)"glXFreeContextEXT")) == NULL) || r;
   r = ((glXGetContextIDEXT = (PFNGLXGETCONTEXTIDEXTPROC)glewGetProcAddress((const GLubyte*)"glXGetContextIDEXT")) == NULL) || r;
+  r = ((glXGetCurrentDisplayEXT = (PFNGLXGETCURRENTDISPLAYEXTPROC)glewGetProcAddress((const GLubyte*)"glXGetCurrentDisplayEXT")) == NULL) || r;
   r = ((glXImportContextEXT = (PFNGLXIMPORTCONTEXTEXTPROC)glewGetProcAddress((const GLubyte*)"glXImportContextEXT")) == NULL) || r;
   r = ((glXQueryContextInfoEXT = (PFNGLXQUERYCONTEXTINFOEXTPROC)glewGetProcAddress((const GLubyte*)"glXQueryContextInfoEXT")) == NULL) || r;
 
@@ -25285,6 +25301,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"depth_bounds_test", 17))
         {
           ret = GLEW_EXT_depth_bounds_test;
+          continue;
+        }
+#endif
+#ifdef GL_EXT_depth_clamp
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"depth_clamp", 11))
+        {
+          ret = GLEW_EXT_depth_clamp;
           continue;
         }
 #endif
@@ -28829,6 +28852,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"color_table_index_mode", 22))
         {
           ret = GLEW_SGIX_color_table_index_mode;
+          continue;
+        }
+#endif
+#ifdef GL_SGIX_color_type
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"color_type", 10))
+        {
+          ret = GLEW_SGIX_color_type;
           continue;
         }
 #endif
