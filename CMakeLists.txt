@@ -77,7 +77,8 @@ IF ( glew-cmake_BUILD_SHARED )
 		TARGET_INCLUDE_DIRECTORIES( libglew_shared PUBLIC ${INCLUDE_DIR} )
 		TARGET_LINK_LIBRARIES( libglew_shared ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES} )
 		INSTALL( TARGETS libglew_shared ARCHIVE DESTINATION lib
-						RUNTIME DESTINATION bin)
+		                                LIBRARY DESTINATION lib
+		                                RUNTIME DESTINATION bin )
 	ENDIF (  )
 
 	IF ( glew-cmake_BUILD_MULTI_CONTEXT )
@@ -92,7 +93,8 @@ IF ( glew-cmake_BUILD_SHARED )
 		TARGET_INCLUDE_DIRECTORIES( libglewmx_shared PUBLIC ${INCLUDE_DIR} )
 		TARGET_LINK_LIBRARIES( libglewmx_shared ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES} )
 		INSTALL( TARGETS libglewmx_shared ARCHIVE DESTINATION lib
-						  RUNTIME DESTINATION bin )
+		                                  LIBRARY DESTINATION lib
+		                                  RUNTIME DESTINATION bin )
 	ENDIF (  )
 ENDIF (  )
 

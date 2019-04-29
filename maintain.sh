@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # This script is used for auto maintaining
 # - merging with original repo
@@ -6,9 +6,32 @@
 # - push changes to repository
 #
 ORIGINAL_REPO_URL=https://github.com/nigels-com/glew.git
+absolute_path () {
+  local TARGET_FILE=$1
+  shift
+  local OUT=$1
+  shift
+  cd `dirname $TARGET_FILE`
+  TARGET_FILE=`basename $TARGET_FILE`
+
+  # Iterate down a (possible) chain of symlinks
+  while [ -L "$TARGET_FILE" ]
+  do
+    TARGET_FILE=`readlink $TARGET_FILE`
+    cd `dirname $TARGET_FILE`
+    TARGET_FILE=`basename $TARGET_FILE`
+  done
+
+  # Compute the canonicalized name by finding the physical path 
+  # for the directory we're in and appending the target file.
+  PHYS_DIR=`pwd -P`
+  RESULT=$PHYS_DIR/$TARGET_FILE
+  eval "$OUT=\"${RESULT}\""
+}
+
 if [ -z "$WORKSPACE" ]; then
   echo "Set WORKSPACE as default value"
-  SCRIPT_PATH=$(readlink -f "$0")
+  absolute_path "$0" SCRIPT_PATH
   WORKSPACE=$(dirname "$SCRIPT_PATH")
   echo "WORKSPACE=$WORKSPACE"
 fi
@@ -37,7 +60,7 @@ source_update () {
   if [ `git branch | grep ${GIT_BRANCH_NAME} | wc -l` = 0 ]; then
     git checkout origin/${GIT_BRANCH_NAME} -b ${GIT_BRANCH_NAME}
   else
-    git checkout -f $GIT_BRANCH_NAME
+    # git checkout -f $GIT_BRANCH_NAME
     git pull -s recursive -X theirs --no-edit --progress origin
   fi
   echo "Pull from origin repository(${ORIGINAL_REPO_URL})"
@@ -48,16 +71,6 @@ source_update () {
     echo "Source Updated"
     git commit --amend -m "Merge ${ORIGINAL_REPO_URL} into ${GIT_BRANCH_NAME} HEAD at $(TZ=GMT date)"
     git push ${PUSH_ARG} origin $GIT_BRANCH_NAME:$GIT_BRANCH_NAME
-    PUSH_COUNT=$((PUSH_COUNT + 1))
-  fi
-
-  echo "Fetch tags from origin repository(${ORIGINAL_REPO_URL})"
-  BEFORE_TAG_COUNT=`git tag | wc -l`
-  git fetch --tags --progress original_repo
-  AFTER_TAG_COUNT=`git tag | wc -l`
-  if [ ! $BEFORE_TAG_COUNT -eq $AFTER_TAG_COUNT ]; then
-    echo "Tags updated"
-    git push ${PUSH_ARG} --tags origin
     PUSH_COUNT=$((PUSH_COUNT + 1))
   fi
 
@@ -85,6 +98,57 @@ source_update () {
   if [ -n "$PUSH_ARG" ]; then
     echo "Reset commits"
     git reset --hard HEAD~${PUSH_COUNT}
+  fi
+}
+
+import_tags () {
+  echo "Fetch tags from origin repository(${ORIGINAL_REPO_URL})"
+  BEFORE_TAG_COUNT=`git tag | wc -l`
+  git fetch --tags --progress original_repo
+  AFTER_TAG_COUNT=`git tag | wc -l`
+  NEW_VERSION_TAGS=`diff -u <(git tag | grep glew-cmake- | sed s/glew-cmake/glew/) <(git tag | grep "glew-\d") | grep ^+ | sed 1d | sed s/^+//`
+  if [ ! $BEFORE_TAG_COUNT -eq $AFTER_TAG_COUNT -o ! -z "$NEW_VERSION_TAGS" ]; then
+    echo "Tags updated"
+    git push ${PUSH_ARG} --tags origin
+
+    git checkout glew-cmake-release
+    for TAG in $NEW_VERSION_TAGS
+    do
+      echo "Import $TAG"
+      git checkout $TAG -- .
+      git checkout master -- CMakeLists.txt
+      cd "$WORKSPACE/auto"
+      echo "CleanUp fot tag"
+      make clean
+      echo "Generated Source Update fot tag"
+      cd "$WORKSPACE"
+      make extensions
+      git reset
+      git add --force src include doc CMakeLists.txt
+      if [ `git diff --cached | wc -c` -ne 0 ]; then
+        git commit -m"glew-cmake release from $TAG"
+        NEW_TAG=`echo $TAG | sed s/glew-/glew-cmake-/`
+        git tag $NEW_TAG
+      else
+        echo "No difference! something wrong"
+      fi
+    done
+
+    git push ${PUSH_ARG} origin glew-cmake-release
+    if [ -z "$PUSH_ARG" ]; then
+      git push --tags ${PUSH_ARGS} origin
+    fi
+
+    # when test mode, reset created commits
+    if [ -n "$PUSH_ARG" ]; then
+      echo "Reset commits for tags"
+      for TAG in $NEW_VERSION_TAGS
+      do
+        NEW_TAG=`echo $TAG | sed s/glew-/glew-cmake-/`
+        git tag -d $NEW_TAG
+        git reset --hard HEAD~1
+      done
+    fi
   fi
 }
 
@@ -140,3 +204,5 @@ join () {
 prepare
 
 source_update master
+
+import_tags
