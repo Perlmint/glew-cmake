@@ -33,6 +33,7 @@ if [ -z "$WORKSPACE" ]; then
   echo "Set WORKSPACE as default value"
   absolute_path "$0" SCRIPT_PATH
   WORKSPACE=$(dirname "$SCRIPT_PATH")
+  WORKSPACE=$(dirname "$WORKSPACE")
   echo "WORKSPACE=$WORKSPACE"
 fi
 
