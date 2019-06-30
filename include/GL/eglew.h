@@ -106,7 +106,11 @@
 #include <KHR/khrplatform.h>
 #include <EGL/eglplatform.h>
 
-#include <GL/glew.h>
+#ifndef GLEW_INCLUDE
+#  include <GL/glew.h>
+#else
+#  include GLEW_INCLUDE
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -476,6 +480,15 @@ typedef EGLBoolean  ( * PFNEGLWAITSYNCPROC) (EGLDisplay  dpy, EGLSync  sync, EGL
 #define EGLEW_VERSION_1_5 EGLEW_GET_VAR(__EGLEW_VERSION_1_5)
 
 #endif /* EGL_VERSION_1_5 */
+
+/* ------------------------ EGL_ANDROID_GLES_layers ------------------------ */
+
+#ifndef EGL_ANDROID_GLES_layers
+#define EGL_ANDROID_GLES_layers 1
+
+#define EGLEW_ANDROID_GLES_layers EGLEW_GET_VAR(__EGLEW_ANDROID_GLES_layers)
+
+#endif /* EGL_ANDROID_GLES_layers */
 
 /* ------------------------- EGL_ANDROID_blob_cache ------------------------ */
 
@@ -2230,6 +2243,17 @@ typedef EGLBoolean ( * PFNEGLPOSTSUBBUFFERNVPROC) (EGLDisplay dpy, EGLSurface su
 
 #endif /* EGL_NV_post_sub_buffer */
 
+/* ------------------------ EGL_NV_quadruple_buffer ------------------------ */
+
+#ifndef EGL_NV_quadruple_buffer
+#define EGL_NV_quadruple_buffer 1
+
+#define EGL_QUADRUPLE_BUFFER_NV 0x3231
+
+#define EGLEW_NV_quadruple_buffer EGLEW_GET_VAR(__EGLEW_NV_quadruple_buffer)
+
+#endif /* EGL_NV_quadruple_buffer */
+
 /* ------------------ EGL_NV_robustness_video_memory_purge ----------------- */
 
 #ifndef EGL_NV_robustness_video_memory_purge
@@ -2395,6 +2419,27 @@ typedef EGLBoolean ( * PFNEGLSETSTREAMMETADATANVPROC) (EGLDisplay dpy, EGLStream
 
 #endif /* EGL_NV_stream_metadata */
 
+/* -------------------------- EGL_NV_stream_origin ------------------------- */
+
+#ifndef EGL_NV_stream_origin
+#define EGL_NV_stream_origin 1
+
+#define EGL_STREAM_FRAME_ORIGIN_X_NV 0x3366
+#define EGL_STREAM_FRAME_ORIGIN_Y_NV 0x3367
+#define EGL_STREAM_FRAME_MAJOR_AXIS_NV 0x3368
+#define EGL_CONSUMER_AUTO_ORIENTATION_NV 0x3369
+#define EGL_PRODUCER_AUTO_ORIENTATION_NV 0x336A
+#define EGL_LEFT_NV 0x336B
+#define EGL_RIGHT_NV 0x336C
+#define EGL_TOP_NV 0x336D
+#define EGL_BOTTOM_NV 0x336E
+#define EGL_X_AXIS_NV 0x336F
+#define EGL_Y_AXIS_NV 0x3370
+
+#define EGLEW_NV_stream_origin EGLEW_GET_VAR(__EGLEW_NV_stream_origin)
+
+#endif /* EGL_NV_stream_origin */
+
 /* -------------------------- EGL_NV_stream_remote ------------------------- */
 
 #ifndef EGL_NV_stream_remote
@@ -2530,6 +2575,17 @@ typedef EGLuint64NV ( * PFNEGLGETSYSTEMTIMENVPROC) (void);
 #define EGLEW_NV_system_time EGLEW_GET_VAR(__EGLEW_NV_system_time)
 
 #endif /* EGL_NV_system_time */
+
+/* -------------------------- EGL_NV_triple_buffer ------------------------- */
+
+#ifndef EGL_NV_triple_buffer
+#define EGL_NV_triple_buffer 1
+
+#define EGL_TRIPLE_BUFFER_NV 0x3230
+
+#define EGLEW_NV_triple_buffer EGLEW_GET_VAR(__EGLEW_NV_triple_buffer)
+
+#endif /* EGL_NV_triple_buffer */
 
 /* --------------------- EGL_TIZEN_image_native_buffer --------------------- */
 
@@ -2761,6 +2817,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_VERSION_1_2;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_VERSION_1_3;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_VERSION_1_4;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_VERSION_1_5;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_GLES_layers;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_blob_cache;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_create_native_client_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_framebuffer_target;
@@ -2880,6 +2937,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_device_cuda;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_native_query;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_post_convert_rounding;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_post_sub_buffer;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_quadruple_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_robustness_video_memory_purge;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_consumer_gltexture_yuv;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_cross_display;
@@ -2892,6 +2950,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_fifo_synchronous;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_flush;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_frame_limits;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_metadata;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_origin;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_remote;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_reset;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_socket;
@@ -2900,6 +2959,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_socket_unix;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_sync;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_sync;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_system_time;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_triple_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_TIZEN_image_native_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_TIZEN_image_native_surface;
 /* ------------------------------------------------------------------------ */

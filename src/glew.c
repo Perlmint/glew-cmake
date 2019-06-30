@@ -31,9 +31,9 @@
 */
 
 #ifndef GLEW_INCLUDE
-#include <GL/glew.h>
+#  include <GL/glew.h>
 #else
-#include GLEW_INCLUDE
+#  include GLEW_INCLUDE
 #endif
 
 #if defined(GLEW_OSMESA)
@@ -3836,6 +3836,9 @@ GLboolean __GLEW_EXT_multisample_compatibility = GL_FALSE;
 GLboolean __GLEW_EXT_multisampled_render_to_texture = GL_FALSE;
 GLboolean __GLEW_EXT_multisampled_render_to_texture2 = GL_FALSE;
 GLboolean __GLEW_EXT_multiview_draw_buffers = GL_FALSE;
+GLboolean __GLEW_EXT_multiview_tessellation_geometry_shader = GL_FALSE;
+GLboolean __GLEW_EXT_multiview_texture_multisample = GL_FALSE;
+GLboolean __GLEW_EXT_multiview_timer_query = GL_FALSE;
 GLboolean __GLEW_EXT_occlusion_query_boolean = GL_FALSE;
 GLboolean __GLEW_EXT_packed_depth_stencil = GL_FALSE;
 GLboolean __GLEW_EXT_packed_float = GL_FALSE;
@@ -3921,12 +3924,14 @@ GLboolean __GLEW_EXT_texture_mirror_clamp_to_edge = GL_FALSE;
 GLboolean __GLEW_EXT_texture_norm16 = GL_FALSE;
 GLboolean __GLEW_EXT_texture_object = GL_FALSE;
 GLboolean __GLEW_EXT_texture_perturb_normal = GL_FALSE;
+GLboolean __GLEW_EXT_texture_query_lod = GL_FALSE;
 GLboolean __GLEW_EXT_texture_rectangle = GL_FALSE;
 GLboolean __GLEW_EXT_texture_rg = GL_FALSE;
 GLboolean __GLEW_EXT_texture_sRGB = GL_FALSE;
 GLboolean __GLEW_EXT_texture_sRGB_R8 = GL_FALSE;
 GLboolean __GLEW_EXT_texture_sRGB_RG8 = GL_FALSE;
 GLboolean __GLEW_EXT_texture_sRGB_decode = GL_FALSE;
+GLboolean __GLEW_EXT_texture_shadow_lod = GL_FALSE;
 GLboolean __GLEW_EXT_texture_shared_exponent = GL_FALSE;
 GLboolean __GLEW_EXT_texture_snorm = GL_FALSE;
 GLboolean __GLEW_EXT_texture_storage = GL_FALSE;
@@ -5475,6 +5480,15 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_EXT_multiview_draw_buffers
   "GL_EXT_multiview_draw_buffers",
 #endif
+#ifdef GL_EXT_multiview_tessellation_geometry_shader
+  "GL_EXT_multiview_tessellation_geometry_shader",
+#endif
+#ifdef GL_EXT_multiview_texture_multisample
+  "GL_EXT_multiview_texture_multisample",
+#endif
+#ifdef GL_EXT_multiview_timer_query
+  "GL_EXT_multiview_timer_query",
+#endif
 #ifdef GL_EXT_occlusion_query_boolean
   "GL_EXT_occlusion_query_boolean",
 #endif
@@ -5730,6 +5744,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_EXT_texture_perturb_normal
   "GL_EXT_texture_perturb_normal",
 #endif
+#ifdef GL_EXT_texture_query_lod
+  "GL_EXT_texture_query_lod",
+#endif
 #ifdef GL_EXT_texture_rectangle
   "GL_EXT_texture_rectangle",
 #endif
@@ -5747,6 +5764,9 @@ static const char * _glewExtensionLookup[] = {
 #endif
 #ifdef GL_EXT_texture_sRGB_decode
   "GL_EXT_texture_sRGB_decode",
+#endif
+#ifdef GL_EXT_texture_shadow_lod
+  "GL_EXT_texture_shadow_lod",
 #endif
 #ifdef GL_EXT_texture_shared_exponent
   "GL_EXT_texture_shared_exponent",
@@ -7151,7 +7171,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[923];
+static GLboolean  _glewExtensionString[928];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8252,6 +8272,15 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_EXT_multiview_draw_buffers
   &__GLEW_EXT_multiview_draw_buffers,
 #endif
+#ifdef GL_EXT_multiview_tessellation_geometry_shader
+  &__GLEW_EXT_multiview_tessellation_geometry_shader,
+#endif
+#ifdef GL_EXT_multiview_texture_multisample
+  &__GLEW_EXT_multiview_texture_multisample,
+#endif
+#ifdef GL_EXT_multiview_timer_query
+  &__GLEW_EXT_multiview_timer_query,
+#endif
 #ifdef GL_EXT_occlusion_query_boolean
   &__GLEW_EXT_occlusion_query_boolean,
 #endif
@@ -8507,6 +8536,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_EXT_texture_perturb_normal
   &__GLEW_EXT_texture_perturb_normal,
 #endif
+#ifdef GL_EXT_texture_query_lod
+  &__GLEW_EXT_texture_query_lod,
+#endif
 #ifdef GL_EXT_texture_rectangle
   &__GLEW_EXT_texture_rectangle,
 #endif
@@ -8524,6 +8556,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_EXT_texture_sRGB_decode
   &__GLEW_EXT_texture_sRGB_decode,
+#endif
+#ifdef GL_EXT_texture_shadow_lod
+  &__GLEW_EXT_texture_shadow_lod,
 #endif
 #ifdef GL_EXT_texture_shared_exponent
   &__GLEW_EXT_texture_shared_exponent,
@@ -19352,6 +19387,7 @@ GLboolean __EGLEW_VERSION_1_2 = GL_FALSE;
 GLboolean __EGLEW_VERSION_1_3 = GL_FALSE;
 GLboolean __EGLEW_VERSION_1_4 = GL_FALSE;
 GLboolean __EGLEW_VERSION_1_5 = GL_FALSE;
+GLboolean __EGLEW_ANDROID_GLES_layers = GL_FALSE;
 GLboolean __EGLEW_ANDROID_blob_cache = GL_FALSE;
 GLboolean __EGLEW_ANDROID_create_native_client_buffer = GL_FALSE;
 GLboolean __EGLEW_ANDROID_framebuffer_target = GL_FALSE;
@@ -19471,6 +19507,7 @@ GLboolean __EGLEW_NV_device_cuda = GL_FALSE;
 GLboolean __EGLEW_NV_native_query = GL_FALSE;
 GLboolean __EGLEW_NV_post_convert_rounding = GL_FALSE;
 GLboolean __EGLEW_NV_post_sub_buffer = GL_FALSE;
+GLboolean __EGLEW_NV_quadruple_buffer = GL_FALSE;
 GLboolean __EGLEW_NV_robustness_video_memory_purge = GL_FALSE;
 GLboolean __EGLEW_NV_stream_consumer_gltexture_yuv = GL_FALSE;
 GLboolean __EGLEW_NV_stream_cross_display = GL_FALSE;
@@ -19483,6 +19520,7 @@ GLboolean __EGLEW_NV_stream_fifo_synchronous = GL_FALSE;
 GLboolean __EGLEW_NV_stream_flush = GL_FALSE;
 GLboolean __EGLEW_NV_stream_frame_limits = GL_FALSE;
 GLboolean __EGLEW_NV_stream_metadata = GL_FALSE;
+GLboolean __EGLEW_NV_stream_origin = GL_FALSE;
 GLboolean __EGLEW_NV_stream_remote = GL_FALSE;
 GLboolean __EGLEW_NV_stream_reset = GL_FALSE;
 GLboolean __EGLEW_NV_stream_socket = GL_FALSE;
@@ -19491,6 +19529,7 @@ GLboolean __EGLEW_NV_stream_socket_unix = GL_FALSE;
 GLboolean __EGLEW_NV_stream_sync = GL_FALSE;
 GLboolean __EGLEW_NV_sync = GL_FALSE;
 GLboolean __EGLEW_NV_system_time = GL_FALSE;
+GLboolean __EGLEW_NV_triple_buffer = GL_FALSE;
 GLboolean __EGLEW_TIZEN_image_native_buffer = GL_FALSE;
 GLboolean __EGLEW_TIZEN_image_native_surface = GL_FALSE;
 #ifdef EGL_VERSION_1_0
@@ -20334,6 +20373,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_VERSION_1_5
   if (glewExperimental || EGLEW_VERSION_1_5) EGLEW_VERSION_1_5 = !_glewInit_EGL_VERSION_1_5();
 #endif /* EGL_VERSION_1_5 */
+#ifdef EGL_ANDROID_GLES_layers
+  EGLEW_ANDROID_GLES_layers = _glewSearchExtension("EGL_ANDROID_GLES_layers", extStart, extEnd);
+#endif /* EGL_ANDROID_GLES_layers */
 #ifdef EGL_ANDROID_blob_cache
   EGLEW_ANDROID_blob_cache = _glewSearchExtension("EGL_ANDROID_blob_cache", extStart, extEnd);
   if (glewExperimental || EGLEW_ANDROID_blob_cache) EGLEW_ANDROID_blob_cache = !_glewInit_EGL_ANDROID_blob_cache();
@@ -20732,6 +20774,9 @@ GLenum eglewInit (EGLDisplay display)
   EGLEW_NV_post_sub_buffer = _glewSearchExtension("EGL_NV_post_sub_buffer", extStart, extEnd);
   if (glewExperimental || EGLEW_NV_post_sub_buffer) EGLEW_NV_post_sub_buffer = !_glewInit_EGL_NV_post_sub_buffer();
 #endif /* EGL_NV_post_sub_buffer */
+#ifdef EGL_NV_quadruple_buffer
+  EGLEW_NV_quadruple_buffer = _glewSearchExtension("EGL_NV_quadruple_buffer", extStart, extEnd);
+#endif /* EGL_NV_quadruple_buffer */
 #ifdef EGL_NV_robustness_video_memory_purge
   EGLEW_NV_robustness_video_memory_purge = _glewSearchExtension("EGL_NV_robustness_video_memory_purge", extStart, extEnd);
 #endif /* EGL_NV_robustness_video_memory_purge */
@@ -20771,6 +20816,9 @@ GLenum eglewInit (EGLDisplay display)
   EGLEW_NV_stream_metadata = _glewSearchExtension("EGL_NV_stream_metadata", extStart, extEnd);
   if (glewExperimental || EGLEW_NV_stream_metadata) EGLEW_NV_stream_metadata = !_glewInit_EGL_NV_stream_metadata();
 #endif /* EGL_NV_stream_metadata */
+#ifdef EGL_NV_stream_origin
+  EGLEW_NV_stream_origin = _glewSearchExtension("EGL_NV_stream_origin", extStart, extEnd);
+#endif /* EGL_NV_stream_origin */
 #ifdef EGL_NV_stream_remote
   EGLEW_NV_stream_remote = _glewSearchExtension("EGL_NV_stream_remote", extStart, extEnd);
 #endif /* EGL_NV_stream_remote */
@@ -20799,6 +20847,9 @@ GLenum eglewInit (EGLDisplay display)
   EGLEW_NV_system_time = _glewSearchExtension("EGL_NV_system_time", extStart, extEnd);
   if (glewExperimental || EGLEW_NV_system_time) EGLEW_NV_system_time = !_glewInit_EGL_NV_system_time();
 #endif /* EGL_NV_system_time */
+#ifdef EGL_NV_triple_buffer
+  EGLEW_NV_triple_buffer = _glewSearchExtension("EGL_NV_triple_buffer", extStart, extEnd);
+#endif /* EGL_NV_triple_buffer */
 #ifdef EGL_TIZEN_image_native_buffer
   EGLEW_TIZEN_image_native_buffer = _glewSearchExtension("EGL_TIZEN_image_native_buffer", extStart, extEnd);
 #endif /* EGL_TIZEN_image_native_buffer */
@@ -21927,6 +21978,7 @@ GLboolean __GLXEW_ARB_vertex_buffer_object = GL_FALSE;
 GLboolean __GLXEW_ATI_pixel_format_float = GL_FALSE;
 GLboolean __GLXEW_ATI_render_texture = GL_FALSE;
 GLboolean __GLXEW_EXT_buffer_age = GL_FALSE;
+GLboolean __GLXEW_EXT_context_priority = GL_FALSE;
 GLboolean __GLXEW_EXT_create_context_es2_profile = GL_FALSE;
 GLboolean __GLXEW_EXT_create_context_es_profile = GL_FALSE;
 GLboolean __GLXEW_EXT_fbconfig_packed_float = GL_FALSE;
@@ -22641,6 +22693,9 @@ GLenum glxewInit ()
 #ifdef GLX_EXT_buffer_age
   GLXEW_EXT_buffer_age = _glewSearchExtension("GLX_EXT_buffer_age", extStart, extEnd);
 #endif /* GLX_EXT_buffer_age */
+#ifdef GLX_EXT_context_priority
+  GLXEW_EXT_context_priority = _glewSearchExtension("GLX_EXT_context_priority", extStart, extEnd);
+#endif /* GLX_EXT_context_priority */
 #ifdef GLX_EXT_create_context_es2_profile
   GLXEW_EXT_create_context_es2_profile = _glewSearchExtension("GLX_EXT_create_context_es2_profile", extStart, extEnd);
 #endif /* GLX_EXT_create_context_es2_profile */
@@ -25633,6 +25688,27 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_EXT_multiview_tessellation_geometry_shader
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"multiview_tessellation_geometry_shader", 38))
+        {
+          ret = GLEW_EXT_multiview_tessellation_geometry_shader;
+          continue;
+        }
+#endif
+#ifdef GL_EXT_multiview_texture_multisample
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"multiview_texture_multisample", 29))
+        {
+          ret = GLEW_EXT_multiview_texture_multisample;
+          continue;
+        }
+#endif
+#ifdef GL_EXT_multiview_timer_query
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"multiview_timer_query", 21))
+        {
+          ret = GLEW_EXT_multiview_timer_query;
+          continue;
+        }
+#endif
 #ifdef GL_EXT_occlusion_query_boolean
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"occlusion_query_boolean", 23))
         {
@@ -26228,6 +26304,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_EXT_texture_query_lod
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_query_lod", 17))
+        {
+          ret = GLEW_EXT_texture_query_lod;
+          continue;
+        }
+#endif
 #ifdef GL_EXT_texture_rectangle
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_rectangle", 17))
         {
@@ -26267,6 +26350,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_sRGB_decode", 19))
         {
           ret = GLEW_EXT_texture_sRGB_decode;
+          continue;
+        }
+#endif
+#ifdef GL_EXT_texture_shadow_lod
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_shadow_lod", 18))
+        {
+          ret = GLEW_EXT_texture_shadow_lod;
           continue;
         }
 #endif
@@ -30104,6 +30194,13 @@ GLboolean glxewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GLX_EXT_context_priority
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"context_priority", 16))
+        {
+          ret = GLXEW_EXT_context_priority;
+          continue;
+        }
+#endif
 #ifdef GLX_EXT_create_context_es2_profile
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"create_context_es2_profile", 26))
         {
@@ -30557,6 +30654,13 @@ GLboolean eglewIsSupported (const char* name)
       }
       if (_glewStrSame2(&pos, &len, (const GLubyte*)"ANDROID_", 8))
       {
+#ifdef EGL_ANDROID_GLES_layers
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"GLES_layers", 11))
+        {
+          ret = EGLEW_ANDROID_GLES_layers;
+          continue;
+        }
+#endif
 #ifdef EGL_ANDROID_blob_cache
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"blob_cache", 10))
         {
@@ -31417,6 +31521,13 @@ GLboolean eglewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef EGL_NV_quadruple_buffer
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"quadruple_buffer", 16))
+        {
+          ret = EGLEW_NV_quadruple_buffer;
+          continue;
+        }
+#endif
 #ifdef EGL_NV_robustness_video_memory_purge
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"robustness_video_memory_purge", 29))
         {
@@ -31501,6 +31612,13 @@ GLboolean eglewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef EGL_NV_stream_origin
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"stream_origin", 13))
+        {
+          ret = EGLEW_NV_stream_origin;
+          continue;
+        }
+#endif
 #ifdef EGL_NV_stream_remote
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"stream_remote", 13))
         {
@@ -31554,6 +31672,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"system_time", 11))
         {
           ret = EGLEW_NV_system_time;
+          continue;
+        }
+#endif
+#ifdef EGL_NV_triple_buffer
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"triple_buffer", 13))
+        {
+          ret = EGLEW_NV_triple_buffer;
           continue;
         }
 #endif

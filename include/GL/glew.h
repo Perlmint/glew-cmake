@@ -219,15 +219,26 @@ typedef _W64 int ptrdiff_t;
  * (mem, 2004-01-04)
  */
 
-#include <stddef.h>
+#if defined(__APPLE__) || defined(__linux__)
+#  if defined(__cplusplus)
+#    include <cstddef>
+#    include <cstdint>
+#  else
+#    include <stddef.h>
+#    include <stdint.h>
+#  endif
+#else
+
+# include <stddef.h>
 
 /* SGI MIPSPro doesn't like stdint.h in C++ mode          */
 /* ID: 3376260 Solaris 9 has inttypes.h, but not stdint.h */
 
-#if (defined(__sgi) || defined(__sun)) && !defined(__GNUC__)
-#include <inttypes.h>
-#else
-#include <stdint.h>
+#  if (defined(__sgi) || defined(__sun)) && !defined(__GNUC__)
+#    include <inttypes.h>
+#  else
+#    include <stdint.h>
+#  endif
 #endif
 
 #define GLEW_APIENTRY_DEFINED
@@ -11382,6 +11393,33 @@ typedef void (GLAPIENTRY * PFNGLREADBUFFERINDEXEDEXTPROC) (GLenum src, GLint ind
 
 #endif /* GL_EXT_multiview_draw_buffers */
 
+/* ------------- GL_EXT_multiview_tessellation_geometry_shader ------------- */
+
+#ifndef GL_EXT_multiview_tessellation_geometry_shader
+#define GL_EXT_multiview_tessellation_geometry_shader 1
+
+#define GLEW_EXT_multiview_tessellation_geometry_shader GLEW_GET_VAR(__GLEW_EXT_multiview_tessellation_geometry_shader)
+
+#endif /* GL_EXT_multiview_tessellation_geometry_shader */
+
+/* ------------------ GL_EXT_multiview_texture_multisample ----------------- */
+
+#ifndef GL_EXT_multiview_texture_multisample
+#define GL_EXT_multiview_texture_multisample 1
+
+#define GLEW_EXT_multiview_texture_multisample GLEW_GET_VAR(__GLEW_EXT_multiview_texture_multisample)
+
+#endif /* GL_EXT_multiview_texture_multisample */
+
+/* ---------------------- GL_EXT_multiview_timer_query --------------------- */
+
+#ifndef GL_EXT_multiview_timer_query
+#define GL_EXT_multiview_timer_query 1
+
+#define GLEW_EXT_multiview_timer_query GLEW_GET_VAR(__GLEW_EXT_multiview_timer_query)
+
+#endif /* GL_EXT_multiview_timer_query */
+
 /* --------------------- GL_EXT_occlusion_query_boolean -------------------- */
 
 #ifndef GL_EXT_occlusion_query_boolean
@@ -12958,6 +12996,15 @@ typedef void (GLAPIENTRY * PFNGLTEXTURENORMALEXTPROC) (GLenum mode);
 
 #endif /* GL_EXT_texture_perturb_normal */
 
+/* ------------------------ GL_EXT_texture_query_lod ----------------------- */
+
+#ifndef GL_EXT_texture_query_lod
+#define GL_EXT_texture_query_lod 1
+
+#define GLEW_EXT_texture_query_lod GLEW_GET_VAR(__GLEW_EXT_texture_query_lod)
+
+#endif /* GL_EXT_texture_query_lod */
+
 /* ------------------------ GL_EXT_texture_rectangle ----------------------- */
 
 #ifndef GL_EXT_texture_rectangle
@@ -13046,6 +13093,15 @@ typedef void (GLAPIENTRY * PFNGLTEXTURENORMALEXTPROC) (GLenum mode);
 #define GLEW_EXT_texture_sRGB_decode GLEW_GET_VAR(__GLEW_EXT_texture_sRGB_decode)
 
 #endif /* GL_EXT_texture_sRGB_decode */
+
+/* ----------------------- GL_EXT_texture_shadow_lod ----------------------- */
+
+#ifndef GL_EXT_texture_shadow_lod
+#define GL_EXT_texture_shadow_lod 1
+
+#define GLEW_EXT_texture_shadow_lod GLEW_GET_VAR(__GLEW_EXT_texture_shadow_lod)
+
+#endif /* GL_EXT_texture_shadow_lod */
 
 /* --------------------- GL_EXT_texture_shared_exponent -------------------- */
 
@@ -25671,6 +25727,9 @@ GLEW_VAR_EXPORT GLboolean __GLEW_EXT_multisample_compatibility;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_multisampled_render_to_texture;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_multisampled_render_to_texture2;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_multiview_draw_buffers;
+GLEW_VAR_EXPORT GLboolean __GLEW_EXT_multiview_tessellation_geometry_shader;
+GLEW_VAR_EXPORT GLboolean __GLEW_EXT_multiview_texture_multisample;
+GLEW_VAR_EXPORT GLboolean __GLEW_EXT_multiview_timer_query;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_occlusion_query_boolean;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_packed_depth_stencil;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_packed_float;
@@ -25756,12 +25815,14 @@ GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_mirror_clamp_to_edge;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_norm16;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_object;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_perturb_normal;
+GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_query_lod;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_rectangle;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_rg;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_sRGB;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_sRGB_R8;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_sRGB_RG8;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_sRGB_decode;
+GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_shadow_lod;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_shared_exponent;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_snorm;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_storage;

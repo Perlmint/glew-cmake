@@ -98,7 +98,12 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xmd.h>
-#include <GL/glew.h>
+
+#ifndef GLEW_INCLUDE
+#  include <GL/glew.h>
+#else
+#  include GLEW_INCLUDE
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -610,6 +615,20 @@ typedef void ( * PFNGLXRELEASETEXIMAGEATIPROC) (Display *dpy, GLXPbuffer pbuf, i
 #define GLXEW_EXT_buffer_age GLXEW_GET_VAR(__GLXEW_EXT_buffer_age)
 
 #endif /* GLX_EXT_buffer_age */
+
+/* ------------------------ GLX_EXT_context_priority ----------------------- */
+
+#ifndef GLX_EXT_context_priority
+#define GLX_EXT_context_priority 1
+
+#define GLX_CONTEXT_PRIORITY_LEVEL_EXT 0x3100
+#define GLX_CONTEXT_PRIORITY_HIGH_EXT 0x3101
+#define GLX_CONTEXT_PRIORITY_MEDIUM_EXT 0x3102
+#define GLX_CONTEXT_PRIORITY_LOW_EXT 0x3103
+
+#define GLXEW_EXT_context_priority GLXEW_GET_VAR(__GLXEW_EXT_context_priority)
+
+#endif /* GLX_EXT_context_priority */
 
 /* ------------------- GLX_EXT_create_context_es2_profile ------------------ */
 
@@ -1721,6 +1740,7 @@ GLXEW_VAR_EXPORT GLboolean __GLXEW_ARB_vertex_buffer_object;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_ATI_pixel_format_float;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_ATI_render_texture;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_buffer_age;
+GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_context_priority;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_create_context_es2_profile;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_create_context_es_profile;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_EXT_fbconfig_packed_float;
