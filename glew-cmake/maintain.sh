@@ -5,6 +5,8 @@
 # - regenerating sources and headers
 # - push changes to repository
 #
+set -euxo pipefail
+
 ORIGINAL_REPO_URL=https://github.com/nigels-com/glew.git
 absolute_path () {
   local TARGET_FILE=$1
@@ -29,7 +31,7 @@ absolute_path () {
   eval "$OUT=\"${RESULT}\""
 }
 
-if [ -z "$WORKSPACE" ]; then
+if [ -z "${WORKSPACE:-}" ]; then
   echo "Set WORKSPACE as default value"
   absolute_path "$0" SCRIPT_PATH
   WORKSPACE=$(dirname "$SCRIPT_PATH")
@@ -37,7 +39,7 @@ if [ -z "$WORKSPACE" ]; then
   echo "WORKSPACE=$WORKSPACE"
 fi
 
-if [ -z "$TEST_MODE" -o "$TEST_MODE" != "false" ]; then
+if [ -z "${TEST_MODE:-}" -o "${TEST_MODE:-}" != "false" ]; then
   PUSH_ARG="--dry-run"
 else
   PUSH_ARG=""
@@ -58,10 +60,12 @@ source_update () {
   PUSH_COUNT=0
 
   echo "Checkout branch ${GIT_BRANCH_NAME}"
+  git reset --hard
+  git clean -f .
   if [ `git branch | grep ${GIT_BRANCH_NAME} | wc -l` = 0 ]; then
     git checkout origin/${GIT_BRANCH_NAME} -b ${GIT_BRANCH_NAME}
   else
-    # git checkout -f $GIT_BRANCH_NAME
+    git checkout -f $GIT_BRANCH_NAME
     git pull -s recursive -X theirs --no-edit --progress origin
   fi
   echo "Pull from origin repository(${ORIGINAL_REPO_URL})"
@@ -87,7 +91,7 @@ source_update () {
   if [ `git diff --cached | wc -c` -ne 0 ]; then
     # Commit and push it
     echo "Sources updated"
-    git commit -m"Generate Sources of ${GIT_BRANCH} updated at $(TZ=GMT date)"
+    git commit -m"Generate Sources of ${GIT_BRANCH_NAME} updated at $(TZ=GMT date)"
     echo "Push to repository"
     git push ${PUSH_ARG} origin ${GIT_BRANCH_NAME}:${GIT_BRANCH_NAME}
     PUSH_COUNT=$((PUSH_COUNT + 1))
@@ -104,10 +108,10 @@ source_update () {
 
 import_tags () {
   echo "Fetch tags from origin repository(${ORIGINAL_REPO_URL})"
-  BEFORE_TAG_COUNT=`git tag | wc -l`
+  BEFORE_TAG_COUNT=`git tag | wc -l | sed "s/^ \+//"`
   git fetch --tags --progress original_repo
-  AFTER_TAG_COUNT=`git tag | wc -l`
-  NEW_VERSION_TAGS=`diff -u <(git tag | grep glew-cmake- | sed s/glew-cmake/glew/) <(git tag | grep "glew-\d") | grep ^+ | sed 1d | sed s/^+//`
+  AFTER_TAG_COUNT=`git tag | wc -l | sed "s/^ \+//"`
+  NEW_VERSION_TAGS=`diff -u <(git tag | grep glew-cmake- | sed s/glew-cmake/glew/) <(git tag | grep "glew-\d") | grep ^+ | sed 1d | sed s/^+// || true`
   if [ ! $BEFORE_TAG_COUNT -eq $AFTER_TAG_COUNT -o ! -z "$NEW_VERSION_TAGS" ]; then
     echo "Tags updated"
     git push ${PUSH_ARG} --tags origin

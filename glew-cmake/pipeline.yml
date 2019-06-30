@@ -19,7 +19,7 @@ resources:
     tag: edge
 
 run-script: &run-script |
-    apk add --no-cache perl git openssh-client make bash
+    apk add --no-cache perl git openssh-client make bash coreutils python2
     git config --global user.email "omniavinco@gmail.com"
     git config --global user.name "Gyusun Yeom"
     mkdir -p ~/.ssh
@@ -47,7 +47,7 @@ jobs:
       inputs:
         - name: glew-cmake-repo
       params:
-        TEST_MODE: true
+        TEST_MODE: false
       run:
         path: /bin/sh
         args:
@@ -64,7 +64,7 @@ jobs:
       inputs:
         - name: glew-cmake-repo
       params:
-        TEST_MODE: false
+        TEST_MODE: true
       run:
         path: /bin/sh
         args:
