@@ -123,9 +123,9 @@ import_tags () {
       git checkout $TAG -- .
       git checkout master -- CMakeLists.txt
       cd "$WORKSPACE/auto"
-      echo "CleanUp fot tag"
+      echo "CleanUp for tag"
       make clean
-      echo "Generated Source Update fot tag"
+      echo "Generated Source Update for tag"
       cd "$WORKSPACE"
       make extensions
       git reset
@@ -141,7 +141,7 @@ import_tags () {
 
     git push ${PUSH_ARG} origin glew-cmake-release
     if [ -z "$PUSH_ARG" ]; then
-      git push --tags ${PUSH_ARGS} origin
+      git push --tags ${PUSH_ARG} origin
     fi
 
     # when test mode, reset created commits
