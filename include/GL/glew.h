@@ -14512,6 +14512,28 @@ typedef void (GLAPIENTRY * PFNGLREADNPIXELSPROC) (GLint x, GLint y, GLsizei widt
 
 #endif /* GL_KHR_robustness */
 
+/* ------------------------- GL_KHR_shader_subgroup ------------------------ */
+
+#ifndef GL_KHR_shader_subgroup
+#define GL_KHR_shader_subgroup 1
+
+#define GL_SUBGROUP_FEATURE_BASIC_BIT_KHR 0x00000001
+#define GL_SUBGROUP_FEATURE_VOTE_BIT_KHR 0x00000002
+#define GL_SUBGROUP_FEATURE_ARITHMETIC_BIT_KHR 0x00000004
+#define GL_SUBGROUP_FEATURE_BALLOT_BIT_KHR 0x00000008
+#define GL_SUBGROUP_FEATURE_SHUFFLE_BIT_KHR 0x00000010
+#define GL_SUBGROUP_FEATURE_SHUFFLE_RELATIVE_BIT_KHR 0x00000020
+#define GL_SUBGROUP_FEATURE_CLUSTERED_BIT_KHR 0x00000040
+#define GL_SUBGROUP_FEATURE_QUAD_BIT_KHR 0x00000080
+#define GL_SUBGROUP_SIZE_KHR 0x9532
+#define GL_SUBGROUP_SUPPORTED_STAGES_KHR 0x9533
+#define GL_SUBGROUP_SUPPORTED_FEATURES_KHR 0x9534
+#define GL_SUBGROUP_QUAD_ALL_STAGES_KHR 0x9535
+
+#define GLEW_KHR_shader_subgroup GLEW_GET_VAR(__GLEW_KHR_shader_subgroup)
+
+#endif /* GL_KHR_shader_subgroup */
+
 /* ------------------ GL_KHR_texture_compression_astc_hdr ------------------ */
 
 #ifndef GL_KHR_texture_compression_astc_hdr
@@ -14854,6 +14876,31 @@ typedef void (GLAPIENTRY * PFNGLENDCONDITIONALRENDERNVXPROC) (void);
 
 #endif /* GL_NVX_gpu_memory_info */
 
+/* ------------------------- GL_NVX_gpu_multicast2 ------------------------- */
+
+#ifndef GL_NVX_gpu_multicast2
+#define GL_NVX_gpu_multicast2 1
+
+#define GL_UPLOAD_GPU_MASK_NVX 0x954A
+
+typedef GLsync (GLAPIENTRY * PFNGLASYNCCOPYBUFFERSUBDATANVXPROC) (GLsizei waitSemaphoreCount, const GLuint* waitSemaphoreArray, const GLuint64 *fenceValueArray, GLuint readGpu, GLbitfield writeGpuMask, GLuint readBuffer, GLuint writeBuffer, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size, GLsizei signalSemaphoreCount, const GLuint *signalSemaphoreArray, const GLuint64 *signalValueArray);
+typedef GLuint (GLAPIENTRY * PFNGLASYNCCOPYIMAGESUBDATANVXPROC) (GLsizei waitSemaphoreCount, const GLuint* waitSemaphoreArray, const GLuint64 *waitValueArray, GLuint srcGpu, GLbitfield dstGpuMask, GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei srcWidth, GLsizei srcHeight, GLsizei srcDepth, GLsizei signalSemaphoreCount, const GLuint *signalSemaphoreArray, const GLuint64 *signalValueArray);
+typedef void (GLAPIENTRY * PFNGLMULTICASTSCISSORARRAYVNVXPROC) (GLuint gpu, GLuint first, GLsizei count, const GLint* v);
+typedef void (GLAPIENTRY * PFNGLMULTICASTVIEWPORTARRAYVNVXPROC) (GLuint gpu, GLuint first, GLsizei count, const GLfloat* v);
+typedef void (GLAPIENTRY * PFNGLMULTICASTVIEWPORTPOSITIONWSCALENVXPROC) (GLuint gpu, GLuint index, GLfloat xcoeff, GLfloat ycoeff);
+typedef void (GLAPIENTRY * PFNGLUPLOADGPUMASKNVXPROC) (GLbitfield mask);
+
+#define glAsyncCopyBufferSubDataNVX GLEW_GET_FUN(__glewAsyncCopyBufferSubDataNVX)
+#define glAsyncCopyImageSubDataNVX GLEW_GET_FUN(__glewAsyncCopyImageSubDataNVX)
+#define glMulticastScissorArrayvNVX GLEW_GET_FUN(__glewMulticastScissorArrayvNVX)
+#define glMulticastViewportArrayvNVX GLEW_GET_FUN(__glewMulticastViewportArrayvNVX)
+#define glMulticastViewportPositionWScaleNVX GLEW_GET_FUN(__glewMulticastViewportPositionWScaleNVX)
+#define glUploadGpuMaskNVX GLEW_GET_FUN(__glewUploadGpuMaskNVX)
+
+#define GLEW_NVX_gpu_multicast2 GLEW_GET_VAR(__GLEW_NVX_gpu_multicast2)
+
+#endif /* GL_NVX_gpu_multicast2 */
+
 /* ---------------------- GL_NVX_linked_gpu_multicast ---------------------- */
 
 #ifndef GL_NVX_linked_gpu_multicast
@@ -14873,6 +14920,23 @@ typedef void (GLAPIENTRY * PFNGLLGPUNAMEDBUFFERSUBDATANVXPROC) (GLbitfield gpuMa
 #define GLEW_NVX_linked_gpu_multicast GLEW_GET_VAR(__GLEW_NVX_linked_gpu_multicast)
 
 #endif /* GL_NVX_linked_gpu_multicast */
+
+/* ------------------------- GL_NVX_progress_fence ------------------------- */
+
+#ifndef GL_NVX_progress_fence
+#define GL_NVX_progress_fence 1
+
+typedef void (GLAPIENTRY * PFNGLCLIENTWAITSEMAPHOREUI64NVXPROC) (GLsizei fenceObjectCount, const GLuint* semaphoreArray, const GLuint64 *fenceValueArray);
+typedef void (GLAPIENTRY * PFNGLSIGNALSEMAPHOREUI64NVXPROC) (GLuint signalGpu, GLsizei fenceObjectCount, const GLuint* semaphoreArray, const GLuint64 *fenceValueArray);
+typedef void (GLAPIENTRY * PFNGLWAITSEMAPHOREUI64NVXPROC) (GLuint waitGpu, GLsizei fenceObjectCount, const GLuint* semaphoreArray, const GLuint64 *fenceValueArray);
+
+#define glClientWaitSemaphoreui64NVX GLEW_GET_FUN(__glewClientWaitSemaphoreui64NVX)
+#define glSignalSemaphoreui64NVX GLEW_GET_FUN(__glewSignalSemaphoreui64NVX)
+#define glWaitSemaphoreui64NVX GLEW_GET_FUN(__glewWaitSemaphoreui64NVX)
+
+#define GLEW_NVX_progress_fence GLEW_GET_VAR(__GLEW_NVX_progress_fence)
+
+#endif /* GL_NVX_progress_fence */
 
 /* ------------------------ GL_NV_3dvision_settings ------------------------ */
 
@@ -17371,6 +17435,17 @@ typedef void (GLAPIENTRY * PFNGLUNIFORMUI64VNVPROC) (GLint location, GLsizei cou
 #define GLEW_NV_shader_storage_buffer_object GLEW_GET_VAR(__GLEW_NV_shader_storage_buffer_object)
 
 #endif /* GL_NV_shader_storage_buffer_object */
+
+/* ------------------- GL_NV_shader_subgroup_partitioned ------------------- */
+
+#ifndef GL_NV_shader_subgroup_partitioned
+#define GL_NV_shader_subgroup_partitioned 1
+
+#define GL_SUBGROUP_FEATURE_PARTITIONED_BIT_NV 0x00000100
+
+#define GLEW_NV_shader_subgroup_partitioned GLEW_GET_VAR(__GLEW_NV_shader_subgroup_partitioned)
+
+#endif /* GL_NV_shader_subgroup_partitioned */
 
 /* --------------------- GL_NV_shader_texture_footprint -------------------- */
 
@@ -24400,9 +24475,20 @@ GLEW_FUN_EXPORT PFNGLWINDOWPOS4SVMESAPROC __glewWindowPos4svMESA;
 GLEW_FUN_EXPORT PFNGLBEGINCONDITIONALRENDERNVXPROC __glewBeginConditionalRenderNVX;
 GLEW_FUN_EXPORT PFNGLENDCONDITIONALRENDERNVXPROC __glewEndConditionalRenderNVX;
 
+GLEW_FUN_EXPORT PFNGLASYNCCOPYBUFFERSUBDATANVXPROC __glewAsyncCopyBufferSubDataNVX;
+GLEW_FUN_EXPORT PFNGLASYNCCOPYIMAGESUBDATANVXPROC __glewAsyncCopyImageSubDataNVX;
+GLEW_FUN_EXPORT PFNGLMULTICASTSCISSORARRAYVNVXPROC __glewMulticastScissorArrayvNVX;
+GLEW_FUN_EXPORT PFNGLMULTICASTVIEWPORTARRAYVNVXPROC __glewMulticastViewportArrayvNVX;
+GLEW_FUN_EXPORT PFNGLMULTICASTVIEWPORTPOSITIONWSCALENVXPROC __glewMulticastViewportPositionWScaleNVX;
+GLEW_FUN_EXPORT PFNGLUPLOADGPUMASKNVXPROC __glewUploadGpuMaskNVX;
+
 GLEW_FUN_EXPORT PFNGLLGPUCOPYIMAGESUBDATANVXPROC __glewLGPUCopyImageSubDataNVX;
 GLEW_FUN_EXPORT PFNGLLGPUINTERLOCKNVXPROC __glewLGPUInterlockNVX;
 GLEW_FUN_EXPORT PFNGLLGPUNAMEDBUFFERSUBDATANVXPROC __glewLGPUNamedBufferSubDataNVX;
+
+GLEW_FUN_EXPORT PFNGLCLIENTWAITSEMAPHOREUI64NVXPROC __glewClientWaitSemaphoreui64NVX;
+GLEW_FUN_EXPORT PFNGLSIGNALSEMAPHOREUI64NVXPROC __glewSignalSemaphoreui64NVX;
+GLEW_FUN_EXPORT PFNGLWAITSEMAPHOREUI64NVXPROC __glewWaitSemaphoreui64NVX;
 
 GLEW_FUN_EXPORT PFNGLSTEREOPARAMETERFNVPROC __glewStereoParameterfNV;
 GLEW_FUN_EXPORT PFNGLSTEREOPARAMETERINVPROC __glewStereoParameteriNV;
@@ -25886,6 +25972,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_KHR_no_error;
 GLEW_VAR_EXPORT GLboolean __GLEW_KHR_parallel_shader_compile;
 GLEW_VAR_EXPORT GLboolean __GLEW_KHR_robust_buffer_access_behavior;
 GLEW_VAR_EXPORT GLboolean __GLEW_KHR_robustness;
+GLEW_VAR_EXPORT GLboolean __GLEW_KHR_shader_subgroup;
 GLEW_VAR_EXPORT GLboolean __GLEW_KHR_texture_compression_astc_hdr;
 GLEW_VAR_EXPORT GLboolean __GLEW_KHR_texture_compression_astc_ldr;
 GLEW_VAR_EXPORT GLboolean __GLEW_KHR_texture_compression_astc_sliced_3d;
@@ -25902,7 +25989,9 @@ GLEW_VAR_EXPORT GLboolean __GLEW_MESA_ycbcr_texture;
 GLEW_VAR_EXPORT GLboolean __GLEW_NVX_blend_equation_advanced_multi_draw_buffers;
 GLEW_VAR_EXPORT GLboolean __GLEW_NVX_conditional_render;
 GLEW_VAR_EXPORT GLboolean __GLEW_NVX_gpu_memory_info;
+GLEW_VAR_EXPORT GLboolean __GLEW_NVX_gpu_multicast2;
 GLEW_VAR_EXPORT GLboolean __GLEW_NVX_linked_gpu_multicast;
+GLEW_VAR_EXPORT GLboolean __GLEW_NVX_progress_fence;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_3dvision_settings;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_EGL_stream_consumer_external;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_alpha_to_coverage_dither_control;
@@ -26013,6 +26102,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_NV_shader_atomic_int64;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_shader_buffer_load;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_shader_noperspective_interpolation;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_shader_storage_buffer_object;
+GLEW_VAR_EXPORT GLboolean __GLEW_NV_shader_subgroup_partitioned;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_shader_texture_footprint;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_shader_thread_group;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_shader_thread_shuffle;

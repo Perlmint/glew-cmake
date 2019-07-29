@@ -1031,6 +1031,21 @@ typedef BOOL (WINAPI * PFNWGLENUMGPUSNVPROC) (UINT iGpuIndex, HGPUNV *phGpu);
 
 #endif /* WGL_NV_gpu_affinity */
 
+/* ------------------------ WGL_NV_multigpu_context ------------------------ */
+
+#ifndef WGL_NV_multigpu_context
+#define WGL_NV_multigpu_context 1
+
+#define WGL_CONTEXT_MULTIGPU_ATTRIB_NV 0x20AA
+#define WGL_CONTEXT_MULTIGPU_ATTRIB_SINGLE_NV 0x20AB
+#define WGL_CONTEXT_MULTIGPU_ATTRIB_AFR_NV 0x20AC
+#define WGL_CONTEXT_MULTIGPU_ATTRIB_MULTICAST_NV 0x20AD
+#define WGL_CONTEXT_MULTIGPU_ATTRIB_MULTI_DISPLAY_MULTICAST_NV 0x20AE
+
+#define WGLEW_NV_multigpu_context WGLEW_GET_VAR(__WGLEW_NV_multigpu_context)
+
+#endif /* WGL_NV_multigpu_context */
+
 /* ---------------------- WGL_NV_multisample_coverage ---------------------- */
 
 #ifndef WGL_NV_multisample_coverage
@@ -1419,6 +1434,7 @@ WGLEW_VAR_EXPORT GLboolean __WGLEW_NV_copy_image;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_NV_delay_before_swap;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_NV_float_buffer;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_NV_gpu_affinity;
+WGLEW_VAR_EXPORT GLboolean __WGLEW_NV_multigpu_context;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_NV_multisample_coverage;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_NV_present_video;
 WGLEW_VAR_EXPORT GLboolean __WGLEW_NV_render_depth_texture;
