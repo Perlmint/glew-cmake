@@ -13043,6 +13043,15 @@ static void _glewInfo_EGL_NV_stream_cross_system (void)
 
 #endif /* EGL_NV_stream_cross_system */
 
+#ifdef EGL_NV_stream_dma
+
+static void _glewInfo_EGL_NV_stream_dma (void)
+{
+  glewPrintExt("EGL_NV_stream_dma", EGLEW_NV_stream_dma, eglewIsSupported("EGL_NV_stream_dma"), eglewGetExtension("EGL_NV_stream_dma"));
+}
+
+#endif /* EGL_NV_stream_dma */
+
 #ifdef EGL_NV_stream_fifo_next
 
 static void _glewInfo_EGL_NV_stream_fifo_next (void)
@@ -18309,6 +18318,9 @@ static void eglewInfo ()
 #ifdef EGL_NV_stream_cross_system
   _glewInfo_EGL_NV_stream_cross_system();
 #endif /* EGL_NV_stream_cross_system */
+#ifdef EGL_NV_stream_dma
+  _glewInfo_EGL_NV_stream_dma();
+#endif /* EGL_NV_stream_dma */
 #ifdef EGL_NV_stream_fifo_next
   _glewInfo_EGL_NV_stream_fifo_next();
 #endif /* EGL_NV_stream_fifo_next */

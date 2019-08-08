@@ -19595,6 +19595,7 @@ GLboolean __EGLEW_NV_stream_cross_object = GL_FALSE;
 GLboolean __EGLEW_NV_stream_cross_partition = GL_FALSE;
 GLboolean __EGLEW_NV_stream_cross_process = GL_FALSE;
 GLboolean __EGLEW_NV_stream_cross_system = GL_FALSE;
+GLboolean __EGLEW_NV_stream_dma = GL_FALSE;
 GLboolean __EGLEW_NV_stream_fifo_next = GL_FALSE;
 GLboolean __EGLEW_NV_stream_fifo_synchronous = GL_FALSE;
 GLboolean __EGLEW_NV_stream_flush = GL_FALSE;
@@ -20879,6 +20880,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_NV_stream_cross_system
   EGLEW_NV_stream_cross_system = _glewSearchExtension("EGL_NV_stream_cross_system", extStart, extEnd);
 #endif /* EGL_NV_stream_cross_system */
+#ifdef EGL_NV_stream_dma
+  EGLEW_NV_stream_dma = _glewSearchExtension("EGL_NV_stream_dma", extStart, extEnd);
+#endif /* EGL_NV_stream_dma */
 #ifdef EGL_NV_stream_fifo_next
   EGLEW_NV_stream_fifo_next = _glewSearchExtension("EGL_NV_stream_fifo_next", extStart, extEnd);
 #endif /* EGL_NV_stream_fifo_next */
@@ -31693,6 +31697,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"stream_cross_system", 19))
         {
           ret = EGLEW_NV_stream_cross_system;
+          continue;
+        }
+#endif
+#ifdef EGL_NV_stream_dma
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"stream_dma", 10))
+        {
+          ret = EGLEW_NV_stream_dma;
           continue;
         }
 #endif

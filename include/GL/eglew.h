@@ -2339,6 +2339,18 @@ typedef EGLBoolean ( * PFNEGLSTREAMCONSUMERGLTEXTUREEXTERNALATTRIBSNVPROC) (EGLD
 
 #endif /* EGL_NV_stream_cross_system */
 
+/* --------------------------- EGL_NV_stream_dma --------------------------- */
+
+#ifndef EGL_NV_stream_dma
+#define EGL_NV_stream_dma 1
+
+#define EGL_STREAM_DMA_NV 0x3371
+#define EGL_STREAM_DMA_SERVER_NV 0x3372
+
+#define EGLEW_NV_stream_dma EGLEW_GET_VAR(__EGLEW_NV_stream_dma)
+
+#endif /* EGL_NV_stream_dma */
+
 /* ------------------------ EGL_NV_stream_fifo_next ------------------------ */
 
 #ifndef EGL_NV_stream_fifo_next
@@ -2945,6 +2957,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_cross_object;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_cross_partition;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_cross_process;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_cross_system;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_dma;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_fifo_next;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_fifo_synchronous;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_flush;
