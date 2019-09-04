@@ -45,15 +45,6 @@ else
   PUSH_ARG=""
 fi
 
-prepare () {
-  if [ -d "$WORKSPACE/auto/registry" ]; then
-    cd "$WORKSPACE/auto/registry"
-    echo "Update registry repo"
-    git pull
-  fi
-  cd "$WORKSPACE"
-}
-
 source_update () {
   GIT_BRANCH_NAME=$1
   # for recovery when test mode.
@@ -82,8 +73,14 @@ source_update () {
   cd "$WORKSPACE/auto"
   echo "CleanUp"
   make clean
-  echo "Generated Source Update"
+  cd "$WORKSPACE/auto"
+  REGISTRIES=`find . -name .git -type d -exec dirname {} \;`
+  for REGISTRY in $REGISTRIES
+  do
+    rm -rf $REGISTRY
+  done
   cd "$WORKSPACE"
+  echo "Generated Source Update"
   make extensions
   echo "Diff sources"
   git add --force src/glew.c src/glewinfo.c include/GL/* doc/* build/*.rc
@@ -111,7 +108,7 @@ import_tags () {
   BEFORE_TAG_COUNT=`git tag | wc -l | sed "s/^ \+//"`
   git fetch --tags --progress original_repo
   AFTER_TAG_COUNT=`git tag | wc -l | sed "s/^ \+//"`
-  NEW_VERSION_TAGS=`diff -u <(git tag | grep glew-cmake- | sed s/glew-cmake/glew/) <(git tag | grep "glew-\d") | grep ^+ | sed 1d | sed s/^+// || true`
+  NEW_VERSION_TAGS=`diff -u <(git tag | grep glew-cmake- | sed s/glew-cmake/glew/) <(git tag | grep "glew-[0-9]") | grep ^+ | sed 1d | sed s/^+// || true`
   if [ ! $BEFORE_TAG_COUNT -eq $AFTER_TAG_COUNT -o ! -z "$NEW_VERSION_TAGS" ]; then
     echo "Tags updated"
     git push ${PUSH_ARG} --tags origin
@@ -123,11 +120,37 @@ import_tags () {
       git checkout $TAG -- .
       git checkout master -- CMakeLists.txt
       cd "$WORKSPACE/auto"
-      echo "CleanUp for tag"
+      COMMIT_TIME=`git log -1 $TAG --format=%ct`
+      echo "Patch perl scripts for new version"
+      find bin -name '*.pl' -exec sed -i "s/do 'bin/use lib '.';\ndo 'bin/" {} \;
+      echo "Remove registries"
+      REGISTRIES=`find . -name .git -type d -exec dirname {} \;`
+      for REGISTRY in $REGISTRIES
+      do
+        rm -rf $REGISTRY
+      done
+      echo "Run code generation to download registries"
       make clean
-      echo "Generated Source Update for tag"
       cd "$WORKSPACE"
       make extensions
+      echo "Rewind registry repos"
+      cd "$WORKSPACE/auto"
+      make clean
+      REGISTRIES=`find . -name .git -type d -exec dirname {} \;`
+      for REGISTRY in $REGISTRIES
+      do
+	      cd "$WORKSPACE/auto/$REGISTRY"
+        PROPER_COMMIT=`git log --until=$COMMIT_TIME -1 --format=%H`
+        git checkout --force $PROPER_COMMIT
+        find . -name .dummy -exec touch {} \;
+      done
+      echo "CleanUp for tag"
+      cd "$WORKSPACE/auto"
+      # remove previous data
+      rm -rf extensions
+      echo "Generate source code"
+      make
+      cd "$WORKSPACE"
       git reset
       git add --force src include doc CMakeLists.txt
       if [ `git diff --cached | wc -c` -ne 0 ]; then
@@ -162,7 +185,7 @@ if [ `git remote | grep original_repo | wc -l` = 0 ]; then
   git remote add original_repo ${ORIGINAL_REPO_URL}
 fi
 
-git fetch original_repo
+git fetch -n original_repo
 
 branch_list () {
   eval "$2=\"`git branch -r | grep $1 | sed "s/\s\+$1\///g" | sed ':a;N;$!ba;s/\n/ /g'`\""
@@ -205,8 +228,6 @@ join () {
 #    source_update $branch
 #  fi
 #done
-
-prepare
 
 source_update master
 
