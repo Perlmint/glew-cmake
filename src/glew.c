@@ -2478,6 +2478,9 @@ PFNGLDRAWBUFFERREGIONPROC __glewDrawBufferRegion = NULL;
 PFNGLNEWBUFFERREGIONPROC __glewNewBufferRegion = NULL;
 PFNGLREADBUFFERREGIONPROC __glewReadBufferRegion = NULL;
 
+PFNGLFRAMEBUFFERPARAMETERIMESAPROC __glewFramebufferParameteriMESA = NULL;
+PFNGLGETFRAMEBUFFERPARAMETERIVMESAPROC __glewGetFramebufferParameterivMESA = NULL;
+
 PFNGLRESIZEBUFFERSMESAPROC __glewResizeBuffersMESA = NULL;
 
 PFNGLWINDOWPOS2DMESAPROC __glewWindowPos2dMESA = NULL;
@@ -10252,6 +10255,7 @@ static GLboolean _glewInit_GL_KHR_debug ();
 static GLboolean _glewInit_GL_KHR_parallel_shader_compile ();
 static GLboolean _glewInit_GL_KHR_robustness ();
 static GLboolean _glewInit_GL_KTX_buffer_region ();
+static GLboolean _glewInit_GL_MESA_framebuffer_flip_y ();
 static GLboolean _glewInit_GL_MESA_resize_buffers ();
 static GLboolean _glewInit_GL_MESA_window_pos ();
 static GLboolean _glewInit_GL_NVX_conditional_render ();
@@ -15336,6 +15340,20 @@ static GLboolean _glewInit_GL_KTX_buffer_region ()
 
 #endif /* GL_KTX_buffer_region */
 
+#ifdef GL_MESA_framebuffer_flip_y
+
+static GLboolean _glewInit_GL_MESA_framebuffer_flip_y ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glFramebufferParameteriMESA = (PFNGLFRAMEBUFFERPARAMETERIMESAPROC)glewGetProcAddress((const GLubyte*)"glFramebufferParameteriMESA")) == NULL) || r;
+  r = ((glGetFramebufferParameterivMESA = (PFNGLGETFRAMEBUFFERPARAMETERIVMESAPROC)glewGetProcAddress((const GLubyte*)"glGetFramebufferParameterivMESA")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_MESA_framebuffer_flip_y */
+
 #ifdef GL_MESA_resize_buffers
 
 static GLboolean _glewInit_GL_MESA_resize_buffers ()
@@ -18823,6 +18841,9 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 #ifdef GL_KTX_buffer_region
   if (glewExperimental || GLEW_KTX_buffer_region) GLEW_KTX_buffer_region = !_glewInit_GL_KTX_buffer_region();
 #endif /* GL_KTX_buffer_region */
+#ifdef GL_MESA_framebuffer_flip_y
+  if (glewExperimental || GLEW_MESA_framebuffer_flip_y) GLEW_MESA_framebuffer_flip_y = !_glewInit_GL_MESA_framebuffer_flip_y();
+#endif /* GL_MESA_framebuffer_flip_y */
 #ifdef GL_MESA_resize_buffers
   if (glewExperimental || GLEW_MESA_resize_buffers) GLEW_MESA_resize_buffers = !_glewInit_GL_MESA_resize_buffers();
 #endif /* GL_MESA_resize_buffers */
@@ -22093,6 +22114,7 @@ GLboolean __GLXEW_NV_copy_buffer = GL_FALSE;
 GLboolean __GLXEW_NV_copy_image = GL_FALSE;
 GLboolean __GLXEW_NV_delay_before_swap = GL_FALSE;
 GLboolean __GLXEW_NV_float_buffer = GL_FALSE;
+GLboolean __GLXEW_NV_multigpu_context = GL_FALSE;
 GLboolean __GLXEW_NV_multisample_coverage = GL_FALSE;
 GLboolean __GLXEW_NV_present_video = GL_FALSE;
 GLboolean __GLXEW_NV_robustness_video_memory_purge = GL_FALSE;
@@ -22875,6 +22897,9 @@ GLenum glxewInit ()
 #ifdef GLX_NV_float_buffer
   GLXEW_NV_float_buffer = _glewSearchExtension("GLX_NV_float_buffer", extStart, extEnd);
 #endif /* GLX_NV_float_buffer */
+#ifdef GLX_NV_multigpu_context
+  GLXEW_NV_multigpu_context = _glewSearchExtension("GLX_NV_multigpu_context", extStart, extEnd);
+#endif /* GLX_NV_multigpu_context */
 #ifdef GLX_NV_multisample_coverage
   GLXEW_NV_multisample_coverage = _glewSearchExtension("GLX_NV_multisample_coverage", extStart, extEnd);
 #endif /* GLX_NV_multisample_coverage */
@@ -30512,6 +30537,13 @@ GLboolean glxewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"float_buffer", 12))
         {
           ret = GLXEW_NV_float_buffer;
+          continue;
+        }
+#endif
+#ifdef GLX_NV_multigpu_context
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"multigpu_context", 16))
+        {
+          ret = GLXEW_NV_multigpu_context;
           continue;
         }
 #endif

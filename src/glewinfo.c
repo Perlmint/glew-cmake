@@ -7230,7 +7230,10 @@ static void _glewInfo_GL_MESAX_texture_stack (void)
 
 static void _glewInfo_GL_MESA_framebuffer_flip_y (void)
 {
-  glewPrintExt("GL_MESA_framebuffer_flip_y", GLEW_MESA_framebuffer_flip_y, glewIsSupported("GL_MESA_framebuffer_flip_y"), glewGetExtension("GL_MESA_framebuffer_flip_y"));
+  GLboolean fi = glewPrintExt("GL_MESA_framebuffer_flip_y", GLEW_MESA_framebuffer_flip_y, glewIsSupported("GL_MESA_framebuffer_flip_y"), glewGetExtension("GL_MESA_framebuffer_flip_y"));
+
+  glewInfoFunc(fi, "glFramebufferParameteriMESA", glFramebufferParameteriMESA == NULL);
+  glewInfoFunc(fi, "glGetFramebufferParameterivMESA", glGetFramebufferParameterivMESA == NULL);
 }
 
 #endif /* GL_MESA_framebuffer_flip_y */
@@ -14387,6 +14390,15 @@ static void _glewInfo_GLX_NV_float_buffer (void)
 
 #endif /* GLX_NV_float_buffer */
 
+#ifdef GLX_NV_multigpu_context
+
+static void _glewInfo_GLX_NV_multigpu_context (void)
+{
+  glewPrintExt("GLX_NV_multigpu_context", GLXEW_NV_multigpu_context, glxewIsSupported("GLX_NV_multigpu_context"), glxewGetExtension("GLX_NV_multigpu_context"));
+}
+
+#endif /* GLX_NV_multigpu_context */
+
 #ifdef GLX_NV_multisample_coverage
 
 static void _glewInfo_GLX_NV_multisample_coverage (void)
@@ -17832,6 +17844,9 @@ static void glxewInfo ()
 #ifdef GLX_NV_float_buffer
   _glewInfo_GLX_NV_float_buffer();
 #endif /* GLX_NV_float_buffer */
+#ifdef GLX_NV_multigpu_context
+  _glewInfo_GLX_NV_multigpu_context();
+#endif /* GLX_NV_multigpu_context */
 #ifdef GLX_NV_multisample_coverage
   _glewInfo_GLX_NV_multisample_coverage();
 #endif /* GLX_NV_multisample_coverage */

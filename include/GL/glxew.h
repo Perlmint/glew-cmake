@@ -1039,6 +1039,21 @@ typedef Bool ( * PFNGLXDELAYBEFORESWAPNVPROC) (Display* dpy, GLXDrawable drawabl
 
 #endif /* GLX_NV_float_buffer */
 
+/* ------------------------ GLX_NV_multigpu_context ------------------------ */
+
+#ifndef GLX_NV_multigpu_context
+#define GLX_NV_multigpu_context 1
+
+#define GLX_CONTEXT_MULTIGPU_ATTRIB_NV 0x20AA
+#define GLX_CONTEXT_MULTIGPU_ATTRIB_SINGLE_NV 0x20AB
+#define GLX_CONTEXT_MULTIGPU_ATTRIB_AFR_NV 0x20AC
+#define GLX_CONTEXT_MULTIGPU_ATTRIB_MULTICAST_NV 0x20AD
+#define GLX_CONTEXT_MULTIGPU_ATTRIB_MULTI_DISPLAY_MULTICAST_NV 0x20AE
+
+#define GLXEW_NV_multigpu_context GLXEW_GET_VAR(__GLXEW_NV_multigpu_context)
+
+#endif /* GLX_NV_multigpu_context */
+
 /* ---------------------- GLX_NV_multisample_coverage ---------------------- */
 
 #ifndef GLX_NV_multisample_coverage
@@ -1767,6 +1782,7 @@ GLXEW_VAR_EXPORT GLboolean __GLXEW_NV_copy_buffer;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_NV_copy_image;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_NV_delay_before_swap;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_NV_float_buffer;
+GLXEW_VAR_EXPORT GLboolean __GLXEW_NV_multigpu_context;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_NV_multisample_coverage;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_NV_present_video;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_NV_robustness_video_memory_purge;
