@@ -152,7 +152,7 @@ import_tags () {
       make
       cd "$WORKSPACE"
       git reset
-      git add --force src include doc CMakeLists.txt
+      git add --force src include doc CMakeLists.txt build/*.rc
       if [ `git diff --cached | wc -c` -ne 0 ]; then
         git commit -m"glew-cmake release from $TAG"
         NEW_TAG=`echo $TAG | sed s/glew-/glew-cmake-/`
