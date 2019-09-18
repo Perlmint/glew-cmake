@@ -9,15 +9,16 @@ SET( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 
-OPTION( glew-cmake_BUILD_SHARED "Build the shared glew library" ON)
-OPTION( glew-cmake_BUILD_STATIC "Build the static glew library" ON)
+OPTION( glew-cmake_BUILD_SHARED "Build the shared glew library" ON )
+OPTION( glew-cmake_BUILD_STATIC "Build the static glew library" ON )
+OPTION( glew-cmake_BUILD_SINGLE_CONTEXT "Build the single context glew library" ON )
+OPTION( glew-cmake_BUILD_MULTI_CONTEXT "Build the multi context glew library" ON )
 
-INCLUDE_DIRECTORIES( ${INCLUDE_DIR} )
 
 SET( LIBGLEW_SRCS ${SRC_DIR}/glew.c )
 
 IF( WIN32 )
-	ADD_DEFINITIONS( -DWIN32_MEAN_AND_LEAN -DVC_EXTRALEAN -DGLEW_BUILD -D_CRT_SECURE_NO_WARNINGS )
+	ADD_DEFINITIONS( -DWIN32_MEAN_AND_LEAN -DVC_EXTRALEAN -D_CRT_SECURE_NO_WARNINGS )
 ENDIF(  )
 
 IF( MSVC )
@@ -40,26 +41,65 @@ ELSE(  )
 ENDIF(  )
 
 IF ( glew-cmake_BUILD_STATIC )
-	ADD_LIBRARY( libglew_static STATIC ${LIBGLEW_SRCS} )
+	IF ( glew-cmake_BUILD_SINGLE_CONTEXT )
+		ADD_LIBRARY( libglew_static STATIC ${LIBGLEW_SRCS} )
 
-	SET_PROPERTY( TARGET libglew_static PROPERTY ARCHIVE_OUTPUT_NAME "glew" )
-	SET_PROPERTY( TARGET libglew_static PROPERTY DEBUG_POSTFIX d )
-	INSTALL( TARGETS libglew_static DESTINATION lib )
-	TARGET_LINK_LIBRARIES( libglew_static ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES} )
+		SET_TARGET_PROPERTIES( libglew_static PROPERTIES
+		                       ARCHIVE_OUTPUT_NAME "glew"
+		                       DEBUG_POSTFIX d )
+		TARGET_INCLUDE_DIRECTORIES( libglew_static PUBLIC ${INCLUDE_DIR} )
+		TARGET_COMPILE_DEFINITIONS( libglew_static PUBLIC GLEW_STATIC )
+		TARGET_LINK_LIBRARIES( libglew_static ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES} )
+		INSTALL( TARGETS libglew_static ARCHIVE DESTINATION lib )
+	ENDIF (  )
+
+	IF ( glew-cmake_BUILD_MULTI_CONTEXT )
+		ADD_LIBRARY( libglewmx_static STATIC ${LIBGLEW_SRCS} )
+
+		SET_TARGET_PROPERTIES( libglewmx_static PROPERTIES
+		                       ARCHIVE_OUTPUT_NAME "glewmx"
+		                       DEBUG_POSTFIX d )
+		TARGET_COMPILE_DEFINITIONS( libglewmx_static INTERFACE GLEW_MX)
+		TARGET_INCLUDE_DIRECTORIES( libglewmx_static PUBLIC ${INCLUDE_DIR} )
+		TARGET_COMPILE_DEFINITIONS( libglewmx_static PUBLIC GLEW_STATIC )
+		TARGET_LINK_LIBRARIES( libglewmx_static ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES} )
+		INSTALL( TARGETS libglewmx_static ARCHIVE DESTINATION lib )
+	ENDIF (  )
 ENDIF (  )
 
 IF ( glew-cmake_BUILD_SHARED )
-	ADD_LIBRARY( libglew_shared SHARED ${LIBGLEW_SRCS} )
+	IF ( glew-cmake_BUILD_SINGLE_CONTEXT )
+		ADD_LIBRARY( libglew_shared SHARED ${LIBGLEW_SRCS} )
 
-	IF( WIN32 )
-		SET_PROPERTY( TARGET libglew_shared PROPERTY RUNTIME_OUTPUT_NAME "glew" )
-	ELSE(  )
-		SET_PROPERTY( TARGET libglew_shared PROPERTY LIBRARY_OUTPUT_NAME "glew" )
-	ENDIF(  )
-	SET_PROPERTY( TARGET libglew_shared PROPERTY DEBUG_POSTFIX d )
+		SET_TARGET_PROPERTIES( libglew_shared PROPERTIES
+		                       RUNTIME_OUTPUT_NAME "glew"
+		                       LIBRARY_OUTPUT_NAME "glew"
+		                       DEBUG_POSTFIX d )
 
-	TARGET_LINK_LIBRARIES( libglew_shared ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES} )
-	INSTALL( TARGETS libglew_shared DESTINATION lib )
+		TARGET_INCLUDE_DIRECTORIES( libglew_shared PUBLIC ${INCLUDE_DIR} )
+		TARGET_COMPILE_DEFINITIONS( libglew_shared PUBLIC GLEW_BUILD )
+		TARGET_LINK_LIBRARIES( libglew_shared ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES} )
+		INSTALL( TARGETS libglew_shared ARCHIVE DESTINATION lib
+		                                LIBRARY DESTINATION lib
+		                                RUNTIME DESTINATION bin )
+	ENDIF (  )
+
+	IF ( glew-cmake_BUILD_MULTI_CONTEXT )
+		ADD_LIBRARY( libglewmx_shared SHARED ${LIBGLEW_SRCS} )
+
+		SET_TARGET_PROPERTIES( libglewmx_shared PROPERTIES
+		                       RUNTIME_OUTPUT_NAME "glewmx"
+		                       LIBRARY_OUTPUT_NAME "glewmx"
+		                       DEBUG_POSTFIX d )
+
+		TARGET_COMPILE_DEFINITIONS( libglewmx_shared INTERFACE GLEW_MX)
+		TARGET_INCLUDE_DIRECTORIES( libglewmx_shared PUBLIC ${INCLUDE_DIR} )
+		TARGET_COMPILE_DEFINITIONS( libglewmx_shared PUBLIC GLEW_BUILD )
+		TARGET_LINK_LIBRARIES( libglewmx_shared ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES} )
+		INSTALL( TARGETS libglewmx_shared ARCHIVE DESTINATION lib
+		                                  LIBRARY DESTINATION lib
+		                                  RUNTIME DESTINATION bin )
+	ENDIF (  )
 ENDIF (  )
 
 FILE( GLOB PUBLIC_HEADERS "include/GL/*.h" )
