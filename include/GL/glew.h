@@ -9209,6 +9209,15 @@ typedef void (GLAPIENTRY * PFNGLEGLIMAGETARGETTEXTURESTORAGEEXTPROC) (GLuint tex
 
 #endif /* GL_EXT_EGL_image_storage */
 
+/* ---------------------------- GL_EXT_EGL_sync ---------------------------- */
+
+#ifndef GL_EXT_EGL_sync
+#define GL_EXT_EGL_sync 1
+
+#define GLEW_EXT_EGL_sync GLEW_GET_VAR(__GLEW_EXT_EGL_sync)
+
+#endif /* GL_EXT_EGL_sync */
+
 /* --------------------------- GL_EXT_YUV_target --------------------------- */
 
 #ifndef GL_EXT_YUV_target
@@ -25743,6 +25752,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_EXT_Cg_shader;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_EGL_image_array;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_EGL_image_external_wrap_modes;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_EGL_image_storage;
+GLEW_VAR_EXPORT GLboolean __GLEW_EXT_EGL_sync;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_YUV_target;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_abgr;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_base_instance;

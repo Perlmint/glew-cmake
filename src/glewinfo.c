@@ -4244,6 +4244,15 @@ static void _glewInfo_GL_EXT_EGL_image_storage (void)
 
 #endif /* GL_EXT_EGL_image_storage */
 
+#ifdef GL_EXT_EGL_sync
+
+static void _glewInfo_GL_EXT_EGL_sync (void)
+{
+  glewPrintExt("GL_EXT_EGL_sync", GLEW_EXT_EGL_sync, glewIsSupported("GL_EXT_EGL_sync"), glewGetExtension("GL_EXT_EGL_sync"));
+}
+
+#endif /* GL_EXT_EGL_sync */
+
 #ifdef GL_EXT_YUV_target
 
 static void _glewInfo_GL_EXT_YUV_target (void)
@@ -15637,6 +15646,9 @@ static void glewInfo (void)
 #ifdef GL_EXT_EGL_image_storage
   _glewInfo_GL_EXT_EGL_image_storage();
 #endif /* GL_EXT_EGL_image_storage */
+#ifdef GL_EXT_EGL_sync
+  _glewInfo_GL_EXT_EGL_sync();
+#endif /* GL_EXT_EGL_sync */
 #ifdef GL_EXT_YUV_target
   _glewInfo_GL_EXT_YUV_target();
 #endif /* GL_EXT_YUV_target */

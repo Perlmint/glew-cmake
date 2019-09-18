@@ -3771,6 +3771,7 @@ GLboolean __GLEW_EXT_Cg_shader = GL_FALSE;
 GLboolean __GLEW_EXT_EGL_image_array = GL_FALSE;
 GLboolean __GLEW_EXT_EGL_image_external_wrap_modes = GL_FALSE;
 GLboolean __GLEW_EXT_EGL_image_storage = GL_FALSE;
+GLboolean __GLEW_EXT_EGL_sync = GL_FALSE;
 GLboolean __GLEW_EXT_YUV_target = GL_FALSE;
 GLboolean __GLEW_EXT_abgr = GL_FALSE;
 GLboolean __GLEW_EXT_base_instance = GL_FALSE;
@@ -5260,6 +5261,9 @@ static const char * _glewExtensionLookup[] = {
 #endif
 #ifdef GL_EXT_EGL_image_storage
   "GL_EXT_EGL_image_storage",
+#endif
+#ifdef GL_EXT_EGL_sync
+  "GL_EXT_EGL_sync",
 #endif
 #ifdef GL_EXT_YUV_target
   "GL_EXT_YUV_target",
@@ -7201,7 +7205,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[932];
+static GLboolean  _glewExtensionString[933];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8064,6 +8068,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_EXT_EGL_image_storage
   &__GLEW_EXT_EGL_image_storage,
+#endif
+#ifdef GL_EXT_EGL_sync
+  &__GLEW_EXT_EGL_sync,
 #endif
 #ifdef GL_EXT_YUV_target
   &__GLEW_EXT_YUV_target,
@@ -25245,6 +25252,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"EGL_image_storage", 17))
         {
           ret = GLEW_EXT_EGL_image_storage;
+          continue;
+        }
+#endif
+#ifdef GL_EXT_EGL_sync
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"EGL_sync", 8))
+        {
+          ret = GLEW_EXT_EGL_sync;
           continue;
         }
 #endif
