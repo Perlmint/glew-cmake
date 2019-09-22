@@ -1,0 +1,21 @@
+schedules:
+  - cron: "0 0 * * *"
+    displayName: Daily midnight build
+    branches:
+      include:
+      - master
+
+jobs:
+- job: NightlyUpdate
+  pool:
+    vmImage: 'ubuntu-16.04'
+  container: perlmint/glew-cmake:20190922
+  steps:
+  - checkout: self
+    persistCredentials: true
+  - bash: |
+      export TEST_MODE=false
+      git config --global user.email $GIT_USEREMAIL &&
+      git config --global user.name $GIT_USERNAME &&
+      unset SYSTEM # remove SYSTEM variable set by azure pipeline
+      ./glew-cmake/maintain.sh
