@@ -9,11 +9,14 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+include("GeneratePkgConfig.cmake")
+
 option(glew-cmake_BUILD_SHARED "Build the shared glew library" ON)
 option(glew-cmake_BUILD_STATIC "Build the static glew library" ON)
 option(glew-cmake_BUILD_SINGLE_CONTEXT "Build the single context glew library" ON)
 option(glew-cmake_BUILD_MULTI_CONTEXT "Build the multi context glew library" ON)
 option(USE_GLU "Use GLU" OFF)
+option(PKG_CONFIG_REPRESENTATIVE_TARGET "Generate pc file for specified target as glew. libglew_static|libglewmx_static|libglew_shared|libglewmx_shared" OFF)
 option(ONLY_LIBS "Do not build executables" OFF)
 
 file(STRINGS ${CMAKE_CURRENT_SOURCE_DIR}/config/version  _VERSION_MAJOR_STRING REGEX "GLEW_MAJOR[ ]*=[ ]*[0-9]+.*")
@@ -122,6 +125,13 @@ if(glew-cmake_BUILD_SHARED)
 			LIBRARY DESTINATION lib
 			RUNTIME DESTINATION bin)
 	endif()
+endif()
+
+if(PKG_CONFIG_REPRESENTATIVE_TARGET)
+	GeneratePkgConfigFile(${PKG_CONFIG_REPRESENTATIVE_TARGET} "The OpenGL Extension Wrangler library"
+		NAME "glew"
+		LIBRARY_DIR lib
+		${pc_requires})
 endif()
 
 file(GLOB PUBLIC_HEADERS "include/GL/*.h")
