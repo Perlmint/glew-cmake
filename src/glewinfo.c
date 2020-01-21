@@ -4866,6 +4866,7 @@ static void _glewInfo_GL_EXT_disjoint_timer_query (void)
   glewInfoFunc(fi, "glDeleteQueriesEXT", glDeleteQueriesEXT == NULL);
   glewInfoFunc(fi, "glEndQueryEXT", glEndQueryEXT == NULL);
   glewInfoFunc(fi, "glGenQueriesEXT", glGenQueriesEXT == NULL);
+  glewInfoFunc(fi, "glGetInteger64vEXT", glGetInteger64vEXT == NULL);
   glewInfoFunc(fi, "glGetQueryObjectivEXT", glGetQueryObjectivEXT == NULL);
   glewInfoFunc(fi, "glGetQueryObjectuivEXT", glGetQueryObjectuivEXT == NULL);
   glewInfoFunc(fi, "glGetQueryivEXT", glGetQueryivEXT == NULL);
@@ -7071,6 +7072,15 @@ static void _glewInfo_GL_INTEL_performance_query (void)
 
 #endif /* GL_INTEL_performance_query */
 
+#ifdef GL_INTEL_shader_integer_functions2
+
+static void _glewInfo_GL_INTEL_shader_integer_functions2 (void)
+{
+  glewPrintExt("GL_INTEL_shader_integer_functions2", GLEW_INTEL_shader_integer_functions2, glewIsSupported("GL_INTEL_shader_integer_functions2"), glewGetExtension("GL_INTEL_shader_integer_functions2"));
+}
+
+#endif /* GL_INTEL_shader_integer_functions2 */
+
 #ifdef GL_INTEL_texture_scissor
 
 static void _glewInfo_GL_INTEL_texture_scissor (void)
@@ -7434,7 +7444,9 @@ static void _glewInfo_GL_NV_EGL_stream_consumer_external (void)
 
 static void _glewInfo_GL_NV_alpha_to_coverage_dither_control (void)
 {
-  glewPrintExt("GL_NV_alpha_to_coverage_dither_control", GLEW_NV_alpha_to_coverage_dither_control, glewIsSupported("GL_NV_alpha_to_coverage_dither_control"), glewGetExtension("GL_NV_alpha_to_coverage_dither_control"));
+  GLboolean fi = glewPrintExt("GL_NV_alpha_to_coverage_dither_control", GLEW_NV_alpha_to_coverage_dither_control, glewIsSupported("GL_NV_alpha_to_coverage_dither_control"), glewGetExtension("GL_NV_alpha_to_coverage_dither_control"));
+
+  glewInfoFunc(fi, "glAlphaToCoverageDitherControlNV", glAlphaToCoverageDitherControlNV == NULL);
 }
 
 #endif /* GL_NV_alpha_to_coverage_dither_control */
@@ -13237,6 +13249,30 @@ static void _glewInfo_EGL_TIZEN_image_native_surface (void)
 
 #endif /* EGL_TIZEN_image_native_surface */
 
+#ifdef EGL_WL_bind_wayland_display
+
+static void _glewInfo_EGL_WL_bind_wayland_display (void)
+{
+  GLboolean fi = glewPrintExt("EGL_WL_bind_wayland_display", EGLEW_WL_bind_wayland_display, eglewIsSupported("EGL_WL_bind_wayland_display"), eglewGetExtension("EGL_WL_bind_wayland_display"));
+
+  glewInfoFunc(fi, "eglBindWaylandDisplayWL", eglBindWaylandDisplayWL == NULL);
+  glewInfoFunc(fi, "eglQueryWaylandBufferWL", eglQueryWaylandBufferWL == NULL);
+  glewInfoFunc(fi, "eglUnbindWaylandDisplayWL", eglUnbindWaylandDisplayWL == NULL);
+}
+
+#endif /* EGL_WL_bind_wayland_display */
+
+#ifdef EGL_WL_create_wayland_buffer_from_image
+
+static void _glewInfo_EGL_WL_create_wayland_buffer_from_image (void)
+{
+  GLboolean fi = glewPrintExt("EGL_WL_create_wayland_buffer_from_image", EGLEW_WL_create_wayland_buffer_from_image, eglewIsSupported("EGL_WL_create_wayland_buffer_from_image"), eglewGetExtension("EGL_WL_create_wayland_buffer_from_image"));
+
+  glewInfoFunc(fi, "eglCreateWaylandBufferFromImageWL", eglCreateWaylandBufferFromImageWL == NULL);
+}
+
+#endif /* EGL_WL_create_wayland_buffer_from_image */
+
 #elif _WIN32
 
 #ifdef WGL_3DFX_multisample
@@ -16336,6 +16372,9 @@ static void glewInfo (void)
 #ifdef GL_INTEL_performance_query
   _glewInfo_GL_INTEL_performance_query();
 #endif /* GL_INTEL_performance_query */
+#ifdef GL_INTEL_shader_integer_functions2
+  _glewInfo_GL_INTEL_shader_integer_functions2();
+#endif /* GL_INTEL_shader_integer_functions2 */
 #ifdef GL_INTEL_texture_scissor
   _glewInfo_GL_INTEL_texture_scissor();
 #endif /* GL_INTEL_texture_scissor */
@@ -18399,6 +18438,12 @@ static void eglewInfo ()
 #ifdef EGL_TIZEN_image_native_surface
   _glewInfo_EGL_TIZEN_image_native_surface();
 #endif /* EGL_TIZEN_image_native_surface */
+#ifdef EGL_WL_bind_wayland_display
+  _glewInfo_EGL_WL_bind_wayland_display();
+#endif /* EGL_WL_bind_wayland_display */
+#ifdef EGL_WL_create_wayland_buffer_from_image
+  _glewInfo_EGL_WL_create_wayland_buffer_from_image();
+#endif /* EGL_WL_create_wayland_buffer_from_image */
 }
 
 #endif /* _WIN32 */

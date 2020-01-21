@@ -4429,7 +4429,7 @@ typedef GLenum (GLAPIENTRY * PFNGLCHECKNAMEDFRAMEBUFFERSTATUSPROC) (GLuint frame
 typedef void (GLAPIENTRY * PFNGLCLEARNAMEDBUFFERDATAPROC) (GLuint buffer, GLenum internalformat, GLenum format, GLenum type, const void *data);
 typedef void (GLAPIENTRY * PFNGLCLEARNAMEDBUFFERSUBDATAPROC) (GLuint buffer, GLenum internalformat, GLintptr offset, GLsizeiptr size, GLenum format, GLenum type, const void *data);
 typedef void (GLAPIENTRY * PFNGLCLEARNAMEDFRAMEBUFFERFIPROC) (GLuint framebuffer, GLenum buffer, GLint drawbuffer, GLfloat depth, GLint stencil);
-typedef void (GLAPIENTRY * PFNGLCLEARNAMEDFRAMEBUFFERFVPROC) (GLuint framebuffer, GLenum buffer, GLint drawbuffer, GLfloat* value);
+typedef void (GLAPIENTRY * PFNGLCLEARNAMEDFRAMEBUFFERFVPROC) (GLuint framebuffer, GLenum buffer, GLint drawbuffer, const GLfloat* value);
 typedef void (GLAPIENTRY * PFNGLCLEARNAMEDFRAMEBUFFERIVPROC) (GLuint framebuffer, GLenum buffer, GLint drawbuffer, const GLint* value);
 typedef void (GLAPIENTRY * PFNGLCLEARNAMEDFRAMEBUFFERUIVPROC) (GLuint framebuffer, GLenum buffer, GLint drawbuffer, const GLuint* value);
 typedef void (GLAPIENTRY * PFNGLCOMPRESSEDTEXTURESUBIMAGE1DPROC) (GLuint texture, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const void *data);
@@ -10276,6 +10276,7 @@ typedef void (GLAPIENTRY * PFNGLBEGINQUERYEXTPROC) (GLenum target, GLuint id);
 typedef void (GLAPIENTRY * PFNGLDELETEQUERIESEXTPROC) (GLsizei n, const GLuint* ids);
 typedef void (GLAPIENTRY * PFNGLENDQUERYEXTPROC) (GLenum target);
 typedef void (GLAPIENTRY * PFNGLGENQUERIESEXTPROC) (GLsizei n, GLuint* ids);
+typedef void (GLAPIENTRY * PFNGLGETINTEGER64VEXTPROC) (GLenum pname, GLint64* data);
 typedef void (GLAPIENTRY * PFNGLGETQUERYOBJECTIVEXTPROC) (GLuint id, GLenum pname, GLint* params);
 typedef void (GLAPIENTRY * PFNGLGETQUERYOBJECTUIVEXTPROC) (GLuint id, GLenum pname, GLuint* params);
 typedef void (GLAPIENTRY * PFNGLGETQUERYIVEXTPROC) (GLenum target, GLenum pname, GLint* params);
@@ -10286,6 +10287,7 @@ typedef void (GLAPIENTRY * PFNGLQUERYCOUNTEREXTPROC) (GLuint id, GLenum target);
 #define glDeleteQueriesEXT GLEW_GET_FUN(__glewDeleteQueriesEXT)
 #define glEndQueryEXT GLEW_GET_FUN(__glewEndQueryEXT)
 #define glGenQueriesEXT GLEW_GET_FUN(__glewGenQueriesEXT)
+#define glGetInteger64vEXT GLEW_GET_FUN(__glewGetInteger64vEXT)
 #define glGetQueryObjectivEXT GLEW_GET_FUN(__glewGetQueryObjectivEXT)
 #define glGetQueryObjectuivEXT GLEW_GET_FUN(__glewGetQueryObjectuivEXT)
 #define glGetQueryivEXT GLEW_GET_FUN(__glewGetQueryivEXT)
@@ -11161,13 +11163,6 @@ typedef void * (GLAPIENTRY * PFNGLMAPBUFFERRANGEEXTPROC) (GLenum target, GLintpt
 #define GL_TILING_TYPES_EXT 0x9583
 #define GL_OPTIMAL_TILING_EXT 0x9584
 #define GL_LINEAR_TILING_EXT 0x9585
-#define GL_LAYOUT_GENERAL_EXT 0x958D
-#define GL_LAYOUT_COLOR_ATTACHMENT_EXT 0x958E
-#define GL_LAYOUT_DEPTH_STENCIL_ATTACHMENT_EXT 0x958F
-#define GL_LAYOUT_DEPTH_STENCIL_READ_ONLY_EXT 0x9590
-#define GL_LAYOUT_SHADER_READ_ONLY_EXT 0x9591
-#define GL_LAYOUT_TRANSFER_SRC_EXT 0x9592
-#define GL_LAYOUT_TRANSFER_DST_EXT 0x9593
 #define GL_NUM_DEVICE_UUIDS_EXT 0x9596
 #define GL_DEVICE_UUID_EXT 0x9597
 #define GL_DRIVER_UUID_EXT 0x9598
@@ -11886,6 +11881,16 @@ typedef void (GLAPIENTRY * PFNGLSECONDARYCOLORPOINTEREXTPROC) (GLint size, GLenu
 
 #ifndef GL_EXT_semaphore
 #define GL_EXT_semaphore 1
+
+#define GL_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_EXT 0x9530
+#define GL_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_EXT 0x9531
+#define GL_LAYOUT_GENERAL_EXT 0x958D
+#define GL_LAYOUT_COLOR_ATTACHMENT_EXT 0x958E
+#define GL_LAYOUT_DEPTH_STENCIL_ATTACHMENT_EXT 0x958F
+#define GL_LAYOUT_DEPTH_STENCIL_READ_ONLY_EXT 0x9590
+#define GL_LAYOUT_SHADER_READ_ONLY_EXT 0x9591
+#define GL_LAYOUT_TRANSFER_SRC_EXT 0x9592
+#define GL_LAYOUT_TRANSFER_DST_EXT 0x9593
 
 typedef void (GLAPIENTRY * PFNGLDELETESEMAPHORESEXTPROC) (GLsizei n, const GLuint* semaphores);
 typedef void (GLAPIENTRY * PFNGLGENSEMAPHORESEXTPROC) (GLsizei n, GLuint* semaphores);
@@ -14317,6 +14322,15 @@ typedef void (GLAPIENTRY * PFNGLGETPERFQUERYINFOINTELPROC) (GLuint queryId, GLui
 
 #endif /* GL_INTEL_performance_query */
 
+/* ------------------- GL_INTEL_shader_integer_functions2 ------------------ */
+
+#ifndef GL_INTEL_shader_integer_functions2
+#define GL_INTEL_shader_integer_functions2 1
+
+#define GLEW_INTEL_shader_integer_functions2 GLEW_GET_VAR(__GLEW_INTEL_shader_integer_functions2)
+
+#endif /* GL_INTEL_shader_integer_functions2 */
+
 /* ------------------------ GL_INTEL_texture_scissor ----------------------- */
 
 #ifndef GL_INTEL_texture_scissor
@@ -14999,6 +15013,10 @@ typedef void (GLAPIENTRY * PFNGLSTEREOPARAMETERINVPROC) (GLenum pname, GLint par
 #define GL_ALPHA_TO_COVERAGE_DITHER_DEFAULT_NV 0x934D
 #define GL_ALPHA_TO_COVERAGE_DITHER_ENABLE_NV 0x934E
 #define GL_ALPHA_TO_COVERAGE_DITHER_DISABLE_NV 0x934F
+
+typedef void (GLAPIENTRY * PFNGLALPHATOCOVERAGEDITHERCONTROLNVPROC) (GLenum mode);
+
+#define glAlphaToCoverageDitherControlNV GLEW_GET_FUN(__glewAlphaToCoverageDitherControlNV)
 
 #define GLEW_NV_alpha_to_coverage_dither_control GLEW_GET_VAR(__GLEW_NV_alpha_to_coverage_dither_control)
 
@@ -23966,6 +23984,7 @@ GLEW_FUN_EXPORT PFNGLBEGINQUERYEXTPROC __glewBeginQueryEXT;
 GLEW_FUN_EXPORT PFNGLDELETEQUERIESEXTPROC __glewDeleteQueriesEXT;
 GLEW_FUN_EXPORT PFNGLENDQUERYEXTPROC __glewEndQueryEXT;
 GLEW_FUN_EXPORT PFNGLGENQUERIESEXTPROC __glewGenQueriesEXT;
+GLEW_FUN_EXPORT PFNGLGETINTEGER64VEXTPROC __glewGetInteger64vEXT;
 GLEW_FUN_EXPORT PFNGLGETQUERYOBJECTIVEXTPROC __glewGetQueryObjectivEXT;
 GLEW_FUN_EXPORT PFNGLGETQUERYOBJECTUIVEXTPROC __glewGetQueryObjectuivEXT;
 GLEW_FUN_EXPORT PFNGLGETQUERYIVEXTPROC __glewGetQueryivEXT;
@@ -24510,6 +24529,8 @@ GLEW_FUN_EXPORT PFNGLWAITSEMAPHOREUI64NVXPROC __glewWaitSemaphoreui64NVX;
 
 GLEW_FUN_EXPORT PFNGLSTEREOPARAMETERFNVPROC __glewStereoParameterfNV;
 GLEW_FUN_EXPORT PFNGLSTEREOPARAMETERINVPROC __glewStereoParameteriNV;
+
+GLEW_FUN_EXPORT PFNGLALPHATOCOVERAGEDITHERCONTROLNVPROC __glewAlphaToCoverageDitherControlNV;
 
 GLEW_FUN_EXPORT PFNGLMULTIDRAWARRAYSINDIRECTBINDLESSNVPROC __glewMultiDrawArraysIndirectBindlessNV;
 GLEW_FUN_EXPORT PFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSNVPROC __glewMultiDrawElementsIndirectBindlessNV;
@@ -25982,6 +26003,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_INTEL_framebuffer_CMAA;
 GLEW_VAR_EXPORT GLboolean __GLEW_INTEL_map_texture;
 GLEW_VAR_EXPORT GLboolean __GLEW_INTEL_parallel_arrays;
 GLEW_VAR_EXPORT GLboolean __GLEW_INTEL_performance_query;
+GLEW_VAR_EXPORT GLboolean __GLEW_INTEL_shader_integer_functions2;
 GLEW_VAR_EXPORT GLboolean __GLEW_INTEL_texture_scissor;
 GLEW_VAR_EXPORT GLboolean __GLEW_KHR_blend_equation_advanced;
 GLEW_VAR_EXPORT GLboolean __GLEW_KHR_blend_equation_advanced_coherent;

@@ -1984,6 +1984,7 @@ PFNGLBEGINQUERYEXTPROC __glewBeginQueryEXT = NULL;
 PFNGLDELETEQUERIESEXTPROC __glewDeleteQueriesEXT = NULL;
 PFNGLENDQUERYEXTPROC __glewEndQueryEXT = NULL;
 PFNGLGENQUERIESEXTPROC __glewGenQueriesEXT = NULL;
+PFNGLGETINTEGER64VEXTPROC __glewGetInteger64vEXT = NULL;
 PFNGLGETQUERYOBJECTIVEXTPROC __glewGetQueryObjectivEXT = NULL;
 PFNGLGETQUERYOBJECTUIVEXTPROC __glewGetQueryObjectuivEXT = NULL;
 PFNGLGETQUERYIVEXTPROC __glewGetQueryivEXT = NULL;
@@ -2528,6 +2529,8 @@ PFNGLWAITSEMAPHOREUI64NVXPROC __glewWaitSemaphoreui64NVX = NULL;
 
 PFNGLSTEREOPARAMETERFNVPROC __glewStereoParameterfNV = NULL;
 PFNGLSTEREOPARAMETERINVPROC __glewStereoParameteriNV = NULL;
+
+PFNGLALPHATOCOVERAGEDITHERCONTROLNVPROC __glewAlphaToCoverageDitherControlNV = NULL;
 
 PFNGLMULTIDRAWARRAYSINDIRECTBINDLESSNVPROC __glewMultiDrawArraysIndirectBindlessNV = NULL;
 PFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSNVPROC __glewMultiDrawElementsIndirectBindlessNV = NULL;
@@ -4001,6 +4004,7 @@ GLboolean __GLEW_INTEL_framebuffer_CMAA = GL_FALSE;
 GLboolean __GLEW_INTEL_map_texture = GL_FALSE;
 GLboolean __GLEW_INTEL_parallel_arrays = GL_FALSE;
 GLboolean __GLEW_INTEL_performance_query = GL_FALSE;
+GLboolean __GLEW_INTEL_shader_integer_functions2 = GL_FALSE;
 GLboolean __GLEW_INTEL_texture_scissor = GL_FALSE;
 GLboolean __GLEW_KHR_blend_equation_advanced = GL_FALSE;
 GLboolean __GLEW_KHR_blend_equation_advanced_coherent = GL_FALSE;
@@ -5952,6 +5956,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_INTEL_performance_query
   "GL_INTEL_performance_query",
 #endif
+#ifdef GL_INTEL_shader_integer_functions2
+  "GL_INTEL_shader_integer_functions2",
+#endif
 #ifdef GL_INTEL_texture_scissor
   "GL_INTEL_texture_scissor",
 #endif
@@ -7205,7 +7212,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[933];
+static GLboolean  _glewExtensionString[934];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8759,6 +8766,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_INTEL_performance_query
   &__GLEW_INTEL_performance_query,
 #endif
+#ifdef GL_INTEL_shader_integer_functions2
+  &__GLEW_INTEL_shader_integer_functions2,
+#endif
 #ifdef GL_INTEL_texture_scissor
   &__GLEW_INTEL_texture_scissor,
 #endif
@@ -10270,6 +10280,7 @@ static GLboolean _glewInit_GL_NVX_gpu_multicast2 ();
 static GLboolean _glewInit_GL_NVX_linked_gpu_multicast ();
 static GLboolean _glewInit_GL_NVX_progress_fence ();
 static GLboolean _glewInit_GL_NV_3dvision_settings ();
+static GLboolean _glewInit_GL_NV_alpha_to_coverage_dither_control ();
 static GLboolean _glewInit_GL_NV_bindless_multi_draw_indirect ();
 static GLboolean _glewInit_GL_NV_bindless_multi_draw_indirect_count ();
 static GLboolean _glewInit_GL_NV_bindless_texture ();
@@ -13880,6 +13891,7 @@ static GLboolean _glewInit_GL_EXT_disjoint_timer_query ()
   r = ((glDeleteQueriesEXT = (PFNGLDELETEQUERIESEXTPROC)glewGetProcAddress((const GLubyte*)"glDeleteQueriesEXT")) == NULL) || r;
   r = ((glEndQueryEXT = (PFNGLENDQUERYEXTPROC)glewGetProcAddress((const GLubyte*)"glEndQueryEXT")) == NULL) || r;
   r = ((glGenQueriesEXT = (PFNGLGENQUERIESEXTPROC)glewGetProcAddress((const GLubyte*)"glGenQueriesEXT")) == NULL) || r;
+  r = ((glGetInteger64vEXT = (PFNGLGETINTEGER64VEXTPROC)glewGetProcAddress((const GLubyte*)"glGetInteger64vEXT")) == NULL) || r;
   r = ((glGetQueryObjectivEXT = (PFNGLGETQUERYOBJECTIVEXTPROC)glewGetProcAddress((const GLubyte*)"glGetQueryObjectivEXT")) == NULL) || r;
   r = ((glGetQueryObjectuivEXT = (PFNGLGETQUERYOBJECTUIVEXTPROC)glewGetProcAddress((const GLubyte*)"glGetQueryObjectuivEXT")) == NULL) || r;
   r = ((glGetQueryivEXT = (PFNGLGETQUERYIVEXTPROC)glewGetProcAddress((const GLubyte*)"glGetQueryivEXT")) == NULL) || r;
@@ -15485,6 +15497,19 @@ static GLboolean _glewInit_GL_NV_3dvision_settings ()
 }
 
 #endif /* GL_NV_3dvision_settings */
+
+#ifdef GL_NV_alpha_to_coverage_dither_control
+
+static GLboolean _glewInit_GL_NV_alpha_to_coverage_dither_control ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glAlphaToCoverageDitherControlNV = (PFNGLALPHATOCOVERAGEDITHERCONTROLNVPROC)glewGetProcAddress((const GLubyte*)"glAlphaToCoverageDitherControlNV")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_NV_alpha_to_coverage_dither_control */
 
 #ifdef GL_NV_bindless_multi_draw_indirect
 
@@ -18874,6 +18899,9 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 #ifdef GL_NV_3dvision_settings
   if (glewExperimental || GLEW_NV_3dvision_settings) GLEW_NV_3dvision_settings = !_glewInit_GL_NV_3dvision_settings();
 #endif /* GL_NV_3dvision_settings */
+#ifdef GL_NV_alpha_to_coverage_dither_control
+  if (glewExperimental || GLEW_NV_alpha_to_coverage_dither_control) GLEW_NV_alpha_to_coverage_dither_control = !_glewInit_GL_NV_alpha_to_coverage_dither_control();
+#endif /* GL_NV_alpha_to_coverage_dither_control */
 #ifdef GL_NV_bindless_multi_draw_indirect
   if (glewExperimental || GLEW_NV_bindless_multi_draw_indirect) GLEW_NV_bindless_multi_draw_indirect = !_glewInit_GL_NV_bindless_multi_draw_indirect();
 #endif /* GL_NV_bindless_multi_draw_indirect */
@@ -19491,6 +19519,12 @@ PFNEGLSIGNALSYNCNVPROC __eglewSignalSyncNV = NULL;
 
 PFNEGLGETSYSTEMTIMEFREQUENCYNVPROC __eglewGetSystemTimeFrequencyNV = NULL;
 PFNEGLGETSYSTEMTIMENVPROC __eglewGetSystemTimeNV = NULL;
+
+PFNEGLBINDWAYLANDDISPLAYWLPROC __eglewBindWaylandDisplayWL = NULL;
+PFNEGLQUERYWAYLANDBUFFERWLPROC __eglewQueryWaylandBufferWL = NULL;
+PFNEGLUNBINDWAYLANDDISPLAYWLPROC __eglewUnbindWaylandDisplayWL = NULL;
+
+PFNEGLCREATEWAYLANDBUFFERFROMIMAGEWLPROC __eglewCreateWaylandBufferFromImageWL = NULL;
 GLboolean __EGLEW_VERSION_1_0 = GL_FALSE;
 GLboolean __EGLEW_VERSION_1_1 = GL_FALSE;
 GLboolean __EGLEW_VERSION_1_2 = GL_FALSE;
@@ -19643,6 +19677,8 @@ GLboolean __EGLEW_NV_system_time = GL_FALSE;
 GLboolean __EGLEW_NV_triple_buffer = GL_FALSE;
 GLboolean __EGLEW_TIZEN_image_native_buffer = GL_FALSE;
 GLboolean __EGLEW_TIZEN_image_native_surface = GL_FALSE;
+GLboolean __EGLEW_WL_bind_wayland_display = GL_FALSE;
+GLboolean __EGLEW_WL_create_wayland_buffer_from_image = GL_FALSE;
 #ifdef EGL_VERSION_1_0
 
 static GLboolean _glewInit_EGL_VERSION_1_0 ()
@@ -20424,6 +20460,34 @@ static GLboolean _glewInit_EGL_NV_system_time ()
 
 #endif /* EGL_NV_system_time */
 
+#ifdef EGL_WL_bind_wayland_display
+
+static GLboolean _glewInit_EGL_WL_bind_wayland_display ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((eglBindWaylandDisplayWL = (PFNEGLBINDWAYLANDDISPLAYWLPROC)glewGetProcAddress((const GLubyte*)"eglBindWaylandDisplayWL")) == NULL) || r;
+  r = ((eglQueryWaylandBufferWL = (PFNEGLQUERYWAYLANDBUFFERWLPROC)glewGetProcAddress((const GLubyte*)"eglQueryWaylandBufferWL")) == NULL) || r;
+  r = ((eglUnbindWaylandDisplayWL = (PFNEGLUNBINDWAYLANDDISPLAYWLPROC)glewGetProcAddress((const GLubyte*)"eglUnbindWaylandDisplayWL")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* EGL_WL_bind_wayland_display */
+
+#ifdef EGL_WL_create_wayland_buffer_from_image
+
+static GLboolean _glewInit_EGL_WL_create_wayland_buffer_from_image ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((eglCreateWaylandBufferFromImageWL = (PFNEGLCREATEWAYLANDBUFFERFROMIMAGEWLPROC)glewGetProcAddress((const GLubyte*)"eglCreateWaylandBufferFromImageWL")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* EGL_WL_create_wayland_buffer_from_image */
+
   /* ------------------------------------------------------------------------ */
 
 GLboolean eglewGetExtension (const char* name)
@@ -20970,6 +21034,14 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_TIZEN_image_native_surface
   EGLEW_TIZEN_image_native_surface = _glewSearchExtension("EGL_TIZEN_image_native_surface", extStart, extEnd);
 #endif /* EGL_TIZEN_image_native_surface */
+#ifdef EGL_WL_bind_wayland_display
+  EGLEW_WL_bind_wayland_display = _glewSearchExtension("EGL_WL_bind_wayland_display", extStart, extEnd);
+  if (glewExperimental || EGLEW_WL_bind_wayland_display) EGLEW_WL_bind_wayland_display = !_glewInit_EGL_WL_bind_wayland_display();
+#endif /* EGL_WL_bind_wayland_display */
+#ifdef EGL_WL_create_wayland_buffer_from_image
+  EGLEW_WL_create_wayland_buffer_from_image = _glewSearchExtension("EGL_WL_create_wayland_buffer_from_image", extStart, extEnd);
+  if (glewExperimental || EGLEW_WL_create_wayland_buffer_from_image) EGLEW_WL_create_wayland_buffer_from_image = !_glewInit_EGL_WL_create_wayland_buffer_from_image();
+#endif /* EGL_WL_create_wayland_buffer_from_image */
 
   return GLEW_OK;
 }
@@ -26891,6 +26963,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_INTEL_shader_integer_functions2
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_integer_functions2", 25))
+        {
+          ret = GLEW_INTEL_shader_integer_functions2;
+          continue;
+        }
+#endif
 #ifdef GL_INTEL_texture_scissor
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_scissor", 15))
         {
@@ -31874,6 +31953,23 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"image_native_surface", 20))
         {
           ret = EGLEW_TIZEN_image_native_surface;
+          continue;
+        }
+#endif
+      }
+      if (_glewStrSame2(&pos, &len, (const GLubyte*)"WL_", 3))
+      {
+#ifdef EGL_WL_bind_wayland_display
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"bind_wayland_display", 20))
+        {
+          ret = EGLEW_WL_bind_wayland_display;
+          continue;
+        }
+#endif
+#ifdef EGL_WL_create_wayland_buffer_from_image
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"create_wayland_buffer_from_image", 32))
+        {
+          ret = EGLEW_WL_create_wayland_buffer_from_image;
           continue;
         }
 #endif

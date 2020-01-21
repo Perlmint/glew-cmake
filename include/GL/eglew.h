@@ -2621,6 +2621,44 @@ typedef EGLuint64NV ( * PFNEGLGETSYSTEMTIMENVPROC) (void);
 
 #endif /* EGL_TIZEN_image_native_surface */
 
+/* ---------------------- EGL_WL_bind_wayland_display ---------------------- */
+
+#ifndef EGL_WL_bind_wayland_display
+#define EGL_WL_bind_wayland_display 1
+
+#define EGL_WAYLAND_BUFFER_WL 0x31D5
+#define EGL_WAYLAND_PLANE_WL 0x31D6
+#define EGL_TEXTURE_Y_U_V_WL 0x31D7
+#define EGL_TEXTURE_Y_UV_WL 0x31D8
+#define EGL_TEXTURE_Y_XUXV_WL 0x31D9
+#define EGL_TEXTURE_EXTERNAL_WL 0x31DA
+#define EGL_WAYLAND_Y_INVERTED_WL 0x31DB
+
+typedef EGLBoolean ( * PFNEGLBINDWAYLANDDISPLAYWLPROC) (EGLDisplay dpy, struct wl_display* display);
+typedef EGLBoolean ( * PFNEGLQUERYWAYLANDBUFFERWLPROC) (EGLDisplay dpy, struct wl_resource* buffer, EGLint attribute, EGLint* value);
+typedef EGLBoolean ( * PFNEGLUNBINDWAYLANDDISPLAYWLPROC) (EGLDisplay dpy, struct wl_display* display);
+
+#define eglBindWaylandDisplayWL EGLEW_GET_FUN(__eglewBindWaylandDisplayWL)
+#define eglQueryWaylandBufferWL EGLEW_GET_FUN(__eglewQueryWaylandBufferWL)
+#define eglUnbindWaylandDisplayWL EGLEW_GET_FUN(__eglewUnbindWaylandDisplayWL)
+
+#define EGLEW_WL_bind_wayland_display EGLEW_GET_VAR(__EGLEW_WL_bind_wayland_display)
+
+#endif /* EGL_WL_bind_wayland_display */
+
+/* ---------------- EGL_WL_create_wayland_buffer_from_image ---------------- */
+
+#ifndef EGL_WL_create_wayland_buffer_from_image
+#define EGL_WL_create_wayland_buffer_from_image 1
+
+typedef struct wl_buffer* ( * PFNEGLCREATEWAYLANDBUFFERFROMIMAGEWLPROC) (EGLDisplay dpy, EGLImageKHR image);
+
+#define eglCreateWaylandBufferFromImageWL EGLEW_GET_FUN(__eglewCreateWaylandBufferFromImageWL)
+
+#define EGLEW_WL_create_wayland_buffer_from_image EGLEW_GET_VAR(__EGLEW_WL_create_wayland_buffer_from_image)
+
+#endif /* EGL_WL_create_wayland_buffer_from_image */
+
 /* ------------------------------------------------------------------------- */
 
 #define EGLEW_FUN_EXPORT GLEW_FUN_EXPORT
@@ -2823,6 +2861,12 @@ EGLEW_FUN_EXPORT PFNEGLSIGNALSYNCNVPROC __eglewSignalSyncNV;
 
 EGLEW_FUN_EXPORT PFNEGLGETSYSTEMTIMEFREQUENCYNVPROC __eglewGetSystemTimeFrequencyNV;
 EGLEW_FUN_EXPORT PFNEGLGETSYSTEMTIMENVPROC __eglewGetSystemTimeNV;
+
+EGLEW_FUN_EXPORT PFNEGLBINDWAYLANDDISPLAYWLPROC __eglewBindWaylandDisplayWL;
+EGLEW_FUN_EXPORT PFNEGLQUERYWAYLANDBUFFERWLPROC __eglewQueryWaylandBufferWL;
+EGLEW_FUN_EXPORT PFNEGLUNBINDWAYLANDDISPLAYWLPROC __eglewUnbindWaylandDisplayWL;
+
+EGLEW_FUN_EXPORT PFNEGLCREATEWAYLANDBUFFERFROMIMAGEWLPROC __eglewCreateWaylandBufferFromImageWL;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_VERSION_1_0;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_VERSION_1_1;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_VERSION_1_2;
@@ -2975,6 +3019,8 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_system_time;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_triple_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_TIZEN_image_native_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_TIZEN_image_native_surface;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_WL_bind_wayland_display;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_WL_create_wayland_buffer_from_image;
 /* ------------------------------------------------------------------------ */
 
 GLEWAPI GLenum GLEWAPIENTRY eglewInit (EGLDisplay display);
