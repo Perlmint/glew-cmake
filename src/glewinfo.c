@@ -5604,6 +5604,17 @@ static void _glewInfo_GL_EXT_post_depth_coverage (void)
 
 #endif /* GL_EXT_post_depth_coverage */
 
+#ifdef GL_EXT_primitive_bounding_box
+
+static void _glewInfo_GL_EXT_primitive_bounding_box (void)
+{
+  GLboolean fi = glewPrintExt("GL_EXT_primitive_bounding_box", GLEW_EXT_primitive_bounding_box, glewIsSupported("GL_EXT_primitive_bounding_box"), glewGetExtension("GL_EXT_primitive_bounding_box"));
+
+  glewInfoFunc(fi, "glPrimitiveBoundingBoxEXT", glPrimitiveBoundingBoxEXT == NULL);
+}
+
+#endif /* GL_EXT_primitive_bounding_box */
+
 #ifdef GL_EXT_protected_textures
 
 static void _glewInfo_GL_EXT_protected_textures (void)
@@ -15967,6 +15978,9 @@ static void glewInfo (void)
 #ifdef GL_EXT_post_depth_coverage
   _glewInfo_GL_EXT_post_depth_coverage();
 #endif /* GL_EXT_post_depth_coverage */
+#ifdef GL_EXT_primitive_bounding_box
+  _glewInfo_GL_EXT_primitive_bounding_box();
+#endif /* GL_EXT_primitive_bounding_box */
 #ifdef GL_EXT_protected_textures
   _glewInfo_GL_EXT_protected_textures();
 #endif /* GL_EXT_protected_textures */

@@ -2197,6 +2197,8 @@ PFNGLPOLYGONOFFSETEXTPROC __glewPolygonOffsetEXT = NULL;
 
 PFNGLPOLYGONOFFSETCLAMPEXTPROC __glewPolygonOffsetClampEXT = NULL;
 
+PFNGLPRIMITIVEBOUNDINGBOXEXTPROC __glewPrimitiveBoundingBoxEXT = NULL;
+
 PFNGLPROVOKINGVERTEXEXTPROC __glewProvokingVertexEXT = NULL;
 
 PFNGLCOVERAGEMODULATIONNVPROC __glewCoverageModulationNV = NULL;
@@ -3869,6 +3871,7 @@ GLboolean __GLEW_EXT_point_parameters = GL_FALSE;
 GLboolean __GLEW_EXT_polygon_offset = GL_FALSE;
 GLboolean __GLEW_EXT_polygon_offset_clamp = GL_FALSE;
 GLboolean __GLEW_EXT_post_depth_coverage = GL_FALSE;
+GLboolean __GLEW_EXT_primitive_bounding_box = GL_FALSE;
 GLboolean __GLEW_EXT_protected_textures = GL_FALSE;
 GLboolean __GLEW_EXT_provoking_vertex = GL_FALSE;
 GLboolean __GLEW_EXT_pvrtc_sRGB = GL_FALSE;
@@ -5551,6 +5554,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_EXT_post_depth_coverage
   "GL_EXT_post_depth_coverage",
 #endif
+#ifdef GL_EXT_primitive_bounding_box
+  "GL_EXT_primitive_bounding_box",
+#endif
 #ifdef GL_EXT_protected_textures
   "GL_EXT_protected_textures",
 #endif
@@ -7212,7 +7218,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[934];
+static GLboolean  _glewExtensionString[935];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8360,6 +8366,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_EXT_post_depth_coverage
   &__GLEW_EXT_post_depth_coverage,
+#endif
+#ifdef GL_EXT_primitive_bounding_box
+  &__GLEW_EXT_primitive_bounding_box,
 #endif
 #ifdef GL_EXT_protected_textures
   &__GLEW_EXT_protected_textures,
@@ -10219,6 +10228,7 @@ static GLboolean _glewInit_GL_EXT_pixel_transform ();
 static GLboolean _glewInit_GL_EXT_point_parameters ();
 static GLboolean _glewInit_GL_EXT_polygon_offset ();
 static GLboolean _glewInit_GL_EXT_polygon_offset_clamp ();
+static GLboolean _glewInit_GL_EXT_primitive_bounding_box ();
 static GLboolean _glewInit_GL_EXT_provoking_vertex ();
 static GLboolean _glewInit_GL_EXT_raster_multisample ();
 static GLboolean _glewInit_GL_EXT_robustness ();
@@ -14494,6 +14504,19 @@ static GLboolean _glewInit_GL_EXT_polygon_offset_clamp ()
 
 #endif /* GL_EXT_polygon_offset_clamp */
 
+#ifdef GL_EXT_primitive_bounding_box
+
+static GLboolean _glewInit_GL_EXT_primitive_bounding_box ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glPrimitiveBoundingBoxEXT = (PFNGLPRIMITIVEBOUNDINGBOXEXTPROC)glewGetProcAddress((const GLubyte*)"glPrimitiveBoundingBoxEXT")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_EXT_primitive_bounding_box */
+
 #ifdef GL_EXT_provoking_vertex
 
 static GLboolean _glewInit_GL_EXT_provoking_vertex ()
@@ -18716,6 +18739,9 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 #ifdef GL_EXT_polygon_offset_clamp
   if (glewExperimental || GLEW_EXT_polygon_offset_clamp) GLEW_EXT_polygon_offset_clamp = !_glewInit_GL_EXT_polygon_offset_clamp();
 #endif /* GL_EXT_polygon_offset_clamp */
+#ifdef GL_EXT_primitive_bounding_box
+  if (glewExperimental || GLEW_EXT_primitive_bounding_box) GLEW_EXT_primitive_bounding_box = !_glewInit_GL_EXT_primitive_bounding_box();
+#endif /* GL_EXT_primitive_bounding_box */
 #ifdef GL_EXT_provoking_vertex
   if (glewExperimental || GLEW_EXT_provoking_vertex) GLEW_EXT_provoking_vertex = !_glewInit_GL_EXT_provoking_vertex();
 #endif /* GL_EXT_provoking_vertex */
@@ -25991,6 +26017,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"post_depth_coverage", 19))
         {
           ret = GLEW_EXT_post_depth_coverage;
+          continue;
+        }
+#endif
+#ifdef GL_EXT_primitive_bounding_box
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"primitive_bounding_box", 22))
+        {
+          ret = GLEW_EXT_primitive_bounding_box;
           continue;
         }
 #endif

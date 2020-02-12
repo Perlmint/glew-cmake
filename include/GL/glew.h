@@ -11639,6 +11639,21 @@ typedef void (GLAPIENTRY * PFNGLPOLYGONOFFSETCLAMPEXTPROC) (GLfloat factor, GLfl
 
 #endif /* GL_EXT_post_depth_coverage */
 
+/* --------------------- GL_EXT_primitive_bounding_box --------------------- */
+
+#ifndef GL_EXT_primitive_bounding_box
+#define GL_EXT_primitive_bounding_box 1
+
+#define GL_PRIMITIVE_BOUNDING_BOX_EXT 0x92BE
+
+typedef void (GLAPIENTRY * PFNGLPRIMITIVEBOUNDINGBOXEXTPROC) (GLfloat minX, GLfloat minY, GLfloat minZ, GLfloat minW, GLfloat maxX, GLfloat maxY, GLfloat maxZ, GLfloat maxW);
+
+#define glPrimitiveBoundingBoxEXT GLEW_GET_FUN(__glewPrimitiveBoundingBoxEXT)
+
+#define GLEW_EXT_primitive_bounding_box GLEW_GET_VAR(__GLEW_EXT_primitive_bounding_box)
+
+#endif /* GL_EXT_primitive_bounding_box */
+
 /* ----------------------- GL_EXT_protected_textures ----------------------- */
 
 #ifndef GL_EXT_protected_textures
@@ -24197,6 +24212,8 @@ GLEW_FUN_EXPORT PFNGLPOLYGONOFFSETEXTPROC __glewPolygonOffsetEXT;
 
 GLEW_FUN_EXPORT PFNGLPOLYGONOFFSETCLAMPEXTPROC __glewPolygonOffsetClampEXT;
 
+GLEW_FUN_EXPORT PFNGLPRIMITIVEBOUNDINGBOXEXTPROC __glewPrimitiveBoundingBoxEXT;
+
 GLEW_FUN_EXPORT PFNGLPROVOKINGVERTEXEXTPROC __glewProvokingVertexEXT;
 
 GLEW_FUN_EXPORT PFNGLCOVERAGEMODULATIONNVPROC __glewCoverageModulationNV;
@@ -25868,6 +25885,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_EXT_point_parameters;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_polygon_offset;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_polygon_offset_clamp;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_post_depth_coverage;
+GLEW_VAR_EXPORT GLboolean __GLEW_EXT_primitive_bounding_box;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_protected_textures;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_provoking_vertex;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_pvrtc_sRGB;
