@@ -19573,6 +19573,7 @@ GLboolean __EGLEW_ANGLE_device_d3d = GL_FALSE;
 GLboolean __EGLEW_ANGLE_query_surface_pointer = GL_FALSE;
 GLboolean __EGLEW_ANGLE_surface_d3d_texture_2d_share_handle = GL_FALSE;
 GLboolean __EGLEW_ANGLE_window_fixed_size = GL_FALSE;
+GLboolean __EGLEW_ARM_image_format = GL_FALSE;
 GLboolean __EGLEW_ARM_implicit_external_sync = GL_FALSE;
 GLboolean __EGLEW_ARM_pixmap_multisample_discard = GL_FALSE;
 GLboolean __EGLEW_EXT_bind_to_front = GL_FALSE;
@@ -20629,6 +20630,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_ANGLE_window_fixed_size
   EGLEW_ANGLE_window_fixed_size = _glewSearchExtension("EGL_ANGLE_window_fixed_size", extStart, extEnd);
 #endif /* EGL_ANGLE_window_fixed_size */
+#ifdef EGL_ARM_image_format
+  EGLEW_ARM_image_format = _glewSearchExtension("EGL_ARM_image_format", extStart, extEnd);
+#endif /* EGL_ARM_image_format */
 #ifdef EGL_ARM_implicit_external_sync
   EGLEW_ARM_implicit_external_sync = _glewSearchExtension("EGL_ARM_implicit_external_sync", extStart, extEnd);
 #endif /* EGL_ARM_implicit_external_sync */
@@ -31055,6 +31059,13 @@ GLboolean eglewIsSupported (const char* name)
       }
       if (_glewStrSame2(&pos, &len, (const GLubyte*)"ARM_", 4))
       {
+#ifdef EGL_ARM_image_format
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"image_format", 12))
+        {
+          ret = EGLEW_ARM_image_format;
+          continue;
+        }
+#endif
 #ifdef EGL_ARM_implicit_external_sync
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"implicit_external_sync", 22))
         {

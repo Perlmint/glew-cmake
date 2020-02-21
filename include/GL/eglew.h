@@ -701,6 +701,18 @@ typedef EGLBoolean ( * PFNEGLQUERYSURFACEPOINTERANGLEPROC) (EGLDisplay dpy, EGLS
 
 #endif /* EGL_ANGLE_window_fixed_size */
 
+/* -------------------------- EGL_ARM_image_format ------------------------- */
+
+#ifndef EGL_ARM_image_format
+#define EGL_ARM_image_format 1
+
+#define EGL_COLOR_COMPONENT_TYPE_UNSIGNED_INTEGER_ARM 0x3287
+#define EGL_COLOR_COMPONENT_TYPE_INTEGER_ARM 0x3288
+
+#define EGLEW_ARM_image_format EGLEW_GET_VAR(__EGLEW_ARM_image_format)
+
+#endif /* EGL_ARM_image_format */
+
 /* --------------------- EGL_ARM_implicit_external_sync -------------------- */
 
 #ifndef EGL_ARM_implicit_external_sync
@@ -1247,7 +1259,7 @@ typedef EGLBoolean ( * PFNEGLSTREAMCONSUMEROUTPUTEXTPROC) (EGLDisplay dpy, EGLSt
 #ifndef EGL_EXT_swap_buffers_with_damage
 #define EGL_EXT_swap_buffers_with_damage 1
 
-typedef EGLBoolean ( * PFNEGLSWAPBUFFERSWITHDAMAGEEXTPROC) (EGLDisplay dpy, EGLSurface surface, EGLint* rects, EGLint n_rects);
+typedef EGLBoolean ( * PFNEGLSWAPBUFFERSWITHDAMAGEEXTPROC) (EGLDisplay dpy, EGLSurface surface, const EGLint* rects, EGLint n_rects);
 
 #define eglSwapBuffersWithDamageEXT EGLEW_GET_FUN(__eglewSwapBuffersWithDamageEXT)
 
@@ -1973,7 +1985,7 @@ typedef EGLSurface ( * PFNEGLCREATESTREAMPRODUCERSURFACEKHRPROC) (EGLDisplay dpy
 #ifndef EGL_KHR_swap_buffers_with_damage
 #define EGL_KHR_swap_buffers_with_damage 1
 
-typedef EGLBoolean ( * PFNEGLSWAPBUFFERSWITHDAMAGEKHRPROC) (EGLDisplay dpy, EGLSurface surface, EGLint* rects, EGLint n_rects);
+typedef EGLBoolean ( * PFNEGLSWAPBUFFERSWITHDAMAGEKHRPROC) (EGLDisplay dpy, EGLSurface surface, const EGLint* rects, EGLint n_rects);
 
 #define eglSwapBuffersWithDamageKHR EGLEW_GET_FUN(__eglewSwapBuffersWithDamageKHR)
 
@@ -2889,6 +2901,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_ANGLE_device_d3d;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANGLE_query_surface_pointer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANGLE_surface_d3d_texture_2d_share_handle;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANGLE_window_fixed_size;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_ARM_image_format;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ARM_implicit_external_sync;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ARM_pixmap_multisample_discard;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_bind_to_front;

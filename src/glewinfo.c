@@ -11958,6 +11958,15 @@ static void _glewInfo_EGL_ANGLE_window_fixed_size (void)
 
 #endif /* EGL_ANGLE_window_fixed_size */
 
+#ifdef EGL_ARM_image_format
+
+static void _glewInfo_EGL_ARM_image_format (void)
+{
+  glewPrintExt("EGL_ARM_image_format", EGLEW_ARM_image_format, eglewIsSupported("EGL_ARM_image_format"), eglewGetExtension("EGL_ARM_image_format"));
+}
+
+#endif /* EGL_ARM_image_format */
+
 #ifdef EGL_ARM_implicit_external_sync
 
 static void _glewInfo_EGL_ARM_implicit_external_sync (void)
@@ -18062,6 +18071,9 @@ static void eglewInfo ()
 #ifdef EGL_ANGLE_window_fixed_size
   _glewInfo_EGL_ANGLE_window_fixed_size();
 #endif /* EGL_ANGLE_window_fixed_size */
+#ifdef EGL_ARM_image_format
+  _glewInfo_EGL_ARM_image_format();
+#endif /* EGL_ARM_image_format */
 #ifdef EGL_ARM_implicit_external_sync
   _glewInfo_EGL_ARM_implicit_external_sync();
 #endif /* EGL_ARM_implicit_external_sync */
