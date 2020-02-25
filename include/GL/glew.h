@@ -8575,6 +8575,17 @@ typedef void (GLAPIENTRY * PFNGLWINDOWPOS3SVARBPROC) (const GLshort* p);
 
 #endif /* GL_ARM_shader_framebuffer_fetch_depth_stencil */
 
+/* ---------------- GL_ARM_texture_unnormalized_coordinates ---------------- */
+
+#ifndef GL_ARM_texture_unnormalized_coordinates
+#define GL_ARM_texture_unnormalized_coordinates 1
+
+#define GL_TEXTURE_UNNORMALIZED_COORDINATES_ARM 0x8F6A
+
+#define GLEW_ARM_texture_unnormalized_coordinates GLEW_GET_VAR(__GLEW_ARM_texture_unnormalized_coordinates)
+
+#endif /* GL_ARM_texture_unnormalized_coordinates */
+
 /* ------------------------- GL_ATIX_point_sprites ------------------------- */
 
 #ifndef GL_ATIX_point_sprites
@@ -25762,6 +25773,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_ARM_mali_shader_binary;
 GLEW_VAR_EXPORT GLboolean __GLEW_ARM_rgba8;
 GLEW_VAR_EXPORT GLboolean __GLEW_ARM_shader_framebuffer_fetch;
 GLEW_VAR_EXPORT GLboolean __GLEW_ARM_shader_framebuffer_fetch_depth_stencil;
+GLEW_VAR_EXPORT GLboolean __GLEW_ARM_texture_unnormalized_coordinates;
 GLEW_VAR_EXPORT GLboolean __GLEW_ATIX_point_sprites;
 GLEW_VAR_EXPORT GLboolean __GLEW_ATIX_texture_env_combine3;
 GLEW_VAR_EXPORT GLboolean __GLEW_ATIX_texture_env_route;

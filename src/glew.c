@@ -3748,6 +3748,7 @@ GLboolean __GLEW_ARM_mali_shader_binary = GL_FALSE;
 GLboolean __GLEW_ARM_rgba8 = GL_FALSE;
 GLboolean __GLEW_ARM_shader_framebuffer_fetch = GL_FALSE;
 GLboolean __GLEW_ARM_shader_framebuffer_fetch_depth_stencil = GL_FALSE;
+GLboolean __GLEW_ARM_texture_unnormalized_coordinates = GL_FALSE;
 GLboolean __GLEW_ATIX_point_sprites = GL_FALSE;
 GLboolean __GLEW_ATIX_texture_env_combine3 = GL_FALSE;
 GLboolean __GLEW_ATIX_texture_env_route = GL_FALSE;
@@ -5184,6 +5185,9 @@ static const char * _glewExtensionLookup[] = {
 #endif
 #ifdef GL_ARM_shader_framebuffer_fetch_depth_stencil
   "GL_ARM_shader_framebuffer_fetch_depth_stencil",
+#endif
+#ifdef GL_ARM_texture_unnormalized_coordinates
+  "GL_ARM_texture_unnormalized_coordinates",
 #endif
 #ifdef GL_ATIX_point_sprites
   "GL_ATIX_point_sprites",
@@ -7218,7 +7222,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[935];
+static GLboolean  _glewExtensionString[936];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -7997,6 +8001,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_ARM_shader_framebuffer_fetch_depth_stencil
   &__GLEW_ARM_shader_framebuffer_fetch_depth_stencil,
+#endif
+#ifdef GL_ARM_texture_unnormalized_coordinates
+  &__GLEW_ARM_texture_unnormalized_coordinates,
 #endif
 #ifdef GL_ATIX_point_sprites
   &__GLEW_ATIX_point_sprites,
@@ -25148,6 +25155,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_framebuffer_fetch_depth_stencil", 38))
         {
           ret = GLEW_ARM_shader_framebuffer_fetch_depth_stencil;
+          continue;
+        }
+#endif
+#ifdef GL_ARM_texture_unnormalized_coordinates
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_unnormalized_coordinates", 32))
+        {
+          ret = GLEW_ARM_texture_unnormalized_coordinates;
           continue;
         }
 #endif

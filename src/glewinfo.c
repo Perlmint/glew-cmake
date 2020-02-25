@@ -3891,6 +3891,15 @@ static void _glewInfo_GL_ARM_shader_framebuffer_fetch_depth_stencil (void)
 
 #endif /* GL_ARM_shader_framebuffer_fetch_depth_stencil */
 
+#ifdef GL_ARM_texture_unnormalized_coordinates
+
+static void _glewInfo_GL_ARM_texture_unnormalized_coordinates (void)
+{
+  glewPrintExt("GL_ARM_texture_unnormalized_coordinates", GLEW_ARM_texture_unnormalized_coordinates, glewIsSupported("GL_ARM_texture_unnormalized_coordinates"), glewGetExtension("GL_ARM_texture_unnormalized_coordinates"));
+}
+
+#endif /* GL_ARM_texture_unnormalized_coordinates */
+
 #ifdef GL_ATIX_point_sprites
 
 static void _glewInfo_GL_ATIX_point_sprites (void)
@@ -15618,6 +15627,9 @@ static void glewInfo (void)
 #ifdef GL_ARM_shader_framebuffer_fetch_depth_stencil
   _glewInfo_GL_ARM_shader_framebuffer_fetch_depth_stencil();
 #endif /* GL_ARM_shader_framebuffer_fetch_depth_stencil */
+#ifdef GL_ARM_texture_unnormalized_coordinates
+  _glewInfo_GL_ARM_texture_unnormalized_coordinates();
+#endif /* GL_ARM_texture_unnormalized_coordinates */
 #ifdef GL_ATIX_point_sprites
   _glewInfo_GL_ATIX_point_sprites();
 #endif /* GL_ATIX_point_sprites */
