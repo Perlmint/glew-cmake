@@ -6719,44 +6719,6 @@ static void _glewInfo_GL_FJ_shader_binary_GCCSO (void)
 
 #endif /* GL_FJ_shader_binary_GCCSO */
 
-#ifdef GL_GLU_EXT_nurbs_tessellator
-
-static void _glewInfo_GL_GLU_EXT_nurbs_tessellator (void)
-{
-  glewPrintExt("GL_GLU_EXT_nurbs_tessellator", GLEW_GLU_EXT_nurbs_tessellator, glewIsSupported("GL_GLU_EXT_nurbs_tessellator"), glewGetExtension("GL_GLU_EXT_nurbs_tessellator"));
-}
-
-#endif /* GL_GLU_EXT_nurbs_tessellator */
-
-#ifdef GL_GLU_EXT_object_space_tess
-
-static void _glewInfo_GL_GLU_EXT_object_space_tess (void)
-{
-  glewPrintExt("GL_GLU_EXT_object_space_tess", GLEW_GLU_EXT_object_space_tess, glewIsSupported("GL_GLU_EXT_object_space_tess"), glewGetExtension("GL_GLU_EXT_object_space_tess"));
-}
-
-#endif /* GL_GLU_EXT_object_space_tess */
-
-#ifdef GL_GLU_SGIX_icc_compress
-
-static void _glewInfo_GL_GLU_SGIX_icc_compress (void)
-{
-  glewPrintExt("GL_GLU_SGIX_icc_compress", GLEW_GLU_SGIX_icc_compress, glewIsSupported("GL_GLU_SGIX_icc_compress"), glewGetExtension("GL_GLU_SGIX_icc_compress"));
-}
-
-#endif /* GL_GLU_SGIX_icc_compress */
-
-#ifdef GL_GLU_SGI_filter4_parameters
-
-static void _glewInfo_GL_GLU_SGI_filter4_parameters (void)
-{
-  GLboolean fi = glewPrintExt("GL_GLU_SGI_filter4_parameters", GLEW_GLU_SGI_filter4_parameters, glewIsSupported("GL_GLU_SGI_filter4_parameters"), glewGetExtension("GL_GLU_SGI_filter4_parameters"));
-
-  glewInfoFunc(fi, "gluTexFilterFuncSGI", gluTexFilterFuncSGI == NULL);
-}
-
-#endif /* GL_GLU_SGI_filter4_parameters */
-
 #ifdef GL_GREMEDY_frame_terminator
 
 static void _glewInfo_GL_GREMEDY_frame_terminator (void)
@@ -10743,15 +10705,6 @@ static void _glewInfo_GL_SGIX_color_table_index_mode (void)
 }
 
 #endif /* GL_SGIX_color_table_index_mode */
-
-#ifdef GL_SGIX_color_type
-
-static void _glewInfo_GL_SGIX_color_type (void)
-{
-  glewPrintExt("GL_SGIX_color_type", GLEW_SGIX_color_type, glewIsSupported("GL_SGIX_color_type"), glewGetExtension("GL_SGIX_color_type"));
-}
-
-#endif /* GL_SGIX_color_type */
 
 #ifdef GL_SGIX_complex_polar
 
@@ -16302,18 +16255,6 @@ static void glewInfo (void)
 #ifdef GL_FJ_shader_binary_GCCSO
   _glewInfo_GL_FJ_shader_binary_GCCSO();
 #endif /* GL_FJ_shader_binary_GCCSO */
-#ifdef GL_GLU_EXT_nurbs_tessellator
-  _glewInfo_GL_GLU_EXT_nurbs_tessellator();
-#endif /* GL_GLU_EXT_nurbs_tessellator */
-#ifdef GL_GLU_EXT_object_space_tess
-  _glewInfo_GL_GLU_EXT_object_space_tess();
-#endif /* GL_GLU_EXT_object_space_tess */
-#ifdef GL_GLU_SGIX_icc_compress
-  _glewInfo_GL_GLU_SGIX_icc_compress();
-#endif /* GL_GLU_SGIX_icc_compress */
-#ifdef GL_GLU_SGI_filter4_parameters
-  _glewInfo_GL_GLU_SGI_filter4_parameters();
-#endif /* GL_GLU_SGI_filter4_parameters */
 #ifdef GL_GREMEDY_frame_terminator
   _glewInfo_GL_GREMEDY_frame_terminator();
 #endif /* GL_GREMEDY_frame_terminator */
@@ -17337,9 +17278,6 @@ static void glewInfo (void)
 #ifdef GL_SGIX_color_table_index_mode
   _glewInfo_GL_SGIX_color_table_index_mode();
 #endif /* GL_SGIX_color_table_index_mode */
-#ifdef GL_SGIX_color_type
-  _glewInfo_GL_SGIX_color_type();
-#endif /* GL_SGIX_color_type */
 #ifdef GL_SGIX_complex_polar
   _glewInfo_GL_SGIX_complex_polar();
 #endif /* GL_SGIX_complex_polar */

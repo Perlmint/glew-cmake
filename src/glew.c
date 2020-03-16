@@ -2394,8 +2394,6 @@ PFNGLWINDOWRECTANGLESEXTPROC __glewWindowRectanglesEXT = NULL;
 
 PFNGLIMPORTSYNCEXTPROC __glewImportSyncEXT = NULL;
 
-PFNGLUTEXFILTERFUNCSGIPROC __glewuTexFilterFuncSGI = NULL;
-
 PFNGLFRAMETERMINATORGREMEDYPROC __glewFrameTerminatorGREMEDY = NULL;
 
 PFNGLSTRINGMARKERGREMEDYPROC __glewStringMarkerGREMEDY = NULL;
@@ -3973,10 +3971,6 @@ GLboolean __GLEW_EXT_win32_keyed_mutex = GL_FALSE;
 GLboolean __GLEW_EXT_window_rectangles = GL_FALSE;
 GLboolean __GLEW_EXT_x11_sync_object = GL_FALSE;
 GLboolean __GLEW_FJ_shader_binary_GCCSO = GL_FALSE;
-GLboolean __GLEW_GLU_EXT_nurbs_tessellator = GL_FALSE;
-GLboolean __GLEW_GLU_EXT_object_space_tess = GL_FALSE;
-GLboolean __GLEW_GLU_SGIX_icc_compress = GL_FALSE;
-GLboolean __GLEW_GLU_SGI_filter4_parameters = GL_FALSE;
 GLboolean __GLEW_GREMEDY_frame_terminator = GL_FALSE;
 GLboolean __GLEW_GREMEDY_string_marker = GL_FALSE;
 GLboolean __GLEW_HP_convolution_border_modes = GL_FALSE;
@@ -4318,7 +4312,6 @@ GLboolean __GLEW_SGIX_calligraphic_fragment = GL_FALSE;
 GLboolean __GLEW_SGIX_clipmap = GL_FALSE;
 GLboolean __GLEW_SGIX_color_matrix_accuracy = GL_FALSE;
 GLboolean __GLEW_SGIX_color_table_index_mode = GL_FALSE;
-GLboolean __GLEW_SGIX_color_type = GL_FALSE;
 GLboolean __GLEW_SGIX_complex_polar = GL_FALSE;
 GLboolean __GLEW_SGIX_convolution_accuracy = GL_FALSE;
 GLboolean __GLEW_SGIX_cube_map = GL_FALSE;
@@ -5861,18 +5854,6 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_FJ_shader_binary_GCCSO
   "GL_FJ_shader_binary_GCCSO",
 #endif
-#ifdef GL_GLU_EXT_nurbs_tessellator
-  "GL_GLU_EXT_nurbs_tessellator",
-#endif
-#ifdef GL_GLU_EXT_object_space_tess
-  "GL_GLU_EXT_object_space_tess",
-#endif
-#ifdef GL_GLU_SGIX_icc_compress
-  "GL_GLU_SGIX_icc_compress",
-#endif
-#ifdef GL_GLU_SGI_filter4_parameters
-  "GL_GLU_SGI_filter4_parameters",
-#endif
 #ifdef GL_GREMEDY_frame_terminator
   "GL_GREMEDY_frame_terminator",
 #endif
@@ -6896,9 +6877,6 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_SGIX_color_table_index_mode
   "GL_SGIX_color_table_index_mode",
 #endif
-#ifdef GL_SGIX_color_type
-  "GL_SGIX_color_type",
-#endif
 #ifdef GL_SGIX_complex_polar
   "GL_SGIX_complex_polar",
 #endif
@@ -7222,7 +7200,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[936];
+static GLboolean  _glewExtensionString[931];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8677,18 +8655,6 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_FJ_shader_binary_GCCSO
   &__GLEW_FJ_shader_binary_GCCSO,
 #endif
-#ifdef GL_GLU_EXT_nurbs_tessellator
-  &__GLEW_GLU_EXT_nurbs_tessellator,
-#endif
-#ifdef GL_GLU_EXT_object_space_tess
-  &__GLEW_GLU_EXT_object_space_tess,
-#endif
-#ifdef GL_GLU_SGIX_icc_compress
-  &__GLEW_GLU_SGIX_icc_compress,
-#endif
-#ifdef GL_GLU_SGI_filter4_parameters
-  &__GLEW_GLU_SGI_filter4_parameters,
-#endif
 #ifdef GL_GREMEDY_frame_terminator
   &__GLEW_GREMEDY_frame_terminator,
 #endif
@@ -9712,9 +9678,6 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_SGIX_color_table_index_mode
   &__GLEW_SGIX_color_table_index_mode,
 #endif
-#ifdef GL_SGIX_color_type
-  &__GLEW_SGIX_color_type,
-#endif
 #ifdef GL_SGIX_complex_polar
   &__GLEW_SGIX_complex_polar,
 #endif
@@ -10271,7 +10234,6 @@ static GLboolean _glewInit_GL_EXT_vertex_weighting ();
 static GLboolean _glewInit_GL_EXT_win32_keyed_mutex ();
 static GLboolean _glewInit_GL_EXT_window_rectangles ();
 static GLboolean _glewInit_GL_EXT_x11_sync_object ();
-static GLboolean _glewInit_GL_GLU_SGI_filter4_parameters ();
 static GLboolean _glewInit_GL_GREMEDY_frame_terminator ();
 static GLboolean _glewInit_GL_GREMEDY_string_marker ();
 static GLboolean _glewInit_GL_HP_image_transform ();
@@ -15104,19 +15066,6 @@ static GLboolean _glewInit_GL_EXT_x11_sync_object ()
 
 #endif /* GL_EXT_x11_sync_object */
 
-#ifdef GL_GLU_SGI_filter4_parameters
-
-static GLboolean _glewInit_GL_GLU_SGI_filter4_parameters ()
-{
-  GLboolean r = GL_FALSE;
-
-  r = ((gluTexFilterFuncSGI = (PFNGLUTEXFILTERFUNCSGIPROC)glewGetProcAddress((const GLubyte*)"gluTexFilterFuncSGI")) == NULL) || r;
-
-  return r;
-}
-
-#endif /* GL_GLU_SGI_filter4_parameters */
-
 #ifdef GL_GREMEDY_frame_terminator
 
 static GLboolean _glewInit_GL_GREMEDY_frame_terminator ()
@@ -18854,9 +18803,6 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 #ifdef GL_EXT_x11_sync_object
   if (glewExperimental || GLEW_EXT_x11_sync_object) GLEW_EXT_x11_sync_object = !_glewInit_GL_EXT_x11_sync_object();
 #endif /* GL_EXT_x11_sync_object */
-#ifdef GL_GLU_SGI_filter4_parameters
-  if (glewExperimental || GLEW_GLU_SGI_filter4_parameters) GLEW_GLU_SGI_filter4_parameters = !_glewInit_GL_GLU_SGI_filter4_parameters();
-#endif /* GL_GLU_SGI_filter4_parameters */
 #ifdef GL_GREMEDY_frame_terminator
   if (glewExperimental || GLEW_GREMEDY_frame_terminator) GLEW_GREMEDY_frame_terminator = !_glewInit_GL_GREMEDY_frame_terminator();
 #endif /* GL_GREMEDY_frame_terminator */
@@ -26749,37 +26695,6 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         }
 #endif
       }
-      if (_glewStrSame2(&pos, &len, (const GLubyte*)"GLU_", 4))
-      {
-#ifdef GL_GLU_EXT_nurbs_tessellator
-        if (_glewStrSame3(&pos, &len, (const GLubyte*)"EXT_nurbs_tessellator", 21))
-        {
-          ret = GLEW_GLU_EXT_nurbs_tessellator;
-          continue;
-        }
-#endif
-#ifdef GL_GLU_EXT_object_space_tess
-        if (_glewStrSame3(&pos, &len, (const GLubyte*)"EXT_object_space_tess", 21))
-        {
-          ret = GLEW_GLU_EXT_object_space_tess;
-          continue;
-        }
-#endif
-#ifdef GL_GLU_SGIX_icc_compress
-        if (_glewStrSame3(&pos, &len, (const GLubyte*)"SGIX_icc_compress", 17))
-        {
-          ret = GLEW_GLU_SGIX_icc_compress;
-          continue;
-        }
-#endif
-#ifdef GL_GLU_SGI_filter4_parameters
-        if (_glewStrSame3(&pos, &len, (const GLubyte*)"SGI_filter4_parameters", 22))
-        {
-          ret = GLEW_GLU_SGI_filter4_parameters;
-          continue;
-        }
-#endif
-      }
       if (_glewStrSame2(&pos, &len, (const GLubyte*)"GREMEDY_", 8))
       {
 #ifdef GL_GREMEDY_frame_terminator
@@ -29229,13 +29144,6 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"color_table_index_mode", 22))
         {
           ret = GLEW_SGIX_color_table_index_mode;
-          continue;
-        }
-#endif
-#ifdef GL_SGIX_color_type
-        if (_glewStrSame3(&pos, &len, (const GLubyte*)"color_type", 10))
-        {
-          ret = GLEW_SGIX_color_type;
           continue;
         }
 #endif

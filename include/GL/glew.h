@@ -13788,65 +13788,6 @@ typedef GLsync (GLAPIENTRY * PFNGLIMPORTSYNCEXTPROC) (GLenum external_sync_type,
 
 #endif /* GL_FJ_shader_binary_GCCSO */
 
-/* ---------------------- GL_GLU_EXT_nurbs_tessellator --------------------- */
-
-#ifndef GL_GLU_EXT_nurbs_tessellator
-#define GL_GLU_EXT_nurbs_tessellator 1
-
-#define GL_GLU_NURBS_MODE_EXT 100160
-#define GL_GLU_NURBS_TESSELLATOR_EXT 100161
-#define GL_GLU_NURBS_RENDERER_EXT 100162
-#define GL_GLU_NURBS_BEGIN_EXT 100164
-#define GL_GLU_NURBS_VERTEX_EXT 100165
-#define GL_GLU_NURBS_NORMAL_EXT 100166
-#define GL_GLU_NURBS_COLOR_EXT 100167
-#define GL_GLU_NURBS_TEXTURE_COORD_EXT 100168
-#define GL_GLU_NURBS_END_EXT 100169
-#define GL_GLU_NURBS_BEGIN_DATA_EXT 100170
-#define GL_GLU_NURBS_VERTEX_DATA_EXT 100171
-#define GL_GLU_NURBS_NORMAL_DATA_EXT 100172
-#define GL_GLU_NURBS_COLOR_DATA_EXT 100173
-#define GL_GLU_NURBS_TEXTURE_COORD_DATA_EXT 100174
-#define GL_GLU_NURBS_END_DATA_EXT 100175
-
-#define GLEW_GLU_EXT_nurbs_tessellator GLEW_GET_VAR(__GLEW_GLU_EXT_nurbs_tessellator)
-
-#endif /* GL_GLU_EXT_nurbs_tessellator */
-
-/* ---------------------- GL_GLU_EXT_object_space_tess --------------------- */
-
-#ifndef GL_GLU_EXT_object_space_tess
-#define GL_GLU_EXT_object_space_tess 1
-
-#define GL_OBJECT_PARAMETRIC_ERROR_EXT 100208
-#define GL_OBJECT_PATH_LENGTH_EXT 100209
-
-#define GLEW_GLU_EXT_object_space_tess GLEW_GET_VAR(__GLEW_GLU_EXT_object_space_tess)
-
-#endif /* GL_GLU_EXT_object_space_tess */
-
-/* ------------------------ GL_GLU_SGIX_icc_compress ----------------------- */
-
-#ifndef GL_GLU_SGIX_icc_compress
-#define GL_GLU_SGIX_icc_compress 1
-
-#define GLEW_GLU_SGIX_icc_compress GLEW_GET_VAR(__GLEW_GLU_SGIX_icc_compress)
-
-#endif /* GL_GLU_SGIX_icc_compress */
-
-/* --------------------- GL_GLU_SGI_filter4_parameters --------------------- */
-
-#ifndef GL_GLU_SGI_filter4_parameters
-#define GL_GLU_SGI_filter4_parameters 1
-
-typedef GLint (GLAPIENTRY * PFNGLUTEXFILTERFUNCSGIPROC) (GLenum target, GLenum filtertype, const GLfloat* parms, GLint n, GLfloat *weights);
-
-#define gluTexFilterFuncSGI GLEW_GET_FUN(__glewuTexFilterFuncSGI)
-
-#define GLEW_GLU_SGI_filter4_parameters GLEW_GET_VAR(__GLEW_GLU_SGI_filter4_parameters)
-
-#endif /* GL_GLU_SGI_filter4_parameters */
-
 /* ---------------------- GL_GREMEDY_frame_terminator ---------------------- */
 
 #ifndef GL_GREMEDY_frame_terminator
@@ -20963,15 +20904,6 @@ typedef GLint (GLAPIENTRY * PFNGLPOLLASYNCSGIXPROC) (GLuint* markerp);
 
 #endif /* GL_SGIX_color_table_index_mode */
 
-/* --------------------------- GL_SGIX_color_type -------------------------- */
-
-#ifndef GL_SGIX_color_type
-#define GL_SGIX_color_type 1
-
-#define GLEW_SGIX_color_type GLEW_GET_VAR(__GLEW_SGIX_color_type)
-
-#endif /* GL_SGIX_color_type */
-
 /* ------------------------- GL_SGIX_complex_polar ------------------------- */
 
 #ifndef GL_SGIX_complex_polar
@@ -24420,8 +24352,6 @@ GLEW_FUN_EXPORT PFNGLWINDOWRECTANGLESEXTPROC __glewWindowRectanglesEXT;
 
 GLEW_FUN_EXPORT PFNGLIMPORTSYNCEXTPROC __glewImportSyncEXT;
 
-GLEW_FUN_EXPORT PFNGLUTEXFILTERFUNCSGIPROC __glewuTexFilterFuncSGI;
-
 GLEW_FUN_EXPORT PFNGLFRAMETERMINATORGREMEDYPROC __glewFrameTerminatorGREMEDY;
 
 GLEW_FUN_EXPORT PFNGLSTRINGMARKERGREMEDYPROC __glewStringMarkerGREMEDY;
@@ -25998,10 +25928,6 @@ GLEW_VAR_EXPORT GLboolean __GLEW_EXT_win32_keyed_mutex;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_window_rectangles;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_x11_sync_object;
 GLEW_VAR_EXPORT GLboolean __GLEW_FJ_shader_binary_GCCSO;
-GLEW_VAR_EXPORT GLboolean __GLEW_GLU_EXT_nurbs_tessellator;
-GLEW_VAR_EXPORT GLboolean __GLEW_GLU_EXT_object_space_tess;
-GLEW_VAR_EXPORT GLboolean __GLEW_GLU_SGIX_icc_compress;
-GLEW_VAR_EXPORT GLboolean __GLEW_GLU_SGI_filter4_parameters;
 GLEW_VAR_EXPORT GLboolean __GLEW_GREMEDY_frame_terminator;
 GLEW_VAR_EXPORT GLboolean __GLEW_GREMEDY_string_marker;
 GLEW_VAR_EXPORT GLboolean __GLEW_HP_convolution_border_modes;
@@ -26343,7 +26269,6 @@ GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_calligraphic_fragment;
 GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_clipmap;
 GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_color_matrix_accuracy;
 GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_color_table_index_mode;
-GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_color_type;
 GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_complex_polar;
 GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_convolution_accuracy;
 GLEW_VAR_EXPORT GLboolean __GLEW_SGIX_cube_map;
