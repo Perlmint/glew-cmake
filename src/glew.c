@@ -2916,6 +2916,7 @@ PFNGLGETSHADINGRATESAMPLELOCATIONIVNVPROC __glewGetShadingRateSampleLocationivNV
 PFNGLSHADINGRATEIMAGEBARRIERNVPROC __glewShadingRateImageBarrierNV = NULL;
 PFNGLSHADINGRATEIMAGEPALETTENVPROC __glewShadingRateImagePaletteNV = NULL;
 PFNGLSHADINGRATESAMPLEORDERCUSTOMNVPROC __glewShadingRateSampleOrderCustomNV = NULL;
+PFNGLSHADINGRATESAMPLEORDERNVPROC __glewShadingRateSampleOrderNV = NULL;
 
 PFNGLCOMPRESSEDTEXIMAGE3DNVPROC __glewCompressedTexImage3DNV = NULL;
 PFNGLCOMPRESSEDTEXSUBIMAGE3DNVPROC __glewCompressedTexSubImage3DNV = NULL;
@@ -3219,6 +3220,8 @@ PFNGLFRAMEBUFFERFOVEATIONCONFIGQCOMPROC __glewFramebufferFoveationConfigQCOM = N
 PFNGLFRAMEBUFFERFOVEATIONPARAMETERSQCOMPROC __glewFramebufferFoveationParametersQCOM = NULL;
 
 PFNGLFRAMEBUFFERFETCHBARRIERQCOMPROC __glewFramebufferFetchBarrierQCOM = NULL;
+
+PFNGLSHADINGRATEQCOMPROC __glewShadingRateQCOM = NULL;
 
 PFNGLTEXTUREFOVEATIONPARAMETERSQCOMPROC __glewTextureFoveationParametersQCOM = NULL;
 
@@ -4268,6 +4271,7 @@ GLboolean __GLEW_QCOM_framebuffer_foveated = GL_FALSE;
 GLboolean __GLEW_QCOM_perfmon_global_mode = GL_FALSE;
 GLboolean __GLEW_QCOM_shader_framebuffer_fetch_noncoherent = GL_FALSE;
 GLboolean __GLEW_QCOM_shader_framebuffer_fetch_rate = GL_FALSE;
+GLboolean __GLEW_QCOM_shading_rate = GL_FALSE;
 GLboolean __GLEW_QCOM_texture_foveated = GL_FALSE;
 GLboolean __GLEW_QCOM_texture_foveated_subsampled_layout = GL_FALSE;
 GLboolean __GLEW_QCOM_tiled_rendering = GL_FALSE;
@@ -6745,6 +6749,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_QCOM_shader_framebuffer_fetch_rate
   "GL_QCOM_shader_framebuffer_fetch_rate",
 #endif
+#ifdef GL_QCOM_shading_rate
+  "GL_QCOM_shading_rate",
+#endif
 #ifdef GL_QCOM_texture_foveated
   "GL_QCOM_texture_foveated",
 #endif
@@ -7200,7 +7207,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[931];
+static GLboolean  _glewExtensionString[932];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -9546,6 +9553,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_QCOM_shader_framebuffer_fetch_rate
   &__GLEW_QCOM_shader_framebuffer_fetch_rate,
 #endif
+#ifdef GL_QCOM_shading_rate
+  &__GLEW_QCOM_shading_rate,
+#endif
 #ifdef GL_QCOM_texture_foveated
   &__GLEW_QCOM_texture_foveated,
 #endif
@@ -10351,6 +10361,7 @@ static GLboolean _glewInit_GL_QCOM_extended_get ();
 static GLboolean _glewInit_GL_QCOM_extended_get2 ();
 static GLboolean _glewInit_GL_QCOM_framebuffer_foveated ();
 static GLboolean _glewInit_GL_QCOM_shader_framebuffer_fetch_noncoherent ();
+static GLboolean _glewInit_GL_QCOM_shading_rate ();
 static GLboolean _glewInit_GL_QCOM_texture_foveated ();
 static GLboolean _glewInit_GL_QCOM_tiled_rendering ();
 static GLboolean _glewInit_GL_REGAL_ES1_0_compatibility ();
@@ -16419,6 +16430,7 @@ static GLboolean _glewInit_GL_NV_shading_rate_image ()
   r = ((glShadingRateImageBarrierNV = (PFNGLSHADINGRATEIMAGEBARRIERNVPROC)glewGetProcAddress((const GLubyte*)"glShadingRateImageBarrierNV")) == NULL) || r;
   r = ((glShadingRateImagePaletteNV = (PFNGLSHADINGRATEIMAGEPALETTENVPROC)glewGetProcAddress((const GLubyte*)"glShadingRateImagePaletteNV")) == NULL) || r;
   r = ((glShadingRateSampleOrderCustomNV = (PFNGLSHADINGRATESAMPLEORDERCUSTOMNVPROC)glewGetProcAddress((const GLubyte*)"glShadingRateSampleOrderCustomNV")) == NULL) || r;
+  r = ((glShadingRateSampleOrderNV = (PFNGLSHADINGRATESAMPLEORDERNVPROC)glewGetProcAddress((const GLubyte*)"glShadingRateSampleOrderNV")) == NULL) || r;
 
   return r;
 }
@@ -17178,6 +17190,19 @@ static GLboolean _glewInit_GL_QCOM_shader_framebuffer_fetch_noncoherent ()
 }
 
 #endif /* GL_QCOM_shader_framebuffer_fetch_noncoherent */
+
+#ifdef GL_QCOM_shading_rate
+
+static GLboolean _glewInit_GL_QCOM_shading_rate ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glShadingRateQCOM = (PFNGLSHADINGRATEQCOMPROC)glewGetProcAddress((const GLubyte*)"glShadingRateQCOM")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_QCOM_shading_rate */
 
 #ifdef GL_QCOM_texture_foveated
 
@@ -19154,6 +19179,9 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 #ifdef GL_QCOM_shader_framebuffer_fetch_noncoherent
   if (glewExperimental || GLEW_QCOM_shader_framebuffer_fetch_noncoherent) GLEW_QCOM_shader_framebuffer_fetch_noncoherent = !_glewInit_GL_QCOM_shader_framebuffer_fetch_noncoherent();
 #endif /* GL_QCOM_shader_framebuffer_fetch_noncoherent */
+#ifdef GL_QCOM_shading_rate
+  if (glewExperimental || GLEW_QCOM_shading_rate) GLEW_QCOM_shading_rate = !_glewInit_GL_QCOM_shading_rate();
+#endif /* GL_QCOM_shading_rate */
 #ifdef GL_QCOM_texture_foveated
   if (glewExperimental || GLEW_QCOM_texture_foveated) GLEW_QCOM_texture_foveated = !_glewInit_GL_QCOM_texture_foveated();
 #endif /* GL_QCOM_texture_foveated */
@@ -28821,6 +28849,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_framebuffer_fetch_rate", 29))
         {
           ret = GLEW_QCOM_shader_framebuffer_fetch_rate;
+          continue;
+        }
+#endif
+#ifdef GL_QCOM_shading_rate
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"shading_rate", 12))
+        {
+          ret = GLEW_QCOM_shading_rate;
           continue;
         }
 #endif

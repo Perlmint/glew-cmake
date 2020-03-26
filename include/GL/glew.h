@@ -17508,9 +17508,10 @@ typedef void (GLAPIENTRY * PFNGLUNIFORMUI64VNVPROC) (GLint location, GLsizei cou
 typedef void (GLAPIENTRY * PFNGLBINDSHADINGRATEIMAGENVPROC) (GLuint texture);
 typedef void (GLAPIENTRY * PFNGLGETSHADINGRATEIMAGEPALETTENVPROC) (GLuint viewport, GLuint entry, GLenum* rate);
 typedef void (GLAPIENTRY * PFNGLGETSHADINGRATESAMPLELOCATIONIVNVPROC) (GLenum rate, GLuint samples, GLuint index, GLint* location);
-typedef void (GLAPIENTRY * PFNGLSHADINGRATEIMAGEBARRIERNVPROC) (GLenum order);
+typedef void (GLAPIENTRY * PFNGLSHADINGRATEIMAGEBARRIERNVPROC) (GLboolean synchronize);
 typedef void (GLAPIENTRY * PFNGLSHADINGRATEIMAGEPALETTENVPROC) (GLuint viewport, GLuint first, GLsizei count, const GLenum* rates);
 typedef void (GLAPIENTRY * PFNGLSHADINGRATESAMPLEORDERCUSTOMNVPROC) (GLenum rate, GLuint samples, const GLint* locations);
+typedef void (GLAPIENTRY * PFNGLSHADINGRATESAMPLEORDERNVPROC) (GLenum order);
 
 #define glBindShadingRateImageNV GLEW_GET_FUN(__glewBindShadingRateImageNV)
 #define glGetShadingRateImagePaletteNV GLEW_GET_FUN(__glewGetShadingRateImagePaletteNV)
@@ -17518,6 +17519,7 @@ typedef void (GLAPIENTRY * PFNGLSHADINGRATESAMPLEORDERCUSTOMNVPROC) (GLenum rate
 #define glShadingRateImageBarrierNV GLEW_GET_FUN(__glewShadingRateImageBarrierNV)
 #define glShadingRateImagePaletteNV GLEW_GET_FUN(__glewShadingRateImagePaletteNV)
 #define glShadingRateSampleOrderCustomNV GLEW_GET_FUN(__glewShadingRateSampleOrderCustomNV)
+#define glShadingRateSampleOrderNV GLEW_GET_FUN(__glewShadingRateSampleOrderNV)
 
 #define GLEW_NV_shading_rate_image GLEW_GET_VAR(__GLEW_NV_shading_rate_image)
 
@@ -20152,6 +20154,28 @@ typedef void (GLAPIENTRY * PFNGLFRAMEBUFFERFETCHBARRIERQCOMPROC) (void);
 #define GLEW_QCOM_shader_framebuffer_fetch_rate GLEW_GET_VAR(__GLEW_QCOM_shader_framebuffer_fetch_rate)
 
 #endif /* GL_QCOM_shader_framebuffer_fetch_rate */
+
+/* -------------------------- GL_QCOM_shading_rate ------------------------- */
+
+#ifndef GL_QCOM_shading_rate
+#define GL_QCOM_shading_rate 1
+
+#define GL_SHADING_RATE_QCOM 0x96A4
+#define GL_SHADING_RATE_PRESERVE_ASPECT_RATIO_QCOM 0x96A5
+#define GL_SHADING_RATE_1X1_PIXELS_QCOM 0x96A6
+#define GL_SHADING_RATE_1X2_PIXELS_QCOM 0x96A7
+#define GL_SHADING_RATE_2X1_PIXELS_QCOM 0x96A8
+#define GL_SHADING_RATE_2X2_PIXELS_QCOM 0x96A9
+#define GL_SHADING_RATE_4X2_PIXELS_QCOM 0x96AC
+#define GL_SHADING_RATE_4X4_PIXELS_QCOM 0x96AE
+
+typedef void (GLAPIENTRY * PFNGLSHADINGRATEQCOMPROC) (GLenum rate);
+
+#define glShadingRateQCOM GLEW_GET_FUN(__glewShadingRateQCOM)
+
+#define GLEW_QCOM_shading_rate GLEW_GET_VAR(__GLEW_QCOM_shading_rate)
+
+#endif /* GL_QCOM_shading_rate */
 
 /* ------------------------ GL_QCOM_texture_foveated ----------------------- */
 
@@ -24874,6 +24898,7 @@ GLEW_FUN_EXPORT PFNGLGETSHADINGRATESAMPLELOCATIONIVNVPROC __glewGetShadingRateSa
 GLEW_FUN_EXPORT PFNGLSHADINGRATEIMAGEBARRIERNVPROC __glewShadingRateImageBarrierNV;
 GLEW_FUN_EXPORT PFNGLSHADINGRATEIMAGEPALETTENVPROC __glewShadingRateImagePaletteNV;
 GLEW_FUN_EXPORT PFNGLSHADINGRATESAMPLEORDERCUSTOMNVPROC __glewShadingRateSampleOrderCustomNV;
+GLEW_FUN_EXPORT PFNGLSHADINGRATESAMPLEORDERNVPROC __glewShadingRateSampleOrderNV;
 
 GLEW_FUN_EXPORT PFNGLCOMPRESSEDTEXIMAGE3DNVPROC __glewCompressedTexImage3DNV;
 GLEW_FUN_EXPORT PFNGLCOMPRESSEDTEXSUBIMAGE3DNVPROC __glewCompressedTexSubImage3DNV;
@@ -25177,6 +25202,8 @@ GLEW_FUN_EXPORT PFNGLFRAMEBUFFERFOVEATIONCONFIGQCOMPROC __glewFramebufferFoveati
 GLEW_FUN_EXPORT PFNGLFRAMEBUFFERFOVEATIONPARAMETERSQCOMPROC __glewFramebufferFoveationParametersQCOM;
 
 GLEW_FUN_EXPORT PFNGLFRAMEBUFFERFETCHBARRIERQCOMPROC __glewFramebufferFetchBarrierQCOM;
+
+GLEW_FUN_EXPORT PFNGLSHADINGRATEQCOMPROC __glewShadingRateQCOM;
 
 GLEW_FUN_EXPORT PFNGLTEXTUREFOVEATIONPARAMETERSQCOMPROC __glewTextureFoveationParametersQCOM;
 
@@ -26225,6 +26252,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_framebuffer_foveated;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_perfmon_global_mode;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_shader_framebuffer_fetch_noncoherent;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_shader_framebuffer_fetch_rate;
+GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_shading_rate;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_texture_foveated;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_texture_foveated_subsampled_layout;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_tiled_rendering;
