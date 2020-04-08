@@ -3219,6 +3219,9 @@ PFNGLEXTISPROGRAMBINARYQCOMPROC __glewExtIsProgramBinaryQCOM = NULL;
 PFNGLFRAMEBUFFERFOVEATIONCONFIGQCOMPROC __glewFramebufferFoveationConfigQCOM = NULL;
 PFNGLFRAMEBUFFERFOVEATIONPARAMETERSQCOMPROC __glewFramebufferFoveationParametersQCOM = NULL;
 
+PFNGLTEXESTIMATEMOTIONQCOMPROC __glewTexEstimateMotionQCOM = NULL;
+PFNGLTEXESTIMATEMOTIONREGIONSQCOMPROC __glewTexEstimateMotionRegionsQCOM = NULL;
+
 PFNGLFRAMEBUFFERFETCHBARRIERQCOMPROC __glewFramebufferFetchBarrierQCOM = NULL;
 
 PFNGLSHADINGRATEQCOMPROC __glewShadingRateQCOM = NULL;
@@ -4268,6 +4271,7 @@ GLboolean __GLEW_QCOM_driver_control = GL_FALSE;
 GLboolean __GLEW_QCOM_extended_get = GL_FALSE;
 GLboolean __GLEW_QCOM_extended_get2 = GL_FALSE;
 GLboolean __GLEW_QCOM_framebuffer_foveated = GL_FALSE;
+GLboolean __GLEW_QCOM_motion_estimation = GL_FALSE;
 GLboolean __GLEW_QCOM_perfmon_global_mode = GL_FALSE;
 GLboolean __GLEW_QCOM_shader_framebuffer_fetch_noncoherent = GL_FALSE;
 GLboolean __GLEW_QCOM_shader_framebuffer_fetch_rate = GL_FALSE;
@@ -6740,6 +6744,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_QCOM_framebuffer_foveated
   "GL_QCOM_framebuffer_foveated",
 #endif
+#ifdef GL_QCOM_motion_estimation
+  "GL_QCOM_motion_estimation",
+#endif
 #ifdef GL_QCOM_perfmon_global_mode
   "GL_QCOM_perfmon_global_mode",
 #endif
@@ -7207,7 +7214,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[932];
+static GLboolean  _glewExtensionString[933];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -9544,6 +9551,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_QCOM_framebuffer_foveated
   &__GLEW_QCOM_framebuffer_foveated,
 #endif
+#ifdef GL_QCOM_motion_estimation
+  &__GLEW_QCOM_motion_estimation,
+#endif
 #ifdef GL_QCOM_perfmon_global_mode
   &__GLEW_QCOM_perfmon_global_mode,
 #endif
@@ -10360,6 +10370,7 @@ static GLboolean _glewInit_GL_QCOM_driver_control ();
 static GLboolean _glewInit_GL_QCOM_extended_get ();
 static GLboolean _glewInit_GL_QCOM_extended_get2 ();
 static GLboolean _glewInit_GL_QCOM_framebuffer_foveated ();
+static GLboolean _glewInit_GL_QCOM_motion_estimation ();
 static GLboolean _glewInit_GL_QCOM_shader_framebuffer_fetch_noncoherent ();
 static GLboolean _glewInit_GL_QCOM_shading_rate ();
 static GLboolean _glewInit_GL_QCOM_texture_foveated ();
@@ -17178,6 +17189,20 @@ static GLboolean _glewInit_GL_QCOM_framebuffer_foveated ()
 
 #endif /* GL_QCOM_framebuffer_foveated */
 
+#ifdef GL_QCOM_motion_estimation
+
+static GLboolean _glewInit_GL_QCOM_motion_estimation ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glTexEstimateMotionQCOM = (PFNGLTEXESTIMATEMOTIONQCOMPROC)glewGetProcAddress((const GLubyte*)"glTexEstimateMotionQCOM")) == NULL) || r;
+  r = ((glTexEstimateMotionRegionsQCOM = (PFNGLTEXESTIMATEMOTIONREGIONSQCOMPROC)glewGetProcAddress((const GLubyte*)"glTexEstimateMotionRegionsQCOM")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_QCOM_motion_estimation */
+
 #ifdef GL_QCOM_shader_framebuffer_fetch_noncoherent
 
 static GLboolean _glewInit_GL_QCOM_shader_framebuffer_fetch_noncoherent ()
@@ -19176,6 +19201,9 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 #ifdef GL_QCOM_framebuffer_foveated
   if (glewExperimental || GLEW_QCOM_framebuffer_foveated) GLEW_QCOM_framebuffer_foveated = !_glewInit_GL_QCOM_framebuffer_foveated();
 #endif /* GL_QCOM_framebuffer_foveated */
+#ifdef GL_QCOM_motion_estimation
+  if (glewExperimental || GLEW_QCOM_motion_estimation) GLEW_QCOM_motion_estimation = !_glewInit_GL_QCOM_motion_estimation();
+#endif /* GL_QCOM_motion_estimation */
 #ifdef GL_QCOM_shader_framebuffer_fetch_noncoherent
   if (glewExperimental || GLEW_QCOM_shader_framebuffer_fetch_noncoherent) GLEW_QCOM_shader_framebuffer_fetch_noncoherent = !_glewInit_GL_QCOM_shader_framebuffer_fetch_noncoherent();
 #endif /* GL_QCOM_shader_framebuffer_fetch_noncoherent */
@@ -28828,6 +28856,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"framebuffer_foveated", 20))
         {
           ret = GLEW_QCOM_framebuffer_foveated;
+          continue;
+        }
+#endif
+#ifdef GL_QCOM_motion_estimation
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"motion_estimation", 17))
+        {
+          ret = GLEW_QCOM_motion_estimation;
           continue;
         }
 #endif

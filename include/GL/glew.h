@@ -20120,6 +20120,24 @@ typedef void (GLAPIENTRY * PFNGLFRAMEBUFFERFOVEATIONPARAMETERSQCOMPROC) (GLuint 
 
 #endif /* GL_QCOM_framebuffer_foveated */
 
+/* ----------------------- GL_QCOM_motion_estimation ----------------------- */
+
+#ifndef GL_QCOM_motion_estimation
+#define GL_QCOM_motion_estimation 1
+
+#define GL_MOTION_ESTIMATION_SEARCH_BLOCK_X_QCOM 0x8C90
+#define GL_MOTION_ESTIMATION_SEARCH_BLOCK_Y_QCOM 0x8C91
+
+typedef void (GLAPIENTRY * PFNGLTEXESTIMATEMOTIONQCOMPROC) (GLuint ref, GLuint target, GLuint output);
+typedef void (GLAPIENTRY * PFNGLTEXESTIMATEMOTIONREGIONSQCOMPROC) (GLuint ref, GLuint target, GLuint output, GLuint mask);
+
+#define glTexEstimateMotionQCOM GLEW_GET_FUN(__glewTexEstimateMotionQCOM)
+#define glTexEstimateMotionRegionsQCOM GLEW_GET_FUN(__glewTexEstimateMotionRegionsQCOM)
+
+#define GLEW_QCOM_motion_estimation GLEW_GET_VAR(__GLEW_QCOM_motion_estimation)
+
+#endif /* GL_QCOM_motion_estimation */
+
 /* ---------------------- GL_QCOM_perfmon_global_mode ---------------------- */
 
 #ifndef GL_QCOM_perfmon_global_mode
@@ -25201,6 +25219,9 @@ GLEW_FUN_EXPORT PFNGLEXTISPROGRAMBINARYQCOMPROC __glewExtIsProgramBinaryQCOM;
 GLEW_FUN_EXPORT PFNGLFRAMEBUFFERFOVEATIONCONFIGQCOMPROC __glewFramebufferFoveationConfigQCOM;
 GLEW_FUN_EXPORT PFNGLFRAMEBUFFERFOVEATIONPARAMETERSQCOMPROC __glewFramebufferFoveationParametersQCOM;
 
+GLEW_FUN_EXPORT PFNGLTEXESTIMATEMOTIONQCOMPROC __glewTexEstimateMotionQCOM;
+GLEW_FUN_EXPORT PFNGLTEXESTIMATEMOTIONREGIONSQCOMPROC __glewTexEstimateMotionRegionsQCOM;
+
 GLEW_FUN_EXPORT PFNGLFRAMEBUFFERFETCHBARRIERQCOMPROC __glewFramebufferFetchBarrierQCOM;
 
 GLEW_FUN_EXPORT PFNGLSHADINGRATEQCOMPROC __glewShadingRateQCOM;
@@ -26249,6 +26270,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_driver_control;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_extended_get;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_extended_get2;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_framebuffer_foveated;
+GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_motion_estimation;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_perfmon_global_mode;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_shader_framebuffer_fetch_noncoherent;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_shader_framebuffer_fetch_rate;

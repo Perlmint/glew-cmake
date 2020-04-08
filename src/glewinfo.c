@@ -10190,6 +10190,18 @@ static void _glewInfo_GL_QCOM_framebuffer_foveated (void)
 
 #endif /* GL_QCOM_framebuffer_foveated */
 
+#ifdef GL_QCOM_motion_estimation
+
+static void _glewInfo_GL_QCOM_motion_estimation (void)
+{
+  GLboolean fi = glewPrintExt("GL_QCOM_motion_estimation", GLEW_QCOM_motion_estimation, glewIsSupported("GL_QCOM_motion_estimation"), glewGetExtension("GL_QCOM_motion_estimation"));
+
+  glewInfoFunc(fi, "glTexEstimateMotionQCOM", glTexEstimateMotionQCOM == NULL);
+  glewInfoFunc(fi, "glTexEstimateMotionRegionsQCOM", glTexEstimateMotionRegionsQCOM == NULL);
+}
+
+#endif /* GL_QCOM_motion_estimation */
+
 #ifdef GL_QCOM_perfmon_global_mode
 
 static void _glewInfo_GL_QCOM_perfmon_global_mode (void)
@@ -17149,6 +17161,9 @@ static void glewInfo (void)
 #ifdef GL_QCOM_framebuffer_foveated
   _glewInfo_GL_QCOM_framebuffer_foveated();
 #endif /* GL_QCOM_framebuffer_foveated */
+#ifdef GL_QCOM_motion_estimation
+  _glewInfo_GL_QCOM_motion_estimation();
+#endif /* GL_QCOM_motion_estimation */
 #ifdef GL_QCOM_perfmon_global_mode
   _glewInfo_GL_QCOM_perfmon_global_mode();
 #endif /* GL_QCOM_perfmon_global_mode */
