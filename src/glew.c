@@ -4024,7 +4024,9 @@ GLboolean __GLEW_KHR_texture_compression_astc_ldr = GL_FALSE;
 GLboolean __GLEW_KHR_texture_compression_astc_sliced_3d = GL_FALSE;
 GLboolean __GLEW_KTX_buffer_region = GL_FALSE;
 GLboolean __GLEW_MESAX_texture_stack = GL_FALSE;
+GLboolean __GLEW_MESA_framebuffer_flip_x = GL_FALSE;
 GLboolean __GLEW_MESA_framebuffer_flip_y = GL_FALSE;
+GLboolean __GLEW_MESA_framebuffer_swap_xy = GL_FALSE;
 GLboolean __GLEW_MESA_pack_invert = GL_FALSE;
 GLboolean __GLEW_MESA_program_binary_formats = GL_FALSE;
 GLboolean __GLEW_MESA_resize_buffers = GL_FALSE;
@@ -6003,8 +6005,14 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_MESAX_texture_stack
   "GL_MESAX_texture_stack",
 #endif
+#ifdef GL_MESA_framebuffer_flip_x
+  "GL_MESA_framebuffer_flip_x",
+#endif
 #ifdef GL_MESA_framebuffer_flip_y
   "GL_MESA_framebuffer_flip_y",
+#endif
+#ifdef GL_MESA_framebuffer_swap_xy
+  "GL_MESA_framebuffer_swap_xy",
 #endif
 #ifdef GL_MESA_pack_invert
   "GL_MESA_pack_invert",
@@ -7214,7 +7222,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[933];
+static GLboolean  _glewExtensionString[935];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8810,8 +8818,14 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_MESAX_texture_stack
   &__GLEW_MESAX_texture_stack,
 #endif
+#ifdef GL_MESA_framebuffer_flip_x
+  &__GLEW_MESA_framebuffer_flip_x,
+#endif
 #ifdef GL_MESA_framebuffer_flip_y
   &__GLEW_MESA_framebuffer_flip_y,
+#endif
+#ifdef GL_MESA_framebuffer_swap_xy
+  &__GLEW_MESA_framebuffer_swap_xy,
 #endif
 #ifdef GL_MESA_pack_invert
   &__GLEW_MESA_pack_invert,
@@ -27109,10 +27123,24 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
       }
       if (_glewStrSame2(&pos, &len, (const GLubyte*)"MESA_", 5))
       {
+#ifdef GL_MESA_framebuffer_flip_x
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"framebuffer_flip_x", 18))
+        {
+          ret = GLEW_MESA_framebuffer_flip_x;
+          continue;
+        }
+#endif
 #ifdef GL_MESA_framebuffer_flip_y
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"framebuffer_flip_y", 18))
         {
           ret = GLEW_MESA_framebuffer_flip_y;
+          continue;
+        }
+#endif
+#ifdef GL_MESA_framebuffer_swap_xy
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"framebuffer_swap_xy", 19))
+        {
+          ret = GLEW_MESA_framebuffer_swap_xy;
           continue;
         }
 #endif

@@ -7227,6 +7227,15 @@ static void _glewInfo_GL_MESAX_texture_stack (void)
 
 #endif /* GL_MESAX_texture_stack */
 
+#ifdef GL_MESA_framebuffer_flip_x
+
+static void _glewInfo_GL_MESA_framebuffer_flip_x (void)
+{
+  glewPrintExt("GL_MESA_framebuffer_flip_x", GLEW_MESA_framebuffer_flip_x, glewIsSupported("GL_MESA_framebuffer_flip_x"), glewGetExtension("GL_MESA_framebuffer_flip_x"));
+}
+
+#endif /* GL_MESA_framebuffer_flip_x */
+
 #ifdef GL_MESA_framebuffer_flip_y
 
 static void _glewInfo_GL_MESA_framebuffer_flip_y (void)
@@ -7238,6 +7247,15 @@ static void _glewInfo_GL_MESA_framebuffer_flip_y (void)
 }
 
 #endif /* GL_MESA_framebuffer_flip_y */
+
+#ifdef GL_MESA_framebuffer_swap_xy
+
+static void _glewInfo_GL_MESA_framebuffer_swap_xy (void)
+{
+  glewPrintExt("GL_MESA_framebuffer_swap_xy", GLEW_MESA_framebuffer_swap_xy, glewIsSupported("GL_MESA_framebuffer_swap_xy"), glewGetExtension("GL_MESA_framebuffer_swap_xy"));
+}
+
+#endif /* GL_MESA_framebuffer_swap_xy */
 
 #ifdef GL_MESA_pack_invert
 
@@ -16420,9 +16438,15 @@ static void glewInfo (void)
 #ifdef GL_MESAX_texture_stack
   _glewInfo_GL_MESAX_texture_stack();
 #endif /* GL_MESAX_texture_stack */
+#ifdef GL_MESA_framebuffer_flip_x
+  _glewInfo_GL_MESA_framebuffer_flip_x();
+#endif /* GL_MESA_framebuffer_flip_x */
 #ifdef GL_MESA_framebuffer_flip_y
   _glewInfo_GL_MESA_framebuffer_flip_y();
 #endif /* GL_MESA_framebuffer_flip_y */
+#ifdef GL_MESA_framebuffer_swap_xy
+  _glewInfo_GL_MESA_framebuffer_swap_xy();
+#endif /* GL_MESA_framebuffer_swap_xy */
 #ifdef GL_MESA_pack_invert
   _glewInfo_GL_MESA_pack_invert();
 #endif /* GL_MESA_pack_invert */

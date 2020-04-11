@@ -14691,6 +14691,17 @@ typedef void (GLAPIENTRY * PFNGLREADBUFFERREGIONPROC) (GLuint region, GLint x, G
 
 #endif /* GL_MESAX_texture_stack */
 
+/* ----------------------- GL_MESA_framebuffer_flip_x ---------------------- */
+
+#ifndef GL_MESA_framebuffer_flip_x
+#define GL_MESA_framebuffer_flip_x 1
+
+#define GL_FRAMEBUFFER_FLIP_X_MESA 0x8BBC
+
+#define GLEW_MESA_framebuffer_flip_x GLEW_GET_VAR(__GLEW_MESA_framebuffer_flip_x)
+
+#endif /* GL_MESA_framebuffer_flip_x */
+
 /* ----------------------- GL_MESA_framebuffer_flip_y ---------------------- */
 
 #ifndef GL_MESA_framebuffer_flip_y
@@ -14707,6 +14718,17 @@ typedef void (GLAPIENTRY * PFNGLGETFRAMEBUFFERPARAMETERIVMESAPROC) (GLenum targe
 #define GLEW_MESA_framebuffer_flip_y GLEW_GET_VAR(__GLEW_MESA_framebuffer_flip_y)
 
 #endif /* GL_MESA_framebuffer_flip_y */
+
+/* ---------------------- GL_MESA_framebuffer_swap_xy ---------------------- */
+
+#ifndef GL_MESA_framebuffer_swap_xy
+#define GL_MESA_framebuffer_swap_xy 1
+
+#define GL_FRAMEBUFFER_SWAP_XY_MESA 0x8BBD
+
+#define GLEW_MESA_framebuffer_swap_xy GLEW_GET_VAR(__GLEW_MESA_framebuffer_swap_xy)
+
+#endif /* GL_MESA_framebuffer_swap_xy */
 
 /* -------------------------- GL_MESA_pack_invert -------------------------- */
 
@@ -26023,7 +26045,9 @@ GLEW_VAR_EXPORT GLboolean __GLEW_KHR_texture_compression_astc_ldr;
 GLEW_VAR_EXPORT GLboolean __GLEW_KHR_texture_compression_astc_sliced_3d;
 GLEW_VAR_EXPORT GLboolean __GLEW_KTX_buffer_region;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESAX_texture_stack;
+GLEW_VAR_EXPORT GLboolean __GLEW_MESA_framebuffer_flip_x;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_framebuffer_flip_y;
+GLEW_VAR_EXPORT GLboolean __GLEW_MESA_framebuffer_swap_xy;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_pack_invert;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_program_binary_formats;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_resize_buffers;
