@@ -13,8 +13,6 @@ include("GeneratePkgConfig.cmake")
 
 option(glew-cmake_BUILD_SHARED "Build the shared glew library" ON)
 option(glew-cmake_BUILD_STATIC "Build the static glew library" ON)
-option(glew-cmake_BUILD_SINGLE_CONTEXT "Build the single context glew library" ON)
-option(glew-cmake_BUILD_MULTI_CONTEXT "Build the multi context glew library" ON)
 option(USE_GLU "Use GLU" OFF)
 option(PKG_CONFIG_REPRESENTATIVE_TARGET "Generate pc file for specified target as glew. libglew_static|libglewmx_static|libglew_shared|libglewmx_shared" OFF)
 option(ONLY_LIBS "Do not build executables" OFF)
@@ -62,69 +60,34 @@ else()
 endif()
 
 if(glew-cmake_BUILD_STATIC)
-	if(glew-cmake_BUILD_SINGLE_CONTEXT)
-		add_library(libglew_static STATIC ${LIBGLEW_SRCS})
+	add_library(libglew_static STATIC ${LIBGLEW_SRCS})
 
-		set_target_properties(libglew_static PROPERTIES
-			OUTPUT_NAME "glew"
-			DEBUG_POSTFIX d)
+	set_target_properties(libglew_static PROPERTIES
+		OUTPUT_NAME "glew"
+		DEBUG_POSTFIX d)
 
-		target_include_directories(libglew_static PUBLIC ${INCLUDE_DIR})
-		target_compile_definitions(libglew_static PUBLIC GLEW_STATIC ${DEFINITIONS})
-		target_link_libraries(libglew_static ${LIBRARIES} )
-		set_target_properties(libglew_static PROPERTIES VERSION ${GLEW_VERSION})
-		install(TARGETS libglew_static ARCHIVE DESTINATION lib)
-	endif()
-
-	if(glew-cmake_BUILD_MULTI_CONTEXT)
-		add_library(libglewmx_static STATIC ${LIBGLEW_SRCS})
-
-		set_target_properties(libglewmx_static PROPERTIES
-			OUTPUT_NAME "glewmx"
-			DEBUG_POSTFIX d)
-
-		target_compile_definitions(libglewmx_static INTERFACE GLEW_MX PUBLIC GLEW_STATIC ${DEFINITIONS})
-		target_include_directories(libglewmx_static PUBLIC ${INCLUDE_DIR})
-		target_link_libraries(libglewmx_static ${LIBRARIES})
-		set_target_properties(libglewmx_static PROPERTIES VERSION ${GLEW_VERSION})
-		install(TARGETS libglewmx_static ARCHIVE DESTINATION lib)
-	endif()
+	target_include_directories(libglew_static PUBLIC ${INCLUDE_DIR})
+	target_compile_definitions(libglew_static PUBLIC GLEW_STATIC ${DEFINITIONS})
+	target_link_libraries(libglew_static ${LIBRARIES} )
+	set_target_properties(libglew_static PROPERTIES VERSION ${GLEW_VERSION})
+	install(TARGETS libglew_static ARCHIVE DESTINATION lib)
 endif()
 
 if(glew-cmake_BUILD_SHARED)
-	if(glew-cmake_BUILD_SINGLE_CONTEXT)
-		add_library(libglew_shared SHARED ${LIBGLEW_SRCS})
+	add_library(libglew_shared SHARED ${LIBGLEW_SRCS})
 
-		set_target_properties(libglew_shared PROPERTIES
-			OUTPUT_NAME "glew"
-			DEBUG_POSTFIX d)
+	set_target_properties(libglew_shared PROPERTIES
+		OUTPUT_NAME "glew"
+		DEBUG_POSTFIX d)
 
-		target_compile_definitions(libglew_shared PUBLIC GLEW_BUILD ${DEFINITIONS})
-		target_include_directories(libglew_shared PUBLIC ${INCLUDE_DIR})
-		target_link_libraries(libglew_shared ${LIBRARIES})
-		set_target_properties(libglew_shared PROPERTIES VERSION ${GLEW_VERSION})
-		install(TARGETS libglew_shared
-			ARCHIVE DESTINATION lib
-			LIBRARY DESTINATION lib
-			RUNTIME DESTINATION bin)
-	endif()
-
-	if(glew-cmake_BUILD_MULTI_CONTEXT)
-		add_library(libglewmx_shared SHARED ${LIBGLEW_SRCS})
-
-		set_target_properties(libglewmx_shared PROPERTIES
-			OUTPUT_NAME "glewmx"
-			DEBUG_POSTFIX d)
-
-		target_compile_definitions(libglewmx_shared PUBLIC GLEW_BUILD ${DEFINITIONS} INTERFACE GLEW_MX)
-		target_include_directories(libglewmx_shared PUBLIC ${INCLUDE_DIR})
-		target_link_libraries(libglewmx_shared ${LIBRARIES})
-		set_target_properties(libglewmx_shared PROPERTIES VERSION ${GLEW_VERSION})
-		install(TARGETS libglewmx_shared
-			ARCHIVE DESTINATION lib
-			LIBRARY DESTINATION lib
-			RUNTIME DESTINATION bin)
-	endif()
+	target_compile_definitions(libglew_shared PUBLIC GLEW_BUILD ${DEFINITIONS})
+	target_include_directories(libglew_shared PUBLIC ${INCLUDE_DIR})
+	target_link_libraries(libglew_shared ${LIBRARIES})
+	set_target_properties(libglew_shared PROPERTIES VERSION ${GLEW_VERSION})
+	install(TARGETS libglew_shared
+		ARCHIVE DESTINATION lib
+		LIBRARY DESTINATION lib
+		RUNTIME DESTINATION bin)
 endif()
 
 if(PKG_CONFIG_REPRESENTATIVE_TARGET)
