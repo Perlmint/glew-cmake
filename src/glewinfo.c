@@ -13035,6 +13035,20 @@ static void _glewInfo_EGL_NV_robustness_video_memory_purge (void)
 
 #endif /* EGL_NV_robustness_video_memory_purge */
 
+#ifdef EGL_NV_stream_consumer_eglimage
+
+static void _glewInfo_EGL_NV_stream_consumer_eglimage (void)
+{
+  GLboolean fi = glewPrintExt("EGL_NV_stream_consumer_eglimage", EGLEW_NV_stream_consumer_eglimage, eglewIsSupported("EGL_NV_stream_consumer_eglimage"), eglewGetExtension("EGL_NV_stream_consumer_eglimage"));
+
+  glewInfoFunc(fi, "eglQueryStreamConsumerEventNV", eglQueryStreamConsumerEventNV == NULL);
+  glewInfoFunc(fi, "eglStreamAcquireImageNV", eglStreamAcquireImageNV == NULL);
+  glewInfoFunc(fi, "eglStreamImageConsumerConnectNV", eglStreamImageConsumerConnectNV == NULL);
+  glewInfoFunc(fi, "eglStreamReleaseImageNV", eglStreamReleaseImageNV == NULL);
+}
+
+#endif /* EGL_NV_stream_consumer_eglimage */
+
 #ifdef EGL_NV_stream_consumer_gltexture_yuv
 
 static void _glewInfo_EGL_NV_stream_consumer_gltexture_yuv (void)
@@ -18396,6 +18410,9 @@ static void eglewInfo ()
 #ifdef EGL_NV_robustness_video_memory_purge
   _glewInfo_EGL_NV_robustness_video_memory_purge();
 #endif /* EGL_NV_robustness_video_memory_purge */
+#ifdef EGL_NV_stream_consumer_eglimage
+  _glewInfo_EGL_NV_stream_consumer_eglimage();
+#endif /* EGL_NV_stream_consumer_eglimage */
 #ifdef EGL_NV_stream_consumer_gltexture_yuv
   _glewInfo_EGL_NV_stream_consumer_gltexture_yuv();
 #endif /* EGL_NV_stream_consumer_gltexture_yuv */

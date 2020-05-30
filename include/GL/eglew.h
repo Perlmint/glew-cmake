@@ -2277,6 +2277,30 @@ typedef EGLBoolean ( * PFNEGLPOSTSUBBUFFERNVPROC) (EGLDisplay dpy, EGLSurface su
 
 #endif /* EGL_NV_robustness_video_memory_purge */
 
+/* -------------------- EGL_NV_stream_consumer_eglimage -------------------- */
+
+#ifndef EGL_NV_stream_consumer_eglimage
+#define EGL_NV_stream_consumer_eglimage 1
+
+#define EGL_STREAM_CONSUMER_IMAGE_NV 0x3373
+#define EGL_STREAM_IMAGE_ADD_NV 0x3374
+#define EGL_STREAM_IMAGE_REMOVE_NV 0x3375
+#define EGL_STREAM_IMAGE_AVAILABLE_NV 0x3376
+
+typedef EGLint ( * PFNEGLQUERYSTREAMCONSUMEREVENTNVPROC) (EGLDisplay dpy, EGLStreamKHR stream, EGLTime timeout, EGLenum* event, EGLAttrib* aux);
+typedef EGLBoolean ( * PFNEGLSTREAMACQUIREIMAGENVPROC) (EGLDisplay dpy, EGLStreamKHR stream, EGLImage* pImage, EGLSync sync);
+typedef EGLBoolean ( * PFNEGLSTREAMIMAGECONSUMERCONNECTNVPROC) (EGLDisplay dpy, EGLStreamKHR stream, EGLint num_modifiers, EGLuint64KHR* modifiers, EGLAttrib* attrib_list);
+typedef EGLBoolean ( * PFNEGLSTREAMRELEASEIMAGENVPROC) (EGLDisplay dpy, EGLStreamKHR stream, EGLImage image, EGLSync sync);
+
+#define eglQueryStreamConsumerEventNV EGLEW_GET_FUN(__eglewQueryStreamConsumerEventNV)
+#define eglStreamAcquireImageNV EGLEW_GET_FUN(__eglewStreamAcquireImageNV)
+#define eglStreamImageConsumerConnectNV EGLEW_GET_FUN(__eglewStreamImageConsumerConnectNV)
+#define eglStreamReleaseImageNV EGLEW_GET_FUN(__eglewStreamReleaseImageNV)
+
+#define EGLEW_NV_stream_consumer_eglimage EGLEW_GET_VAR(__EGLEW_NV_stream_consumer_eglimage)
+
+#endif /* EGL_NV_stream_consumer_eglimage */
+
 /* ------------------ EGL_NV_stream_consumer_gltexture_yuv ----------------- */
 
 #ifndef EGL_NV_stream_consumer_gltexture_yuv
@@ -2852,6 +2876,11 @@ EGLEW_FUN_EXPORT PFNEGLQUERYNATIVEWINDOWNVPROC __eglewQueryNativeWindowNV;
 
 EGLEW_FUN_EXPORT PFNEGLPOSTSUBBUFFERNVPROC __eglewPostSubBufferNV;
 
+EGLEW_FUN_EXPORT PFNEGLQUERYSTREAMCONSUMEREVENTNVPROC __eglewQueryStreamConsumerEventNV;
+EGLEW_FUN_EXPORT PFNEGLSTREAMACQUIREIMAGENVPROC __eglewStreamAcquireImageNV;
+EGLEW_FUN_EXPORT PFNEGLSTREAMIMAGECONSUMERCONNECTNVPROC __eglewStreamImageConsumerConnectNV;
+EGLEW_FUN_EXPORT PFNEGLSTREAMRELEASEIMAGENVPROC __eglewStreamReleaseImageNV;
+
 EGLEW_FUN_EXPORT PFNEGLSTREAMCONSUMERGLTEXTUREEXTERNALATTRIBSNVPROC __eglewStreamConsumerGLTextureExternalAttribsNV;
 
 EGLEW_FUN_EXPORT PFNEGLSTREAMFLUSHNVPROC __eglewStreamFlushNV;
@@ -3008,6 +3037,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_post_convert_rounding;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_post_sub_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_quadruple_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_robustness_video_memory_purge;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_consumer_eglimage;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_consumer_gltexture_yuv;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_cross_display;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_cross_object;
