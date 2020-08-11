@@ -80,7 +80,7 @@ if(glew-cmake_BUILD_SHARED)
 		OUTPUT_NAME "glew"
 		DEBUG_POSTFIX d)
 
-	target_compile_definitions(libglew_shared PUBLIC GLEW_BUILD ${DEFINITIONS})
+	target_compile_definitions(libglew_shared PRIVATE GLEW_BUILD ${DEFINITIONS})
 	target_include_directories(libglew_shared PUBLIC ${INCLUDE_DIR})
 	target_link_libraries(libglew_shared ${LIBRARIES})
 	set_target_properties(libglew_shared PROPERTIES VERSION ${GLEW_VERSION})
