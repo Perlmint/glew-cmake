@@ -12104,6 +12104,15 @@ static void _glewInfo_EGL_EXT_device_query (void)
 
 #endif /* EGL_EXT_device_query */
 
+#ifdef EGL_EXT_device_query_name
+
+static void _glewInfo_EGL_EXT_device_query_name (void)
+{
+  glewPrintExt("EGL_EXT_device_query_name", EGLEW_EXT_device_query_name, eglewIsSupported("EGL_EXT_device_query_name"), eglewGetExtension("EGL_EXT_device_query_name"));
+}
+
+#endif /* EGL_EXT_device_query_name */
+
 #ifdef EGL_EXT_gl_colorspace_bt2020_linear
 
 static void _glewInfo_EGL_EXT_gl_colorspace_bt2020_linear (void)
@@ -18131,6 +18140,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_device_query
   _glewInfo_EGL_EXT_device_query();
 #endif /* EGL_EXT_device_query */
+#ifdef EGL_EXT_device_query_name
+  _glewInfo_EGL_EXT_device_query_name();
+#endif /* EGL_EXT_device_query_name */
 #ifdef EGL_EXT_gl_colorspace_bt2020_linear
   _glewInfo_EGL_EXT_gl_colorspace_bt2020_linear();
 #endif /* EGL_EXT_gl_colorspace_bt2020_linear */

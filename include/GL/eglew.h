@@ -894,6 +894,17 @@ typedef EGLBoolean ( * PFNEGLQUERYDISPLAYATTRIBEXTPROC) (EGLDisplay dpy, EGLint 
 
 #endif /* EGL_EXT_device_query */
 
+/* ----------------------- EGL_EXT_device_query_name ----------------------- */
+
+#ifndef EGL_EXT_device_query_name
+#define EGL_EXT_device_query_name 1
+
+#define EGL_RENDERER_EXT 0x335F
+
+#define EGLEW_EXT_device_query_name EGLEW_GET_VAR(__EGLEW_EXT_device_query_name)
+
+#endif /* EGL_EXT_device_query_name */
+
 /* ------------------ EGL_EXT_gl_colorspace_bt2020_linear ------------------ */
 
 #ifndef EGL_EXT_gl_colorspace_bt2020_linear
@@ -2944,6 +2955,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_drm;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_enumeration;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_openwf;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_query;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_query_name;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_bt2020_linear;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_bt2020_pq;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_display_p3;
