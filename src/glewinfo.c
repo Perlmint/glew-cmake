@@ -8267,6 +8267,20 @@ static void _glewInfo_GL_NV_memory_attachment (void)
 
 #endif /* GL_NV_memory_attachment */
 
+#ifdef GL_NV_memory_object_sparse
+
+static void _glewInfo_GL_NV_memory_object_sparse (void)
+{
+  GLboolean fi = glewPrintExt("GL_NV_memory_object_sparse", GLEW_NV_memory_object_sparse, glewIsSupported("GL_NV_memory_object_sparse"), glewGetExtension("GL_NV_memory_object_sparse"));
+
+  glewInfoFunc(fi, "glBufferPageCommitmentMemNV", glBufferPageCommitmentMemNV == NULL);
+  glewInfoFunc(fi, "glNamedBufferPageCommitmentMemNV", glNamedBufferPageCommitmentMemNV == NULL);
+  glewInfoFunc(fi, "glTexPageCommitmentMemNV", glTexPageCommitmentMemNV == NULL);
+  glewInfoFunc(fi, "glTexturePageCommitmentMemNV", glTexturePageCommitmentMemNV == NULL);
+}
+
+#endif /* GL_NV_memory_object_sparse */
+
 #ifdef GL_NV_mesh_shader
 
 static void _glewInfo_GL_NV_mesh_shader (void)
@@ -9058,6 +9072,19 @@ static void _glewInfo_GL_NV_texture_shader3 (void)
 }
 
 #endif /* GL_NV_texture_shader3 */
+
+#ifdef GL_NV_timeline_semaphore
+
+static void _glewInfo_GL_NV_timeline_semaphore (void)
+{
+  GLboolean fi = glewPrintExt("GL_NV_timeline_semaphore", GLEW_NV_timeline_semaphore, glewIsSupported("GL_NV_timeline_semaphore"), glewGetExtension("GL_NV_timeline_semaphore"));
+
+  glewInfoFunc(fi, "glCreateSemaphoresNV", glCreateSemaphoresNV == NULL);
+  glewInfoFunc(fi, "glGetSemaphoreParameterivNV", glGetSemaphoreParameterivNV == NULL);
+  glewInfoFunc(fi, "glSemaphoreParameterivNV", glSemaphoreParameterivNV == NULL);
+}
+
+#endif /* GL_NV_timeline_semaphore */
 
 #ifdef GL_NV_transform_feedback
 
@@ -16713,6 +16740,9 @@ static void glewInfo (void)
 #ifdef GL_NV_memory_attachment
   _glewInfo_GL_NV_memory_attachment();
 #endif /* GL_NV_memory_attachment */
+#ifdef GL_NV_memory_object_sparse
+  _glewInfo_GL_NV_memory_object_sparse();
+#endif /* GL_NV_memory_object_sparse */
 #ifdef GL_NV_mesh_shader
   _glewInfo_GL_NV_mesh_shader();
 #endif /* GL_NV_mesh_shader */
@@ -16920,6 +16950,9 @@ static void glewInfo (void)
 #ifdef GL_NV_texture_shader3
   _glewInfo_GL_NV_texture_shader3();
 #endif /* GL_NV_texture_shader3 */
+#ifdef GL_NV_timeline_semaphore
+  _glewInfo_GL_NV_timeline_semaphore();
+#endif /* GL_NV_timeline_semaphore */
 #ifdef GL_NV_transform_feedback
   _glewInfo_GL_NV_transform_feedback();
 #endif /* GL_NV_transform_feedback */

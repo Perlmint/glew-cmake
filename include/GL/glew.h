@@ -16426,6 +16426,25 @@ typedef void (GLAPIENTRY * PFNGLTEXTUREATTACHMEMORYNVPROC) (GLuint texture, GLui
 
 #endif /* GL_NV_memory_attachment */
 
+/* ----------------------- GL_NV_memory_object_sparse ---------------------- */
+
+#ifndef GL_NV_memory_object_sparse
+#define GL_NV_memory_object_sparse 1
+
+typedef void (GLAPIENTRY * PFNGLBUFFERPAGECOMMITMENTMEMNVPROC) (GLenum target, GLintptr offset, GLsizeiptr size, GLuint memory, GLuint64 offset, GLboolean commit);
+typedef void (GLAPIENTRY * PFNGLNAMEDBUFFERPAGECOMMITMENTMEMNVPROC) (GLuint buffer, GLintptr offset, GLsizeiptr size, GLuint memory, GLuint64 offset, GLboolean commit);
+typedef void (GLAPIENTRY * PFNGLTEXPAGECOMMITMENTMEMNVPROC) (GLenum target, GLint layer, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLuint memory, GLuint64 offset, GLboolean commit);
+typedef void (GLAPIENTRY * PFNGLTEXTUREPAGECOMMITMENTMEMNVPROC) (GLuint texture, GLint layer, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLuint memory, GLuint64 offset, GLboolean commit);
+
+#define glBufferPageCommitmentMemNV GLEW_GET_FUN(__glewBufferPageCommitmentMemNV)
+#define glNamedBufferPageCommitmentMemNV GLEW_GET_FUN(__glewNamedBufferPageCommitmentMemNV)
+#define glTexPageCommitmentMemNV GLEW_GET_FUN(__glewTexPageCommitmentMemNV)
+#define glTexturePageCommitmentMemNV GLEW_GET_FUN(__glewTexturePageCommitmentMemNV)
+
+#define GLEW_NV_memory_object_sparse GLEW_GET_VAR(__GLEW_NV_memory_object_sparse)
+
+#endif /* GL_NV_memory_object_sparse */
+
 /* --------------------------- GL_NV_mesh_shader --------------------------- */
 
 #ifndef GL_NV_mesh_shader
@@ -17951,6 +17970,29 @@ typedef void (GLAPIENTRY * PFNGLTEXTUREIMAGE3DMULTISAMPLENVPROC) (GLuint texture
 #define GLEW_NV_texture_shader3 GLEW_GET_VAR(__GLEW_NV_texture_shader3)
 
 #endif /* GL_NV_texture_shader3 */
+
+/* ------------------------ GL_NV_timeline_semaphore ----------------------- */
+
+#ifndef GL_NV_timeline_semaphore
+#define GL_NV_timeline_semaphore 1
+
+#define GL_TIMELINE_SEMAPHORE_VALUE_NV 0x9595
+#define GL_SEMAPHORE_TYPE_NV 0x95B3
+#define GL_SEMAPHORE_TYPE_BINARY_NV 0x95B4
+#define GL_SEMAPHORE_TYPE_TIMELINE_NV 0x95B5
+#define GL_MAX_TIMELINE_SEMAPHORE_VALUE_DIFFERENCE_NV 0x95B6
+
+typedef void (GLAPIENTRY * PFNGLCREATESEMAPHORESNVPROC) (GLsizei n, GLuint* semaphores);
+typedef void (GLAPIENTRY * PFNGLGETSEMAPHOREPARAMETERIVNVPROC) (GLuint semaphore, GLenum pname, GLint* params);
+typedef void (GLAPIENTRY * PFNGLSEMAPHOREPARAMETERIVNVPROC) (GLuint semaphore, GLenum pname, const GLint* params);
+
+#define glCreateSemaphoresNV GLEW_GET_FUN(__glewCreateSemaphoresNV)
+#define glGetSemaphoreParameterivNV GLEW_GET_FUN(__glewGetSemaphoreParameterivNV)
+#define glSemaphoreParameterivNV GLEW_GET_FUN(__glewSemaphoreParameterivNV)
+
+#define GLEW_NV_timeline_semaphore GLEW_GET_VAR(__GLEW_NV_timeline_semaphore)
+
+#endif /* GL_NV_timeline_semaphore */
 
 /* ------------------------ GL_NV_transform_feedback ----------------------- */
 
@@ -24785,6 +24827,11 @@ GLEW_FUN_EXPORT PFNGLRESETMEMORYOBJECTPARAMETERNVPROC __glewResetMemoryObjectPar
 GLEW_FUN_EXPORT PFNGLTEXATTACHMEMORYNVPROC __glewTexAttachMemoryNV;
 GLEW_FUN_EXPORT PFNGLTEXTUREATTACHMEMORYNVPROC __glewTextureAttachMemoryNV;
 
+GLEW_FUN_EXPORT PFNGLBUFFERPAGECOMMITMENTMEMNVPROC __glewBufferPageCommitmentMemNV;
+GLEW_FUN_EXPORT PFNGLNAMEDBUFFERPAGECOMMITMENTMEMNVPROC __glewNamedBufferPageCommitmentMemNV;
+GLEW_FUN_EXPORT PFNGLTEXPAGECOMMITMENTMEMNVPROC __glewTexPageCommitmentMemNV;
+GLEW_FUN_EXPORT PFNGLTEXTUREPAGECOMMITMENTMEMNVPROC __glewTexturePageCommitmentMemNV;
+
 GLEW_FUN_EXPORT PFNGLDRAWMESHTASKSINDIRECTNVPROC __glewDrawMeshTasksIndirectNV;
 GLEW_FUN_EXPORT PFNGLDRAWMESHTASKSNVPROC __glewDrawMeshTasksNV;
 GLEW_FUN_EXPORT PFNGLMULTIDRAWMESHTASKSINDIRECTCOUNTNVPROC __glewMultiDrawMeshTasksIndirectCountNV;
@@ -24955,6 +25002,10 @@ GLEW_FUN_EXPORT PFNGLTEXTUREIMAGE2DMULTISAMPLECOVERAGENVPROC __glewTextureImage2
 GLEW_FUN_EXPORT PFNGLTEXTUREIMAGE2DMULTISAMPLENVPROC __glewTextureImage2DMultisampleNV;
 GLEW_FUN_EXPORT PFNGLTEXTUREIMAGE3DMULTISAMPLECOVERAGENVPROC __glewTextureImage3DMultisampleCoverageNV;
 GLEW_FUN_EXPORT PFNGLTEXTUREIMAGE3DMULTISAMPLENVPROC __glewTextureImage3DMultisampleNV;
+
+GLEW_FUN_EXPORT PFNGLCREATESEMAPHORESNVPROC __glewCreateSemaphoresNV;
+GLEW_FUN_EXPORT PFNGLGETSEMAPHOREPARAMETERIVNVPROC __glewGetSemaphoreParameterivNV;
+GLEW_FUN_EXPORT PFNGLSEMAPHOREPARAMETERIVNVPROC __glewSemaphoreParameterivNV;
 
 GLEW_FUN_EXPORT PFNGLACTIVEVARYINGNVPROC __glewActiveVaryingNV;
 GLEW_FUN_EXPORT PFNGLBEGINTRANSFORMFEEDBACKNVPROC __glewBeginTransformFeedbackNV;
@@ -26129,6 +26180,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_NV_instanced_arrays;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_internalformat_sample_query;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_light_max_exponent;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_memory_attachment;
+GLEW_VAR_EXPORT GLboolean __GLEW_NV_memory_object_sparse;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_mesh_shader;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_multisample_coverage;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_multisample_filter_hint;
@@ -26198,6 +26250,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_NV_texture_rectangle_compressed;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_texture_shader;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_texture_shader2;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_texture_shader3;
+GLEW_VAR_EXPORT GLboolean __GLEW_NV_timeline_semaphore;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_transform_feedback;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_transform_feedback2;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_uniform_buffer_unified_memory;

@@ -2763,6 +2763,11 @@ PFNGLRESETMEMORYOBJECTPARAMETERNVPROC __glewResetMemoryObjectParameterNV = NULL;
 PFNGLTEXATTACHMEMORYNVPROC __glewTexAttachMemoryNV = NULL;
 PFNGLTEXTUREATTACHMEMORYNVPROC __glewTextureAttachMemoryNV = NULL;
 
+PFNGLBUFFERPAGECOMMITMENTMEMNVPROC __glewBufferPageCommitmentMemNV = NULL;
+PFNGLNAMEDBUFFERPAGECOMMITMENTMEMNVPROC __glewNamedBufferPageCommitmentMemNV = NULL;
+PFNGLTEXPAGECOMMITMENTMEMNVPROC __glewTexPageCommitmentMemNV = NULL;
+PFNGLTEXTUREPAGECOMMITMENTMEMNVPROC __glewTexturePageCommitmentMemNV = NULL;
+
 PFNGLDRAWMESHTASKSINDIRECTNVPROC __glewDrawMeshTasksIndirectNV = NULL;
 PFNGLDRAWMESHTASKSNVPROC __glewDrawMeshTasksNV = NULL;
 PFNGLMULTIDRAWMESHTASKSINDIRECTCOUNTNVPROC __glewMultiDrawMeshTasksIndirectCountNV = NULL;
@@ -2933,6 +2938,10 @@ PFNGLTEXTUREIMAGE2DMULTISAMPLECOVERAGENVPROC __glewTextureImage2DMultisampleCove
 PFNGLTEXTUREIMAGE2DMULTISAMPLENVPROC __glewTextureImage2DMultisampleNV = NULL;
 PFNGLTEXTUREIMAGE3DMULTISAMPLECOVERAGENVPROC __glewTextureImage3DMultisampleCoverageNV = NULL;
 PFNGLTEXTUREIMAGE3DMULTISAMPLENVPROC __glewTextureImage3DMultisampleNV = NULL;
+
+PFNGLCREATESEMAPHORESNVPROC __glewCreateSemaphoresNV = NULL;
+PFNGLGETSEMAPHOREPARAMETERIVNVPROC __glewGetSemaphoreParameterivNV = NULL;
+PFNGLSEMAPHOREPARAMETERIVNVPROC __glewSemaphoreParameterivNV = NULL;
 
 PFNGLACTIVEVARYINGNVPROC __glewActiveVaryingNV = NULL;
 PFNGLBEGINTRANSFORMFEEDBACKNVPROC __glewBeginTransformFeedbackNV = NULL;
@@ -4108,6 +4117,7 @@ GLboolean __GLEW_NV_instanced_arrays = GL_FALSE;
 GLboolean __GLEW_NV_internalformat_sample_query = GL_FALSE;
 GLboolean __GLEW_NV_light_max_exponent = GL_FALSE;
 GLboolean __GLEW_NV_memory_attachment = GL_FALSE;
+GLboolean __GLEW_NV_memory_object_sparse = GL_FALSE;
 GLboolean __GLEW_NV_mesh_shader = GL_FALSE;
 GLboolean __GLEW_NV_multisample_coverage = GL_FALSE;
 GLboolean __GLEW_NV_multisample_filter_hint = GL_FALSE;
@@ -4177,6 +4187,7 @@ GLboolean __GLEW_NV_texture_rectangle_compressed = GL_FALSE;
 GLboolean __GLEW_NV_texture_shader = GL_FALSE;
 GLboolean __GLEW_NV_texture_shader2 = GL_FALSE;
 GLboolean __GLEW_NV_texture_shader3 = GL_FALSE;
+GLboolean __GLEW_NV_timeline_semaphore = GL_FALSE;
 GLboolean __GLEW_NV_transform_feedback = GL_FALSE;
 GLboolean __GLEW_NV_transform_feedback2 = GL_FALSE;
 GLboolean __GLEW_NV_uniform_buffer_unified_memory = GL_FALSE;
@@ -6257,6 +6268,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_NV_memory_attachment
   "GL_NV_memory_attachment",
 #endif
+#ifdef GL_NV_memory_object_sparse
+  "GL_NV_memory_object_sparse",
+#endif
 #ifdef GL_NV_mesh_shader
   "GL_NV_mesh_shader",
 #endif
@@ -6463,6 +6477,9 @@ static const char * _glewExtensionLookup[] = {
 #endif
 #ifdef GL_NV_texture_shader3
   "GL_NV_texture_shader3",
+#endif
+#ifdef GL_NV_timeline_semaphore
+  "GL_NV_timeline_semaphore",
 #endif
 #ifdef GL_NV_transform_feedback
   "GL_NV_transform_feedback",
@@ -7222,7 +7239,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[935];
+static GLboolean  _glewExtensionString[937];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -9070,6 +9087,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_NV_memory_attachment
   &__GLEW_NV_memory_attachment,
 #endif
+#ifdef GL_NV_memory_object_sparse
+  &__GLEW_NV_memory_object_sparse,
+#endif
 #ifdef GL_NV_mesh_shader
   &__GLEW_NV_mesh_shader,
 #endif
@@ -9276,6 +9296,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_NV_texture_shader3
   &__GLEW_NV_texture_shader3,
+#endif
+#ifdef GL_NV_timeline_semaphore
+  &__GLEW_NV_timeline_semaphore,
 #endif
 #ifdef GL_NV_transform_feedback
   &__GLEW_NV_transform_feedback,
@@ -10327,6 +10350,7 @@ static GLboolean _glewInit_GL_NV_half_float ();
 static GLboolean _glewInit_GL_NV_instanced_arrays ();
 static GLboolean _glewInit_GL_NV_internalformat_sample_query ();
 static GLboolean _glewInit_GL_NV_memory_attachment ();
+static GLboolean _glewInit_GL_NV_memory_object_sparse ();
 static GLboolean _glewInit_GL_NV_mesh_shader ();
 static GLboolean _glewInit_GL_NV_non_square_matrices ();
 static GLboolean _glewInit_GL_NV_occlusion_query ();
@@ -10347,6 +10371,7 @@ static GLboolean _glewInit_GL_NV_shading_rate_image ();
 static GLboolean _glewInit_GL_NV_texture_array ();
 static GLboolean _glewInit_GL_NV_texture_barrier ();
 static GLboolean _glewInit_GL_NV_texture_multisample ();
+static GLboolean _glewInit_GL_NV_timeline_semaphore ();
 static GLboolean _glewInit_GL_NV_transform_feedback ();
 static GLboolean _glewInit_GL_NV_transform_feedback2 ();
 static GLboolean _glewInit_GL_NV_vdpau_interop ();
@@ -16120,6 +16145,22 @@ static GLboolean _glewInit_GL_NV_memory_attachment ()
 
 #endif /* GL_NV_memory_attachment */
 
+#ifdef GL_NV_memory_object_sparse
+
+static GLboolean _glewInit_GL_NV_memory_object_sparse ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glBufferPageCommitmentMemNV = (PFNGLBUFFERPAGECOMMITMENTMEMNVPROC)glewGetProcAddress((const GLubyte*)"glBufferPageCommitmentMemNV")) == NULL) || r;
+  r = ((glNamedBufferPageCommitmentMemNV = (PFNGLNAMEDBUFFERPAGECOMMITMENTMEMNVPROC)glewGetProcAddress((const GLubyte*)"glNamedBufferPageCommitmentMemNV")) == NULL) || r;
+  r = ((glTexPageCommitmentMemNV = (PFNGLTEXPAGECOMMITMENTMEMNVPROC)glewGetProcAddress((const GLubyte*)"glTexPageCommitmentMemNV")) == NULL) || r;
+  r = ((glTexturePageCommitmentMemNV = (PFNGLTEXTUREPAGECOMMITMENTMEMNVPROC)glewGetProcAddress((const GLubyte*)"glTexturePageCommitmentMemNV")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_NV_memory_object_sparse */
+
 #ifdef GL_NV_mesh_shader
 
 static GLboolean _glewInit_GL_NV_mesh_shader ()
@@ -16510,6 +16551,21 @@ static GLboolean _glewInit_GL_NV_texture_multisample ()
 }
 
 #endif /* GL_NV_texture_multisample */
+
+#ifdef GL_NV_timeline_semaphore
+
+static GLboolean _glewInit_GL_NV_timeline_semaphore ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glCreateSemaphoresNV = (PFNGLCREATESEMAPHORESNVPROC)glewGetProcAddress((const GLubyte*)"glCreateSemaphoresNV")) == NULL) || r;
+  r = ((glGetSemaphoreParameterivNV = (PFNGLGETSEMAPHOREPARAMETERIVNVPROC)glewGetProcAddress((const GLubyte*)"glGetSemaphoreParameterivNV")) == NULL) || r;
+  r = ((glSemaphoreParameterivNV = (PFNGLSEMAPHOREPARAMETERIVNVPROC)glewGetProcAddress((const GLubyte*)"glSemaphoreParameterivNV")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_NV_timeline_semaphore */
 
 #ifdef GL_NV_transform_feedback
 
@@ -19044,6 +19100,9 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 #ifdef GL_NV_memory_attachment
   if (glewExperimental || GLEW_NV_memory_attachment) GLEW_NV_memory_attachment = !_glewInit_GL_NV_memory_attachment();
 #endif /* GL_NV_memory_attachment */
+#ifdef GL_NV_memory_object_sparse
+  if (glewExperimental || GLEW_NV_memory_object_sparse) GLEW_NV_memory_object_sparse = !_glewInit_GL_NV_memory_object_sparse();
+#endif /* GL_NV_memory_object_sparse */
 #ifdef GL_NV_mesh_shader
   if (glewExperimental || GLEW_NV_mesh_shader) GLEW_NV_mesh_shader = !_glewInit_GL_NV_mesh_shader();
 #endif /* GL_NV_mesh_shader */
@@ -19104,6 +19163,9 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 #ifdef GL_NV_texture_multisample
   if (glewExperimental || GLEW_NV_texture_multisample) GLEW_NV_texture_multisample = !_glewInit_GL_NV_texture_multisample();
 #endif /* GL_NV_texture_multisample */
+#ifdef GL_NV_timeline_semaphore
+  if (glewExperimental || GLEW_NV_timeline_semaphore) GLEW_NV_timeline_semaphore = !_glewInit_GL_NV_timeline_semaphore();
+#endif /* GL_NV_timeline_semaphore */
 #ifdef GL_NV_transform_feedback
   if (glewExperimental || GLEW_NV_transform_feedback) GLEW_NV_transform_feedback = !_glewInit_GL_NV_transform_feedback();
 #endif /* GL_NV_transform_feedback */
@@ -27747,6 +27809,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_NV_memory_object_sparse
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"memory_object_sparse", 20))
+        {
+          ret = GLEW_NV_memory_object_sparse;
+          continue;
+        }
+#endif
 #ifdef GL_NV_mesh_shader
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"mesh_shader", 11))
         {
@@ -28227,6 +28296,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_shader3", 15))
         {
           ret = GLEW_NV_texture_shader3;
+          continue;
+        }
+#endif
+#ifdef GL_NV_timeline_semaphore
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"timeline_semaphore", 18))
+        {
+          ret = GLEW_NV_timeline_semaphore;
           continue;
         }
 #endif
