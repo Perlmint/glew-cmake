@@ -65,6 +65,9 @@ if(glew-cmake_BUILD_STATIC)
 	set_target_properties(libglew_static PROPERTIES
 		OUTPUT_NAME "glew"
 		DEBUG_POSTFIX d)
+	target_include_directories(libglew_static PUBLIC
+		"$<BUILD_INTERFACE:${GLEW_SOURCE_DIR}/include>"
+		"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
 	target_include_directories(libglew_static PUBLIC ${INCLUDE_DIR})
 	target_compile_definitions(libglew_static PUBLIC GLEW_STATIC ${DEFINITIONS})
@@ -75,6 +78,9 @@ endif()
 
 if(glew-cmake_BUILD_SHARED)
 	add_library(libglew_shared SHARED ${LIBGLEW_SRCS})
+	target_include_directories(libglew_shared PUBLIC
+		"$<BUILD_INTERFACE:${GLEW_SOURCE_DIR}/include>"
+		"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
 	set_target_properties(libglew_shared PROPERTIES
 		OUTPUT_NAME "glew"
