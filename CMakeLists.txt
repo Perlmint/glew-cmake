@@ -80,9 +80,15 @@ endif()
 if(glew-cmake_BUILD_SHARED)
 	add_library(libglew_shared SHARED ${LIBGLEW_SRCS})
 
-	set_target_properties(libglew_shared PROPERTIES
-		OUTPUT_NAME "glew"
-		DEBUG_POSTFIX d)
+	if(glew-cmake_BUILD_STATIC)
+		set_target_properties(libglew_shared PROPERTIES
+			OUTPUT_NAME "glew-shared"
+			DEBUG_POSTFIX d)
+	else()
+		set_target_properties(libglew_shared PROPERTIES
+			OUTPUT_NAME "glew"
+			DEBUG_POSTFIX d)
+	endif()
 
 	target_compile_definitions(libglew_shared PRIVATE GLEW_BUILD ${DEFINITIONS})
 	target_include_directories(libglew_shared PUBLIC ${INCLUDE_DIR})
