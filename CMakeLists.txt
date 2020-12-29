@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.12)
 project("glew")
 
 set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
-set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(INCLUDE_DIR "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 set(RC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/build)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
@@ -63,6 +63,8 @@ else()
 	list(APPEND LIBRARIES GL X11 dl Xext)
 endif()
 
+set(GLEW_TARGETS)
+
 if(glew-cmake_BUILD_STATIC)
 	add_library(libglew_static STATIC ${LIBGLEW_SRCS})
 
@@ -74,7 +76,7 @@ if(glew-cmake_BUILD_STATIC)
 	target_compile_definitions(libglew_static PUBLIC GLEW_STATIC ${DEFINITIONS})
 	target_link_libraries(libglew_static ${LIBRARIES} )
 	set_target_properties(libglew_static PROPERTIES VERSION ${GLEW_VERSION})
-	install(TARGETS libglew_static ARCHIVE DESTINATION lib)
+	list(APPEND GLEW_TARGETS libglew_static)
 endif()
 
 if(glew-cmake_BUILD_SHARED)
@@ -94,10 +96,7 @@ if(glew-cmake_BUILD_SHARED)
 	target_include_directories(libglew_shared PUBLIC ${INCLUDE_DIR})
 	target_link_libraries(libglew_shared ${LIBRARIES})
 	set_target_properties(libglew_shared PROPERTIES VERSION ${GLEW_VERSION})
-	install(TARGETS libglew_shared
-		ARCHIVE DESTINATION lib
-		LIBRARY DESTINATION lib
-		RUNTIME DESTINATION bin)
+	list(APPEND GLEW_TARGETS libglew_shared)
 endif()
 
 if(PKG_CONFIG_REPRESENTATIVE_TARGET)
@@ -105,7 +104,14 @@ if(PKG_CONFIG_REPRESENTATIVE_TARGET)
 		NAME "glew"
 		LIBRARY_DIR lib
 		${pc_requires})
+	add_library(glew ALIAS ${PKG_CONFIG_REPRESENTATIVE_TARGET})
+	list(APPEND GLEW_TARGETS glew)
 endif()
+
+install(TARGETS ${GLEW_TARGETS}
+		EXPORT glew-cmake
+		ARCHIVE DESTINATION lib)
+install(EXPORT glew-cmake DESTINATION lib/cmake/glew FILE glewConfig.cmake)
 
 file(GLOB PUBLIC_HEADERS "include/GL/*.h")
 install(FILES ${PUBLIC_HEADERS} DESTINATION include/GL/)
