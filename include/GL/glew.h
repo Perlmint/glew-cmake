@@ -81,7 +81,7 @@
 #define __glew_h__
 #define __GLEW_H__
 
-#if defined(__gl_h_) || defined(__GL_H__) || defined(_GL_H) || defined(__X_GL_H)
+#if defined(__gl_h_) || defined(__GL_H__) || defined(_GL_H) || defined(__gl_gl_h_) || defined(__X_GL_H)
 #error gl.h included before glew.h
 #endif
 #if defined(__gl2_h_)
@@ -104,6 +104,7 @@
 #define __gl2_h_
 #define __GL_H__
 #define _GL_H
+#define __gl_gl_h_
 #define __gltypes_h_
 #define __REGAL_H__
 #define __X_GL_H
@@ -17110,6 +17111,18 @@ typedef void (GLAPIENTRY * PFNGLPRIMITIVERESTARTNVPROC) (void);
 
 #endif /* GL_NV_primitive_restart */
 
+/* ---------------------- GL_NV_primitive_shading_rate --------------------- */
+
+#ifndef GL_NV_primitive_shading_rate
+#define GL_NV_primitive_shading_rate 1
+
+#define GL_SHADING_RATE_IMAGE_PER_PRIMITIVE_NV 0x95B1
+#define GL_SHADING_RATE_IMAGE_PALETTE_COUNT_NV 0x95B2
+
+#define GLEW_NV_primitive_shading_rate GLEW_GET_VAR(__GLEW_NV_primitive_shading_rate)
+
+#endif /* GL_NV_primitive_shading_rate */
+
 /* ------------------------ GL_NV_query_resource_tag ----------------------- */
 
 #ifndef GL_NV_query_resource_tag
@@ -20279,6 +20292,17 @@ typedef void (GLAPIENTRY * PFNGLTEXTUREFOVEATIONPARAMETERSQCOMPROC) (GLuint text
 #define GLEW_QCOM_texture_foveated GLEW_GET_VAR(__GLEW_QCOM_texture_foveated)
 
 #endif /* GL_QCOM_texture_foveated */
+
+/* ----------------------- GL_QCOM_texture_foveated2 ----------------------- */
+
+#ifndef GL_QCOM_texture_foveated2
+#define GL_QCOM_texture_foveated2 1
+
+#define GL_TEXTURE_FOVEATED_CUTOFF_DENSITY_QCOM 0x96A0
+
+#define GLEW_QCOM_texture_foveated2 GLEW_GET_VAR(__GLEW_QCOM_texture_foveated2)
+
+#endif /* GL_QCOM_texture_foveated2 */
 
 /* --------------- GL_QCOM_texture_foveated_subsampled_layout -------------- */
 
@@ -26201,6 +26225,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_NV_point_sprite;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_polygon_mode;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_present_video;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_primitive_restart;
+GLEW_VAR_EXPORT GLboolean __GLEW_NV_primitive_shading_rate;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_query_resource_tag;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_read_buffer;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_read_buffer_front;
@@ -26353,6 +26378,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_shader_framebuffer_fetch_noncoherent;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_shader_framebuffer_fetch_rate;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_shading_rate;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_texture_foveated;
+GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_texture_foveated2;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_texture_foveated_subsampled_layout;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_tiled_rendering;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_writeonly_rendering;

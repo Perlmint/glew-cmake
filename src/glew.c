@@ -60,7 +60,7 @@
 #if defined(GLEW_EGL)
 #elif defined(GLEW_REGAL)
 
-/* In GLEW_REGAL mode we call direcly into the linked
+/* In GLEW_REGAL mode we call directly into the linked
    libRegal.so glGetProcAddressREGAL for looking up
    the GL function pointers. */
 
@@ -4138,6 +4138,7 @@ GLboolean __GLEW_NV_point_sprite = GL_FALSE;
 GLboolean __GLEW_NV_polygon_mode = GL_FALSE;
 GLboolean __GLEW_NV_present_video = GL_FALSE;
 GLboolean __GLEW_NV_primitive_restart = GL_FALSE;
+GLboolean __GLEW_NV_primitive_shading_rate = GL_FALSE;
 GLboolean __GLEW_NV_query_resource_tag = GL_FALSE;
 GLboolean __GLEW_NV_read_buffer = GL_FALSE;
 GLboolean __GLEW_NV_read_buffer_front = GL_FALSE;
@@ -4290,6 +4291,7 @@ GLboolean __GLEW_QCOM_shader_framebuffer_fetch_noncoherent = GL_FALSE;
 GLboolean __GLEW_QCOM_shader_framebuffer_fetch_rate = GL_FALSE;
 GLboolean __GLEW_QCOM_shading_rate = GL_FALSE;
 GLboolean __GLEW_QCOM_texture_foveated = GL_FALSE;
+GLboolean __GLEW_QCOM_texture_foveated2 = GL_FALSE;
 GLboolean __GLEW_QCOM_texture_foveated_subsampled_layout = GL_FALSE;
 GLboolean __GLEW_QCOM_tiled_rendering = GL_FALSE;
 GLboolean __GLEW_QCOM_writeonly_rendering = GL_FALSE;
@@ -6331,6 +6333,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_NV_primitive_restart
   "GL_NV_primitive_restart",
 #endif
+#ifdef GL_NV_primitive_shading_rate
+  "GL_NV_primitive_shading_rate",
+#endif
 #ifdef GL_NV_query_resource_tag
   "GL_NV_query_resource_tag",
 #endif
@@ -6787,6 +6792,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_QCOM_texture_foveated
   "GL_QCOM_texture_foveated",
 #endif
+#ifdef GL_QCOM_texture_foveated2
+  "GL_QCOM_texture_foveated2",
+#endif
 #ifdef GL_QCOM_texture_foveated_subsampled_layout
   "GL_QCOM_texture_foveated_subsampled_layout",
 #endif
@@ -7239,7 +7247,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[937];
+static GLboolean  _glewExtensionString[939];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -9150,6 +9158,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_NV_primitive_restart
   &__GLEW_NV_primitive_restart,
 #endif
+#ifdef GL_NV_primitive_shading_rate
+  &__GLEW_NV_primitive_shading_rate,
+#endif
 #ifdef GL_NV_query_resource_tag
   &__GLEW_NV_query_resource_tag,
 #endif
@@ -9605,6 +9616,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_QCOM_texture_foveated
   &__GLEW_QCOM_texture_foveated,
+#endif
+#ifdef GL_QCOM_texture_foveated2
+  &__GLEW_QCOM_texture_foveated2,
 #endif
 #ifdef GL_QCOM_texture_foveated_subsampled_layout
   &__GLEW_QCOM_texture_foveated_subsampled_layout,
@@ -19698,6 +19712,7 @@ GLboolean __EGLEW_EXT_platform_base = GL_FALSE;
 GLboolean __EGLEW_EXT_platform_device = GL_FALSE;
 GLboolean __EGLEW_EXT_platform_wayland = GL_FALSE;
 GLboolean __EGLEW_EXT_platform_x11 = GL_FALSE;
+GLboolean __EGLEW_EXT_platform_xcb = GL_FALSE;
 GLboolean __EGLEW_EXT_protected_content = GL_FALSE;
 GLboolean __EGLEW_EXT_protected_surface = GL_FALSE;
 GLboolean __EGLEW_EXT_stream_consumer_egloutput = GL_FALSE;
@@ -20650,7 +20665,7 @@ GLenum eglewInit (EGLDisplay display)
   if (!initialize || !queryString)
     return 1;
 
-  /* query EGK version */
+  /* query EGL version */
   if (initialize(display, &major, &minor) != EGL_TRUE)
     return 1;
 
@@ -20850,6 +20865,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_EXT_platform_x11
   EGLEW_EXT_platform_x11 = _glewSearchExtension("EGL_EXT_platform_x11", extStart, extEnd);
 #endif /* EGL_EXT_platform_x11 */
+#ifdef EGL_EXT_platform_xcb
+  EGLEW_EXT_platform_xcb = _glewSearchExtension("EGL_EXT_platform_xcb", extStart, extEnd);
+#endif /* EGL_EXT_platform_xcb */
 #ifdef EGL_EXT_protected_content
   EGLEW_EXT_protected_content = _glewSearchExtension("EGL_EXT_protected_content", extStart, extEnd);
 #endif /* EGL_EXT_protected_content */
@@ -22318,6 +22336,7 @@ GLboolean __GLXEW_EXT_create_context_es2_profile = GL_FALSE;
 GLboolean __GLXEW_EXT_create_context_es_profile = GL_FALSE;
 GLboolean __GLXEW_EXT_fbconfig_packed_float = GL_FALSE;
 GLboolean __GLXEW_EXT_framebuffer_sRGB = GL_FALSE;
+GLboolean __GLXEW_EXT_get_drawable_type = GL_FALSE;
 GLboolean __GLXEW_EXT_import_context = GL_FALSE;
 GLboolean __GLXEW_EXT_libglvnd = GL_FALSE;
 GLboolean __GLXEW_EXT_no_config_context = GL_FALSE;
@@ -23044,6 +23063,9 @@ GLenum glxewInit ()
 #ifdef GLX_EXT_framebuffer_sRGB
   GLXEW_EXT_framebuffer_sRGB = _glewSearchExtension("GLX_EXT_framebuffer_sRGB", extStart, extEnd);
 #endif /* GLX_EXT_framebuffer_sRGB */
+#ifdef GLX_EXT_get_drawable_type
+  GLXEW_EXT_get_drawable_type = _glewSearchExtension("GLX_EXT_get_drawable_type", extStart, extEnd);
+#endif /* GLX_EXT_get_drawable_type */
 #ifdef GLX_EXT_import_context
   GLXEW_EXT_import_context = _glewSearchExtension("GLX_EXT_import_context", extStart, extEnd);
   if (glewExperimental || GLXEW_EXT_import_context) GLXEW_EXT_import_context = !_glewInit_GLX_EXT_import_context();
@@ -27956,6 +27978,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_NV_primitive_shading_rate
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"primitive_shading_rate", 22))
+        {
+          ret = GLEW_NV_primitive_shading_rate;
+          continue;
+        }
+#endif
 #ifdef GL_NV_query_resource_tag
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"query_resource_tag", 18))
         {
@@ -29032,6 +29061,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_foveated", 16))
         {
           ret = GLEW_QCOM_texture_foveated;
+          continue;
+        }
+#endif
+#ifdef GL_QCOM_texture_foveated2
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_foveated2", 17))
+        {
+          ret = GLEW_QCOM_texture_foveated2;
           continue;
         }
 #endif
@@ -30635,6 +30671,13 @@ GLboolean glxewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GLX_EXT_get_drawable_type
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"get_drawable_type", 17))
+        {
+          ret = GLXEW_EXT_get_drawable_type;
+          continue;
+        }
+#endif
 #ifdef GLX_EXT_import_context
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"import_context", 14))
         {
@@ -31430,6 +31473,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"platform_x11", 12))
         {
           ret = EGLEW_EXT_platform_x11;
+          continue;
+        }
+#endif
+#ifdef EGL_EXT_platform_xcb
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"platform_xcb", 12))
+        {
+          ret = EGLEW_EXT_platform_xcb;
           continue;
         }
 #endif

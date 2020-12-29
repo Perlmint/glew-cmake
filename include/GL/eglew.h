@@ -1197,6 +1197,18 @@ typedef EGLDisplay ( * PFNEGLGETPLATFORMDISPLAYEXTPROC) (EGLenum platform, void*
 
 #endif /* EGL_EXT_platform_x11 */
 
+/* -------------------------- EGL_EXT_platform_xcb ------------------------- */
+
+#ifndef EGL_EXT_platform_xcb
+#define EGL_EXT_platform_xcb 1
+
+#define EGL_PLATFORM_XCB_EXT 0x31DC
+#define EGL_PLATFORM_XCB_SCREEN_EXT 0x31DE
+
+#define EGLEW_EXT_platform_xcb EGLEW_GET_VAR(__EGLEW_EXT_platform_xcb)
+
+#endif /* EGL_EXT_platform_xcb */
+
 /* ----------------------- EGL_EXT_protected_content ----------------------- */
 
 #ifndef EGL_EXT_protected_content
@@ -2976,6 +2988,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_platform_base;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_platform_device;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_platform_wayland;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_platform_x11;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_platform_xcb;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_protected_content;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_protected_surface;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_stream_consumer_egloutput;

@@ -8568,6 +8568,15 @@ static void _glewInfo_GL_NV_primitive_restart (void)
 
 #endif /* GL_NV_primitive_restart */
 
+#ifdef GL_NV_primitive_shading_rate
+
+static void _glewInfo_GL_NV_primitive_shading_rate (void)
+{
+  glewPrintExt("GL_NV_primitive_shading_rate", GLEW_NV_primitive_shading_rate, glewIsSupported("GL_NV_primitive_shading_rate"), glewGetExtension("GL_NV_primitive_shading_rate"));
+}
+
+#endif /* GL_NV_primitive_shading_rate */
+
 #ifdef GL_NV_query_resource_tag
 
 static void _glewInfo_GL_NV_query_resource_tag (void)
@@ -10297,6 +10306,15 @@ static void _glewInfo_GL_QCOM_texture_foveated (void)
 }
 
 #endif /* GL_QCOM_texture_foveated */
+
+#ifdef GL_QCOM_texture_foveated2
+
+static void _glewInfo_GL_QCOM_texture_foveated2 (void)
+{
+  glewPrintExt("GL_QCOM_texture_foveated2", GLEW_QCOM_texture_foveated2, glewIsSupported("GL_QCOM_texture_foveated2"), glewGetExtension("GL_QCOM_texture_foveated2"));
+}
+
+#endif /* GL_QCOM_texture_foveated2 */
 
 #ifdef GL_QCOM_texture_foveated_subsampled_layout
 
@@ -12336,6 +12354,15 @@ static void _glewInfo_EGL_EXT_platform_x11 (void)
 
 #endif /* EGL_EXT_platform_x11 */
 
+#ifdef EGL_EXT_platform_xcb
+
+static void _glewInfo_EGL_EXT_platform_xcb (void)
+{
+  glewPrintExt("EGL_EXT_platform_xcb", EGLEW_EXT_platform_xcb, eglewIsSupported("EGL_EXT_platform_xcb"), eglewGetExtension("EGL_EXT_platform_xcb"));
+}
+
+#endif /* EGL_EXT_platform_xcb */
+
 #ifdef EGL_EXT_protected_content
 
 static void _glewInfo_EGL_EXT_protected_content (void)
@@ -14274,6 +14301,15 @@ static void _glewInfo_GLX_EXT_framebuffer_sRGB (void)
 }
 
 #endif /* GLX_EXT_framebuffer_sRGB */
+
+#ifdef GLX_EXT_get_drawable_type
+
+static void _glewInfo_GLX_EXT_get_drawable_type (void)
+{
+  glewPrintExt("GLX_EXT_get_drawable_type", GLXEW_EXT_get_drawable_type, glxewIsSupported("GLX_EXT_get_drawable_type"), glxewGetExtension("GLX_EXT_get_drawable_type"));
+}
+
+#endif /* GLX_EXT_get_drawable_type */
 
 #ifdef GLX_EXT_import_context
 
@@ -16803,6 +16839,9 @@ static void glewInfo (void)
 #ifdef GL_NV_primitive_restart
   _glewInfo_GL_NV_primitive_restart();
 #endif /* GL_NV_primitive_restart */
+#ifdef GL_NV_primitive_shading_rate
+  _glewInfo_GL_NV_primitive_shading_rate();
+#endif /* GL_NV_primitive_shading_rate */
 #ifdef GL_NV_query_resource_tag
   _glewInfo_GL_NV_query_resource_tag();
 #endif /* GL_NV_query_resource_tag */
@@ -17259,6 +17298,9 @@ static void glewInfo (void)
 #ifdef GL_QCOM_texture_foveated
   _glewInfo_GL_QCOM_texture_foveated();
 #endif /* GL_QCOM_texture_foveated */
+#ifdef GL_QCOM_texture_foveated2
+  _glewInfo_GL_QCOM_texture_foveated2();
+#endif /* GL_QCOM_texture_foveated2 */
 #ifdef GL_QCOM_texture_foveated_subsampled_layout
   _glewInfo_GL_QCOM_texture_foveated_subsampled_layout();
 #endif /* GL_QCOM_texture_foveated_subsampled_layout */
@@ -17912,6 +17954,9 @@ static void glxewInfo ()
 #ifdef GLX_EXT_framebuffer_sRGB
   _glewInfo_GLX_EXT_framebuffer_sRGB();
 #endif /* GLX_EXT_framebuffer_sRGB */
+#ifdef GLX_EXT_get_drawable_type
+  _glewInfo_GLX_EXT_get_drawable_type();
+#endif /* GLX_EXT_get_drawable_type */
 #ifdef GLX_EXT_import_context
   _glewInfo_GLX_EXT_import_context();
 #endif /* GLX_EXT_import_context */
@@ -18236,6 +18281,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_platform_x11
   _glewInfo_EGL_EXT_platform_x11();
 #endif /* EGL_EXT_platform_x11 */
+#ifdef EGL_EXT_platform_xcb
+  _glewInfo_EGL_EXT_platform_xcb();
+#endif /* EGL_EXT_platform_xcb */
 #ifdef EGL_EXT_protected_content
   _glewInfo_EGL_EXT_protected_content();
 #endif /* EGL_EXT_protected_content */
