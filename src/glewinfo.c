@@ -10232,6 +10232,17 @@ static void _glewInfo_GL_QCOM_extended_get2 (void)
 
 #endif /* GL_QCOM_extended_get2 */
 
+#ifdef GL_QCOM_frame_extrapolation
+
+static void _glewInfo_GL_QCOM_frame_extrapolation (void)
+{
+  GLboolean fi = glewPrintExt("GL_QCOM_frame_extrapolation", GLEW_QCOM_frame_extrapolation, glewIsSupported("GL_QCOM_frame_extrapolation"), glewGetExtension("GL_QCOM_frame_extrapolation"));
+
+  glewInfoFunc(fi, "glExtrapolateTex2DQCOM", glExtrapolateTex2DQCOM == NULL);
+}
+
+#endif /* GL_QCOM_frame_extrapolation */
+
 #ifdef GL_QCOM_framebuffer_foveated
 
 static void _glewInfo_GL_QCOM_framebuffer_foveated (void)
@@ -17277,6 +17288,9 @@ static void glewInfo (void)
 #ifdef GL_QCOM_extended_get2
   _glewInfo_GL_QCOM_extended_get2();
 #endif /* GL_QCOM_extended_get2 */
+#ifdef GL_QCOM_frame_extrapolation
+  _glewInfo_GL_QCOM_frame_extrapolation();
+#endif /* GL_QCOM_frame_extrapolation */
 #ifdef GL_QCOM_framebuffer_foveated
   _glewInfo_GL_QCOM_framebuffer_foveated();
 #endif /* GL_QCOM_framebuffer_foveated */

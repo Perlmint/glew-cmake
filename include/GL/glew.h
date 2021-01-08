@@ -20179,6 +20179,19 @@ typedef GLboolean (GLAPIENTRY * PFNGLEXTISPROGRAMBINARYQCOMPROC) (GLuint program
 
 #endif /* GL_QCOM_extended_get2 */
 
+/* ---------------------- GL_QCOM_frame_extrapolation ---------------------- */
+
+#ifndef GL_QCOM_frame_extrapolation
+#define GL_QCOM_frame_extrapolation 1
+
+typedef void (GLAPIENTRY * PFNGLEXTRAPOLATETEX2DQCOMPROC) (GLuint src1, GLuint src2, GLuint output, GLfloat scaleFactor);
+
+#define glExtrapolateTex2DQCOM GLEW_GET_FUN(__glewExtrapolateTex2DQCOM)
+
+#define GLEW_QCOM_frame_extrapolation GLEW_GET_VAR(__GLEW_QCOM_frame_extrapolation)
+
+#endif /* GL_QCOM_frame_extrapolation */
+
 /* ---------------------- GL_QCOM_framebuffer_foveated --------------------- */
 
 #ifndef GL_QCOM_framebuffer_foveated
@@ -25313,6 +25326,8 @@ GLEW_FUN_EXPORT PFNGLEXTGETPROGRAMSQCOMPROC __glewExtGetProgramsQCOM;
 GLEW_FUN_EXPORT PFNGLEXTGETSHADERSQCOMPROC __glewExtGetShadersQCOM;
 GLEW_FUN_EXPORT PFNGLEXTISPROGRAMBINARYQCOMPROC __glewExtIsProgramBinaryQCOM;
 
+GLEW_FUN_EXPORT PFNGLEXTRAPOLATETEX2DQCOMPROC __glewExtrapolateTex2DQCOM;
+
 GLEW_FUN_EXPORT PFNGLFRAMEBUFFERFOVEATIONCONFIGQCOMPROC __glewFramebufferFoveationConfigQCOM;
 GLEW_FUN_EXPORT PFNGLFRAMEBUFFERFOVEATIONPARAMETERSQCOMPROC __glewFramebufferFoveationParametersQCOM;
 
@@ -26371,6 +26386,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_binning_control;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_driver_control;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_extended_get;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_extended_get2;
+GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_frame_extrapolation;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_framebuffer_foveated;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_motion_estimation;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_perfmon_global_mode;

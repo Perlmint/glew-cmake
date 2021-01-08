@@ -3225,6 +3225,8 @@ PFNGLEXTGETPROGRAMSQCOMPROC __glewExtGetProgramsQCOM = NULL;
 PFNGLEXTGETSHADERSQCOMPROC __glewExtGetShadersQCOM = NULL;
 PFNGLEXTISPROGRAMBINARYQCOMPROC __glewExtIsProgramBinaryQCOM = NULL;
 
+PFNGLEXTRAPOLATETEX2DQCOMPROC __glewExtrapolateTex2DQCOM = NULL;
+
 PFNGLFRAMEBUFFERFOVEATIONCONFIGQCOMPROC __glewFramebufferFoveationConfigQCOM = NULL;
 PFNGLFRAMEBUFFERFOVEATIONPARAMETERSQCOMPROC __glewFramebufferFoveationParametersQCOM = NULL;
 
@@ -4284,6 +4286,7 @@ GLboolean __GLEW_QCOM_binning_control = GL_FALSE;
 GLboolean __GLEW_QCOM_driver_control = GL_FALSE;
 GLboolean __GLEW_QCOM_extended_get = GL_FALSE;
 GLboolean __GLEW_QCOM_extended_get2 = GL_FALSE;
+GLboolean __GLEW_QCOM_frame_extrapolation = GL_FALSE;
 GLboolean __GLEW_QCOM_framebuffer_foveated = GL_FALSE;
 GLboolean __GLEW_QCOM_motion_estimation = GL_FALSE;
 GLboolean __GLEW_QCOM_perfmon_global_mode = GL_FALSE;
@@ -6771,6 +6774,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_QCOM_extended_get2
   "GL_QCOM_extended_get2",
 #endif
+#ifdef GL_QCOM_frame_extrapolation
+  "GL_QCOM_frame_extrapolation",
+#endif
 #ifdef GL_QCOM_framebuffer_foveated
   "GL_QCOM_framebuffer_foveated",
 #endif
@@ -7247,7 +7253,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[939];
+static GLboolean  _glewExtensionString[940];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -9596,6 +9602,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_QCOM_extended_get2
   &__GLEW_QCOM_extended_get2,
 #endif
+#ifdef GL_QCOM_frame_extrapolation
+  &__GLEW_QCOM_frame_extrapolation,
+#endif
 #ifdef GL_QCOM_framebuffer_foveated
   &__GLEW_QCOM_framebuffer_foveated,
 #endif
@@ -10422,6 +10431,7 @@ static GLboolean _glewInit_GL_QCOM_alpha_test ();
 static GLboolean _glewInit_GL_QCOM_driver_control ();
 static GLboolean _glewInit_GL_QCOM_extended_get ();
 static GLboolean _glewInit_GL_QCOM_extended_get2 ();
+static GLboolean _glewInit_GL_QCOM_frame_extrapolation ();
 static GLboolean _glewInit_GL_QCOM_framebuffer_foveated ();
 static GLboolean _glewInit_GL_QCOM_motion_estimation ();
 static GLboolean _glewInit_GL_QCOM_shader_framebuffer_fetch_noncoherent ();
@@ -17259,6 +17269,19 @@ static GLboolean _glewInit_GL_QCOM_extended_get2 ()
 
 #endif /* GL_QCOM_extended_get2 */
 
+#ifdef GL_QCOM_frame_extrapolation
+
+static GLboolean _glewInit_GL_QCOM_frame_extrapolation ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glExtrapolateTex2DQCOM = (PFNGLEXTRAPOLATETEX2DQCOMPROC)glewGetProcAddress((const GLubyte*)"glExtrapolateTex2DQCOM")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_QCOM_frame_extrapolation */
+
 #ifdef GL_QCOM_framebuffer_foveated
 
 static GLboolean _glewInit_GL_QCOM_framebuffer_foveated ()
@@ -19288,6 +19311,9 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 #ifdef GL_QCOM_extended_get2
   if (glewExperimental || GLEW_QCOM_extended_get2) GLEW_QCOM_extended_get2 = !_glewInit_GL_QCOM_extended_get2();
 #endif /* GL_QCOM_extended_get2 */
+#ifdef GL_QCOM_frame_extrapolation
+  if (glewExperimental || GLEW_QCOM_frame_extrapolation) GLEW_QCOM_frame_extrapolation = !_glewInit_GL_QCOM_frame_extrapolation();
+#endif /* GL_QCOM_frame_extrapolation */
 #ifdef GL_QCOM_framebuffer_foveated
   if (glewExperimental || GLEW_QCOM_framebuffer_foveated) GLEW_QCOM_framebuffer_foveated = !_glewInit_GL_QCOM_framebuffer_foveated();
 #endif /* GL_QCOM_framebuffer_foveated */
@@ -29012,6 +29038,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"extended_get2", 13))
         {
           ret = GLEW_QCOM_extended_get2;
+          continue;
+        }
+#endif
+#ifdef GL_QCOM_frame_extrapolation
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"frame_extrapolation", 19))
+        {
+          ret = GLEW_QCOM_frame_extrapolation;
           continue;
         }
 #endif
