@@ -12009,6 +12009,17 @@ static void _glewInfo_EGL_ANGLE_surface_d3d_texture_2d_share_handle (void)
 
 #endif /* EGL_ANGLE_surface_d3d_texture_2d_share_handle */
 
+#ifdef EGL_ANGLE_sync_control_rate
+
+static void _glewInfo_EGL_ANGLE_sync_control_rate (void)
+{
+  GLboolean fi = glewPrintExt("EGL_ANGLE_sync_control_rate", EGLEW_ANGLE_sync_control_rate, eglewIsSupported("EGL_ANGLE_sync_control_rate"), eglewGetExtension("EGL_ANGLE_sync_control_rate"));
+
+  glewInfoFunc(fi, "eglGetMscRateANGLE", eglGetMscRateANGLE == NULL);
+}
+
+#endif /* EGL_ANGLE_sync_control_rate */
+
 #ifdef EGL_ANGLE_window_fixed_size
 
 static void _glewInfo_EGL_ANGLE_window_fixed_size (void)
@@ -18187,6 +18198,9 @@ static void eglewInfo ()
 #ifdef EGL_ANGLE_surface_d3d_texture_2d_share_handle
   _glewInfo_EGL_ANGLE_surface_d3d_texture_2d_share_handle();
 #endif /* EGL_ANGLE_surface_d3d_texture_2d_share_handle */
+#ifdef EGL_ANGLE_sync_control_rate
+  _glewInfo_EGL_ANGLE_sync_control_rate();
+#endif /* EGL_ANGLE_sync_control_rate */
 #ifdef EGL_ANGLE_window_fixed_size
   _glewInfo_EGL_ANGLE_window_fixed_size();
 #endif /* EGL_ANGLE_window_fixed_size */

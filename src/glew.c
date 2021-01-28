@@ -19539,6 +19539,8 @@ PFNEGLPRESENTATIONTIMEANDROIDPROC __eglewPresentationTimeANDROID = NULL;
 
 PFNEGLQUERYSURFACEPOINTERANGLEPROC __eglewQuerySurfacePointerANGLE = NULL;
 
+PFNEGLGETMSCRATEANGLEPROC __eglewGetMscRateANGLE = NULL;
+
 PFNEGLCLIENTSIGNALSYNCEXTPROC __eglewClientSignalSyncEXT = NULL;
 
 PFNEGLCOMPOSITORBINDTEXWINDOWEXTPROC __eglewCompositorBindTexWindowEXT = NULL;
@@ -19702,6 +19704,7 @@ GLboolean __EGLEW_ANGLE_d3d_share_handle_client_buffer = GL_FALSE;
 GLboolean __EGLEW_ANGLE_device_d3d = GL_FALSE;
 GLboolean __EGLEW_ANGLE_query_surface_pointer = GL_FALSE;
 GLboolean __EGLEW_ANGLE_surface_d3d_texture_2d_share_handle = GL_FALSE;
+GLboolean __EGLEW_ANGLE_sync_control_rate = GL_FALSE;
 GLboolean __EGLEW_ANGLE_window_fixed_size = GL_FALSE;
 GLboolean __EGLEW_ARM_image_format = GL_FALSE;
 GLboolean __EGLEW_ARM_implicit_external_sync = GL_FALSE;
@@ -20036,6 +20039,19 @@ static GLboolean _glewInit_EGL_ANGLE_query_surface_pointer ()
 }
 
 #endif /* EGL_ANGLE_query_surface_pointer */
+
+#ifdef EGL_ANGLE_sync_control_rate
+
+static GLboolean _glewInit_EGL_ANGLE_sync_control_rate ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((eglGetMscRateANGLE = (PFNEGLGETMSCRATEANGLEPROC)glewGetProcAddress((const GLubyte*)"eglGetMscRateANGLE")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* EGL_ANGLE_sync_control_rate */
 
 #ifdef EGL_EXT_client_sync
 
@@ -20776,6 +20792,10 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_ANGLE_surface_d3d_texture_2d_share_handle
   EGLEW_ANGLE_surface_d3d_texture_2d_share_handle = _glewSearchExtension("EGL_ANGLE_surface_d3d_texture_2d_share_handle", extStart, extEnd);
 #endif /* EGL_ANGLE_surface_d3d_texture_2d_share_handle */
+#ifdef EGL_ANGLE_sync_control_rate
+  EGLEW_ANGLE_sync_control_rate = _glewSearchExtension("EGL_ANGLE_sync_control_rate", extStart, extEnd);
+  if (glewExperimental || EGLEW_ANGLE_sync_control_rate) EGLEW_ANGLE_sync_control_rate = !_glewInit_EGL_ANGLE_sync_control_rate();
+#endif /* EGL_ANGLE_sync_control_rate */
 #ifdef EGL_ANGLE_window_fixed_size
   EGLEW_ANGLE_window_fixed_size = _glewSearchExtension("EGL_ANGLE_window_fixed_size", extStart, extEnd);
 #endif /* EGL_ANGLE_window_fixed_size */
@@ -31248,6 +31268,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"surface_d3d_texture_2d_share_handle", 35))
         {
           ret = EGLEW_ANGLE_surface_d3d_texture_2d_share_handle;
+          continue;
+        }
+#endif
+#ifdef EGL_ANGLE_sync_control_rate
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"sync_control_rate", 17))
+        {
+          ret = EGLEW_ANGLE_sync_control_rate;
           continue;
         }
 #endif
