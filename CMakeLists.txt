@@ -97,8 +97,16 @@ if(glew-cmake_BUILD_STATIC)
 		OUTPUT_NAME "glew"
 		DEBUG_POSTFIX d)
 
-		target_compile_definitions(libglew_static PUBLIC GLEW_STATIC)
+	target_compile_definitions(libglew_static PUBLIC GLEW_STATIC)
 	list(APPEND GLEW_TARGETS libglew_static)
+	if(NOT WIN32)
+		add_custom_command(TARGET libglew_static POST_BUILD
+			COMMAND ${CMAKE_COMMAND} ARGS -E create_symlink libglew.a libGLEW.a
+			WORKING_DIRECTORY ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}
+			BYPRODUCTS ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/libGLEW.a
+			COMMENT "create libGLEW symbolic link")
+		install(FILES ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/libGLEW.a TYPE LIB)
+	endif()
 endif()
 
 if(glew-cmake_BUILD_SHARED)
@@ -112,6 +120,14 @@ if(glew-cmake_BUILD_SHARED)
 		set_target_properties(libglew_shared PROPERTIES
 			OUTPUT_NAME "glew"
 			DEBUG_POSTFIX d)
+		if(NOT WIN32)
+			add_custom_command(TARGET libglew_shared POST_BUILD
+				COMMAND ${CMAKE_COMMAND} ARGS -E create_symlink libglew.so libGLEW.so
+				WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+				BYPRODUCTS ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libGLEW.so
+				COMMENT "create libGLEW symbolic link")
+			install(FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libGLEW.so TYPE LIB)
+		endif()
 	endif()
 
 	target_compile_definitions(libglew_shared PRIVATE GLEW_BUILD)
