@@ -78,25 +78,25 @@ endif()
 
 list(APPEND pc_requires gl)
 if(POLICY CMP0072)
-       # GLVND
-       if(USE_NAMESPACED_LIB)
+	# GLVND
+	if(USE_NAMESPACED_LIB)
 		list(APPEND LIBRARIES OpenGL::GL)
 		if(NOT (WIN32 OR APPLE))
 			list(APPEND LIBRARIES OpenGL::GLX)
 		endif()
-       else()
+	else()
 		list(APPEND LIBRARIES ${OPENGL_opengl_LIBRARY})
 		if(NOT (WIN32 OR APPLE))
 			list(APPEND LIBRARIES ${OPENGL_glx_LIBRARY})
 		endif()
-       endif()
+	endif()
 else()
-       # Non GLVND
-       if(USE_NAMESPACED_LIB)
-               list(APPEND LIBRARIES OpenGL::OpenGL)
-       else()
-               list(APPEND LIBRARIES ${OPENGL_gl_LIBRARY})
-       endif()
+	# Non GLVND
+	if(USE_NAMESPACED_LIB)
+		list(APPEND LIBRARIES OpenGL::OpenGL)
+	else()
+		list(APPEND LIBRARIES ${OPENGL_gl_LIBRARY})
+	endif()
 endif()
 
 if(APPLE)
@@ -115,23 +115,55 @@ endif()
 
 set(GLEW_TARGETS)
 
+if(NOT CMAKE_INSTALL_LIBDIR)
+	set(INSTALL_LIBDIR lib)
+else()
+	set(INSTALL_LIBDIR ${CMAKE_INSTALL_LIBDIR})
+endif()
+
+function(set_representative_target TARGET)
+	set_target_properties(${TARGET} PROPERTIES
+			OUTPUT_NAME "glew"
+			DEBUG_POSTFIX d)
+
+	# Windows & macOS use case-insensetive FS. do not create symbolic link
+	if(NOT WIN32 and NOT APPLE)
+		get_target_property(TARGET_TYPE ${TARGET} TYPE)
+		if(TARGET_TYPE STREQUAL STATIC_LIBRARY)
+			set(EXT ".a")
+			get_target_property(OUT_DIR ${TARGET} ARCHIVE_OUTPUT_DIRECTORY)
+		else()
+			set(EXT ".so")
+			get_target_property(OUT_DIR ${TARGET} LIBRARY_OUTPUT_DIRECTORY)
+		endif()
+		if(NOT ${CMAKE_VERSION} VERSION_LESS 3.0)
+			add_custom_command(TARGET ${TARGET} POST_BUILD
+					COMMAND ${CMAKE_COMMAND} ARGS -E create_symlink libglew${EXT} libGLEW${EXT}
+					WORKING_DIRECTORY ${OUT_DIR}
+					BYPRODUCTS ${OUT_DIR}/libGLEW${EXT}
+					COMMENT "create libGLEW symbolic link")
+		else()
+			add_custom_command(TARGET ${TARGET} POST_BUILD
+					COMMAND bash ARGS -c "( test ! -e ${OUT_DIR}/libGLEW${EXT} && cd ${OUT_DIR} && ${CMAKE_COMMAND} -E create_symlink libglew${EXT} libGLEW${EXT} ) || true"
+					COMMENT "create libGLEW symbolic link"
+					VERBATIM)
+		endif()
+
+		if(NOT ${CMAKE_VERSION} VERSION_LESS 3.14)
+			install(FILES ${OUT_DIR}/libGLEW${EXT} TYPE LIB)
+		else()
+			install(FILES ${OUT_DIR}/libGLEW${EXT} DESTINATION ${INSTALL_LIBDIR})
+		endif()
+	endif()
+endfunction()
+
 if(glew-cmake_BUILD_STATIC)
 	add_library(libglew_static STATIC ${LIBGLEW_SRCS})
 
-	set_target_properties(libglew_static PROPERTIES
-		OUTPUT_NAME "glew"
-		DEBUG_POSTFIX d)
+	set_representative_target(libglew_static)
 
 	target_compile_definitions(libglew_static PUBLIC GLEW_STATIC)
 	list(APPEND GLEW_TARGETS libglew_static)
-	if(NOT WIN32)
-		add_custom_command(TARGET libglew_static POST_BUILD
-			COMMAND ${CMAKE_COMMAND} ARGS -E create_symlink libglew.a libGLEW.a
-			WORKING_DIRECTORY ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}
-			BYPRODUCTS ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/libGLEW.a
-			COMMENT "create libGLEW symbolic link")
-		install(FILES ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/libGLEW.a TYPE LIB)
-	endif()
 endif()
 
 if(glew-cmake_BUILD_SHARED)
@@ -142,17 +174,7 @@ if(glew-cmake_BUILD_SHARED)
 			OUTPUT_NAME "glew-shared"
 			DEBUG_POSTFIX d)
 	else()
-		set_target_properties(libglew_shared PROPERTIES
-			OUTPUT_NAME "glew"
-			DEBUG_POSTFIX d)
-		if(NOT WIN32)
-			add_custom_command(TARGET libglew_shared POST_BUILD
-				COMMAND ${CMAKE_COMMAND} ARGS -E create_symlink libglew.so libGLEW.so
-				WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
-				BYPRODUCTS ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libGLEW.so
-				COMMENT "create libGLEW symbolic link")
-			install(FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libGLEW.so TYPE LIB)
-		endif()
+		set_representative_target(libglew_shared)
 	endif()
 
 	target_compile_definitions(libglew_shared PRIVATE GLEW_BUILD)
@@ -169,14 +191,14 @@ endforeach()
 if(PKG_CONFIG_REPRESENTATIVE_TARGET)
 	GeneratePkgConfigFile(${PKG_CONFIG_REPRESENTATIVE_TARGET} "The OpenGL Extension Wrangler library"
 		NAME "glew"
-		LIBRARY_DIR lib
+		LIBRARY_DIR ${INSTALL_LIBDIR}
 		REQUIRES ${pc_requires})
 endif()
 
-install(TARGETS ${GLEW_TARGETS}
-		EXPORT glew-cmake
-		ARCHIVE DESTINATION lib)
-install(EXPORT glew-cmake DESTINATION lib/cmake/glew FILE glewConfig.cmake)
+install(TARGETS ${GLEW_TARGETS} EXPORT glew-cmake
+       ARCHIVE DESTINATION ${INSTALL_LIBDIR}
+       LIBRARY DESTINATION ${INSTALL_LIBDIR})
+install(EXPORT glew-cmake DESTINATION ${INSTALL_LIBDIR}/cmake/glew FILE glewConfig.cmake)
 
 file(GLOB PUBLIC_HEADERS "include/GL/*.h")
 install(FILES ${PUBLIC_HEADERS} DESTINATION include/GL/)
