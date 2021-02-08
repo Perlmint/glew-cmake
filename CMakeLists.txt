@@ -127,7 +127,7 @@ function(set_representative_target TARGET)
 			DEBUG_POSTFIX d)
 
 	# Windows & macOS use case-insensetive FS. do not create symbolic link
-	if(NOT WIN32 and NOT APPLE)
+	if(NOT (WIN32 OR APPLE))
 		get_target_property(TARGET_TYPE ${TARGET} TYPE)
 		if(TARGET_TYPE STREQUAL STATIC_LIBRARY)
 			set(EXT ".a")
