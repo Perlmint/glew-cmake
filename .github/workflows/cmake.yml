@@ -3,14 +3,14 @@ name: CMake
 on: 
   pull_request: 
     branches: 
-      - $default-branch
+      - master
     types: 
       - opened
       - synchronize
       - reopened
   push: 
     branches: 
-      - $default-branch
+      - master
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
