@@ -52,6 +52,10 @@ else()
 	set(USE_NAMESPACED_LIB NO)
 endif()
 
+if(POLICY CMP0042)
+	cmake_policy(SET CMP0042 NEW)
+endif()
+
 if(POLICY CMP0072)
 	set(OpenGL_GL_PREFERENCE GLVND)
 endif()
