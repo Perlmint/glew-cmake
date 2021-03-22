@@ -16,6 +16,10 @@ if(POLICY CMP0042)
   cmake_policy (SET CMP0042 NEW)
 endif()
 
+if (POLICY CMP0072)
+  cmake_policy (SET CMP0072 NEW)
+endif(POLICY CMP0072)
+
 set(CMAKE_DEBUG_POSTFIX d)
 
 option (BUILD_UTILS "utilities" ON)
@@ -24,6 +28,9 @@ option (GLEW_OSMESA "OSMesa mode" OFF)
 if (APPLE)
     option (BUILD_FRAMEWORK "Build Framework bundle for OSX" OFF)
 endif ()
+option (GLEW_X11 "X11 mode" ON)
+option (GLEW_EGL "EGL mode" OFF)
+option (BUILD_SHARED_LIBS "install/link shared instead of static libs" ON)
 
 set (GLEW_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
@@ -36,15 +43,33 @@ file (STRINGS ${GLEW_DIR}/config/version  _VERSION_PATCH_STRING REGEX "GLEW_MICR
 string (REGEX REPLACE "GLEW_MICRO[ ]*=[ ]*([0-9]+)" "\\1" CPACK_PACKAGE_VERSION_PATCH ${_VERSION_PATCH_STRING})
 set (GLEW_VERSION ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH})
 
-set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+if (NOT GLEW_CUSTOM_OUTPUT_DIRS)
+  set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+  set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+  set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+endif()
 
 find_package (OpenGL REQUIRED)
 
+# cmake<3.10 doesnt detect EGL/GLX
+if (CMAKE_VERSION VERSION_LESS 3.10)
+  find_library(OPENGL_egl_LIBRARY NAMES EGL)
+  if (OPENGL_egl_LIBRARY)
+    set (OpenGL_EGL_FOUND TRUE)
+  endif ()
+endif ()
+
+# prefer GLVND
+if (OPENGL_opengl_LIBRARY)
+  set (GLEW_LIBRARIES ${OPENGL_opengl_LIBRARY})
+else ()
+  set (GLEW_LIBRARIES ${OPENGL_gl_LIBRARY})
+endif ()
+
 # X11 required except for Windows and Apple OSX platforms
-if (NOT WIN32 AND NOT APPLE)
+if (GLEW_X11 AND NOT WIN32 AND NOT APPLE)
   find_package (X11)
+  list (APPEND GLEW_LIBRARIES ${X11_LIBRARIES})
 endif()
 
 if (WIN32)
@@ -53,8 +78,6 @@ else ()
   set (GLEW_LIB_NAME GLEW)
   set (DLL_PREFIX lib)
 endif ()
-
-set (GLEW_LIBRARIES ${OPENGL_LIBRARIES} ${X11_LIBRARIES})
 
 add_definitions (-DGLEW_NO_GLU)
 
@@ -79,7 +102,7 @@ if (GLEW_OSMESA)
     set (OSMESA_LIB_NAME OSMesa)
   endif ()
   add_definitions (-DGLEW_OSMESA)
-  set (GLEW_LIBRARIES ${OSMESA_LIB_NAME} ${OPENGL_LIBRARIES})
+  list (APPEND GLEW_LIBRARIES ${OSMESA_LIB_NAME})
   set (X11_LIBRARIES)
 endif ()
 
@@ -90,7 +113,7 @@ if (GLEW_EGL AND UNIX)
   if (NOT OpenGL_EGL_FOUND)
     message (FATAL_ERROR "EGL library set but not found.")
   endif ()
-  set (GLEW_LIBRARIES ${OPENGL_LIBRARIES} ${OPENGL_egl_LIBRARY})
+  list (APPEND GLEW_LIBRARIES ${OPENGL_egl_LIBRARY})
 endif ()
 
 #### GLEW ####
@@ -159,11 +182,9 @@ else()
 endif()
 
 set(targets_to_install "")
-if(NOT DEFINED BUILD_SHARED_LIBS OR BUILD_SHARED_LIBS)
+if(BUILD_SHARED_LIBS)
   list(APPEND targets_to_install glew)
-endif()
-
-if(NOT DEFINED BUILD_SHARED_LIBS OR NOT BUILD_SHARED_LIBS)
+else ()
   list(APPEND targets_to_install glew_s)
 endif()
 
@@ -181,7 +202,7 @@ if (BUILD_UTILS)
     list (APPEND GLEWINFO_SRC_FILES ${GLEW_DIR}/build/glewinfo.rc)
   endif ()
   add_executable (glewinfo ${GLEWINFO_SRC_FILES})
-  if(NOT DEFINED BUILD_SHARED_LIBS OR BUILD_SHARED_LIBS)
+  if(BUILD_SHARED_LIBS)
      target_link_libraries (glewinfo glew)
   else()
      target_link_libraries (glewinfo glew_s)
@@ -195,7 +216,7 @@ if (BUILD_UTILS)
     list (APPEND VISUALINFO_SRC_FILES ${GLEW_DIR}/build/visualinfo.rc)
   endif ()
   add_executable (visualinfo ${VISUALINFO_SRC_FILES})
-  if(NOT DEFINED BUILD_SHARED_LIBS OR BUILD_SHARED_LIBS)
+  if(BUILD_SHARED_LIBS)
      target_link_libraries (visualinfo glew)
   else()
      target_link_libraries (visualinfo glew_s)
