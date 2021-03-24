@@ -142,6 +142,29 @@ jobs:
       shell: bash
       run: test -e lib/libGLEW.a
 
+  build_mingw:
+    # The CMake configure and build commands are platform agnostic and should work equally
+    # well on Windows or Mac.  You can convert this to a matrix build if you need
+    # cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-latest
+    container: ubuntu:18.04
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Install dependencies
+      run: apt update && apt install -y cmake g++-mingw-w64-x86-64 make libgl1-mesa-dev libx11-dev libxext-dev
+
+    - name: Configure CMake
+      shell: bash
+      run: cmake . -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_TOOLCHAIN_FILE="$GITHUB_WORKSPACE/glew-cmake/mingw.cmake"
+
+    - name: Build test
+      shell: bash
+      run: cmake --build .
+
+
   build_mac:
     runs-on: macos-latest
 
