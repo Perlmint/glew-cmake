@@ -4290,6 +4290,7 @@ GLboolean __GLEW_QCOM_frame_extrapolation = GL_FALSE;
 GLboolean __GLEW_QCOM_framebuffer_foveated = GL_FALSE;
 GLboolean __GLEW_QCOM_motion_estimation = GL_FALSE;
 GLboolean __GLEW_QCOM_perfmon_global_mode = GL_FALSE;
+GLboolean __GLEW_QCOM_render_shared_exponent = GL_FALSE;
 GLboolean __GLEW_QCOM_shader_framebuffer_fetch_noncoherent = GL_FALSE;
 GLboolean __GLEW_QCOM_shader_framebuffer_fetch_rate = GL_FALSE;
 GLboolean __GLEW_QCOM_shading_rate = GL_FALSE;
@@ -6786,6 +6787,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_QCOM_perfmon_global_mode
   "GL_QCOM_perfmon_global_mode",
 #endif
+#ifdef GL_QCOM_render_shared_exponent
+  "GL_QCOM_render_shared_exponent",
+#endif
 #ifdef GL_QCOM_shader_framebuffer_fetch_noncoherent
   "GL_QCOM_shader_framebuffer_fetch_noncoherent",
 #endif
@@ -7253,7 +7257,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[940];
+static GLboolean  _glewExtensionString[941];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -9613,6 +9617,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_QCOM_perfmon_global_mode
   &__GLEW_QCOM_perfmon_global_mode,
+#endif
+#ifdef GL_QCOM_render_shared_exponent
+  &__GLEW_QCOM_render_shared_exponent,
 #endif
 #ifdef GL_QCOM_shader_framebuffer_fetch_noncoherent
   &__GLEW_QCOM_shader_framebuffer_fetch_noncoherent,
@@ -29086,6 +29093,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"perfmon_global_mode", 19))
         {
           ret = GLEW_QCOM_perfmon_global_mode;
+          continue;
+        }
+#endif
+#ifdef GL_QCOM_render_shared_exponent
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"render_shared_exponent", 22))
+        {
+          ret = GLEW_QCOM_render_shared_exponent;
           continue;
         }
 #endif

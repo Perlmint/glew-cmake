@@ -20239,6 +20239,17 @@ typedef void (GLAPIENTRY * PFNGLTEXESTIMATEMOTIONREGIONSQCOMPROC) (GLuint ref, G
 
 #endif /* GL_QCOM_perfmon_global_mode */
 
+/* --------------------- GL_QCOM_render_shared_exponent -------------------- */
+
+#ifndef GL_QCOM_render_shared_exponent
+#define GL_QCOM_render_shared_exponent 1
+
+#define GL_RGB9_E5 0x8C3D
+
+#define GLEW_QCOM_render_shared_exponent GLEW_GET_VAR(__GLEW_QCOM_render_shared_exponent)
+
+#endif /* GL_QCOM_render_shared_exponent */
+
 /* -------------- GL_QCOM_shader_framebuffer_fetch_noncoherent ------------- */
 
 #ifndef GL_QCOM_shader_framebuffer_fetch_noncoherent
@@ -26390,6 +26401,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_frame_extrapolation;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_framebuffer_foveated;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_motion_estimation;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_perfmon_global_mode;
+GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_render_shared_exponent;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_shader_framebuffer_fetch_noncoherent;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_shader_framebuffer_fetch_rate;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_shading_rate;

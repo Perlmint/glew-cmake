@@ -10276,6 +10276,15 @@ static void _glewInfo_GL_QCOM_perfmon_global_mode (void)
 
 #endif /* GL_QCOM_perfmon_global_mode */
 
+#ifdef GL_QCOM_render_shared_exponent
+
+static void _glewInfo_GL_QCOM_render_shared_exponent (void)
+{
+  glewPrintExt("GL_QCOM_render_shared_exponent", GLEW_QCOM_render_shared_exponent, glewIsSupported("GL_QCOM_render_shared_exponent"), glewGetExtension("GL_QCOM_render_shared_exponent"));
+}
+
+#endif /* GL_QCOM_render_shared_exponent */
+
 #ifdef GL_QCOM_shader_framebuffer_fetch_noncoherent
 
 static void _glewInfo_GL_QCOM_shader_framebuffer_fetch_noncoherent (void)
@@ -17311,6 +17320,9 @@ static void glewInfo (void)
 #ifdef GL_QCOM_perfmon_global_mode
   _glewInfo_GL_QCOM_perfmon_global_mode();
 #endif /* GL_QCOM_perfmon_global_mode */
+#ifdef GL_QCOM_render_shared_exponent
+  _glewInfo_GL_QCOM_render_shared_exponent();
+#endif /* GL_QCOM_render_shared_exponent */
 #ifdef GL_QCOM_shader_framebuffer_fetch_noncoherent
   _glewInfo_GL_QCOM_shader_framebuffer_fetch_noncoherent();
 #endif /* GL_QCOM_shader_framebuffer_fetch_noncoherent */
