@@ -12167,6 +12167,15 @@ static void _glewInfo_EGL_EXT_device_openwf (void)
 
 #endif /* EGL_EXT_device_openwf */
 
+#ifdef EGL_EXT_device_persistent_id
+
+static void _glewInfo_EGL_EXT_device_persistent_id (void)
+{
+  glewPrintExt("EGL_EXT_device_persistent_id", EGLEW_EXT_device_persistent_id, eglewIsSupported("EGL_EXT_device_persistent_id"), eglewGetExtension("EGL_EXT_device_persistent_id"));
+}
+
+#endif /* EGL_EXT_device_persistent_id */
+
 #ifdef EGL_EXT_device_query
 
 static void _glewInfo_EGL_EXT_device_query (void)
@@ -18255,6 +18264,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_device_openwf
   _glewInfo_EGL_EXT_device_openwf();
 #endif /* EGL_EXT_device_openwf */
+#ifdef EGL_EXT_device_persistent_id
+  _glewInfo_EGL_EXT_device_persistent_id();
+#endif /* EGL_EXT_device_persistent_id */
 #ifdef EGL_EXT_device_query
   _glewInfo_EGL_EXT_device_query();
 #endif /* EGL_EXT_device_query */

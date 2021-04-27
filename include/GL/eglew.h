@@ -892,6 +892,19 @@ typedef EGLBoolean ( * PFNEGLQUERYDEVICESEXTPROC) (EGLint max_devices, EGLDevice
 
 #endif /* EGL_EXT_device_openwf */
 
+/* ---------------------- EGL_EXT_device_persistent_id --------------------- */
+
+#ifndef EGL_EXT_device_persistent_id
+#define EGL_EXT_device_persistent_id 1
+
+#define EGL_DEVICE_UUID_EXT 0x335C
+#define EGL_DRIVER_UUID_EXT 0x335D
+#define EGL_DRIVER_NAME_EXT 0x335E
+
+#define EGLEW_EXT_device_persistent_id EGLEW_GET_VAR(__EGLEW_EXT_device_persistent_id)
+
+#endif /* EGL_EXT_device_persistent_id */
+
 /* -------------------------- EGL_EXT_device_query ------------------------- */
 
 #ifndef EGL_EXT_device_query
@@ -2987,6 +3000,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_base;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_drm;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_enumeration;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_openwf;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_persistent_id;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_query;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_query_name;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_bt2020_linear;

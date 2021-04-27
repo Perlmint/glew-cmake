@@ -19726,6 +19726,7 @@ GLboolean __EGLEW_EXT_device_base = GL_FALSE;
 GLboolean __EGLEW_EXT_device_drm = GL_FALSE;
 GLboolean __EGLEW_EXT_device_enumeration = GL_FALSE;
 GLboolean __EGLEW_EXT_device_openwf = GL_FALSE;
+GLboolean __EGLEW_EXT_device_persistent_id = GL_FALSE;
 GLboolean __EGLEW_EXT_device_query = GL_FALSE;
 GLboolean __EGLEW_EXT_device_query_name = GL_FALSE;
 GLboolean __EGLEW_EXT_gl_colorspace_bt2020_linear = GL_FALSE;
@@ -20848,6 +20849,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_EXT_device_openwf
   EGLEW_EXT_device_openwf = _glewSearchExtension("EGL_EXT_device_openwf", extStart, extEnd);
 #endif /* EGL_EXT_device_openwf */
+#ifdef EGL_EXT_device_persistent_id
+  EGLEW_EXT_device_persistent_id = _glewSearchExtension("EGL_EXT_device_persistent_id", extStart, extEnd);
+#endif /* EGL_EXT_device_persistent_id */
 #ifdef EGL_EXT_device_query
   EGLEW_EXT_device_query = _glewSearchExtension("EGL_EXT_device_query", extStart, extEnd);
   if (glewExperimental || EGLEW_EXT_device_query) EGLEW_EXT_device_query = !_glewInit_EGL_EXT_device_query();
@@ -31393,6 +31397,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"device_openwf", 13))
         {
           ret = EGLEW_EXT_device_openwf;
+          continue;
+        }
+#endif
+#ifdef EGL_EXT_device_persistent_id
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"device_persistent_id", 20))
+        {
+          ret = EGLEW_EXT_device_persistent_id;
           continue;
         }
 #endif
