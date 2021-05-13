@@ -4035,6 +4035,7 @@ GLboolean __GLEW_KHR_texture_compression_astc_ldr = GL_FALSE;
 GLboolean __GLEW_KHR_texture_compression_astc_sliced_3d = GL_FALSE;
 GLboolean __GLEW_KTX_buffer_region = GL_FALSE;
 GLboolean __GLEW_MESAX_texture_stack = GL_FALSE;
+GLboolean __GLEW_MESA_bgra = GL_FALSE;
 GLboolean __GLEW_MESA_framebuffer_flip_x = GL_FALSE;
 GLboolean __GLEW_MESA_framebuffer_flip_y = GL_FALSE;
 GLboolean __GLEW_MESA_framebuffer_swap_xy = GL_FALSE;
@@ -6022,6 +6023,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_MESAX_texture_stack
   "GL_MESAX_texture_stack",
 #endif
+#ifdef GL_MESA_bgra
+  "GL_MESA_bgra",
+#endif
 #ifdef GL_MESA_framebuffer_flip_x
   "GL_MESA_framebuffer_flip_x",
 #endif
@@ -7257,7 +7261,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[941];
+static GLboolean  _glewExtensionString[942];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8852,6 +8856,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_MESAX_texture_stack
   &__GLEW_MESAX_texture_stack,
+#endif
+#ifdef GL_MESA_bgra
+  &__GLEW_MESA_bgra,
 #endif
 #ifdef GL_MESA_framebuffer_flip_x
   &__GLEW_MESA_framebuffer_flip_x,
@@ -27294,6 +27301,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
       }
       if (_glewStrSame2(&pos, &len, (const GLubyte*)"MESA_", 5))
       {
+#ifdef GL_MESA_bgra
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"bgra", 4))
+        {
+          ret = GLEW_MESA_bgra;
+          continue;
+        }
+#endif
 #ifdef GL_MESA_framebuffer_flip_x
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"framebuffer_flip_x", 18))
         {

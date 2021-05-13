@@ -7227,6 +7227,15 @@ static void _glewInfo_GL_MESAX_texture_stack (void)
 
 #endif /* GL_MESAX_texture_stack */
 
+#ifdef GL_MESA_bgra
+
+static void _glewInfo_GL_MESA_bgra (void)
+{
+  glewPrintExt("GL_MESA_bgra", GLEW_MESA_bgra, glewIsSupported("GL_MESA_bgra"), glewGetExtension("GL_MESA_bgra"));
+}
+
+#endif /* GL_MESA_bgra */
+
 #ifdef GL_MESA_framebuffer_flip_x
 
 static void _glewInfo_GL_MESA_framebuffer_flip_x (void)
@@ -16564,6 +16573,9 @@ static void glewInfo (void)
 #ifdef GL_MESAX_texture_stack
   _glewInfo_GL_MESAX_texture_stack();
 #endif /* GL_MESAX_texture_stack */
+#ifdef GL_MESA_bgra
+  _glewInfo_GL_MESA_bgra();
+#endif /* GL_MESA_bgra */
 #ifdef GL_MESA_framebuffer_flip_x
   _glewInfo_GL_MESA_framebuffer_flip_x();
 #endif /* GL_MESA_framebuffer_flip_x */

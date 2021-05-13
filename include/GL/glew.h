@@ -14692,6 +14692,18 @@ typedef void (GLAPIENTRY * PFNGLREADBUFFERREGIONPROC) (GLuint region, GLint x, G
 
 #endif /* GL_MESAX_texture_stack */
 
+/* ------------------------------ GL_MESA_bgra ----------------------------- */
+
+#ifndef GL_MESA_bgra
+#define GL_MESA_bgra 1
+
+#define GL_BGR_EXT 0x80E0
+#define GL_BGRA_EXT 0x80E1
+
+#define GLEW_MESA_bgra GLEW_GET_VAR(__GLEW_MESA_bgra)
+
+#endif /* GL_MESA_bgra */
+
 /* ----------------------- GL_MESA_framebuffer_flip_x ---------------------- */
 
 #ifndef GL_MESA_framebuffer_flip_x
@@ -26146,6 +26158,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_KHR_texture_compression_astc_ldr;
 GLEW_VAR_EXPORT GLboolean __GLEW_KHR_texture_compression_astc_sliced_3d;
 GLEW_VAR_EXPORT GLboolean __GLEW_KTX_buffer_region;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESAX_texture_stack;
+GLEW_VAR_EXPORT GLboolean __GLEW_MESA_bgra;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_framebuffer_flip_x;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_framebuffer_flip_y;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_framebuffer_swap_xy;
