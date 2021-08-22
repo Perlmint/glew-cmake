@@ -40,8 +40,8 @@ else
 $(error "Platform '$(SYSTEM)' not supported")
 endif
 
-GLEW_PREFIX ?= /usr
-GLEW_DEST ?= /usr
+GLEW_PREFIX ?= /usr/local
+GLEW_DEST ?= /usr/local
 BINDIR    ?= $(GLEW_DEST)/bin
 LIBDIR    ?= $(GLEW_DEST)/lib
 INCDIR    ?= $(GLEW_DEST)/include/GL
@@ -171,21 +171,20 @@ VISUALINFO.BIN.OBJ := $(VISUALINFO.BIN.OBJ:.c=.o)
 # Don't build glewinfo or visualinfo for NaCL, yet.
 
 ifneq ($(filter nacl%,$(SYSTEM)),)
-glew.bin: glew.lib bin
+glew.bin: glew.lib
 else
-glew.bin: glew.lib bin bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) 
+glew.bin: glew.lib bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN)
 endif
 
-bin:
-	mkdir bin
-
 bin/$(GLEWINFO.BIN): $(GLEWINFO.BIN.OBJ) $(LIB.SHARED.DIR)/$(LIB.SHARED)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -o $@ $(GLEWINFO.BIN.OBJ) $(BIN.LIBS)
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif
 
 bin/$(VISUALINFO.BIN): $(VISUALINFO.BIN.OBJ) $(LIB.SHARED.DIR)/$(LIB.SHARED)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -o $@ $(VISUALINFO.BIN.OBJ) $(BIN.LIBS)
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
