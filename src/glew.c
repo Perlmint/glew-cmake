@@ -19567,6 +19567,8 @@ PFNEGLCOMPOSITORSWAPPOLICYEXTPROC __eglewCompositorSwapPolicyEXT = NULL;
 
 PFNEGLQUERYDEVICESEXTPROC __eglewQueryDevicesEXT = NULL;
 
+PFNEGLQUERYDEVICEBINARYEXTPROC __eglewQueryDeviceBinaryEXT = NULL;
+
 PFNEGLQUERYDEVICEATTRIBEXTPROC __eglewQueryDeviceAttribEXT = NULL;
 PFNEGLQUERYDEVICESTRINGEXTPROC __eglewQueryDeviceStringEXT = NULL;
 PFNEGLQUERYDISPLAYATTRIBEXTPROC __eglewQueryDisplayAttribEXT = NULL;
@@ -19728,9 +19730,11 @@ GLboolean __EGLEW_EXT_buffer_age = GL_FALSE;
 GLboolean __EGLEW_EXT_client_extensions = GL_FALSE;
 GLboolean __EGLEW_EXT_client_sync = GL_FALSE;
 GLboolean __EGLEW_EXT_compositor = GL_FALSE;
+GLboolean __EGLEW_EXT_config_select_group = GL_FALSE;
 GLboolean __EGLEW_EXT_create_context_robustness = GL_FALSE;
 GLboolean __EGLEW_EXT_device_base = GL_FALSE;
 GLboolean __EGLEW_EXT_device_drm = GL_FALSE;
+GLboolean __EGLEW_EXT_device_drm_render_node = GL_FALSE;
 GLboolean __EGLEW_EXT_device_enumeration = GL_FALSE;
 GLboolean __EGLEW_EXT_device_openwf = GL_FALSE;
 GLboolean __EGLEW_EXT_device_persistent_id = GL_FALSE;
@@ -20112,6 +20116,19 @@ static GLboolean _glewInit_EGL_EXT_device_enumeration ()
 }
 
 #endif /* EGL_EXT_device_enumeration */
+
+#ifdef EGL_EXT_device_persistent_id
+
+static GLboolean _glewInit_EGL_EXT_device_persistent_id ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((eglQueryDeviceBinaryEXT = (PFNEGLQUERYDEVICEBINARYEXTPROC)glewGetProcAddress((const GLubyte*)"eglQueryDeviceBinaryEXT")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* EGL_EXT_device_persistent_id */
 
 #ifdef EGL_EXT_device_query
 
@@ -20840,6 +20857,9 @@ GLenum eglewInit (EGLDisplay display)
   EGLEW_EXT_compositor = _glewSearchExtension("EGL_EXT_compositor", extStart, extEnd);
   if (glewExperimental || EGLEW_EXT_compositor) EGLEW_EXT_compositor = !_glewInit_EGL_EXT_compositor();
 #endif /* EGL_EXT_compositor */
+#ifdef EGL_EXT_config_select_group
+  EGLEW_EXT_config_select_group = _glewSearchExtension("EGL_EXT_config_select_group", extStart, extEnd);
+#endif /* EGL_EXT_config_select_group */
 #ifdef EGL_EXT_create_context_robustness
   EGLEW_EXT_create_context_robustness = _glewSearchExtension("EGL_EXT_create_context_robustness", extStart, extEnd);
 #endif /* EGL_EXT_create_context_robustness */
@@ -20849,6 +20869,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_EXT_device_drm
   EGLEW_EXT_device_drm = _glewSearchExtension("EGL_EXT_device_drm", extStart, extEnd);
 #endif /* EGL_EXT_device_drm */
+#ifdef EGL_EXT_device_drm_render_node
+  EGLEW_EXT_device_drm_render_node = _glewSearchExtension("EGL_EXT_device_drm_render_node", extStart, extEnd);
+#endif /* EGL_EXT_device_drm_render_node */
 #ifdef EGL_EXT_device_enumeration
   EGLEW_EXT_device_enumeration = _glewSearchExtension("EGL_EXT_device_enumeration", extStart, extEnd);
   if (glewExperimental || EGLEW_EXT_device_enumeration) EGLEW_EXT_device_enumeration = !_glewInit_EGL_EXT_device_enumeration();
@@ -20858,6 +20881,7 @@ GLenum eglewInit (EGLDisplay display)
 #endif /* EGL_EXT_device_openwf */
 #ifdef EGL_EXT_device_persistent_id
   EGLEW_EXT_device_persistent_id = _glewSearchExtension("EGL_EXT_device_persistent_id", extStart, extEnd);
+  if (glewExperimental || EGLEW_EXT_device_persistent_id) EGLEW_EXT_device_persistent_id = !_glewInit_EGL_EXT_device_persistent_id();
 #endif /* EGL_EXT_device_persistent_id */
 #ifdef EGL_EXT_device_query
   EGLEW_EXT_device_query = _glewSearchExtension("EGL_EXT_device_query", extStart, extEnd);
@@ -31379,6 +31403,13 @@ GLboolean eglewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef EGL_EXT_config_select_group
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"config_select_group", 19))
+        {
+          ret = EGLEW_EXT_config_select_group;
+          continue;
+        }
+#endif
 #ifdef EGL_EXT_create_context_robustness
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"create_context_robustness", 25))
         {
@@ -31397,6 +31428,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"device_drm", 10))
         {
           ret = EGLEW_EXT_device_drm;
+          continue;
+        }
+#endif
+#ifdef EGL_EXT_device_drm_render_node
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"device_drm_render_node", 22))
+        {
+          ret = EGLEW_EXT_device_drm_render_node;
           continue;
         }
 #endif

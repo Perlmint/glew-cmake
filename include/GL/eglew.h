@@ -830,6 +830,17 @@ typedef EGLBoolean ( * PFNEGLCOMPOSITORSWAPPOLICYEXTPROC) (EGLint external_win_i
 
 #endif /* EGL_EXT_compositor */
 
+/* ---------------------- EGL_EXT_config_select_group ---------------------- */
+
+#ifndef EGL_EXT_config_select_group
+#define EGL_EXT_config_select_group 1
+
+#define EGL_CONFIG_SELECT_GROUP_EXT 0x34C0
+
+#define EGLEW_EXT_config_select_group EGLEW_GET_VAR(__EGLEW_EXT_config_select_group)
+
+#endif /* EGL_EXT_config_select_group */
+
 /* ------------------- EGL_EXT_create_context_robustness ------------------- */
 
 #ifndef EGL_EXT_create_context_robustness
@@ -868,6 +879,17 @@ typedef EGLBoolean ( * PFNEGLCOMPOSITORSWAPPOLICYEXTPROC) (EGLint external_win_i
 
 #endif /* EGL_EXT_device_drm */
 
+/* --------------------- EGL_EXT_device_drm_render_node -------------------- */
+
+#ifndef EGL_EXT_device_drm_render_node
+#define EGL_EXT_device_drm_render_node 1
+
+#define EGL_DRM_RENDER_NODE_FILE_EXT 0x3377
+
+#define EGLEW_EXT_device_drm_render_node EGLEW_GET_VAR(__EGLEW_EXT_device_drm_render_node)
+
+#endif /* EGL_EXT_device_drm_render_node */
+
 /* ----------------------- EGL_EXT_device_enumeration ---------------------- */
 
 #ifndef EGL_EXT_device_enumeration
@@ -900,6 +922,10 @@ typedef EGLBoolean ( * PFNEGLQUERYDEVICESEXTPROC) (EGLint max_devices, EGLDevice
 #define EGL_DEVICE_UUID_EXT 0x335C
 #define EGL_DRIVER_UUID_EXT 0x335D
 #define EGL_DRIVER_NAME_EXT 0x335E
+
+typedef EGLBoolean ( * PFNEGLQUERYDEVICEBINARYEXTPROC) (EGLDeviceEXT device, EGLint name, EGLint max_size, void* value, EGLint* size);
+
+#define eglQueryDeviceBinaryEXT EGLEW_GET_FUN(__eglewQueryDeviceBinaryEXT)
 
 #define EGLEW_EXT_device_persistent_id EGLEW_GET_VAR(__EGLEW_EXT_device_persistent_id)
 
@@ -2834,6 +2860,8 @@ EGLEW_FUN_EXPORT PFNEGLCOMPOSITORSWAPPOLICYEXTPROC __eglewCompositorSwapPolicyEX
 
 EGLEW_FUN_EXPORT PFNEGLQUERYDEVICESEXTPROC __eglewQueryDevicesEXT;
 
+EGLEW_FUN_EXPORT PFNEGLQUERYDEVICEBINARYEXTPROC __eglewQueryDeviceBinaryEXT;
+
 EGLEW_FUN_EXPORT PFNEGLQUERYDEVICEATTRIBEXTPROC __eglewQueryDeviceAttribEXT;
 EGLEW_FUN_EXPORT PFNEGLQUERYDEVICESTRINGEXTPROC __eglewQueryDeviceStringEXT;
 EGLEW_FUN_EXPORT PFNEGLQUERYDISPLAYATTRIBEXTPROC __eglewQueryDisplayAttribEXT;
@@ -2995,9 +3023,11 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_buffer_age;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_client_extensions;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_client_sync;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_compositor;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_config_select_group;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_create_context_robustness;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_base;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_drm;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_drm_render_node;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_enumeration;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_openwf;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_persistent_id;

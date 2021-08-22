@@ -12129,6 +12129,15 @@ static void _glewInfo_EGL_EXT_compositor (void)
 
 #endif /* EGL_EXT_compositor */
 
+#ifdef EGL_EXT_config_select_group
+
+static void _glewInfo_EGL_EXT_config_select_group (void)
+{
+  glewPrintExt("EGL_EXT_config_select_group", EGLEW_EXT_config_select_group, eglewIsSupported("EGL_EXT_config_select_group"), eglewGetExtension("EGL_EXT_config_select_group"));
+}
+
+#endif /* EGL_EXT_config_select_group */
+
 #ifdef EGL_EXT_create_context_robustness
 
 static void _glewInfo_EGL_EXT_create_context_robustness (void)
@@ -12156,6 +12165,15 @@ static void _glewInfo_EGL_EXT_device_drm (void)
 
 #endif /* EGL_EXT_device_drm */
 
+#ifdef EGL_EXT_device_drm_render_node
+
+static void _glewInfo_EGL_EXT_device_drm_render_node (void)
+{
+  glewPrintExt("EGL_EXT_device_drm_render_node", EGLEW_EXT_device_drm_render_node, eglewIsSupported("EGL_EXT_device_drm_render_node"), eglewGetExtension("EGL_EXT_device_drm_render_node"));
+}
+
+#endif /* EGL_EXT_device_drm_render_node */
+
 #ifdef EGL_EXT_device_enumeration
 
 static void _glewInfo_EGL_EXT_device_enumeration (void)
@@ -12180,7 +12198,9 @@ static void _glewInfo_EGL_EXT_device_openwf (void)
 
 static void _glewInfo_EGL_EXT_device_persistent_id (void)
 {
-  glewPrintExt("EGL_EXT_device_persistent_id", EGLEW_EXT_device_persistent_id, eglewIsSupported("EGL_EXT_device_persistent_id"), eglewGetExtension("EGL_EXT_device_persistent_id"));
+  GLboolean fi = glewPrintExt("EGL_EXT_device_persistent_id", EGLEW_EXT_device_persistent_id, eglewIsSupported("EGL_EXT_device_persistent_id"), eglewGetExtension("EGL_EXT_device_persistent_id"));
+
+  glewInfoFunc(fi, "eglQueryDeviceBinaryEXT", eglQueryDeviceBinaryEXT == NULL);
 }
 
 #endif /* EGL_EXT_device_persistent_id */
@@ -18261,6 +18281,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_compositor
   _glewInfo_EGL_EXT_compositor();
 #endif /* EGL_EXT_compositor */
+#ifdef EGL_EXT_config_select_group
+  _glewInfo_EGL_EXT_config_select_group();
+#endif /* EGL_EXT_config_select_group */
 #ifdef EGL_EXT_create_context_robustness
   _glewInfo_EGL_EXT_create_context_robustness();
 #endif /* EGL_EXT_create_context_robustness */
@@ -18270,6 +18293,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_device_drm
   _glewInfo_EGL_EXT_device_drm();
 #endif /* EGL_EXT_device_drm */
+#ifdef EGL_EXT_device_drm_render_node
+  _glewInfo_EGL_EXT_device_drm_render_node();
+#endif /* EGL_EXT_device_drm_render_node */
 #ifdef EGL_EXT_device_enumeration
   _glewInfo_EGL_EXT_device_enumeration();
 #endif /* EGL_EXT_device_enumeration */
