@@ -12432,6 +12432,15 @@ static void _glewInfo_EGL_EXT_platform_xcb (void)
 
 #endif /* EGL_EXT_platform_xcb */
 
+#ifdef EGL_EXT_present_opaque
+
+static void _glewInfo_EGL_EXT_present_opaque (void)
+{
+  glewPrintExt("EGL_EXT_present_opaque", EGLEW_EXT_present_opaque, eglewIsSupported("EGL_EXT_present_opaque"), eglewGetExtension("EGL_EXT_present_opaque"));
+}
+
+#endif /* EGL_EXT_present_opaque */
+
 #ifdef EGL_EXT_protected_content
 
 static void _glewInfo_EGL_EXT_protected_content (void)
@@ -18374,6 +18383,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_platform_xcb
   _glewInfo_EGL_EXT_platform_xcb();
 #endif /* EGL_EXT_platform_xcb */
+#ifdef EGL_EXT_present_opaque
+  _glewInfo_EGL_EXT_present_opaque();
+#endif /* EGL_EXT_present_opaque */
 #ifdef EGL_EXT_protected_content
   _glewInfo_EGL_EXT_protected_content();
 #endif /* EGL_EXT_protected_content */

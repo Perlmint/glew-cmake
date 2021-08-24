@@ -19761,6 +19761,7 @@ GLboolean __EGLEW_EXT_platform_device = GL_FALSE;
 GLboolean __EGLEW_EXT_platform_wayland = GL_FALSE;
 GLboolean __EGLEW_EXT_platform_x11 = GL_FALSE;
 GLboolean __EGLEW_EXT_platform_xcb = GL_FALSE;
+GLboolean __EGLEW_EXT_present_opaque = GL_FALSE;
 GLboolean __EGLEW_EXT_protected_content = GL_FALSE;
 GLboolean __EGLEW_EXT_protected_surface = GL_FALSE;
 GLboolean __EGLEW_EXT_stream_consumer_egloutput = GL_FALSE;
@@ -20956,6 +20957,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_EXT_platform_xcb
   EGLEW_EXT_platform_xcb = _glewSearchExtension("EGL_EXT_platform_xcb", extStart, extEnd);
 #endif /* EGL_EXT_platform_xcb */
+#ifdef EGL_EXT_present_opaque
+  EGLEW_EXT_present_opaque = _glewSearchExtension("EGL_EXT_present_opaque", extStart, extEnd);
+#endif /* EGL_EXT_present_opaque */
 #ifdef EGL_EXT_protected_content
   EGLEW_EXT_protected_content = _glewSearchExtension("EGL_EXT_protected_content", extStart, extEnd);
 #endif /* EGL_EXT_protected_content */
@@ -31617,6 +31621,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"platform_xcb", 12))
         {
           ret = EGLEW_EXT_platform_xcb;
+          continue;
+        }
+#endif
+#ifdef EGL_EXT_present_opaque
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"present_opaque", 14))
+        {
+          ret = EGLEW_EXT_present_opaque;
           continue;
         }
 #endif
