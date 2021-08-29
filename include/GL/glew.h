@@ -26580,6 +26580,7 @@ VERSION_MICRO 0
 
 /* API */
 GLEWAPI GLenum GLEWAPIENTRY glewInit (void);
+GLEWAPI GLenum GLEWAPIENTRY glewContextInit (void);
 GLEWAPI GLboolean GLEWAPIENTRY glewIsSupported (const char *name);
 #define glewIsExtensionSupported(x) glewIsSupported(x)
 

@@ -18135,7 +18135,7 @@ GLboolean GLEWAPIENTRY glewGetExtension (const char* name)
 typedef const GLubyte* (GLAPIENTRY * PFNGLGETSTRINGPROC) (GLenum name);
 typedef void (GLAPIENTRY * PFNGLGETINTEGERVPROC) (GLenum pname, GLint *params);
 
-static GLenum GLEWAPIENTRY glewContextInit ()
+GLenum GLEWAPIENTRY glewContextInit (void)
 {
   PFNGLGETSTRINGPROC getString;
   const GLubyte* s;
@@ -23352,6 +23352,7 @@ const GLubyte * GLEWAPIENTRY glewGetErrorString (GLenum error)
     (const GLubyte*)"Missing GL version",
     (const GLubyte*)"GL 1.1 and up are not supported",
     (const GLubyte*)"GLX 1.2 and up are not supported",
+    (const GLubyte*)"No GLX display",
     (const GLubyte*)"Unknown error"
   };
   const size_t max_error = sizeof(_glewErrorString)/sizeof(*_glewErrorString) - 1;
