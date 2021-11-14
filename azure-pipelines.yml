@@ -9,7 +9,7 @@ schedules:
 jobs:
 - job: NightlyUpdate
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-latest'
   container: perlmint/glew-cmake:20190922
   steps:
   - checkout: self
