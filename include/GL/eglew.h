@@ -909,6 +909,7 @@ typedef EGLBoolean ( * PFNEGLQUERYDEVICESEXTPROC) (EGLint max_devices, EGLDevice
 #define EGL_EXT_device_openwf 1
 
 #define EGL_OPENWF_DEVICE_ID_EXT 0x3237
+#define EGL_OPENWF_DEVICE_EXT 0x333D
 
 #define EGLEW_EXT_device_openwf EGLEW_GET_VAR(__EGLEW_EXT_device_openwf)
 
