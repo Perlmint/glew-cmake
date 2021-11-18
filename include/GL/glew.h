@@ -9221,6 +9221,19 @@ typedef void (GLAPIENTRY * PFNGLEGLIMAGETARGETTEXTURESTORAGEEXTPROC) (GLuint tex
 
 #endif /* GL_EXT_EGL_image_storage */
 
+/* ------------------ GL_EXT_EGL_image_storage_compression ----------------- */
+
+#ifndef GL_EXT_EGL_image_storage_compression
+#define GL_EXT_EGL_image_storage_compression 1
+
+#define GL_SURFACE_COMPRESSION_EXT 0x96C0
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_NONE_EXT 0x96C1
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_DEFAULT_EXT 0x96C2
+
+#define GLEW_EXT_EGL_image_storage_compression GLEW_GET_VAR(__GLEW_EXT_EGL_image_storage_compression)
+
+#endif /* GL_EXT_EGL_image_storage_compression */
+
 /* ---------------------------- GL_EXT_EGL_sync ---------------------------- */
 
 #ifndef GL_EXT_EGL_sync
@@ -13239,6 +13252,38 @@ typedef void (GLAPIENTRY * PFNGLTEXTURESTORAGE3DEXTPROC) (GLuint texture, GLenum
 #define GLEW_EXT_texture_storage GLEW_GET_VAR(__GLEW_EXT_texture_storage)
 
 #endif /* GL_EXT_texture_storage */
+
+/* ------------------- GL_EXT_texture_storage_compression ------------------ */
+
+#ifndef GL_EXT_texture_storage_compression
+#define GL_EXT_texture_storage_compression 1
+
+#define GL_NUM_SURFACE_COMPRESSION_FIXED_RATES_EXT 0x8F6E
+#define GL_SURFACE_COMPRESSION_EXT 0x96C0
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_NONE_EXT 0x96C1
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_DEFAULT_EXT 0x96C2
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_1BPC_EXT 0x96C4
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_2BPC_EXT 0x96C5
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_3BPC_EXT 0x96C6
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_4BPC_EXT 0x96C7
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_5BPC_EXT 0x96C8
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_6BPC_EXT 0x96C9
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_7BPC_EXT 0x96CA
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_8BPC_EXT 0x96CB
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_9BPC_EXT 0x96CC
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_10BPC_EXT 0x96CD
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_11BPC_EXT 0x96CE
+#define GL_SURFACE_COMPRESSION_FIXED_RATE_12BPC_EXT 0x96CF
+
+typedef void (GLAPIENTRY * PFNGLTEXSTORAGEATTRIBS2DEXTPROC) (GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, const GLint* attrib_list);
+typedef void (GLAPIENTRY * PFNGLTEXSTORAGEATTRIBS3DEXTPROC) (GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, const GLint* attrib_list);
+
+#define glTexStorageAttribs2DEXT GLEW_GET_FUN(__glewTexStorageAttribs2DEXT)
+#define glTexStorageAttribs3DEXT GLEW_GET_FUN(__glewTexStorageAttribs3DEXT)
+
+#define GLEW_EXT_texture_storage_compression GLEW_GET_VAR(__GLEW_EXT_texture_storage_compression)
+
+#endif /* GL_EXT_texture_storage_compression */
 
 /* ------------------------- GL_EXT_texture_swizzle ------------------------ */
 
@@ -24426,6 +24471,9 @@ GLEW_FUN_EXPORT PFNGLTEXTURESTORAGE1DEXTPROC __glewTextureStorage1DEXT;
 GLEW_FUN_EXPORT PFNGLTEXTURESTORAGE2DEXTPROC __glewTextureStorage2DEXT;
 GLEW_FUN_EXPORT PFNGLTEXTURESTORAGE3DEXTPROC __glewTextureStorage3DEXT;
 
+GLEW_FUN_EXPORT PFNGLTEXSTORAGEATTRIBS2DEXTPROC __glewTexStorageAttribs2DEXT;
+GLEW_FUN_EXPORT PFNGLTEXSTORAGEATTRIBS3DEXTPROC __glewTexStorageAttribs3DEXT;
+
 GLEW_FUN_EXPORT PFNGLTEXTUREVIEWEXTPROC __glewTextureViewEXT;
 
 GLEW_FUN_EXPORT PFNGLGETQUERYOBJECTI64VEXTPROC __glewGetQueryObjecti64vEXT;
@@ -25915,6 +25963,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_EXT_Cg_shader;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_EGL_image_array;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_EGL_image_external_wrap_modes;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_EGL_image_storage;
+GLEW_VAR_EXPORT GLboolean __GLEW_EXT_EGL_image_storage_compression;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_EGL_sync;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_YUV_target;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_abgr;
@@ -26095,6 +26144,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_shadow_lod;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_shared_exponent;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_snorm;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_storage;
+GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_storage_compression;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_swizzle;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_type_2_10_10_10_REV;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_texture_view;
