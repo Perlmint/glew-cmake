@@ -19626,6 +19626,8 @@ PFNEGLGETPLATFORMDISPLAYEXTPROC __eglewGetPlatformDisplayEXT = NULL;
 
 PFNEGLSTREAMCONSUMEROUTPUTEXTPROC __eglewStreamConsumerOutputEXT = NULL;
 
+PFNEGLQUERYSUPPORTEDCOMPRESSIONRATESEXTPROC __eglewQuerySupportedCompressionRatesEXT = NULL;
+
 PFNEGLSWAPBUFFERSWITHDAMAGEEXTPROC __eglewSwapBuffersWithDamageEXT = NULL;
 
 PFNEGLUNSIGNALSYNCEXTPROC __eglewUnsignalSyncEXT = NULL;
@@ -19802,6 +19804,7 @@ GLboolean __EGLEW_EXT_protected_surface = GL_FALSE;
 GLboolean __EGLEW_EXT_stream_consumer_egloutput = GL_FALSE;
 GLboolean __EGLEW_EXT_surface_CTA861_3_metadata = GL_FALSE;
 GLboolean __EGLEW_EXT_surface_SMPTE2086_metadata = GL_FALSE;
+GLboolean __EGLEW_EXT_surface_compression = GL_FALSE;
 GLboolean __EGLEW_EXT_swap_buffers_with_damage = GL_FALSE;
 GLboolean __EGLEW_EXT_sync_reuse = GL_FALSE;
 GLboolean __EGLEW_EXT_yuv_surface = GL_FALSE;
@@ -20242,6 +20245,19 @@ static GLboolean _glewInit_EGL_EXT_stream_consumer_egloutput ()
 }
 
 #endif /* EGL_EXT_stream_consumer_egloutput */
+
+#ifdef EGL_EXT_surface_compression
+
+static GLboolean _glewInit_EGL_EXT_surface_compression ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((eglQuerySupportedCompressionRatesEXT = (PFNEGLQUERYSUPPORTEDCOMPRESSIONRATESEXTPROC)glewGetProcAddress((const GLubyte*)"eglQuerySupportedCompressionRatesEXT")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* EGL_EXT_surface_compression */
 
 #ifdef EGL_EXT_swap_buffers_with_damage
 
@@ -21011,6 +21027,10 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_EXT_surface_SMPTE2086_metadata
   EGLEW_EXT_surface_SMPTE2086_metadata = _glewSearchExtension("EGL_EXT_surface_SMPTE2086_metadata", extStart, extEnd);
 #endif /* EGL_EXT_surface_SMPTE2086_metadata */
+#ifdef EGL_EXT_surface_compression
+  EGLEW_EXT_surface_compression = _glewSearchExtension("EGL_EXT_surface_compression", extStart, extEnd);
+  if (glewExperimental || EGLEW_EXT_surface_compression) EGLEW_EXT_surface_compression = !_glewInit_EGL_EXT_surface_compression();
+#endif /* EGL_EXT_surface_compression */
 #ifdef EGL_EXT_swap_buffers_with_damage
   EGLEW_EXT_swap_buffers_with_damage = _glewSearchExtension("EGL_EXT_swap_buffers_with_damage", extStart, extEnd);
   if (glewExperimental || EGLEW_EXT_swap_buffers_with_damage) EGLEW_EXT_swap_buffers_with_damage = !_glewInit_EGL_EXT_swap_buffers_with_damage();
@@ -31713,6 +31733,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"surface_SMPTE2086_metadata", 26))
         {
           ret = EGLEW_EXT_surface_SMPTE2086_metadata;
+          continue;
+        }
+#endif
+#ifdef EGL_EXT_surface_compression
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"surface_compression", 19))
+        {
+          ret = EGLEW_EXT_surface_compression;
           continue;
         }
 #endif

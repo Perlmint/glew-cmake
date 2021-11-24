@@ -12509,6 +12509,17 @@ static void _glewInfo_EGL_EXT_surface_SMPTE2086_metadata (void)
 
 #endif /* EGL_EXT_surface_SMPTE2086_metadata */
 
+#ifdef EGL_EXT_surface_compression
+
+static void _glewInfo_EGL_EXT_surface_compression (void)
+{
+  GLboolean fi = glewPrintExt("EGL_EXT_surface_compression", EGLEW_EXT_surface_compression, eglewIsSupported("EGL_EXT_surface_compression"), eglewGetExtension("EGL_EXT_surface_compression"));
+
+  glewInfoFunc(fi, "eglQuerySupportedCompressionRatesEXT", eglQuerySupportedCompressionRatesEXT == NULL);
+}
+
+#endif /* EGL_EXT_surface_compression */
+
 #ifdef EGL_EXT_swap_buffers_with_damage
 
 static void _glewInfo_EGL_EXT_swap_buffers_with_damage (void)
@@ -18428,6 +18439,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_surface_SMPTE2086_metadata
   _glewInfo_EGL_EXT_surface_SMPTE2086_metadata();
 #endif /* EGL_EXT_surface_SMPTE2086_metadata */
+#ifdef EGL_EXT_surface_compression
+  _glewInfo_EGL_EXT_surface_compression();
+#endif /* EGL_EXT_surface_compression */
 #ifdef EGL_EXT_swap_buffers_with_damage
   _glewInfo_EGL_EXT_swap_buffers_with_damage();
 #endif /* EGL_EXT_swap_buffers_with_damage */
