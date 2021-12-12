@@ -65,6 +65,10 @@ source_update () {
   AFTER_COMMIT=`git rev-parse HEAD`
   if [ "$BEFORE_COMMIT" != "$AFTER_COMMIT" ]; then
     echo "Source Updated"
+    git checkout original_repo/${GIT_BRANCH_NAME} -- README.md
+    git mv -f README.md README_glew.md
+    git checkout $BEFORE_COMMIT -- README.md
+    git add -f README.md README_glew.md
     git commit --amend -m "Merge ${ORIGINAL_REPO_URL} into ${GIT_BRANCH_NAME} HEAD at $(TZ=GMT date)"
     git push ${PUSH_ARG} origin $GIT_BRANCH_NAME:$GIT_BRANCH_NAME
     PUSH_COUNT=$((PUSH_COUNT + 1))
@@ -118,7 +122,8 @@ import_tags () {
     do
       echo "Import $TAG"
       git checkout $TAG -- .
-      git checkout master -- CMakeLists.txt GeneratePkgConfig.cmake
+      git mv -f README.md README_glew.md
+      git checkout master -- CMakeLists.txt GeneratePkgConfig.cmake README.md
       cd "$WORKSPACE/auto"
       COMMIT_TIME=`git log -1 $TAG --format=%ct`
       echo "Patch perl scripts for new version"
