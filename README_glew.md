@@ -8,7 +8,6 @@ http://glew.sourceforge.net/
 
 https://github.com/nigels-com/glew
 
-[![Build Status](https://travis-ci.org/nigels-com/glew.svg?branch=master)](https://travis-ci.org/nigels-com/glew)
 [![Gitter](https://badges.gitter.im/nigels-com/glew.svg)](https://gitter.im/nigels-com/glew?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Download](https://img.shields.io/sourceforge/dm/glew.svg)](https://sourceforge.net/projects/glew/files/latest/download)
 
@@ -52,7 +51,7 @@ Windows binaries for [32-bit and 64-bit](https://github.com/nigels-com/glew/rele
 
 Snapshots may contain new features, bug-fixes or new OpenGL extensions ahead of tested, official releases.
 
-<!--- [glew-20190928.tgz](https://sourceforge.net/projects/glew/files/glew/snapshots/glew-20190928.tgz/download) *GLEW 2.2.0 RC2: New extensions, bug fixes* -->
+[glew-20220402.tgz](https://sourceforge.net/projects/glew/files/glew/snapshots/glew-20220402.tgz/download) *GLEW 2.2.0 - with fix for glCreateProgressFenceNVX*
 
 ## Build
 
@@ -106,7 +105,7 @@ _Note: you may need to call `make` in the  **auto** folder first_
 
 #### Using cmake
 
-The cmake build is mostly contributer maintained.
+The cmake build is mostly contributor maintained.
 Due to the multitude of use cases this is maintained on a _best effort_ basis.
 Pull requests are welcome.
 

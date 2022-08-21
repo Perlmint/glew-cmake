@@ -51,7 +51,7 @@ endif()
 
 find_package (OpenGL REQUIRED)
 
-# cmake<3.10 doesnt detect EGL/GLX
+# cmake<3.10 doesn't detect EGL/GLX
 if (CMAKE_VERSION VERSION_LESS 3.10)
   find_library(OPENGL_egl_LIBRARY NAMES EGL)
   if (OPENGL_egl_LIBRARY)
@@ -69,7 +69,7 @@ endif ()
 # X11 required except for Windows and Apple OSX platforms
 if (GLEW_X11 AND NOT WIN32 AND NOT APPLE)
   find_package (X11)
-  list (APPEND GLEW_LIBRARIES ${X11_LIBRARIES})
+  list (APPEND GLEW_LIBRARIES ${OPENGL_glx_LIBRARY} ${X11_LIBRARIES})
 endif()
 
 if (WIN32)
@@ -120,7 +120,12 @@ endif ()
 
 include_directories (${GLEW_DIR}/include ${X11_INCLUDE_DIR})
 
-set (GLEW_PUBLIC_HEADERS_FILES ${GLEW_DIR}/include/GL/wglew.h ${GLEW_DIR}/include/GL/glew.h ${GLEW_DIR}/include/GL/glxew.h)
+set (GLEW_PUBLIC_HEADERS_FILES
+  ${GLEW_DIR}/include/GL/wglew.h
+  ${GLEW_DIR}/include/GL/glew.h
+  ${GLEW_DIR}/include/GL/glxew.h
+  ${GLEW_DIR}/include/GL/eglew.h
+)
 set (GLEW_SRC_FILES ${GLEW_DIR}/src/glew.c)
 
 if (WIN32)
@@ -176,7 +181,7 @@ if(CMAKE_VERSION VERSION_LESS 2.8.12)
 else()
   target_compile_definitions(glew_s INTERFACE "GLEW_STATIC")
   foreach(t glew glew_s)
-    target_include_directories(${t} PUBLIC $<INSTALL_INTERFACE:include>)
+    target_include_directories(${t} PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
   endforeach()
   set(MAYBE_EXPORT EXPORT glew-targets)
 endif()
@@ -257,10 +262,8 @@ if(WIN32 AND MSVC AND (NOT MSVC_VERSION LESS 1600) AND (NOT CMAKE_VERSION VERSIO
     )
 endif()
 
-install (FILES
-    ${GLEW_DIR}/include/GL/wglew.h
-    ${GLEW_DIR}/include/GL/glew.h
-    ${GLEW_DIR}/include/GL/glxew.h
+install (
+    FILES ${GLEW_PUBLIC_HEADERS_FILES}
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/GL)
 
 if(MAYBE_EXPORT)
