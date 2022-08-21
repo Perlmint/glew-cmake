@@ -13,7 +13,7 @@ absolute_path () {
   shift
   local OUT=$1
   shift
-  cd `dirname $TARGET_FILE`
+  pushd `dirname $TARGET_FILE`
   TARGET_FILE=`basename $TARGET_FILE`
 
   # Iterate down a (possible) chain of symlinks
@@ -29,6 +29,7 @@ absolute_path () {
   PHYS_DIR=`pwd -P`
   RESULT=$PHYS_DIR/$TARGET_FILE
   eval "$OUT=\"${RESULT}\""
+  popd
 }
 
 if [ -z "${WORKSPACE:-}" ]; then
@@ -65,7 +66,7 @@ source_update () {
   AFTER_COMMIT=`git rev-parse HEAD`
   if [ "$BEFORE_COMMIT" != "$AFTER_COMMIT" ]; then
     echo "Source Updated"
-    git checkout original_repo/${GIT_BRANCH_NAME} -- README.md
+    git checkout "original_repo/${GIT_BRANCH_NAME}" -- README.md
     git mv -f README.md README_glew.md
     git checkout $BEFORE_COMMIT -- README.md
     git add -f README.md README_glew.md
