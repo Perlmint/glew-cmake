@@ -142,11 +142,6 @@
 #    define APIENTRY
 #  endif
 #endif
-#ifndef GLAPI
-#  if defined(__MINGW32__) || defined(__CYGWIN__)
-#    define GLAPI extern
-#  endif
-#endif
 /* <winnt.h> */
 #ifndef CALLBACK
 #define GLEW_CALLBACK_DEFINED
@@ -2661,7 +2656,7 @@ typedef void (GLAPIENTRY *GLDEBUGPROCAMD)(GLuint id, GLenum category, GLenum sev
 typedef void (GLAPIENTRY * PFNGLDEBUGMESSAGECALLBACKAMDPROC) (GLDEBUGPROCAMD callback, void *userParam);
 typedef void (GLAPIENTRY * PFNGLDEBUGMESSAGEENABLEAMDPROC) (GLenum category, GLenum severity, GLsizei count, const GLuint* ids, GLboolean enabled);
 typedef void (GLAPIENTRY * PFNGLDEBUGMESSAGEINSERTAMDPROC) (GLenum category, GLenum severity, GLuint id, GLsizei length, const GLchar* buf);
-typedef GLuint (GLAPIENTRY * PFNGLGETDEBUGMESSAGELOGAMDPROC) (GLuint count, GLsizei bufsize, GLenum* categories, GLuint* severities, GLuint* ids, GLsizei* lengths, GLchar* message);
+typedef GLuint (GLAPIENTRY * PFNGLGETDEBUGMESSAGELOGAMDPROC) (GLuint count, GLsizei bufsize, GLenum* categories, GLenum* severities, GLuint* ids, GLsizei* lengths, GLchar* message);
 
 #define glDebugMessageCallbackAMD GLEW_GET_FUN(__glewDebugMessageCallbackAMD)
 #define glDebugMessageEnableAMD GLEW_GET_FUN(__glewDebugMessageEnableAMD)
@@ -6211,9 +6206,11 @@ typedef void (GLAPIENTRY * PFNGLREADNPIXELSARBPROC) (GLint x, GLint y, GLsizei w
 #define GL_FRAMEBUFFER_PROGRAMMABLE_SAMPLE_LOCATIONS_ARB 0x9342
 #define GL_FRAMEBUFFER_SAMPLE_LOCATION_PIXEL_GRID_ARB 0x9343
 
+typedef void (GLAPIENTRY * PFNGLEVALUATEDEPTHVALUESARBPROC) (void);
 typedef void (GLAPIENTRY * PFNGLFRAMEBUFFERSAMPLELOCATIONSFVARBPROC) (GLenum target, GLuint start, GLsizei count, const GLfloat* v);
 typedef void (GLAPIENTRY * PFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVARBPROC) (GLuint framebuffer, GLuint start, GLsizei count, const GLfloat* v);
 
+#define glEvaluateDepthValuesARB GLEW_GET_FUN(__glewEvaluateDepthValuesARB)
 #define glFramebufferSampleLocationsfvARB GLEW_GET_FUN(__glewFramebufferSampleLocationsfvARB)
 #define glNamedFramebufferSampleLocationsfvARB GLEW_GET_FUN(__glewNamedFramebufferSampleLocationsfvARB)
 
@@ -11812,10 +11809,12 @@ typedef void (GLAPIENTRY * PFNGLRASTERSAMPLESEXTPROC) (GLuint samples, GLboolean
 #define GL_NO_RESET_NOTIFICATION_EXT 0x8261
 #define GL_CONTEXT_ROBUST_ACCESS_EXT 0x90F3
 
+typedef GLenum (GLAPIENTRY * PFNGLGETGRAPHICSRESETSTATUSEXTPROC) (void);
 typedef void (GLAPIENTRY * PFNGLGETNUNIFORMFVEXTPROC) (GLuint program, GLint location, GLsizei bufSize, GLfloat* params);
 typedef void (GLAPIENTRY * PFNGLGETNUNIFORMIVEXTPROC) (GLuint program, GLint location, GLsizei bufSize, GLint* params);
 typedef void (GLAPIENTRY * PFNGLREADNPIXELSEXTPROC) (GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize, void *data);
 
+#define glGetGraphicsResetStatusEXT GLEW_GET_FUN(__glewGetGraphicsResetStatusEXT)
 #define glGetnUniformfvEXT GLEW_GET_FUN(__glewGetnUniformfvEXT)
 #define glGetnUniformivEXT GLEW_GET_FUN(__glewGetnUniformivEXT)
 #define glReadnPixelsEXT GLEW_GET_FUN(__glewReadnPixelsEXT)
@@ -11979,6 +11978,15 @@ typedef void (GLAPIENTRY * PFNGLIMPORTSEMAPHOREWIN32NAMEEXTPROC) (GLuint semapho
 #define GLEW_EXT_semaphore_win32 GLEW_GET_VAR(__GLEW_EXT_semaphore_win32)
 
 #endif /* GL_EXT_semaphore_win32 */
+
+/* --------------------- GL_EXT_separate_depth_stencil --------------------- */
+
+#ifndef GL_EXT_separate_depth_stencil
+#define GL_EXT_separate_depth_stencil 1
+
+#define GLEW_EXT_separate_depth_stencil GLEW_GET_VAR(__GLEW_EXT_separate_depth_stencil)
+
+#endif /* GL_EXT_separate_depth_stencil */
 
 /* --------------------- GL_EXT_separate_shader_objects -------------------- */
 
@@ -12196,6 +12204,15 @@ typedef GLsizei (GLAPIENTRY * PFNGLGETFRAMEBUFFERPIXELLOCALSTORAGESIZEEXTPROC) (
 #define GLEW_EXT_shader_pixel_local_storage2 GLEW_GET_VAR(__GLEW_EXT_shader_pixel_local_storage2)
 
 #endif /* GL_EXT_shader_pixel_local_storage2 */
+
+/* -------------------- GL_EXT_shader_samples_identical -------------------- */
+
+#ifndef GL_EXT_shader_samples_identical
+#define GL_EXT_shader_samples_identical 1
+
+#define GLEW_EXT_shader_samples_identical GLEW_GET_VAR(__GLEW_EXT_shader_samples_identical)
+
+#endif /* GL_EXT_shader_samples_identical */
 
 /* ----------------------- GL_EXT_shader_texture_lod ----------------------- */
 
@@ -14167,6 +14184,19 @@ typedef void (GLAPIENTRY * PFNGLRENDERBUFFERSTORAGEMULTISAMPLEIMGPROC) (GLenum t
 
 #endif /* GL_IMG_texture_filter_cubic */
 
+/* --------------------- GL_IMG_tile_region_protection --------------------- */
+
+#ifndef GL_IMG_tile_region_protection
+#define GL_IMG_tile_region_protection 1
+
+#define GL_TRP_IMG 0x8EA0
+#define GL_TRP_ERROR_CONTEXT_RESET_IMG 0x8EA1
+#define GL_TRP_UNSUPPORTED_CONTEXT_IMG 0x8EA2
+
+#define GLEW_IMG_tile_region_protection GLEW_GET_VAR(__GLEW_IMG_tile_region_protection)
+
+#endif /* GL_IMG_tile_region_protection */
+
 /* -------------------------- GL_INGR_color_clamp -------------------------- */
 
 #ifndef GL_INGR_color_clamp
@@ -14231,6 +14261,10 @@ typedef void (GLAPIENTRY * PFNGLRENDERBUFFERSTORAGEMULTISAMPLEIMGPROC) (GLenum t
 
 #ifndef GL_INTEL_framebuffer_CMAA
 #define GL_INTEL_framebuffer_CMAA 1
+
+typedef void (GLAPIENTRY * PFNGLAPPLYFRAMEBUFFERATTACHMENTCMAAINTELPROC) (void);
+
+#define glApplyFramebufferAttachmentCMAAINTEL GLEW_GET_FUN(__glewApplyFramebufferAttachmentCMAAINTEL)
 
 #define GLEW_INTEL_framebuffer_CMAA GLEW_GET_VAR(__GLEW_INTEL_framebuffer_CMAA)
 
@@ -15003,10 +15037,12 @@ typedef void (GLAPIENTRY * PFNGLLGPUNAMEDBUFFERSUBDATANVXPROC) (GLbitfield gpuMa
 #define GL_NVX_progress_fence 1
 
 typedef void (GLAPIENTRY * PFNGLCLIENTWAITSEMAPHOREUI64NVXPROC) (GLsizei fenceObjectCount, const GLuint* semaphoreArray, const GLuint64 *fenceValueArray);
+typedef GLuint (GLAPIENTRY * PFNGLCREATEPROGRESSFENCENVXPROC) (void);
 typedef void (GLAPIENTRY * PFNGLSIGNALSEMAPHOREUI64NVXPROC) (GLuint signalGpu, GLsizei fenceObjectCount, const GLuint* semaphoreArray, const GLuint64 *fenceValueArray);
 typedef void (GLAPIENTRY * PFNGLWAITSEMAPHOREUI64NVXPROC) (GLuint waitGpu, GLsizei fenceObjectCount, const GLuint* semaphoreArray, const GLuint64 *fenceValueArray);
 
 #define glClientWaitSemaphoreui64NVX GLEW_GET_FUN(__glewClientWaitSemaphoreui64NVX)
+#define glCreateProgressFenceNVX GLEW_GET_FUN(__glewCreateProgressFenceNVX)
 #define glSignalSemaphoreui64NVX GLEW_GET_FUN(__glewSignalSemaphoreui64NVX)
 #define glWaitSemaphoreui64NVX GLEW_GET_FUN(__glewWaitSemaphoreui64NVX)
 
@@ -19303,10 +19339,12 @@ typedef GLboolean (GLAPIENTRY * PFNGLUNMAPBUFFEROESPROC) (GLenum target);
 #define GL_MATRIX_INDEX_ARRAY_BUFFER_BINDING_OES 0x8B9E
 
 typedef void (GLAPIENTRY * PFNGLCURRENTPALETTEMATRIXOESPROC) (GLuint index);
+typedef void (GLAPIENTRY * PFNGLLOADPALETTEFROMMODELVIEWMATRIXOESPROC) (void);
 typedef void (GLAPIENTRY * PFNGLMATRIXINDEXPOINTEROESPROC) (GLint size, GLenum type, GLsizei stride, void *pointer);
 typedef void (GLAPIENTRY * PFNGLWEIGHTPOINTEROESPROC) (GLint size, GLenum type, GLsizei stride, void *pointer);
 
 #define glCurrentPaletteMatrixOES GLEW_GET_FUN(__glewCurrentPaletteMatrixOES)
+#define glLoadPaletteFromModelViewMatrixOES GLEW_GET_FUN(__glewLoadPaletteFromModelViewMatrixOES)
 #define glMatrixIndexPointerOES GLEW_GET_FUN(__glewMatrixIndexPointerOES)
 #define glWeightPointerOES GLEW_GET_FUN(__glewWeightPointerOES)
 
@@ -23348,6 +23386,7 @@ GLEW_FUN_EXPORT PFNGLGETNUNIFORMIVARBPROC __glewGetnUniformivARB;
 GLEW_FUN_EXPORT PFNGLGETNUNIFORMUIVARBPROC __glewGetnUniformuivARB;
 GLEW_FUN_EXPORT PFNGLREADNPIXELSARBPROC __glewReadnPixelsARB;
 
+GLEW_FUN_EXPORT PFNGLEVALUATEDEPTHVALUESARBPROC __glewEvaluateDepthValuesARB;
 GLEW_FUN_EXPORT PFNGLFRAMEBUFFERSAMPLELOCATIONSFVARBPROC __glewFramebufferSampleLocationsfvARB;
 GLEW_FUN_EXPORT PFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVARBPROC __glewNamedFramebufferSampleLocationsfvARB;
 
@@ -24375,6 +24414,7 @@ GLEW_FUN_EXPORT PFNGLCOVERAGEMODULATIONTABLENVPROC __glewCoverageModulationTable
 GLEW_FUN_EXPORT PFNGLGETCOVERAGEMODULATIONTABLENVPROC __glewGetCoverageModulationTableNV;
 GLEW_FUN_EXPORT PFNGLRASTERSAMPLESEXTPROC __glewRasterSamplesEXT;
 
+GLEW_FUN_EXPORT PFNGLGETGRAPHICSRESETSTATUSEXTPROC __glewGetGraphicsResetStatusEXT;
 GLEW_FUN_EXPORT PFNGLGETNUNIFORMFVEXTPROC __glewGetnUniformfvEXT;
 GLEW_FUN_EXPORT PFNGLGETNUNIFORMIVEXTPROC __glewGetnUniformivEXT;
 GLEW_FUN_EXPORT PFNGLREADNPIXELSEXTPROC __glewReadnPixelsEXT;
@@ -24602,6 +24642,8 @@ GLEW_FUN_EXPORT PFNGLFRAMEBUFFERTEXTURELAYERDOWNSAMPLEIMGPROC __glewFramebufferT
 GLEW_FUN_EXPORT PFNGLFRAMEBUFFERTEXTURE2DMULTISAMPLEIMGPROC __glewFramebufferTexture2DMultisampleIMG;
 GLEW_FUN_EXPORT PFNGLRENDERBUFFERSTORAGEMULTISAMPLEIMGPROC __glewRenderbufferStorageMultisampleIMG;
 
+GLEW_FUN_EXPORT PFNGLAPPLYFRAMEBUFFERATTACHMENTCMAAINTELPROC __glewApplyFramebufferAttachmentCMAAINTEL;
+
 GLEW_FUN_EXPORT PFNGLMAPTEXTURE2DINTELPROC __glewMapTexture2DINTEL;
 GLEW_FUN_EXPORT PFNGLSYNCTEXTUREINTELPROC __glewSyncTextureINTEL;
 GLEW_FUN_EXPORT PFNGLUNMAPTEXTURE2DINTELPROC __glewUnmapTexture2DINTEL;
@@ -24696,6 +24738,7 @@ GLEW_FUN_EXPORT PFNGLLGPUINTERLOCKNVXPROC __glewLGPUInterlockNVX;
 GLEW_FUN_EXPORT PFNGLLGPUNAMEDBUFFERSUBDATANVXPROC __glewLGPUNamedBufferSubDataNVX;
 
 GLEW_FUN_EXPORT PFNGLCLIENTWAITSEMAPHOREUI64NVXPROC __glewClientWaitSemaphoreui64NVX;
+GLEW_FUN_EXPORT PFNGLCREATEPROGRESSFENCENVXPROC __glewCreateProgressFenceNVX;
 GLEW_FUN_EXPORT PFNGLSIGNALSEMAPHOREUI64NVXPROC __glewSignalSemaphoreui64NVX;
 GLEW_FUN_EXPORT PFNGLWAITSEMAPHOREUI64NVXPROC __glewWaitSemaphoreui64NVX;
 
@@ -25321,6 +25364,7 @@ GLEW_FUN_EXPORT PFNGLMAPBUFFEROESPROC __glewMapBufferOES;
 GLEW_FUN_EXPORT PFNGLUNMAPBUFFEROESPROC __glewUnmapBufferOES;
 
 GLEW_FUN_EXPORT PFNGLCURRENTPALETTEMATRIXOESPROC __glewCurrentPaletteMatrixOES;
+GLEW_FUN_EXPORT PFNGLLOADPALETTEFROMMODELVIEWMATRIXOESPROC __glewLoadPaletteFromModelViewMatrixOES;
 GLEW_FUN_EXPORT PFNGLMATRIXINDEXPOINTEROESPROC __glewMatrixIndexPointerOES;
 GLEW_FUN_EXPORT PFNGLWEIGHTPOINTEROESPROC __glewWeightPointerOES;
 
@@ -26075,6 +26119,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_EXT_secondary_color;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_semaphore;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_semaphore_fd;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_semaphore_win32;
+GLEW_VAR_EXPORT GLboolean __GLEW_EXT_separate_depth_stencil;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_separate_shader_objects;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_separate_specular_color;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shader_framebuffer_fetch;
@@ -26088,6 +26133,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shader_io_blocks;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shader_non_constant_global_initializers;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shader_pixel_local_storage;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shader_pixel_local_storage2;
+GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shader_samples_identical;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shader_texture_lod;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shadow_funcs;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shadow_samplers;
@@ -26183,6 +26229,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_IMG_texture_compression_pvrtc;
 GLEW_VAR_EXPORT GLboolean __GLEW_IMG_texture_compression_pvrtc2;
 GLEW_VAR_EXPORT GLboolean __GLEW_IMG_texture_env_enhanced_fixed_function;
 GLEW_VAR_EXPORT GLboolean __GLEW_IMG_texture_filter_cubic;
+GLEW_VAR_EXPORT GLboolean __GLEW_IMG_tile_region_protection;
 GLEW_VAR_EXPORT GLboolean __GLEW_INGR_color_clamp;
 GLEW_VAR_EXPORT GLboolean __GLEW_INGR_interlace_read;
 GLEW_VAR_EXPORT GLboolean __GLEW_INTEL_blackhole_render;

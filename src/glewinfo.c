@@ -2648,6 +2648,7 @@ static void _glewInfo_GL_ARB_sample_locations (void)
 {
   GLboolean fi = glewPrintExt("GL_ARB_sample_locations", GLEW_ARB_sample_locations, glewIsSupported("GL_ARB_sample_locations"), glewGetExtension("GL_ARB_sample_locations"));
 
+  glewInfoFunc(fi, "glEvaluateDepthValuesARB", glEvaluateDepthValuesARB == NULL);
   glewInfoFunc(fi, "glFramebufferSampleLocationsfvARB", glFramebufferSampleLocationsfvARB == NULL);
   glewInfoFunc(fi, "glNamedFramebufferSampleLocationsfvARB", glNamedFramebufferSampleLocationsfvARB == NULL);
 }
@@ -5709,6 +5710,7 @@ static void _glewInfo_GL_EXT_robustness (void)
 {
   GLboolean fi = glewPrintExt("GL_EXT_robustness", GLEW_EXT_robustness, glewIsSupported("GL_EXT_robustness"), glewGetExtension("GL_EXT_robustness"));
 
+  glewInfoFunc(fi, "glGetGraphicsResetStatusEXT", glGetGraphicsResetStatusEXT == NULL);
   glewInfoFunc(fi, "glGetnUniformfvEXT", glGetnUniformfvEXT == NULL);
   glewInfoFunc(fi, "glGetnUniformivEXT", glGetnUniformivEXT == NULL);
   glewInfoFunc(fi, "glReadnPixelsEXT", glReadnPixelsEXT == NULL);
@@ -5812,6 +5814,15 @@ static void _glewInfo_GL_EXT_semaphore_win32 (void)
 }
 
 #endif /* GL_EXT_semaphore_win32 */
+
+#ifdef GL_EXT_separate_depth_stencil
+
+static void _glewInfo_GL_EXT_separate_depth_stencil (void)
+{
+  glewPrintExt("GL_EXT_separate_depth_stencil", GLEW_EXT_separate_depth_stencil, glewIsSupported("GL_EXT_separate_depth_stencil"), glewGetExtension("GL_EXT_separate_depth_stencil"));
+}
+
+#endif /* GL_EXT_separate_depth_stencil */
 
 #ifdef GL_EXT_separate_shader_objects
 
@@ -5942,6 +5953,15 @@ static void _glewInfo_GL_EXT_shader_pixel_local_storage2 (void)
 }
 
 #endif /* GL_EXT_shader_pixel_local_storage2 */
+
+#ifdef GL_EXT_shader_samples_identical
+
+static void _glewInfo_GL_EXT_shader_samples_identical (void)
+{
+  glewPrintExt("GL_EXT_shader_samples_identical", GLEW_EXT_shader_samples_identical, glewIsSupported("GL_EXT_shader_samples_identical"), glewGetExtension("GL_EXT_shader_samples_identical"));
+}
+
+#endif /* GL_EXT_shader_samples_identical */
 
 #ifdef GL_EXT_shader_texture_lod
 
@@ -6974,6 +6994,15 @@ static void _glewInfo_GL_IMG_texture_filter_cubic (void)
 
 #endif /* GL_IMG_texture_filter_cubic */
 
+#ifdef GL_IMG_tile_region_protection
+
+static void _glewInfo_GL_IMG_tile_region_protection (void)
+{
+  glewPrintExt("GL_IMG_tile_region_protection", GLEW_IMG_tile_region_protection, glewIsSupported("GL_IMG_tile_region_protection"), glewGetExtension("GL_IMG_tile_region_protection"));
+}
+
+#endif /* GL_IMG_tile_region_protection */
+
 #ifdef GL_INGR_color_clamp
 
 static void _glewInfo_GL_INGR_color_clamp (void)
@@ -7023,7 +7052,9 @@ static void _glewInfo_GL_INTEL_fragment_shader_ordering (void)
 
 static void _glewInfo_GL_INTEL_framebuffer_CMAA (void)
 {
-  glewPrintExt("GL_INTEL_framebuffer_CMAA", GLEW_INTEL_framebuffer_CMAA, glewIsSupported("GL_INTEL_framebuffer_CMAA"), glewGetExtension("GL_INTEL_framebuffer_CMAA"));
+  GLboolean fi = glewPrintExt("GL_INTEL_framebuffer_CMAA", GLEW_INTEL_framebuffer_CMAA, glewIsSupported("GL_INTEL_framebuffer_CMAA"), glewGetExtension("GL_INTEL_framebuffer_CMAA"));
+
+  glewInfoFunc(fi, "glApplyFramebufferAttachmentCMAAINTEL", glApplyFramebufferAttachmentCMAAINTEL == NULL);
 }
 
 #endif /* GL_INTEL_framebuffer_CMAA */
@@ -7443,6 +7474,7 @@ static void _glewInfo_GL_NVX_progress_fence (void)
   GLboolean fi = glewPrintExt("GL_NVX_progress_fence", GLEW_NVX_progress_fence, glewIsSupported("GL_NVX_progress_fence"), glewGetExtension("GL_NVX_progress_fence"));
 
   glewInfoFunc(fi, "glClientWaitSemaphoreui64NVX", glClientWaitSemaphoreui64NVX == NULL);
+  glewInfoFunc(fi, "glCreateProgressFenceNVX", glCreateProgressFenceNVX == NULL);
   glewInfoFunc(fi, "glSignalSemaphoreui64NVX", glSignalSemaphoreui64NVX == NULL);
   glewInfoFunc(fi, "glWaitSemaphoreui64NVX", glWaitSemaphoreui64NVX == NULL);
 }
@@ -9751,6 +9783,7 @@ static void _glewInfo_GL_OES_matrix_palette (void)
   GLboolean fi = glewPrintExt("GL_OES_matrix_palette", GLEW_OES_matrix_palette, glewIsSupported("GL_OES_matrix_palette"), glewGetExtension("GL_OES_matrix_palette"));
 
   glewInfoFunc(fi, "glCurrentPaletteMatrixOES", glCurrentPaletteMatrixOES == NULL);
+  glewInfoFunc(fi, "glLoadPaletteFromModelViewMatrixOES", glLoadPaletteFromModelViewMatrixOES == NULL);
   glewInfoFunc(fi, "glMatrixIndexPointerOES", glMatrixIndexPointerOES == NULL);
   glewInfoFunc(fi, "glWeightPointerOES", glWeightPointerOES == NULL);
 }
@@ -12247,6 +12280,15 @@ static void _glewInfo_EGL_EXT_device_query_name (void)
 }
 
 #endif /* EGL_EXT_device_query_name */
+
+#ifdef EGL_EXT_explicit_device
+
+static void _glewInfo_EGL_EXT_explicit_device (void)
+{
+  glewPrintExt("EGL_EXT_explicit_device", EGLEW_EXT_explicit_device, eglewIsSupported("EGL_EXT_explicit_device"), eglewGetExtension("EGL_EXT_explicit_device"));
+}
+
+#endif /* EGL_EXT_explicit_device */
 
 #ifdef EGL_EXT_gl_colorspace_bt2020_linear
 
@@ -16241,6 +16283,9 @@ static void glewInfo (void)
 #ifdef GL_EXT_semaphore_win32
   _glewInfo_GL_EXT_semaphore_win32();
 #endif /* GL_EXT_semaphore_win32 */
+#ifdef GL_EXT_separate_depth_stencil
+  _glewInfo_GL_EXT_separate_depth_stencil();
+#endif /* GL_EXT_separate_depth_stencil */
 #ifdef GL_EXT_separate_shader_objects
   _glewInfo_GL_EXT_separate_shader_objects();
 #endif /* GL_EXT_separate_shader_objects */
@@ -16280,6 +16325,9 @@ static void glewInfo (void)
 #ifdef GL_EXT_shader_pixel_local_storage2
   _glewInfo_GL_EXT_shader_pixel_local_storage2();
 #endif /* GL_EXT_shader_pixel_local_storage2 */
+#ifdef GL_EXT_shader_samples_identical
+  _glewInfo_GL_EXT_shader_samples_identical();
+#endif /* GL_EXT_shader_samples_identical */
 #ifdef GL_EXT_shader_texture_lod
   _glewInfo_GL_EXT_shader_texture_lod();
 #endif /* GL_EXT_shader_texture_lod */
@@ -16565,6 +16613,9 @@ static void glewInfo (void)
 #ifdef GL_IMG_texture_filter_cubic
   _glewInfo_GL_IMG_texture_filter_cubic();
 #endif /* GL_IMG_texture_filter_cubic */
+#ifdef GL_IMG_tile_region_protection
+  _glewInfo_GL_IMG_tile_region_protection();
+#endif /* GL_IMG_tile_region_protection */
 #ifdef GL_INGR_color_clamp
   _glewInfo_GL_INGR_color_clamp();
 #endif /* GL_INGR_color_clamp */
@@ -18358,6 +18409,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_device_query_name
   _glewInfo_EGL_EXT_device_query_name();
 #endif /* EGL_EXT_device_query_name */
+#ifdef EGL_EXT_explicit_device
+  _glewInfo_EGL_EXT_explicit_device();
+#endif /* EGL_EXT_explicit_device */
 #ifdef EGL_EXT_gl_colorspace_bt2020_linear
   _glewInfo_EGL_EXT_gl_colorspace_bt2020_linear();
 #endif /* EGL_EXT_gl_colorspace_bt2020_linear */
