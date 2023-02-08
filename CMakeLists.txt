@@ -28,6 +28,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
 include("GeneratePkgConfig.cmake")
 
+if (POLICY CMP0077)
+	cmake_policy(SET CMP0077 NEW)
+endif()
+
 option(glew-cmake_BUILD_SHARED "Build the shared glew library" ON)
 option(glew-cmake_BUILD_STATIC "Build the static glew library" ON)
 option(USE_GLU "Use GLU" OFF)
