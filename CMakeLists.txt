@@ -63,17 +63,21 @@ endif()
 
 if(POLICY CMP0072)
 	set(OpenGL_GL_PREFERENCE GLVND)
-	if(NOT (WIN32 OR APPLE))
-		set(USE_GLVND YES)
-	else()
-		# GLVND is not supported
-		set(USE_GLVND NO)
-	endif()
-else()
-	set(USE_GLVND NO)
 endif()
 
-find_package(OpenGL REQUIRED)
+if(NOT (WIN32 OR APPLE))
+	message("Try to find OpenGL with GLVND")
+	find_package(OpenGL REQUIRED
+		COMPONENTS OpenGL GLX)
+endif()
+
+if(OPENGL_FOUND AND OpenGL_GLX_FOUND AND TARGET OpenGL::OpenGL)
+	set(USE_GLVND YES)
+else()
+	message("GLVND not supported. Try find OpenGL legacy")
+	find_package(OpenGL REQUIRED)
+	set(USE_GLVND NO)
+endif()
 
 set(pc_requires)
 
