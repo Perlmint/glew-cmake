@@ -10628,6 +10628,21 @@ typedef void (GLAPIENTRY * PFNGLBLITFRAMEBUFFEREXTPROC) (GLint srcX0, GLint srcY
 
 #endif /* GL_EXT_framebuffer_blit */
 
+/* --------------------- GL_EXT_framebuffer_blit_layers -------------------- */
+
+#ifndef GL_EXT_framebuffer_blit_layers
+#define GL_EXT_framebuffer_blit_layers 1
+
+typedef void (GLAPIENTRY * PFNGLBLITFRAMEBUFFERLAYEREXTPROC) (GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint srcLayer, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLint dstLayer, GLbitfield mask, GLenum filter);
+typedef void (GLAPIENTRY * PFNGLBLITFRAMEBUFFERLAYERSEXTPROC) (GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter);
+
+#define glBlitFramebufferLayerEXT GLEW_GET_FUN(__glewBlitFramebufferLayerEXT)
+#define glBlitFramebufferLayersEXT GLEW_GET_FUN(__glewBlitFramebufferLayersEXT)
+
+#define GLEW_EXT_framebuffer_blit_layers GLEW_GET_VAR(__GLEW_EXT_framebuffer_blit_layers)
+
+#endif /* GL_EXT_framebuffer_blit_layers */
+
 /* --------------------- GL_EXT_framebuffer_multisample -------------------- */
 
 #ifndef GL_EXT_framebuffer_multisample
@@ -24260,6 +24275,9 @@ GLEW_FUN_EXPORT PFNGLLIGHTENVIEXTPROC __glewLightEnviEXT;
 
 GLEW_FUN_EXPORT PFNGLBLITFRAMEBUFFEREXTPROC __glewBlitFramebufferEXT;
 
+GLEW_FUN_EXPORT PFNGLBLITFRAMEBUFFERLAYEREXTPROC __glewBlitFramebufferLayerEXT;
+GLEW_FUN_EXPORT PFNGLBLITFRAMEBUFFERLAYERSEXTPROC __glewBlitFramebufferLayersEXT;
+
 GLEW_FUN_EXPORT PFNGLRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC __glewRenderbufferStorageMultisampleEXT;
 
 GLEW_FUN_EXPORT PFNGLBINDFRAMEBUFFEREXTPROC __glewBindFramebufferEXT;
@@ -26058,6 +26076,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_EXT_fog_coord;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_frag_depth;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_fragment_lighting;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_framebuffer_blit;
+GLEW_VAR_EXPORT GLboolean __GLEW_EXT_framebuffer_blit_layers;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_framebuffer_multisample;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_framebuffer_multisample_blit_scaled;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_framebuffer_object;

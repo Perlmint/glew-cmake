@@ -2435,6 +2435,17 @@ typedef EGLBoolean ( * PFNEGLSTREAMRELEASEIMAGENVPROC) (EGLDisplay dpy, EGLStrea
 
 #endif /* EGL_NV_stream_consumer_eglimage */
 
+/* ----------- EGL_NV_stream_consumer_eglimage_use_scanout_attrib ---------- */
+
+#ifndef EGL_NV_stream_consumer_eglimage_use_scanout_attrib
+#define EGL_NV_stream_consumer_eglimage_use_scanout_attrib 1
+
+#define EGL_STREAM_CONSUMER_IMAGE_USE_SCANOUT_NV 0x3378
+
+#define EGLEW_NV_stream_consumer_eglimage_use_scanout_attrib EGLEW_GET_VAR(__EGLEW_NV_stream_consumer_eglimage_use_scanout_attrib)
+
+#endif /* EGL_NV_stream_consumer_eglimage_use_scanout_attrib */
+
 /* ------------------ EGL_NV_stream_consumer_gltexture_yuv ----------------- */
 
 #ifndef EGL_NV_stream_consumer_gltexture_yuv
@@ -3187,6 +3198,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_post_sub_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_quadruple_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_robustness_video_memory_purge;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_consumer_eglimage;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_consumer_eglimage_use_scanout_attrib;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_consumer_gltexture_yuv;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_cross_display;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_cross_object;

@@ -5073,6 +5073,18 @@ static void _glewInfo_GL_EXT_framebuffer_blit (void)
 
 #endif /* GL_EXT_framebuffer_blit */
 
+#ifdef GL_EXT_framebuffer_blit_layers
+
+static void _glewInfo_GL_EXT_framebuffer_blit_layers (void)
+{
+  GLboolean fi = glewPrintExt("GL_EXT_framebuffer_blit_layers", GLEW_EXT_framebuffer_blit_layers, glewIsSupported("GL_EXT_framebuffer_blit_layers"), glewGetExtension("GL_EXT_framebuffer_blit_layers"));
+
+  glewInfoFunc(fi, "glBlitFramebufferLayerEXT", glBlitFramebufferLayerEXT == NULL);
+  glewInfoFunc(fi, "glBlitFramebufferLayersEXT", glBlitFramebufferLayersEXT == NULL);
+}
+
+#endif /* GL_EXT_framebuffer_blit_layers */
+
 #ifdef GL_EXT_framebuffer_multisample
 
 static void _glewInfo_GL_EXT_framebuffer_multisample (void)
@@ -13264,6 +13276,15 @@ static void _glewInfo_EGL_NV_stream_consumer_eglimage (void)
 
 #endif /* EGL_NV_stream_consumer_eglimage */
 
+#ifdef EGL_NV_stream_consumer_eglimage_use_scanout_attrib
+
+static void _glewInfo_EGL_NV_stream_consumer_eglimage_use_scanout_attrib (void)
+{
+  glewPrintExt("EGL_NV_stream_consumer_eglimage_use_scanout_attrib", EGLEW_NV_stream_consumer_eglimage_use_scanout_attrib, eglewIsSupported("EGL_NV_stream_consumer_eglimage_use_scanout_attrib"), eglewGetExtension("EGL_NV_stream_consumer_eglimage_use_scanout_attrib"));
+}
+
+#endif /* EGL_NV_stream_consumer_eglimage_use_scanout_attrib */
+
 #ifdef EGL_NV_stream_consumer_gltexture_yuv
 
 static void _glewInfo_EGL_NV_stream_consumer_gltexture_yuv (void)
@@ -16100,6 +16121,9 @@ static void glewInfo (void)
 #ifdef GL_EXT_framebuffer_blit
   _glewInfo_GL_EXT_framebuffer_blit();
 #endif /* GL_EXT_framebuffer_blit */
+#ifdef GL_EXT_framebuffer_blit_layers
+  _glewInfo_GL_EXT_framebuffer_blit_layers();
+#endif /* GL_EXT_framebuffer_blit_layers */
 #ifdef GL_EXT_framebuffer_multisample
   _glewInfo_GL_EXT_framebuffer_multisample();
 #endif /* GL_EXT_framebuffer_multisample */
@@ -18703,6 +18727,9 @@ static void eglewInfo ()
 #ifdef EGL_NV_stream_consumer_eglimage
   _glewInfo_EGL_NV_stream_consumer_eglimage();
 #endif /* EGL_NV_stream_consumer_eglimage */
+#ifdef EGL_NV_stream_consumer_eglimage_use_scanout_attrib
+  _glewInfo_EGL_NV_stream_consumer_eglimage_use_scanout_attrib();
+#endif /* EGL_NV_stream_consumer_eglimage_use_scanout_attrib */
 #ifdef EGL_NV_stream_consumer_gltexture_yuv
   _glewInfo_EGL_NV_stream_consumer_gltexture_yuv();
 #endif /* EGL_NV_stream_consumer_gltexture_yuv */
