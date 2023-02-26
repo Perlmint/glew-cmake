@@ -159,8 +159,8 @@ else()
 endif()
 
 execute_process(
-	COMMAND ${CMAKE_COMMAND} -E touch test_fs_support_case_sensitivity
-	COMMAND ${CMAKE_COMMAND} -E touch test_fs_support_CASE_sensitivity)
+  COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_BINARY_DIR}/test_fs_support_case_sensitivity
+	COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_BINARY_DIR}/test_fs_support_CASE_sensitivity)
 file(GLOB TEST_FILE_LIST ${CMAKE_BINARY_DIR}/test_fs_support_*_sensitivity)
 list(LENGTH TEST_FILE_LIST TEST_FILE_COUNT)
 if(TEST_FILE_COUNT EQUAL 2)
