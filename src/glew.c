@@ -102,7 +102,7 @@ void* dlGetProcAddress (const GLubyte* name)
 #include <string.h>
 #include <AvailabilityMacros.h>
 
-#ifdef MAC_OS_X_VERSION_10_3
+#if defined(MAC_OS_X_VERSION_10_3) && MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_3
 
 #include <dlfcn.h>
 
@@ -152,7 +152,7 @@ void* NSGLGetProcAddress (const GLubyte *name)
   return NULL;
 #endif
 }
-#endif /* MAC_OS_X_VERSION_10_3 */
+#endif /* defined(MAC_OS_X_VERSION_10_3) && MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_3 */
 #endif /* __APPLE__ */
 
 /*
