@@ -4021,6 +4021,7 @@ GLboolean __GLEW_IMG_bindless_texture = GL_FALSE;
 GLboolean __GLEW_IMG_framebuffer_downsample = GL_FALSE;
 GLboolean __GLEW_IMG_multisampled_render_to_texture = GL_FALSE;
 GLboolean __GLEW_IMG_program_binary = GL_FALSE;
+GLboolean __GLEW_IMG_pvric_end_to_end_signature = GL_FALSE;
 GLboolean __GLEW_IMG_read_format = GL_FALSE;
 GLboolean __GLEW_IMG_shader_binary = GL_FALSE;
 GLboolean __GLEW_IMG_texture_compression_pvrtc = GL_FALSE;
@@ -5963,6 +5964,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_IMG_program_binary
   "GL_IMG_program_binary",
 #endif
+#ifdef GL_IMG_pvric_end_to_end_signature
+  "GL_IMG_pvric_end_to_end_signature",
+#endif
 #ifdef GL_IMG_read_format
   "GL_IMG_read_format",
 #endif
@@ -7297,7 +7301,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[948];
+static GLboolean  _glewExtensionString[949];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8814,6 +8818,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_IMG_program_binary
   &__GLEW_IMG_program_binary,
+#endif
+#ifdef GL_IMG_pvric_end_to_end_signature
+  &__GLEW_IMG_pvric_end_to_end_signature,
 #endif
 #ifdef GL_IMG_read_format
   &__GLEW_IMG_read_format,
@@ -27266,6 +27273,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"program_binary", 14))
         {
           ret = GLEW_IMG_program_binary;
+          continue;
+        }
+#endif
+#ifdef GL_IMG_pvric_end_to_end_signature
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"pvric_end_to_end_signature", 26))
+        {
+          ret = GLEW_IMG_pvric_end_to_end_signature;
           continue;
         }
 #endif

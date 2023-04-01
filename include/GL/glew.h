@@ -14120,6 +14120,17 @@ typedef void (GLAPIENTRY * PFNGLRENDERBUFFERSTORAGEMULTISAMPLEIMGPROC) (GLenum t
 
 #endif /* GL_IMG_program_binary */
 
+/* ------------------- GL_IMG_pvric_end_to_end_signature ------------------- */
+
+#ifndef GL_IMG_pvric_end_to_end_signature
+#define GL_IMG_pvric_end_to_end_signature 1
+
+#define GL_PVRIC_SIGNATURE_MISMATCH_IMG 0x8EA3
+
+#define GLEW_IMG_pvric_end_to_end_signature GLEW_GET_VAR(__GLEW_IMG_pvric_end_to_end_signature)
+
+#endif /* GL_IMG_pvric_end_to_end_signature */
+
 /* --------------------------- GL_IMG_read_format -------------------------- */
 
 #ifndef GL_IMG_read_format
@@ -26242,6 +26253,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_IMG_bindless_texture;
 GLEW_VAR_EXPORT GLboolean __GLEW_IMG_framebuffer_downsample;
 GLEW_VAR_EXPORT GLboolean __GLEW_IMG_multisampled_render_to_texture;
 GLEW_VAR_EXPORT GLboolean __GLEW_IMG_program_binary;
+GLEW_VAR_EXPORT GLboolean __GLEW_IMG_pvric_end_to_end_signature;
 GLEW_VAR_EXPORT GLboolean __GLEW_IMG_read_format;
 GLEW_VAR_EXPORT GLboolean __GLEW_IMG_shader_binary;
 GLEW_VAR_EXPORT GLboolean __GLEW_IMG_texture_compression_pvrtc;

@@ -6952,6 +6952,15 @@ static void _glewInfo_GL_IMG_program_binary (void)
 
 #endif /* GL_IMG_program_binary */
 
+#ifdef GL_IMG_pvric_end_to_end_signature
+
+static void _glewInfo_GL_IMG_pvric_end_to_end_signature (void)
+{
+  glewPrintExt("GL_IMG_pvric_end_to_end_signature", GLEW_IMG_pvric_end_to_end_signature, glewIsSupported("GL_IMG_pvric_end_to_end_signature"), glewGetExtension("GL_IMG_pvric_end_to_end_signature"));
+}
+
+#endif /* GL_IMG_pvric_end_to_end_signature */
+
 #ifdef GL_IMG_read_format
 
 static void _glewInfo_GL_IMG_read_format (void)
@@ -16619,6 +16628,9 @@ static void glewInfo (void)
 #ifdef GL_IMG_program_binary
   _glewInfo_GL_IMG_program_binary();
 #endif /* GL_IMG_program_binary */
+#ifdef GL_IMG_pvric_end_to_end_signature
+  _glewInfo_GL_IMG_pvric_end_to_end_signature();
+#endif /* GL_IMG_pvric_end_to_end_signature */
 #ifdef GL_IMG_read_format
   _glewInfo_GL_IMG_read_format();
 #endif /* GL_IMG_read_format */
