@@ -12311,6 +12311,15 @@ static void _glewInfo_EGL_EXT_explicit_device (void)
 
 #endif /* EGL_EXT_explicit_device */
 
+#ifdef EGL_EXT_gl_colorspace_bt2020_hlg
+
+static void _glewInfo_EGL_EXT_gl_colorspace_bt2020_hlg (void)
+{
+  glewPrintExt("EGL_EXT_gl_colorspace_bt2020_hlg", EGLEW_EXT_gl_colorspace_bt2020_hlg, eglewIsSupported("EGL_EXT_gl_colorspace_bt2020_hlg"), eglewGetExtension("EGL_EXT_gl_colorspace_bt2020_hlg"));
+}
+
+#endif /* EGL_EXT_gl_colorspace_bt2020_hlg */
+
 #ifdef EGL_EXT_gl_colorspace_bt2020_linear
 
 static void _glewInfo_EGL_EXT_gl_colorspace_bt2020_linear (void)
@@ -13513,6 +13522,15 @@ static void _glewInfo_EGL_NV_triple_buffer (void)
 }
 
 #endif /* EGL_NV_triple_buffer */
+
+#ifdef EGL_QNX_platform_screen
+
+static void _glewInfo_EGL_QNX_platform_screen (void)
+{
+  glewPrintExt("EGL_QNX_platform_screen", EGLEW_QNX_platform_screen, eglewIsSupported("EGL_QNX_platform_screen"), eglewGetExtension("EGL_QNX_platform_screen"));
+}
+
+#endif /* EGL_QNX_platform_screen */
 
 #ifdef EGL_TIZEN_image_native_buffer
 
@@ -18448,6 +18466,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_explicit_device
   _glewInfo_EGL_EXT_explicit_device();
 #endif /* EGL_EXT_explicit_device */
+#ifdef EGL_EXT_gl_colorspace_bt2020_hlg
+  _glewInfo_EGL_EXT_gl_colorspace_bt2020_hlg();
+#endif /* EGL_EXT_gl_colorspace_bt2020_hlg */
 #ifdef EGL_EXT_gl_colorspace_bt2020_linear
   _glewInfo_EGL_EXT_gl_colorspace_bt2020_linear();
 #endif /* EGL_EXT_gl_colorspace_bt2020_linear */
@@ -18808,6 +18829,9 @@ static void eglewInfo ()
 #ifdef EGL_NV_triple_buffer
   _glewInfo_EGL_NV_triple_buffer();
 #endif /* EGL_NV_triple_buffer */
+#ifdef EGL_QNX_platform_screen
+  _glewInfo_EGL_QNX_platform_screen();
+#endif /* EGL_QNX_platform_screen */
 #ifdef EGL_TIZEN_image_native_buffer
   _glewInfo_EGL_TIZEN_image_native_buffer();
 #endif /* EGL_TIZEN_image_native_buffer */

@@ -974,6 +974,17 @@ typedef EGLBoolean ( * PFNEGLQUERYDISPLAYATTRIBEXTPROC) (EGLDisplay dpy, EGLint 
 
 #endif /* EGL_EXT_explicit_device */
 
+/* -------------------- EGL_EXT_gl_colorspace_bt2020_hlg ------------------- */
+
+#ifndef EGL_EXT_gl_colorspace_bt2020_hlg
+#define EGL_EXT_gl_colorspace_bt2020_hlg 1
+
+#define EGL_GL_COLORSPACE_BT2020_HLG_EXT 0x3540
+
+#define EGLEW_EXT_gl_colorspace_bt2020_hlg EGLEW_GET_VAR(__EGLEW_EXT_gl_colorspace_bt2020_hlg)
+
+#endif /* EGL_EXT_gl_colorspace_bt2020_hlg */
+
 /* ------------------ EGL_EXT_gl_colorspace_bt2020_linear ------------------ */
 
 #ifndef EGL_EXT_gl_colorspace_bt2020_linear
@@ -2780,6 +2791,17 @@ typedef EGLuint64NV ( * PFNEGLGETSYSTEMTIMENVPROC) (void);
 
 #endif /* EGL_NV_triple_buffer */
 
+/* ------------------------ EGL_QNX_platform_screen ------------------------ */
+
+#ifndef EGL_QNX_platform_screen
+#define EGL_QNX_platform_screen 1
+
+#define EGL_PLATFORM_SCREEN_QNX 0x3550
+
+#define EGLEW_QNX_platform_screen EGLEW_GET_VAR(__EGLEW_QNX_platform_screen)
+
+#endif /* EGL_QNX_platform_screen */
+
 /* --------------------- EGL_TIZEN_image_native_buffer --------------------- */
 
 #ifndef EGL_TIZEN_image_native_buffer
@@ -3101,6 +3123,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_persistent_id;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_query;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_query_name;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_explicit_device;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_bt2020_hlg;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_bt2020_linear;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_bt2020_pq;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_display_p3;
@@ -3221,6 +3244,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_sync;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_sync;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_system_time;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_triple_buffer;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_QNX_platform_screen;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_TIZEN_image_native_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_TIZEN_image_native_surface;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_WL_bind_wayland_display;

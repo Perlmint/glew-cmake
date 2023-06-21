@@ -19861,6 +19861,7 @@ GLboolean __EGLEW_EXT_device_persistent_id = GL_FALSE;
 GLboolean __EGLEW_EXT_device_query = GL_FALSE;
 GLboolean __EGLEW_EXT_device_query_name = GL_FALSE;
 GLboolean __EGLEW_EXT_explicit_device = GL_FALSE;
+GLboolean __EGLEW_EXT_gl_colorspace_bt2020_hlg = GL_FALSE;
 GLboolean __EGLEW_EXT_gl_colorspace_bt2020_linear = GL_FALSE;
 GLboolean __EGLEW_EXT_gl_colorspace_bt2020_pq = GL_FALSE;
 GLboolean __EGLEW_EXT_gl_colorspace_display_p3 = GL_FALSE;
@@ -19981,6 +19982,7 @@ GLboolean __EGLEW_NV_stream_sync = GL_FALSE;
 GLboolean __EGLEW_NV_sync = GL_FALSE;
 GLboolean __EGLEW_NV_system_time = GL_FALSE;
 GLboolean __EGLEW_NV_triple_buffer = GL_FALSE;
+GLboolean __EGLEW_QNX_platform_screen = GL_FALSE;
 GLboolean __EGLEW_TIZEN_image_native_buffer = GL_FALSE;
 GLboolean __EGLEW_TIZEN_image_native_surface = GL_FALSE;
 GLboolean __EGLEW_WL_bind_wayland_display = GL_FALSE;
@@ -21030,6 +21032,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_EXT_explicit_device
   EGLEW_EXT_explicit_device = _glewSearchExtension("EGL_EXT_explicit_device", extStart, extEnd);
 #endif /* EGL_EXT_explicit_device */
+#ifdef EGL_EXT_gl_colorspace_bt2020_hlg
+  EGLEW_EXT_gl_colorspace_bt2020_hlg = _glewSearchExtension("EGL_EXT_gl_colorspace_bt2020_hlg", extStart, extEnd);
+#endif /* EGL_EXT_gl_colorspace_bt2020_hlg */
 #ifdef EGL_EXT_gl_colorspace_bt2020_linear
   EGLEW_EXT_gl_colorspace_bt2020_linear = _glewSearchExtension("EGL_EXT_gl_colorspace_bt2020_linear", extStart, extEnd);
 #endif /* EGL_EXT_gl_colorspace_bt2020_linear */
@@ -21429,6 +21434,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_NV_triple_buffer
   EGLEW_NV_triple_buffer = _glewSearchExtension("EGL_NV_triple_buffer", extStart, extEnd);
 #endif /* EGL_NV_triple_buffer */
+#ifdef EGL_QNX_platform_screen
+  EGLEW_QNX_platform_screen = _glewSearchExtension("EGL_QNX_platform_screen", extStart, extEnd);
+#endif /* EGL_QNX_platform_screen */
 #ifdef EGL_TIZEN_image_native_buffer
   EGLEW_TIZEN_image_native_buffer = _glewSearchExtension("EGL_TIZEN_image_native_buffer", extStart, extEnd);
 #endif /* EGL_TIZEN_image_native_buffer */
@@ -31680,6 +31688,13 @@ GLboolean eglewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef EGL_EXT_gl_colorspace_bt2020_hlg
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"gl_colorspace_bt2020_hlg", 24))
+        {
+          ret = EGLEW_EXT_gl_colorspace_bt2020_hlg;
+          continue;
+        }
+#endif
 #ifdef EGL_EXT_gl_colorspace_bt2020_linear
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"gl_colorspace_bt2020_linear", 27))
         {
@@ -32535,6 +32550,16 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"triple_buffer", 13))
         {
           ret = EGLEW_NV_triple_buffer;
+          continue;
+        }
+#endif
+      }
+      if (_glewStrSame2(&pos, &len, (const GLubyte*)"QNX_", 4))
+      {
+#ifdef EGL_QNX_platform_screen
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"platform_screen", 15))
+        {
+          ret = EGLEW_QNX_platform_screen;
           continue;
         }
 #endif
