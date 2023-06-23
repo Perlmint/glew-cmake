@@ -19982,6 +19982,7 @@ GLboolean __EGLEW_NV_stream_sync = GL_FALSE;
 GLboolean __EGLEW_NV_sync = GL_FALSE;
 GLboolean __EGLEW_NV_system_time = GL_FALSE;
 GLboolean __EGLEW_NV_triple_buffer = GL_FALSE;
+GLboolean __EGLEW_QNX_image_native_buffer = GL_FALSE;
 GLboolean __EGLEW_QNX_platform_screen = GL_FALSE;
 GLboolean __EGLEW_TIZEN_image_native_buffer = GL_FALSE;
 GLboolean __EGLEW_TIZEN_image_native_surface = GL_FALSE;
@@ -21434,6 +21435,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_NV_triple_buffer
   EGLEW_NV_triple_buffer = _glewSearchExtension("EGL_NV_triple_buffer", extStart, extEnd);
 #endif /* EGL_NV_triple_buffer */
+#ifdef EGL_QNX_image_native_buffer
+  EGLEW_QNX_image_native_buffer = _glewSearchExtension("EGL_QNX_image_native_buffer", extStart, extEnd);
+#endif /* EGL_QNX_image_native_buffer */
 #ifdef EGL_QNX_platform_screen
   EGLEW_QNX_platform_screen = _glewSearchExtension("EGL_QNX_platform_screen", extStart, extEnd);
 #endif /* EGL_QNX_platform_screen */
@@ -32556,6 +32560,13 @@ GLboolean eglewIsSupported (const char* name)
       }
       if (_glewStrSame2(&pos, &len, (const GLubyte*)"QNX_", 4))
       {
+#ifdef EGL_QNX_image_native_buffer
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"image_native_buffer", 19))
+        {
+          ret = EGLEW_QNX_image_native_buffer;
+          continue;
+        }
+#endif
 #ifdef EGL_QNX_platform_screen
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"platform_screen", 15))
         {

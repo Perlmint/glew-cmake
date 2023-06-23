@@ -2791,6 +2791,17 @@ typedef EGLuint64NV ( * PFNEGLGETSYSTEMTIMENVPROC) (void);
 
 #endif /* EGL_NV_triple_buffer */
 
+/* ---------------------- EGL_QNX_image_native_buffer ---------------------- */
+
+#ifndef EGL_QNX_image_native_buffer
+#define EGL_QNX_image_native_buffer 1
+
+#define EGL_NATIVE_BUFFER_QNX 0x3551
+
+#define EGLEW_QNX_image_native_buffer EGLEW_GET_VAR(__EGLEW_QNX_image_native_buffer)
+
+#endif /* EGL_QNX_image_native_buffer */
+
 /* ------------------------ EGL_QNX_platform_screen ------------------------ */
 
 #ifndef EGL_QNX_platform_screen
@@ -3244,6 +3255,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_stream_sync;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_sync;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_system_time;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_NV_triple_buffer;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_QNX_image_native_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_QNX_platform_screen;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_TIZEN_image_native_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_TIZEN_image_native_surface;

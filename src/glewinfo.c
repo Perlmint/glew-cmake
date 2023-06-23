@@ -13523,6 +13523,15 @@ static void _glewInfo_EGL_NV_triple_buffer (void)
 
 #endif /* EGL_NV_triple_buffer */
 
+#ifdef EGL_QNX_image_native_buffer
+
+static void _glewInfo_EGL_QNX_image_native_buffer (void)
+{
+  glewPrintExt("EGL_QNX_image_native_buffer", EGLEW_QNX_image_native_buffer, eglewIsSupported("EGL_QNX_image_native_buffer"), eglewGetExtension("EGL_QNX_image_native_buffer"));
+}
+
+#endif /* EGL_QNX_image_native_buffer */
+
 #ifdef EGL_QNX_platform_screen
 
 static void _glewInfo_EGL_QNX_platform_screen (void)
@@ -18829,6 +18838,9 @@ static void eglewInfo ()
 #ifdef EGL_NV_triple_buffer
   _glewInfo_EGL_NV_triple_buffer();
 #endif /* EGL_NV_triple_buffer */
+#ifdef EGL_QNX_image_native_buffer
+  _glewInfo_EGL_QNX_image_native_buffer();
+#endif /* EGL_QNX_image_native_buffer */
 #ifdef EGL_QNX_platform_screen
   _glewInfo_EGL_QNX_platform_screen();
 #endif /* EGL_QNX_platform_screen */
