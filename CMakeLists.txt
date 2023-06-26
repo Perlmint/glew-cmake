@@ -138,7 +138,7 @@ elseif(NOT WIN32)
 				list(APPEND LIBRARIES ${OPENGL_glx_LIBRARY})
 			endif()
 		endif()
-		
+
 		find_package(X11 REQUIRED)
 
 		list(APPEND pc_requires x11 xext)
@@ -177,6 +177,12 @@ function(set_representative_target TARGET)
 	# Windows & macOS use case-insensetive FS. do not create symbolic link
 	if(SUPPORT_CASE_SENSITIVE_FS)
 		get_target_property(TARGET_TYPE ${TARGET} TYPE)
+		string(TOLOWER "${CMAKE_BUILD_TYPE}" CMAKE_BUILD_TYPE_LOWER)
+		if(CMAKE_BUILD_TYPE_LOWER STREQUAL "debug" AND NOT ANDROID)
+			set(GLEW_DEBUG_SUFFIX "d")
+		else()
+			set(GLEW_DEBUG_SUFFIX "")
+		endif()
 		if(TARGET_TYPE STREQUAL STATIC_LIBRARY)
 			set(EXT ".a")
 			get_target_property(OUT_DIR ${TARGET} ARCHIVE_OUTPUT_DIRECTORY)
@@ -186,21 +192,21 @@ function(set_representative_target TARGET)
 		endif()
 		if(NOT ${CMAKE_VERSION} VERSION_LESS 3.0)
 			add_custom_command(TARGET ${TARGET} POST_BUILD
-					COMMAND ${CMAKE_COMMAND} ARGS -E create_symlink libglew${EXT} libGLEW${EXT}
+					COMMAND ${CMAKE_COMMAND} ARGS -E create_symlink libglew${GLEW_DEBUG_SUFFIX}${EXT} libGLEW${GLEW_DEBUG_SUFFIX}${EXT}
 					WORKING_DIRECTORY ${OUT_DIR}
-					BYPRODUCTS ${OUT_DIR}/libGLEW${EXT}
-					COMMENT "create libGLEW symbolic link")
+					BYPRODUCTS ${OUT_DIR}/libGLEW${GLEW_DEBUG_SUFFIX}${EXT}
+					COMMENT "create libGLEW${GLEW_DEBUG_SUFFIX} symbolic link")
 		else()
 			add_custom_command(TARGET ${TARGET} POST_BUILD
-					COMMAND bash ARGS -c "( test ! -e ${OUT_DIR}/libGLEW${EXT} && cd ${OUT_DIR} && ${CMAKE_COMMAND} -E create_symlink libglew${EXT} libGLEW${EXT} ) || true"
-					COMMENT "create libGLEW symbolic link"
+					COMMAND bash ARGS -c "( test ! -e ${OUT_DIR}/libGLEW${GLEW_DEBUG_SUFFIX}${EXT} && cd ${OUT_DIR} && ${CMAKE_COMMAND} -E create_symlink libglew${GLEW_DEBUG_SUFFIX}${EXT} libGLEW${GLEW_DEBUG_SUFFIX}${EXT} ) || true"
+					COMMENT "create libGLEW${GLEW_DEBUG_SUFFIX} symbolic link"
 					VERBATIM)
 		endif()
 
 		if(NOT ${CMAKE_VERSION} VERSION_LESS 3.14)
-			install(FILES ${OUT_DIR}/libGLEW${EXT} TYPE LIB)
+			install(FILES ${OUT_DIR}/libGLEW${GLEW_DEBUG_SUFFIX}${EXT} TYPE LIB)
 		else()
-			install(FILES ${OUT_DIR}/libGLEW${EXT} DESTINATION ${INSTALL_LIBDIR})
+			install(FILES ${OUT_DIR}/libGLEW${GLEW_DEBUG_SUFFIX}${EXT} DESTINATION ${INSTALL_LIBDIR})
 		endif()
 	endif()
 endfunction()
