@@ -9216,6 +9216,15 @@ static void _glewInfo_GL_NV_transform_feedback2 (void)
 
 #endif /* GL_NV_transform_feedback2 */
 
+#ifdef GL_NV_uniform_buffer_std430_layout
+
+static void _glewInfo_GL_NV_uniform_buffer_std430_layout (void)
+{
+  glewPrintExt("GL_NV_uniform_buffer_std430_layout", GLEW_NV_uniform_buffer_std430_layout, glewIsSupported("GL_NV_uniform_buffer_std430_layout"), glewGetExtension("GL_NV_uniform_buffer_std430_layout"));
+}
+
+#endif /* GL_NV_uniform_buffer_std430_layout */
+
 #ifdef GL_NV_uniform_buffer_unified_memory
 
 static void _glewInfo_GL_NV_uniform_buffer_unified_memory (void)
@@ -17231,6 +17240,9 @@ static void glewInfo (void)
 #ifdef GL_NV_transform_feedback2
   _glewInfo_GL_NV_transform_feedback2();
 #endif /* GL_NV_transform_feedback2 */
+#ifdef GL_NV_uniform_buffer_std430_layout
+  _glewInfo_GL_NV_uniform_buffer_std430_layout();
+#endif /* GL_NV_uniform_buffer_std430_layout */
 #ifdef GL_NV_uniform_buffer_unified_memory
   _glewInfo_GL_NV_uniform_buffer_unified_memory();
 #endif /* GL_NV_uniform_buffer_unified_memory */

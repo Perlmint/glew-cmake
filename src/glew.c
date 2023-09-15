@@ -4213,6 +4213,7 @@ GLboolean __GLEW_NV_texture_shader3 = GL_FALSE;
 GLboolean __GLEW_NV_timeline_semaphore = GL_FALSE;
 GLboolean __GLEW_NV_transform_feedback = GL_FALSE;
 GLboolean __GLEW_NV_transform_feedback2 = GL_FALSE;
+GLboolean __GLEW_NV_uniform_buffer_std430_layout = GL_FALSE;
 GLboolean __GLEW_NV_uniform_buffer_unified_memory = GL_FALSE;
 GLboolean __GLEW_NV_vdpau_interop = GL_FALSE;
 GLboolean __GLEW_NV_vdpau_interop2 = GL_FALSE;
@@ -6540,6 +6541,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_NV_transform_feedback2
   "GL_NV_transform_feedback2",
 #endif
+#ifdef GL_NV_uniform_buffer_std430_layout
+  "GL_NV_uniform_buffer_std430_layout",
+#endif
 #ifdef GL_NV_uniform_buffer_unified_memory
   "GL_NV_uniform_buffer_unified_memory",
 #endif
@@ -7301,7 +7305,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[949];
+static GLboolean  _glewExtensionString[950];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -9394,6 +9398,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_NV_transform_feedback2
   &__GLEW_NV_transform_feedback2,
+#endif
+#ifdef GL_NV_uniform_buffer_std430_layout
+  &__GLEW_NV_uniform_buffer_std430_layout,
 #endif
 #ifdef GL_NV_uniform_buffer_unified_memory
   &__GLEW_NV_uniform_buffer_unified_memory,
@@ -28653,6 +28660,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"transform_feedback2", 19))
         {
           ret = GLEW_NV_transform_feedback2;
+          continue;
+        }
+#endif
+#ifdef GL_NV_uniform_buffer_std430_layout
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"uniform_buffer_std430_layout", 28))
+        {
+          ret = GLEW_NV_uniform_buffer_std430_layout;
           continue;
         }
 #endif

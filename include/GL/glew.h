@@ -18215,6 +18215,15 @@ typedef void (GLAPIENTRY * PFNGLRESUMETRANSFORMFEEDBACKNVPROC) (void);
 
 #endif /* GL_NV_transform_feedback2 */
 
+/* ------------------- GL_NV_uniform_buffer_std430_layout ------------------ */
+
+#ifndef GL_NV_uniform_buffer_std430_layout
+#define GL_NV_uniform_buffer_std430_layout 1
+
+#define GLEW_NV_uniform_buffer_std430_layout GLEW_GET_VAR(__GLEW_NV_uniform_buffer_std430_layout)
+
+#endif /* GL_NV_uniform_buffer_std430_layout */
+
 /* ------------------ GL_NV_uniform_buffer_unified_memory ------------------ */
 
 #ifndef GL_NV_uniform_buffer_unified_memory
@@ -26445,6 +26454,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_NV_texture_shader3;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_timeline_semaphore;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_transform_feedback;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_transform_feedback2;
+GLEW_VAR_EXPORT GLboolean __GLEW_NV_uniform_buffer_std430_layout;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_uniform_buffer_unified_memory;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_vdpau_interop;
 GLEW_VAR_EXPORT GLboolean __GLEW_NV_vdpau_interop2;
