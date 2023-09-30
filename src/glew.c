@@ -4311,6 +4311,7 @@ GLboolean __GLEW_QCOM_frame_extrapolation = GL_FALSE;
 GLboolean __GLEW_QCOM_framebuffer_foveated = GL_FALSE;
 GLboolean __GLEW_QCOM_motion_estimation = GL_FALSE;
 GLboolean __GLEW_QCOM_perfmon_global_mode = GL_FALSE;
+GLboolean __GLEW_QCOM_render_sRGB_R8_RG8 = GL_FALSE;
 GLboolean __GLEW_QCOM_render_shared_exponent = GL_FALSE;
 GLboolean __GLEW_QCOM_shader_framebuffer_fetch_noncoherent = GL_FALSE;
 GLboolean __GLEW_QCOM_shader_framebuffer_fetch_rate = GL_FALSE;
@@ -4318,6 +4319,7 @@ GLboolean __GLEW_QCOM_shading_rate = GL_FALSE;
 GLboolean __GLEW_QCOM_texture_foveated = GL_FALSE;
 GLboolean __GLEW_QCOM_texture_foveated2 = GL_FALSE;
 GLboolean __GLEW_QCOM_texture_foveated_subsampled_layout = GL_FALSE;
+GLboolean __GLEW_QCOM_texture_lod_bias = GL_FALSE;
 GLboolean __GLEW_QCOM_tiled_rendering = GL_FALSE;
 GLboolean __GLEW_QCOM_writeonly_rendering = GL_FALSE;
 GLboolean __GLEW_REGAL_ES1_0_compatibility = GL_FALSE;
@@ -6835,6 +6837,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_QCOM_perfmon_global_mode
   "GL_QCOM_perfmon_global_mode",
 #endif
+#ifdef GL_QCOM_render_sRGB_R8_RG8
+  "GL_QCOM_render_sRGB_R8_RG8",
+#endif
 #ifdef GL_QCOM_render_shared_exponent
   "GL_QCOM_render_shared_exponent",
 #endif
@@ -6855,6 +6860,9 @@ static const char * _glewExtensionLookup[] = {
 #endif
 #ifdef GL_QCOM_texture_foveated_subsampled_layout
   "GL_QCOM_texture_foveated_subsampled_layout",
+#endif
+#ifdef GL_QCOM_texture_lod_bias
+  "GL_QCOM_texture_lod_bias",
 #endif
 #ifdef GL_QCOM_tiled_rendering
   "GL_QCOM_tiled_rendering",
@@ -7305,7 +7313,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[950];
+static GLboolean  _glewExtensionString[952];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -9693,6 +9701,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_QCOM_perfmon_global_mode
   &__GLEW_QCOM_perfmon_global_mode,
 #endif
+#ifdef GL_QCOM_render_sRGB_R8_RG8
+  &__GLEW_QCOM_render_sRGB_R8_RG8,
+#endif
 #ifdef GL_QCOM_render_shared_exponent
   &__GLEW_QCOM_render_shared_exponent,
 #endif
@@ -9713,6 +9724,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_QCOM_texture_foveated_subsampled_layout
   &__GLEW_QCOM_texture_foveated_subsampled_layout,
+#endif
+#ifdef GL_QCOM_texture_lod_bias
+  &__GLEW_QCOM_texture_lod_bias,
 #endif
 #ifdef GL_QCOM_tiled_rendering
   &__GLEW_QCOM_tiled_rendering,
@@ -29364,6 +29378,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_QCOM_render_sRGB_R8_RG8
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"render_sRGB_R8_RG8", 18))
+        {
+          ret = GLEW_QCOM_render_sRGB_R8_RG8;
+          continue;
+        }
+#endif
 #ifdef GL_QCOM_render_shared_exponent
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"render_shared_exponent", 22))
         {
@@ -29410,6 +29431,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_foveated_subsampled_layout", 34))
         {
           ret = GLEW_QCOM_texture_foveated_subsampled_layout;
+          continue;
+        }
+#endif
+#ifdef GL_QCOM_texture_lod_bias
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_lod_bias", 16))
+        {
+          ret = GLEW_QCOM_texture_lod_bias;
           continue;
         }
 #endif

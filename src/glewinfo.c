@@ -10369,6 +10369,15 @@ static void _glewInfo_GL_QCOM_perfmon_global_mode (void)
 
 #endif /* GL_QCOM_perfmon_global_mode */
 
+#ifdef GL_QCOM_render_sRGB_R8_RG8
+
+static void _glewInfo_GL_QCOM_render_sRGB_R8_RG8 (void)
+{
+  glewPrintExt("GL_QCOM_render_sRGB_R8_RG8", GLEW_QCOM_render_sRGB_R8_RG8, glewIsSupported("GL_QCOM_render_sRGB_R8_RG8"), glewGetExtension("GL_QCOM_render_sRGB_R8_RG8"));
+}
+
+#endif /* GL_QCOM_render_sRGB_R8_RG8 */
+
 #ifdef GL_QCOM_render_shared_exponent
 
 static void _glewInfo_GL_QCOM_render_shared_exponent (void)
@@ -10437,6 +10446,15 @@ static void _glewInfo_GL_QCOM_texture_foveated_subsampled_layout (void)
 }
 
 #endif /* GL_QCOM_texture_foveated_subsampled_layout */
+
+#ifdef GL_QCOM_texture_lod_bias
+
+static void _glewInfo_GL_QCOM_texture_lod_bias (void)
+{
+  glewPrintExt("GL_QCOM_texture_lod_bias", GLEW_QCOM_texture_lod_bias, glewIsSupported("GL_QCOM_texture_lod_bias"), glewGetExtension("GL_QCOM_texture_lod_bias"));
+}
+
+#endif /* GL_QCOM_texture_lod_bias */
 
 #ifdef GL_QCOM_tiled_rendering
 
@@ -17534,6 +17552,9 @@ static void glewInfo (void)
 #ifdef GL_QCOM_perfmon_global_mode
   _glewInfo_GL_QCOM_perfmon_global_mode();
 #endif /* GL_QCOM_perfmon_global_mode */
+#ifdef GL_QCOM_render_sRGB_R8_RG8
+  _glewInfo_GL_QCOM_render_sRGB_R8_RG8();
+#endif /* GL_QCOM_render_sRGB_R8_RG8 */
 #ifdef GL_QCOM_render_shared_exponent
   _glewInfo_GL_QCOM_render_shared_exponent();
 #endif /* GL_QCOM_render_shared_exponent */
@@ -17555,6 +17576,9 @@ static void glewInfo (void)
 #ifdef GL_QCOM_texture_foveated_subsampled_layout
   _glewInfo_GL_QCOM_texture_foveated_subsampled_layout();
 #endif /* GL_QCOM_texture_foveated_subsampled_layout */
+#ifdef GL_QCOM_texture_lod_bias
+  _glewInfo_GL_QCOM_texture_lod_bias();
+#endif /* GL_QCOM_texture_lod_bias */
 #ifdef GL_QCOM_tiled_rendering
   _glewInfo_GL_QCOM_tiled_rendering();
 #endif /* GL_QCOM_tiled_rendering */
