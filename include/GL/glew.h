@@ -8552,6 +8552,27 @@ typedef void (GLAPIENTRY * PFNGLWINDOWPOS3SVARBPROC) (const GLshort* p);
 
 #endif /* GL_ARM_rgba8 */
 
+/* --------------------- GL_ARM_shader_core_properties --------------------- */
+
+#ifndef GL_ARM_shader_core_properties
+#define GL_ARM_shader_core_properties 1
+
+#define GL_SHADER_CORE_COUNT_ARM 0x96F0
+#define GL_SHADER_CORE_ACTIVE_COUNT_ARM 0x96F1
+#define GL_SHADER_CORE_PRESENT_MASK_ARM 0x96F2
+#define GL_SHADER_CORE_MAX_WARP_COUNT_ARM 0x96F3
+#define GL_SHADER_CORE_PIXEL_RATE_ARM 0x96F4
+#define GL_SHADER_CORE_TEXEL_RATE_ARM 0x96F5
+#define GL_SHADER_CORE_FMA_RATE_ARM 0x96F6
+
+typedef void (GLAPIENTRY * PFNGLMAXACTIVESHADERCORESARMPROC) (GLuint count);
+
+#define glMaxActiveShaderCoresARM GLEW_GET_FUN(__glewMaxActiveShaderCoresARM)
+
+#define GLEW_ARM_shader_core_properties GLEW_GET_VAR(__GLEW_ARM_shader_core_properties)
+
+#endif /* GL_ARM_shader_core_properties */
+
 /* -------------------- GL_ARM_shader_framebuffer_fetch -------------------- */
 
 #ifndef GL_ARM_shader_framebuffer_fetch
@@ -23854,6 +23875,8 @@ GLEW_FUN_EXPORT PFNGLWINDOWPOS3IVARBPROC __glewWindowPos3ivARB;
 GLEW_FUN_EXPORT PFNGLWINDOWPOS3SARBPROC __glewWindowPos3sARB;
 GLEW_FUN_EXPORT PFNGLWINDOWPOS3SVARBPROC __glewWindowPos3svARB;
 
+GLEW_FUN_EXPORT PFNGLMAXACTIVESHADERCORESARMPROC __glewMaxActiveShaderCoresARM;
+
 GLEW_FUN_EXPORT PFNGLDRAWBUFFERSATIPROC __glewDrawBuffersATI;
 
 GLEW_FUN_EXPORT PFNGLDRAWELEMENTARRAYATIPROC __glewDrawElementArrayATI;
@@ -26034,6 +26057,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_ARB_window_pos;
 GLEW_VAR_EXPORT GLboolean __GLEW_ARM_mali_program_binary;
 GLEW_VAR_EXPORT GLboolean __GLEW_ARM_mali_shader_binary;
 GLEW_VAR_EXPORT GLboolean __GLEW_ARM_rgba8;
+GLEW_VAR_EXPORT GLboolean __GLEW_ARM_shader_core_properties;
 GLEW_VAR_EXPORT GLboolean __GLEW_ARM_shader_framebuffer_fetch;
 GLEW_VAR_EXPORT GLboolean __GLEW_ARM_shader_framebuffer_fetch_depth_stencil;
 GLEW_VAR_EXPORT GLboolean __GLEW_ARM_texture_unnormalized_coordinates;

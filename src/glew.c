@@ -1592,6 +1592,8 @@ PFNGLWINDOWPOS3IVARBPROC __glewWindowPos3ivARB = NULL;
 PFNGLWINDOWPOS3SARBPROC __glewWindowPos3sARB = NULL;
 PFNGLWINDOWPOS3SVARBPROC __glewWindowPos3svARB = NULL;
 
+PFNGLMAXACTIVESHADERCORESARMPROC __glewMaxActiveShaderCoresARM = NULL;
+
 PFNGLDRAWBUFFERSATIPROC __glewDrawBuffersATI = NULL;
 
 PFNGLDRAWELEMENTARRAYATIPROC __glewDrawElementArrayATI = NULL;
@@ -3773,6 +3775,7 @@ GLboolean __GLEW_ARB_window_pos = GL_FALSE;
 GLboolean __GLEW_ARM_mali_program_binary = GL_FALSE;
 GLboolean __GLEW_ARM_mali_shader_binary = GL_FALSE;
 GLboolean __GLEW_ARM_rgba8 = GL_FALSE;
+GLboolean __GLEW_ARM_shader_core_properties = GL_FALSE;
 GLboolean __GLEW_ARM_shader_framebuffer_fetch = GL_FALSE;
 GLboolean __GLEW_ARM_shader_framebuffer_fetch_depth_stencil = GL_FALSE;
 GLboolean __GLEW_ARM_texture_unnormalized_coordinates = GL_FALSE;
@@ -5222,6 +5225,9 @@ static const char * _glewExtensionLookup[] = {
 #endif
 #ifdef GL_ARM_rgba8
   "GL_ARM_rgba8",
+#endif
+#ifdef GL_ARM_shader_core_properties
+  "GL_ARM_shader_core_properties",
 #endif
 #ifdef GL_ARM_shader_framebuffer_fetch
   "GL_ARM_shader_framebuffer_fetch",
@@ -7313,7 +7319,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[952];
+static GLboolean  _glewExtensionString[953];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8086,6 +8092,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_ARM_rgba8
   &__GLEW_ARM_rgba8,
+#endif
+#ifdef GL_ARM_shader_core_properties
+  &__GLEW_ARM_shader_core_properties,
 #endif
 #ifdef GL_ARM_shader_framebuffer_fetch
   &__GLEW_ARM_shader_framebuffer_fetch,
@@ -10305,6 +10314,7 @@ static GLboolean _glewInit_GL_ARB_vertex_shader ();
 static GLboolean _glewInit_GL_ARB_vertex_type_2_10_10_10_rev ();
 static GLboolean _glewInit_GL_ARB_viewport_array ();
 static GLboolean _glewInit_GL_ARB_window_pos ();
+static GLboolean _glewInit_GL_ARM_shader_core_properties ();
 static GLboolean _glewInit_GL_ATI_draw_buffers ();
 static GLboolean _glewInit_GL_ATI_element_array ();
 static GLboolean _glewInit_GL_ATI_envmap_bumpmap ();
@@ -13292,6 +13302,19 @@ static GLboolean _glewInit_GL_ARB_window_pos ()
 }
 
 #endif /* GL_ARB_window_pos */
+
+#ifdef GL_ARM_shader_core_properties
+
+static GLboolean _glewInit_GL_ARM_shader_core_properties ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glMaxActiveShaderCoresARM = (PFNGLMAXACTIVESHADERCORESARMPROC)glewGetProcAddress((const GLubyte*)"glMaxActiveShaderCoresARM")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_ARM_shader_core_properties */
 
 #ifdef GL_ATI_draw_buffers
 
@@ -18789,6 +18812,9 @@ GLenum GLEWAPIENTRY glewContextInit (void)
 #ifdef GL_ARB_window_pos
   if (glewExperimental || GLEW_ARB_window_pos) GLEW_ARB_window_pos = !_glewInit_GL_ARB_window_pos();
 #endif /* GL_ARB_window_pos */
+#ifdef GL_ARM_shader_core_properties
+  if (glewExperimental || GLEW_ARM_shader_core_properties) GLEW_ARM_shader_core_properties = !_glewInit_GL_ARM_shader_core_properties();
+#endif /* GL_ARM_shader_core_properties */
 #ifdef GL_ATI_draw_buffers
   if (glewExperimental || GLEW_ATI_draw_buffers) GLEW_ATI_draw_buffers = !_glewInit_GL_ATI_draw_buffers();
 #endif /* GL_ATI_draw_buffers */
@@ -25543,6 +25569,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"rgba8", 5))
         {
           ret = GLEW_ARM_rgba8;
+          continue;
+        }
+#endif
+#ifdef GL_ARM_shader_core_properties
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_core_properties", 22))
+        {
+          ret = GLEW_ARM_shader_core_properties;
           continue;
         }
 #endif

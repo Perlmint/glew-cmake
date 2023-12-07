@@ -3874,6 +3874,17 @@ static void _glewInfo_GL_ARM_rgba8 (void)
 
 #endif /* GL_ARM_rgba8 */
 
+#ifdef GL_ARM_shader_core_properties
+
+static void _glewInfo_GL_ARM_shader_core_properties (void)
+{
+  GLboolean fi = glewPrintExt("GL_ARM_shader_core_properties", GLEW_ARM_shader_core_properties, glewIsSupported("GL_ARM_shader_core_properties"), glewGetExtension("GL_ARM_shader_core_properties"));
+
+  glewInfoFunc(fi, "glMaxActiveShaderCoresARM", glMaxActiveShaderCoresARM == NULL);
+}
+
+#endif /* GL_ARM_shader_core_properties */
+
 #ifdef GL_ARM_shader_framebuffer_fetch
 
 static void _glewInfo_GL_ARM_shader_framebuffer_fetch (void)
@@ -15938,6 +15949,9 @@ static void glewInfo (void)
 #ifdef GL_ARM_rgba8
   _glewInfo_GL_ARM_rgba8();
 #endif /* GL_ARM_rgba8 */
+#ifdef GL_ARM_shader_core_properties
+  _glewInfo_GL_ARM_shader_core_properties();
+#endif /* GL_ARM_shader_core_properties */
 #ifdef GL_ARM_shader_framebuffer_fetch
   _glewInfo_GL_ARM_shader_framebuffer_fetch();
 #endif /* GL_ARM_shader_framebuffer_fetch */
