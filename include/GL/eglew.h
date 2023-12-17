@@ -1322,6 +1322,15 @@ typedef EGLDisplay ( * PFNEGLGETPLATFORMDISPLAYEXTPROC) (EGLenum platform, void*
 
 #endif /* EGL_EXT_protected_surface */
 
+/* --------------- EGL_EXT_query_reset_notification_strategy --------------- */
+
+#ifndef EGL_EXT_query_reset_notification_strategy
+#define EGL_EXT_query_reset_notification_strategy 1
+
+#define EGLEW_EXT_query_reset_notification_strategy EGLEW_GET_VAR(__EGLEW_EXT_query_reset_notification_strategy)
+
+#endif /* EGL_EXT_query_reset_notification_strategy */
+
 /* ------------------- EGL_EXT_stream_consumer_egloutput ------------------- */
 
 #ifndef EGL_EXT_stream_consumer_egloutput
@@ -3159,6 +3168,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_platform_xcb;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_present_opaque;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_protected_content;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_protected_surface;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_query_reset_notification_strategy;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_stream_consumer_egloutput;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_surface_CTA861_3_metadata;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_surface_SMPTE2086_metadata;

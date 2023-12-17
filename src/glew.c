@@ -19933,6 +19933,7 @@ GLboolean __EGLEW_EXT_platform_xcb = GL_FALSE;
 GLboolean __EGLEW_EXT_present_opaque = GL_FALSE;
 GLboolean __EGLEW_EXT_protected_content = GL_FALSE;
 GLboolean __EGLEW_EXT_protected_surface = GL_FALSE;
+GLboolean __EGLEW_EXT_query_reset_notification_strategy = GL_FALSE;
 GLboolean __EGLEW_EXT_stream_consumer_egloutput = GL_FALSE;
 GLboolean __EGLEW_EXT_surface_CTA861_3_metadata = GL_FALSE;
 GLboolean __EGLEW_EXT_surface_SMPTE2086_metadata = GL_FALSE;
@@ -21158,6 +21159,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_EXT_protected_surface
   EGLEW_EXT_protected_surface = _glewSearchExtension("EGL_EXT_protected_surface", extStart, extEnd);
 #endif /* EGL_EXT_protected_surface */
+#ifdef EGL_EXT_query_reset_notification_strategy
+  EGLEW_EXT_query_reset_notification_strategy = _glewSearchExtension("EGL_EXT_query_reset_notification_strategy", extStart, extEnd);
+#endif /* EGL_EXT_query_reset_notification_strategy */
 #ifdef EGL_EXT_stream_consumer_egloutput
   EGLEW_EXT_stream_consumer_egloutput = _glewSearchExtension("EGL_EXT_stream_consumer_egloutput", extStart, extEnd);
   if (glewExperimental || EGLEW_EXT_stream_consumer_egloutput) EGLEW_EXT_stream_consumer_egloutput = !_glewInit_EGL_EXT_stream_consumer_egloutput();
@@ -31939,6 +31943,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"protected_surface", 17))
         {
           ret = EGLEW_EXT_protected_surface;
+          continue;
+        }
+#endif
+#ifdef EGL_EXT_query_reset_notification_strategy
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"query_reset_notification_strategy", 33))
+        {
+          ret = EGLEW_EXT_query_reset_notification_strategy;
           continue;
         }
 #endif

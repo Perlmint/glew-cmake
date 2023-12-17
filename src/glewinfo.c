@@ -12590,6 +12590,15 @@ static void _glewInfo_EGL_EXT_protected_surface (void)
 
 #endif /* EGL_EXT_protected_surface */
 
+#ifdef EGL_EXT_query_reset_notification_strategy
+
+static void _glewInfo_EGL_EXT_query_reset_notification_strategy (void)
+{
+  glewPrintExt("EGL_EXT_query_reset_notification_strategy", EGLEW_EXT_query_reset_notification_strategy, eglewIsSupported("EGL_EXT_query_reset_notification_strategy"), eglewGetExtension("EGL_EXT_query_reset_notification_strategy"));
+}
+
+#endif /* EGL_EXT_query_reset_notification_strategy */
+
 #ifdef EGL_EXT_stream_consumer_egloutput
 
 static void _glewInfo_EGL_EXT_stream_consumer_egloutput (void)
@@ -18600,6 +18609,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_protected_surface
   _glewInfo_EGL_EXT_protected_surface();
 #endif /* EGL_EXT_protected_surface */
+#ifdef EGL_EXT_query_reset_notification_strategy
+  _glewInfo_EGL_EXT_query_reset_notification_strategy();
+#endif /* EGL_EXT_query_reset_notification_strategy */
 #ifdef EGL_EXT_stream_consumer_egloutput
   _glewInfo_EGL_EXT_stream_consumer_egloutput();
 #endif /* EGL_EXT_stream_consumer_egloutput */
