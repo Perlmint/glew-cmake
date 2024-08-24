@@ -648,6 +648,17 @@ typedef EGLBoolean ( * PFNEGLPRESENTATIONTIMEANDROIDPROC) (EGLDisplay dpy, EGLSu
 
 #endif /* EGL_ANDROID_recordable */
 
+/* ----------------------- EGL_ANDROID_telemetry_hint ---------------------- */
+
+#ifndef EGL_ANDROID_telemetry_hint
+#define EGL_ANDROID_telemetry_hint 1
+
+#define EGL_TELEMETRY_HINT_ANDROID 0x3570
+
+#define EGLEW_ANDROID_telemetry_hint EGLEW_GET_VAR(__EGLEW_ANDROID_telemetry_hint)
+
+#endif /* EGL_ANDROID_telemetry_hint */
+
 /* ---------------- EGL_ANGLE_d3d_share_handle_client_buffer --------------- */
 
 #ifndef EGL_ANGLE_d3d_share_handle_client_buffer
@@ -3118,6 +3129,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_image_native_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_native_fence_sync;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_presentation_time;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_recordable;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_ANDROID_telemetry_hint;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANGLE_d3d_share_handle_client_buffer;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANGLE_device_d3d;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_ANGLE_query_surface_pointer;

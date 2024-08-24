@@ -12916,6 +12916,7 @@ typedef void (GLAPIENTRY * PFNGLTEXBUFFEREXTPROC) (GLenum target, GLenum interna
 #define GL_EXT_texture_format_BGRA8888 1
 
 #define GL_BGRA_EXT 0x80E1
+#define GL_BGRA8_EXT 0x93A1
 
 #define GLEW_EXT_texture_format_BGRA8888 GLEW_GET_VAR(__GLEW_EXT_texture_format_BGRA8888)
 
@@ -20570,6 +20571,18 @@ typedef void (GLAPIENTRY * PFNGLSTARTTILINGQCOMPROC) (GLuint x, GLuint y, GLuint
 
 #endif /* GL_QCOM_writeonly_rendering */
 
+/* ------------------------- GL_QCOM_ycbcr_degamma ------------------------- */
+
+#ifndef GL_QCOM_ycbcr_degamma
+#define GL_QCOM_ycbcr_degamma 1
+
+#define GL_TEXTURE_Y_DEGAMMA_QCOM 0x9710
+#define GL_TEXTURE_CBCR_DEGAMMA_QCOM 0x9711
+
+#define GLEW_QCOM_ycbcr_degamma GLEW_GET_VAR(__GLEW_QCOM_ycbcr_degamma)
+
+#endif /* GL_QCOM_ycbcr_degamma */
+
 /* ---------------------- GL_REGAL_ES1_0_compatibility --------------------- */
 
 #ifndef GL_REGAL_ES1_0_compatibility
@@ -26607,6 +26620,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_texture_foveated_subsampled_layout;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_texture_lod_bias;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_tiled_rendering;
 GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_writeonly_rendering;
+GLEW_VAR_EXPORT GLboolean __GLEW_QCOM_ycbcr_degamma;
 GLEW_VAR_EXPORT GLboolean __GLEW_REGAL_ES1_0_compatibility;
 GLEW_VAR_EXPORT GLboolean __GLEW_REGAL_ES1_1_compatibility;
 GLEW_VAR_EXPORT GLboolean __GLEW_REGAL_enable;

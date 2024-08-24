@@ -10488,6 +10488,15 @@ static void _glewInfo_GL_QCOM_writeonly_rendering (void)
 
 #endif /* GL_QCOM_writeonly_rendering */
 
+#ifdef GL_QCOM_ycbcr_degamma
+
+static void _glewInfo_GL_QCOM_ycbcr_degamma (void)
+{
+  glewPrintExt("GL_QCOM_ycbcr_degamma", GLEW_QCOM_ycbcr_degamma, glewIsSupported("GL_QCOM_ycbcr_degamma"), glewGetExtension("GL_QCOM_ycbcr_degamma"));
+}
+
+#endif /* GL_QCOM_ycbcr_degamma */
+
 #ifdef GL_REGAL_ES1_0_compatibility
 
 static void _glewInfo_GL_REGAL_ES1_0_compatibility (void)
@@ -12101,6 +12110,15 @@ static void _glewInfo_EGL_ANDROID_recordable (void)
 }
 
 #endif /* EGL_ANDROID_recordable */
+
+#ifdef EGL_ANDROID_telemetry_hint
+
+static void _glewInfo_EGL_ANDROID_telemetry_hint (void)
+{
+  glewPrintExt("EGL_ANDROID_telemetry_hint", EGLEW_ANDROID_telemetry_hint, eglewIsSupported("EGL_ANDROID_telemetry_hint"), eglewGetExtension("EGL_ANDROID_telemetry_hint"));
+}
+
+#endif /* EGL_ANDROID_telemetry_hint */
 
 #ifdef EGL_ANGLE_d3d_share_handle_client_buffer
 
@@ -17608,6 +17626,9 @@ static void glewInfo (void)
 #ifdef GL_QCOM_writeonly_rendering
   _glewInfo_GL_QCOM_writeonly_rendering();
 #endif /* GL_QCOM_writeonly_rendering */
+#ifdef GL_QCOM_ycbcr_degamma
+  _glewInfo_GL_QCOM_ycbcr_degamma();
+#endif /* GL_QCOM_ycbcr_degamma */
 #ifdef GL_REGAL_ES1_0_compatibility
   _glewInfo_GL_REGAL_ES1_0_compatibility();
 #endif /* GL_REGAL_ES1_0_compatibility */
@@ -18459,6 +18480,9 @@ static void eglewInfo ()
 #ifdef EGL_ANDROID_recordable
   _glewInfo_EGL_ANDROID_recordable();
 #endif /* EGL_ANDROID_recordable */
+#ifdef EGL_ANDROID_telemetry_hint
+  _glewInfo_EGL_ANDROID_telemetry_hint();
+#endif /* EGL_ANDROID_telemetry_hint */
 #ifdef EGL_ANGLE_d3d_share_handle_client_buffer
   _glewInfo_EGL_ANGLE_d3d_share_handle_client_buffer();
 #endif /* EGL_ANGLE_d3d_share_handle_client_buffer */

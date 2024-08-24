@@ -38,7 +38,15 @@
 
 #if defined(GLEW_OSMESA)
 #  define GLAPI extern
+#  ifndef APIENTRY
+#    define APIENTRY
+#    define GLEW_APIENTRY_DEFINED
+#  endif
 #  include <GL/osmesa.h>
+#  ifdef GLEW_APIENTRY_DEFINED
+#    undef APIENTRY
+#    undef GLEW_APIENTRY_DEFINED
+#  endif
 #elif defined(GLEW_EGL)
 #  include <GL/eglew.h>
 #elif defined(_WIN32)
@@ -4325,6 +4333,7 @@ GLboolean __GLEW_QCOM_texture_foveated_subsampled_layout = GL_FALSE;
 GLboolean __GLEW_QCOM_texture_lod_bias = GL_FALSE;
 GLboolean __GLEW_QCOM_tiled_rendering = GL_FALSE;
 GLboolean __GLEW_QCOM_writeonly_rendering = GL_FALSE;
+GLboolean __GLEW_QCOM_ycbcr_degamma = GL_FALSE;
 GLboolean __GLEW_REGAL_ES1_0_compatibility = GL_FALSE;
 GLboolean __GLEW_REGAL_ES1_1_compatibility = GL_FALSE;
 GLboolean __GLEW_REGAL_enable = GL_FALSE;
@@ -6876,6 +6885,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_QCOM_writeonly_rendering
   "GL_QCOM_writeonly_rendering",
 #endif
+#ifdef GL_QCOM_ycbcr_degamma
+  "GL_QCOM_ycbcr_degamma",
+#endif
 #ifdef GL_REGAL_ES1_0_compatibility
   "GL_REGAL_ES1_0_compatibility",
 #endif
@@ -7319,7 +7331,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[953];
+static GLboolean  _glewExtensionString[954];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -9742,6 +9754,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_QCOM_writeonly_rendering
   &__GLEW_QCOM_writeonly_rendering,
+#endif
+#ifdef GL_QCOM_ycbcr_degamma
+  &__GLEW_QCOM_ycbcr_degamma,
 #endif
 #ifdef GL_REGAL_ES1_0_compatibility
   &__GLEW_REGAL_ES1_0_compatibility,
@@ -19883,6 +19898,7 @@ GLboolean __EGLEW_ANDROID_image_native_buffer = GL_FALSE;
 GLboolean __EGLEW_ANDROID_native_fence_sync = GL_FALSE;
 GLboolean __EGLEW_ANDROID_presentation_time = GL_FALSE;
 GLboolean __EGLEW_ANDROID_recordable = GL_FALSE;
+GLboolean __EGLEW_ANDROID_telemetry_hint = GL_FALSE;
 GLboolean __EGLEW_ANGLE_d3d_share_handle_client_buffer = GL_FALSE;
 GLboolean __EGLEW_ANGLE_device_d3d = GL_FALSE;
 GLboolean __EGLEW_ANGLE_query_surface_pointer = GL_FALSE;
@@ -20999,6 +21015,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_ANDROID_recordable
   EGLEW_ANDROID_recordable = _glewSearchExtension("EGL_ANDROID_recordable", extStart, extEnd);
 #endif /* EGL_ANDROID_recordable */
+#ifdef EGL_ANDROID_telemetry_hint
+  EGLEW_ANDROID_telemetry_hint = _glewSearchExtension("EGL_ANDROID_telemetry_hint", extStart, extEnd);
+#endif /* EGL_ANDROID_telemetry_hint */
 #ifdef EGL_ANGLE_d3d_share_handle_client_buffer
   EGLEW_ANGLE_d3d_share_handle_client_buffer = _glewSearchExtension("EGL_ANGLE_d3d_share_handle_client_buffer", extStart, extEnd);
 #endif /* EGL_ANGLE_d3d_share_handle_client_buffer */
@@ -29492,6 +29511,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_QCOM_ycbcr_degamma
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"ycbcr_degamma", 13))
+        {
+          ret = GLEW_QCOM_ycbcr_degamma;
+          continue;
+        }
+#endif
       }
       if (_glewStrSame2(&pos, &len, (const GLubyte*)"REGAL_", 6))
       {
@@ -31584,6 +31610,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"recordable", 10))
         {
           ret = EGLEW_ANDROID_recordable;
+          continue;
+        }
+#endif
+#ifdef EGL_ANDROID_telemetry_hint
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"telemetry_hint", 14))
+        {
+          ret = EGLEW_ANDROID_telemetry_hint;
           continue;
         }
 #endif
