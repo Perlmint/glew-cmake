@@ -12358,6 +12358,17 @@ static void _glewInfo_EGL_EXT_device_query_name (void)
 
 #endif /* EGL_EXT_device_query_name */
 
+#ifdef EGL_EXT_display_alloc
+
+static void _glewInfo_EGL_EXT_display_alloc (void)
+{
+  GLboolean fi = glewPrintExt("EGL_EXT_display_alloc", EGLEW_EXT_display_alloc, eglewIsSupported("EGL_EXT_display_alloc"), eglewGetExtension("EGL_EXT_display_alloc"));
+
+  glewInfoFunc(fi, "eglDestroyDisplayEXT", eglDestroyDisplayEXT == NULL);
+}
+
+#endif /* EGL_EXT_display_alloc */
+
 #ifdef EGL_EXT_explicit_device
 
 static void _glewInfo_EGL_EXT_explicit_device (void)
@@ -18555,6 +18566,9 @@ static void eglewInfo ()
 #ifdef EGL_EXT_device_query_name
   _glewInfo_EGL_EXT_device_query_name();
 #endif /* EGL_EXT_device_query_name */
+#ifdef EGL_EXT_display_alloc
+  _glewInfo_EGL_EXT_display_alloc();
+#endif /* EGL_EXT_display_alloc */
 #ifdef EGL_EXT_explicit_device
   _glewInfo_EGL_EXT_explicit_device();
 #endif /* EGL_EXT_explicit_device */

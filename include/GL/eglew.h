@@ -974,6 +974,21 @@ typedef EGLBoolean ( * PFNEGLQUERYDISPLAYATTRIBEXTPROC) (EGLDisplay dpy, EGLint 
 
 #endif /* EGL_EXT_device_query_name */
 
+/* ------------------------- EGL_EXT_display_alloc ------------------------- */
+
+#ifndef EGL_EXT_display_alloc
+#define EGL_EXT_display_alloc 1
+
+#define EGL_ALLOC_NEW_DISPLAY_EXT 0x3379
+
+typedef EGLBoolean ( * PFNEGLDESTROYDISPLAYEXTPROC) (EGLDisplay dpy);
+
+#define eglDestroyDisplayEXT EGLEW_GET_FUN(__eglewDestroyDisplayEXT)
+
+#define EGLEW_EXT_display_alloc EGLEW_GET_VAR(__EGLEW_EXT_display_alloc)
+
+#endif /* EGL_EXT_display_alloc */
+
 /* ------------------------ EGL_EXT_explicit_device ------------------------ */
 
 #ifndef EGL_EXT_explicit_device
@@ -2984,6 +2999,8 @@ EGLEW_FUN_EXPORT PFNEGLQUERYDEVICEATTRIBEXTPROC __eglewQueryDeviceAttribEXT;
 EGLEW_FUN_EXPORT PFNEGLQUERYDEVICESTRINGEXTPROC __eglewQueryDeviceStringEXT;
 EGLEW_FUN_EXPORT PFNEGLQUERYDISPLAYATTRIBEXTPROC __eglewQueryDisplayAttribEXT;
 
+EGLEW_FUN_EXPORT PFNEGLDESTROYDISPLAYEXTPROC __eglewDestroyDisplayEXT;
+
 EGLEW_FUN_EXPORT PFNEGLQUERYDMABUFFORMATSEXTPROC __eglewQueryDmaBufFormatsEXT;
 EGLEW_FUN_EXPORT PFNEGLQUERYDMABUFMODIFIERSEXTPROC __eglewQueryDmaBufModifiersEXT;
 
@@ -3154,6 +3171,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_openwf;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_persistent_id;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_query;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_query_name;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_display_alloc;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_explicit_device;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_bt2020_hlg;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_bt2020_linear;

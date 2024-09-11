@@ -19753,6 +19753,8 @@ PFNEGLQUERYDEVICEATTRIBEXTPROC __eglewQueryDeviceAttribEXT = NULL;
 PFNEGLQUERYDEVICESTRINGEXTPROC __eglewQueryDeviceStringEXT = NULL;
 PFNEGLQUERYDISPLAYATTRIBEXTPROC __eglewQueryDisplayAttribEXT = NULL;
 
+PFNEGLDESTROYDISPLAYEXTPROC __eglewDestroyDisplayEXT = NULL;
+
 PFNEGLQUERYDMABUFFORMATSEXTPROC __eglewQueryDmaBufFormatsEXT = NULL;
 PFNEGLQUERYDMABUFMODIFIERSEXTPROC __eglewQueryDmaBufModifiersEXT = NULL;
 
@@ -19923,6 +19925,7 @@ GLboolean __EGLEW_EXT_device_openwf = GL_FALSE;
 GLboolean __EGLEW_EXT_device_persistent_id = GL_FALSE;
 GLboolean __EGLEW_EXT_device_query = GL_FALSE;
 GLboolean __EGLEW_EXT_device_query_name = GL_FALSE;
+GLboolean __EGLEW_EXT_display_alloc = GL_FALSE;
 GLboolean __EGLEW_EXT_explicit_device = GL_FALSE;
 GLboolean __EGLEW_EXT_gl_colorspace_bt2020_hlg = GL_FALSE;
 GLboolean __EGLEW_EXT_gl_colorspace_bt2020_linear = GL_FALSE;
@@ -20335,6 +20338,19 @@ static GLboolean _glewInit_EGL_EXT_device_query ()
 }
 
 #endif /* EGL_EXT_device_query */
+
+#ifdef EGL_EXT_display_alloc
+
+static GLboolean _glewInit_EGL_EXT_display_alloc ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((eglDestroyDisplayEXT = (PFNEGLDESTROYDISPLAYEXTPROC)glewGetProcAddress((const GLubyte*)"eglDestroyDisplayEXT")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* EGL_EXT_display_alloc */
 
 #ifdef EGL_EXT_image_dma_buf_import_modifiers
 
@@ -21097,6 +21113,10 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_EXT_device_query_name
   EGLEW_EXT_device_query_name = _glewSearchExtension("EGL_EXT_device_query_name", extStart, extEnd);
 #endif /* EGL_EXT_device_query_name */
+#ifdef EGL_EXT_display_alloc
+  EGLEW_EXT_display_alloc = _glewSearchExtension("EGL_EXT_display_alloc", extStart, extEnd);
+  if (glewExperimental || EGLEW_EXT_display_alloc) EGLEW_EXT_display_alloc = !_glewInit_EGL_EXT_display_alloc();
+#endif /* EGL_EXT_display_alloc */
 #ifdef EGL_EXT_explicit_device
   EGLEW_EXT_explicit_device = _glewSearchExtension("EGL_EXT_explicit_device", extStart, extEnd);
 #endif /* EGL_EXT_explicit_device */
@@ -31794,6 +31814,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"device_query_name", 17))
         {
           ret = EGLEW_EXT_device_query_name;
+          continue;
+        }
+#endif
+#ifdef EGL_EXT_display_alloc
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"display_alloc", 13))
+        {
+          ret = EGLEW_EXT_display_alloc;
           continue;
         }
 #endif
