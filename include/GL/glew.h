@@ -1,6 +1,6 @@
 /*
 ** The OpenGL Extension Wrangler Library
-** Copyright (C) 2008-2019, Nigel Stewart <nigels[]users sourceforge net>
+** Copyright (C) 2008-2024, Nigel Stewart <nigels[]nigels com>
 ** Copyright (C) 2002-2008, Milan Ikits <milan ikits[]ieee org>
 ** Copyright (C) 2002-2008, Marcelo E. Magallon <mmagallo[]debian org>
 ** Copyright (C) 2002, Lev Povalahev
@@ -14914,6 +14914,17 @@ typedef void (GLAPIENTRY * PFNGLRESIZEBUFFERSMESAPROC) (void);
 
 #endif /* GL_MESA_shader_integer_functions */
 
+/* -------------------- GL_MESA_texture_const_bandwidth -------------------- */
+
+#ifndef GL_MESA_texture_const_bandwidth
+#define GL_MESA_texture_const_bandwidth 1
+
+#define GL_CONST_BW_TILING_MESA 0x8BBE
+
+#define GLEW_MESA_texture_const_bandwidth GLEW_GET_VAR(__GLEW_MESA_texture_const_bandwidth)
+
+#endif /* GL_MESA_texture_const_bandwidth */
+
 /* ----------------------- GL_MESA_tile_raster_order ----------------------- */
 
 #ifndef GL_MESA_tile_raster_order
@@ -26360,6 +26371,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_MESA_pack_invert;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_program_binary_formats;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_resize_buffers;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_shader_integer_functions;
+GLEW_VAR_EXPORT GLboolean __GLEW_MESA_texture_const_bandwidth;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_tile_raster_order;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_window_pos;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_ycbcr_texture;

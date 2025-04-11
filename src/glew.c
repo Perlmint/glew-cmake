@@ -1,6 +1,6 @@
 /*
 ** The OpenGL Extension Wrangler Library
-** Copyright (C) 2008-2019, Nigel Stewart <nigels[]users sourceforge net>
+** Copyright (C) 2008-2024, Nigel Stewart <nigels[]nigels com>
 ** Copyright (C) 2002-2008, Milan Ikits <milan ikits[]ieee org>
 ** Copyright (C) 2002-2008, Marcelo E. Magallon <mmagallo[]debian org>
 ** Copyright (C) 2002, Lev Povalahev
@@ -4073,6 +4073,7 @@ GLboolean __GLEW_MESA_pack_invert = GL_FALSE;
 GLboolean __GLEW_MESA_program_binary_formats = GL_FALSE;
 GLboolean __GLEW_MESA_resize_buffers = GL_FALSE;
 GLboolean __GLEW_MESA_shader_integer_functions = GL_FALSE;
+GLboolean __GLEW_MESA_texture_const_bandwidth = GL_FALSE;
 GLboolean __GLEW_MESA_tile_raster_order = GL_FALSE;
 GLboolean __GLEW_MESA_window_pos = GL_FALSE;
 GLboolean __GLEW_MESA_ycbcr_texture = GL_FALSE;
@@ -6105,6 +6106,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_MESA_shader_integer_functions
   "GL_MESA_shader_integer_functions",
 #endif
+#ifdef GL_MESA_texture_const_bandwidth
+  "GL_MESA_texture_const_bandwidth",
+#endif
 #ifdef GL_MESA_tile_raster_order
   "GL_MESA_tile_raster_order",
 #endif
@@ -7331,7 +7335,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[954];
+static GLboolean  _glewExtensionString[955];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8974,6 +8978,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_MESA_shader_integer_functions
   &__GLEW_MESA_shader_integer_functions,
+#endif
+#ifdef GL_MESA_texture_const_bandwidth
+  &__GLEW_MESA_texture_const_bandwidth,
 #endif
 #ifdef GL_MESA_tile_raster_order
   &__GLEW_MESA_tile_raster_order,
@@ -27687,6 +27694,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_integer_functions", 24))
         {
           ret = GLEW_MESA_shader_integer_functions;
+          continue;
+        }
+#endif
+#ifdef GL_MESA_texture_const_bandwidth
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_const_bandwidth", 23))
+        {
+          ret = GLEW_MESA_texture_const_bandwidth;
           continue;
         }
 #endif

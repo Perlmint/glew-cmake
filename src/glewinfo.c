@@ -1,6 +1,6 @@
 /*
 ** The OpenGL Extension Wrangler Library
-** Copyright (C) 2008-2019, Nigel Stewart <nigels[]users sourceforge net>
+** Copyright (C) 2008-2024, Nigel Stewart <nigels[]nigels com>
 ** Copyright (C) 2002-2008, Milan Ikits <milan ikits[]ieee org>
 ** Copyright (C) 2002-2008, Marcelo E. Magallon <mmagallo[]debian org>
 ** Copyright (C) 2002, Lev Povalahev
@@ -7387,6 +7387,15 @@ static void _glewInfo_GL_MESA_shader_integer_functions (void)
 }
 
 #endif /* GL_MESA_shader_integer_functions */
+
+#ifdef GL_MESA_texture_const_bandwidth
+
+static void _glewInfo_GL_MESA_texture_const_bandwidth (void)
+{
+  glewPrintExt("GL_MESA_texture_const_bandwidth", GLEW_MESA_texture_const_bandwidth, glewIsSupported("GL_MESA_texture_const_bandwidth"), glewGetExtension("GL_MESA_texture_const_bandwidth"));
+}
+
+#endif /* GL_MESA_texture_const_bandwidth */
 
 #ifdef GL_MESA_tile_raster_order
 
@@ -16857,6 +16866,9 @@ static void glewInfo (void)
 #ifdef GL_MESA_shader_integer_functions
   _glewInfo_GL_MESA_shader_integer_functions();
 #endif /* GL_MESA_shader_integer_functions */
+#ifdef GL_MESA_texture_const_bandwidth
+  _glewInfo_GL_MESA_texture_const_bandwidth();
+#endif /* GL_MESA_texture_const_bandwidth */
 #ifdef GL_MESA_tile_raster_order
   _glewInfo_GL_MESA_tile_raster_order();
 #endif /* GL_MESA_tile_raster_order */
