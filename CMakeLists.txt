@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.12...3.5)
+cmake_minimum_required(VERSION 2.8.12...4.0)
 
 file(STRINGS ${CMAKE_CURRENT_SOURCE_DIR}/config/version  _VERSION_MAJOR_STRING REGEX "GLEW_MAJOR[ ]*=[ ]*[0-9]+.*")
 string(REGEX REPLACE "GLEW_MAJOR[ ]*=[ ]*([0-9]+)" "\\1" MAJOR_VERSION ${_VERSION_MAJOR_STRING})
