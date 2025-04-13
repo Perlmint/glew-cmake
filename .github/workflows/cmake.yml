@@ -18,10 +18,6 @@ env:
 
 jobs:
   build:
-    # The CMake configure and build commands are platform agnostic and should work equally
-    # well on Windows or Mac.  You can convert this to a matrix build if you need
-    # cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: ubuntu-latest
     container: ubuntu:latest
 
@@ -91,91 +87,105 @@ jobs:
         cmake .
         cmake --build .
 
-  build_2_8:
-    # The CMake configure and build commands are platform agnostic and should work equally
-    # well on Windows or Mac.  You can convert this to a matrix build if you need
-    # cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: ubuntu-latest
-    container: ubuntu:14.04
-
-    steps:
-    - uses: actions/checkout@v2
-      
-    - name: Install dependencies
-      run: apt update && apt install -y cmake gcc libgl1-mesa-dev libx11-dev libxext-dev
-
-    - name: Configure CMake
-      shell: bash
-      run: cmake . -DCMAKE_BUILD_TYPE=$BUILD_TYPE
-
-    - name: Build test
-      shell: bash
-      run: cmake --build .
-
-    - name: Check alias
-      shell: bash
-      run: test -e lib/libGLEW.a
-
-  build_3_10:
-    # The CMake configure and build commands are platform agnostic and should work equally
-    # well on Windows or Mac.  You can convert this to a matrix build if you need
-    # cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: ubuntu-latest
-    container: ubuntu:18.04
-
-    steps:
-    - uses: actions/checkout@v2
-      
-    - name: Install dependencies
-      run: apt update && apt install -y cmake gcc libgl1-mesa-dev libx11-dev libxext-dev
-
-    - name: Configure CMake
-      shell: bash
-      run: cmake . -DCMAKE_BUILD_TYPE=$BUILD_TYPE
-
-    - name: Build test
-      shell: bash
-      run: cmake --build .
-      
-    - name: Check alias
-      shell: bash
-      run: test -e lib/libGLEW.a
-
-  build_latest:
+  build_linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        cmake:
+          - 2.8.12.2
+          - 3.10.3
+          - latest
     runs-on: ubuntu-latest
     container: ubuntu:latest
 
     steps:
     - uses: actions/checkout@v2
-      
+
+    - name: Restore cached cmake
+      uses: actions/cache/restore@v4
+      with:
+        path: /opt/cmake
+        key: cmake-${{ matrix.cmake }}
+
     - name: Install dependencies
-      run: apt update && apt install -y python3 python3-pip gcc libgl1-mesa-dev libx11-dev libxext-dev && pip install cmake
-      
+      shell: bash
+      run: |
+        cmake=${{ matrix.cmake }}
+        apt update
+        apt install -y gcc make libgl1-mesa-dev libx11-dev libxext-dev
+        if [ "${cmake}" == "latest" ]; then
+          apt install -y git
+          cmake=$(git ls-remote --tags https://gitlab.kitware.com/cmake/cmake | cut -f 2 | sed -E "s/^refs\/tags\/v//" | tr -d "^{}" | sort -t '.' -k 1,1n -k 2,2n -k 3,3n | tail -n 1 | tr -d "\n")
+          echo "Latest version: ${cmake}"
+        fi
+        if [ -x /opt/cmake/bin/cmake ]; then
+          echo "Found cached cmake"
+          if [ -n "$(/opt/cmake/bin/cmake --version | grep ${cmake})" ]; then
+            exit 0
+          fi
+          /opt/cmake/bin/cmake --version
+          echo "CMake version is mismatched"
+          rm -rf /opt/cmake
+        fi
+
+        apt install -y g++ wget
+        short_version=$(echo "${cmake}" | sed -E "s/^([0-9]+\\.[0-9]+)\\..+$/\\1/" | tr -d "\n")
+        wget https://cmake.org/files/v${short_version}/cmake-${cmake}.tar.gz
+        tar -xf cmake-${cmake}.tar.gz
+        cd cmake-${cmake}
+        if [ "${cmake}" == "2.8.12.2" ]; then
+          apt -y install patch
+          patch -p1 << 'EOF'
+          --- cmake-2.8.12.2-org/CMakeLists.txt	2014-01-16 17:15:07.000000000 +0000
+          +++ cmake-2.8.12.2-patch/CMakeLists.txt	2025-04-13 10:37:28.359021847 +0000
+          @@ -616 +616 @@
+          -add_subdirectory(Tests)
+          +# add_subdirectory(Tests)
+          --- cmake-2.8.12.2-org/Source/CMakeLists.txt	2014-01-16 17:15:08.000000000 +0000
+          +++ cmake-2.8.12.2-patch/Source/CMakeLists.txt	2025-04-13 10:37:13.584956375 +0000
+          @@ -481,2 +481,2 @@
+          -add_library(CTestLib ${CTEST_SRCS})
+          -target_link_libraries(CTestLib CMakeLib ${CMAKE_CURL_LIBRARIES} ${CMAKE_XMLRPC_LIBRARIES})
+          +# add_library(CTestLib ${CTEST_SRCS})
+          +# target_link_libraries(CTestLib CMakeLib ${CMAKE_CURL_LIBRARIES} ${CMAKE_XMLRPC_LIBRARIES})
+          @@ -562,2 +562,2 @@
+          -add_executable(ctest ctest.cxx)
+          -target_link_libraries(ctest CTestLib)
+          +# add_executable(ctest ctest.cxx)
+          +# target_link_libraries(ctest CTestLib)
+          @@ -583 +583 @@
+          -install(TARGETS cmake ctest cpack DESTINATION bin)
+          +install(TARGETS cmake cpack DESTINATION bin)
+        EOF
+        fi
+        ./configure --prefix=/opt/cmake -- -DCMAKE_USE_OPENSSL=OFF
+        make -j $(nproc) install
+
+    - name: Save cmake
+      uses: actions/cache/save@v4
+      with:
+        path: /opt/cmake
+        key: cmake-${{ matrix.cmake }}
+
     - name: Configure CMake
       shell: bash
-      run: cmake . -DCMAKE_BUILD_TYPE=$BUILD_TYPE
-      
+      run: /opt/cmake/bin/cmake . -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+
     - name: Build test
       shell: bash
-      run: cmake --build .
-      
+      run: /opt/cmake/bin/cmake --build .
+
     - name: Check alias
       shell: bash
       run: test -e lib/libGLEW.a
 
   build_mingw:
-    # The CMake configure and build commands are platform agnostic and should work equally
-    # well on Windows or Mac.  You can convert this to a matrix build if you need
-    # cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: ubuntu-latest
-    container: ubuntu:18.04
+    container: ubuntu:latest
 
     steps:
     - uses: actions/checkout@v2
-      
+
     - name: Install dependencies
       run: apt update && apt install -y cmake g++-mingw-w64-x86-64 make libgl1-mesa-dev libx11-dev libxext-dev
 
@@ -193,7 +203,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Configure CMake
       shell: bash
       run: cmake . -DCMAKE_BUILD_TYPE=$BUILD_TYPE
@@ -207,7 +217,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Configure CMake
       shell: bash
       run: cmake . -DCMAKE_BUILD_TYPE=$BUILD_TYPE
