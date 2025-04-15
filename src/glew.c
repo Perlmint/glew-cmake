@@ -1724,7 +1724,6 @@ PFNGLBLENDFUNCSEPARATEEXTPROC __glewBlendFuncSeparateEXT = NULL;
 PFNGLBLENDEQUATIONEXTPROC __glewBlendEquationEXT = NULL;
 
 PFNGLBUFFERSTORAGEEXTPROC __glewBufferStorageEXT = NULL;
-PFNGLNAMEDBUFFERSTORAGEEXTPROC __glewNamedBufferStorageEXT = NULL;
 
 PFNGLCLEARTEXIMAGEEXTPROC __glewClearTexImageEXT = NULL;
 PFNGLCLEARTEXSUBIMAGEEXTPROC __glewClearTexSubImageEXT = NULL;
@@ -2273,7 +2272,6 @@ PFNGLFRAMEBUFFERPIXELLOCALSTORAGESIZEEXTPROC __glewFramebufferPixelLocalStorageS
 PFNGLGETFRAMEBUFFERPIXELLOCALSTORAGESIZEEXTPROC __glewGetFramebufferPixelLocalStorageSizeEXT = NULL;
 
 PFNGLTEXPAGECOMMITMENTEXTPROC __glewTexPageCommitmentEXT = NULL;
-PFNGLTEXTUREPAGECOMMITMENTEXTPROC __glewTexturePageCommitmentEXT = NULL;
 
 PFNGLACTIVESTENCILFACEEXTPROC __glewActiveStencilFaceEXT = NULL;
 
@@ -3931,6 +3929,7 @@ GLboolean __GLEW_EXT_semaphore_win32 = GL_FALSE;
 GLboolean __GLEW_EXT_separate_depth_stencil = GL_FALSE;
 GLboolean __GLEW_EXT_separate_shader_objects = GL_FALSE;
 GLboolean __GLEW_EXT_separate_specular_color = GL_FALSE;
+GLboolean __GLEW_EXT_shader_clock = GL_FALSE;
 GLboolean __GLEW_EXT_shader_framebuffer_fetch = GL_FALSE;
 GLboolean __GLEW_EXT_shader_framebuffer_fetch_non_coherent = GL_FALSE;
 GLboolean __GLEW_EXT_shader_group_vote = GL_FALSE;
@@ -5680,6 +5679,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_EXT_separate_specular_color
   "GL_EXT_separate_specular_color",
 #endif
+#ifdef GL_EXT_shader_clock
+  "GL_EXT_shader_clock",
+#endif
 #ifdef GL_EXT_shader_framebuffer_fetch
   "GL_EXT_shader_framebuffer_fetch",
 #endif
@@ -7335,7 +7337,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[955];
+static GLboolean  _glewExtensionString[956];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8552,6 +8554,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_EXT_separate_specular_color
   &__GLEW_EXT_separate_specular_color,
+#endif
+#ifdef GL_EXT_shader_clock
+  &__GLEW_EXT_shader_clock,
 #endif
 #ifdef GL_EXT_shader_framebuffer_fetch
   &__GLEW_EXT_shader_framebuffer_fetch,
@@ -13664,7 +13669,6 @@ static GLboolean _glewInit_GL_EXT_buffer_storage ()
   GLboolean r = GL_FALSE;
 
   r = ((glBufferStorageEXT = (PFNGLBUFFERSTORAGEEXTPROC)glewGetProcAddress((const GLubyte*)"glBufferStorageEXT")) == NULL) || r;
-  r = ((glNamedBufferStorageEXT = (PFNGLNAMEDBUFFERSTORAGEEXTPROC)glewGetProcAddress((const GLubyte*)"glNamedBufferStorageEXT")) == NULL) || r;
 
   return r;
 }
@@ -14928,7 +14932,6 @@ static GLboolean _glewInit_GL_EXT_sparse_texture ()
   GLboolean r = GL_FALSE;
 
   r = ((glTexPageCommitmentEXT = (PFNGLTEXPAGECOMMITMENTEXTPROC)glewGetProcAddress((const GLubyte*)"glTexPageCommitmentEXT")) == NULL) || r;
-  r = ((glTexturePageCommitmentEXT = (PFNGLTEXTUREPAGECOMMITMENTEXTPROC)glewGetProcAddress((const GLubyte*)"glTexturePageCommitmentEXT")) == NULL) || r;
 
   return r;
 }
@@ -26667,6 +26670,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"separate_specular_color", 23))
         {
           ret = GLEW_EXT_separate_specular_color;
+          continue;
+        }
+#endif
+#ifdef GL_EXT_shader_clock
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_clock", 12))
+        {
+          ret = GLEW_EXT_shader_clock;
           continue;
         }
 #endif

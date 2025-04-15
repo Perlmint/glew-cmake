@@ -4418,7 +4418,6 @@ static void _glewInfo_GL_EXT_buffer_storage (void)
   GLboolean fi = glewPrintExt("GL_EXT_buffer_storage", GLEW_EXT_buffer_storage, glewIsSupported("GL_EXT_buffer_storage"), glewGetExtension("GL_EXT_buffer_storage"));
 
   glewInfoFunc(fi, "glBufferStorageEXT", glBufferStorageEXT == NULL);
-  glewInfoFunc(fi, "glNamedBufferStorageEXT", glNamedBufferStorageEXT == NULL);
 }
 
 #endif /* GL_EXT_buffer_storage */
@@ -5869,6 +5868,15 @@ static void _glewInfo_GL_EXT_separate_specular_color (void)
 
 #endif /* GL_EXT_separate_specular_color */
 
+#ifdef GL_EXT_shader_clock
+
+static void _glewInfo_GL_EXT_shader_clock (void)
+{
+  glewPrintExt("GL_EXT_shader_clock", GLEW_EXT_shader_clock, glewIsSupported("GL_EXT_shader_clock"), glewGetExtension("GL_EXT_shader_clock"));
+}
+
+#endif /* GL_EXT_shader_clock */
+
 #ifdef GL_EXT_shader_framebuffer_fetch
 
 static void _glewInfo_GL_EXT_shader_framebuffer_fetch (void)
@@ -6029,7 +6037,6 @@ static void _glewInfo_GL_EXT_sparse_texture (void)
   GLboolean fi = glewPrintExt("GL_EXT_sparse_texture", GLEW_EXT_sparse_texture, glewIsSupported("GL_EXT_sparse_texture"), glewGetExtension("GL_EXT_sparse_texture"));
 
   glewInfoFunc(fi, "glTexPageCommitmentEXT", glTexPageCommitmentEXT == NULL);
-  glewInfoFunc(fi, "glTexturePageCommitmentEXT", glTexturePageCommitmentEXT == NULL);
 }
 
 #endif /* GL_EXT_sparse_texture */
@@ -16440,6 +16447,9 @@ static void glewInfo (void)
 #ifdef GL_EXT_separate_specular_color
   _glewInfo_GL_EXT_separate_specular_color();
 #endif /* GL_EXT_separate_specular_color */
+#ifdef GL_EXT_shader_clock
+  _glewInfo_GL_EXT_shader_clock();
+#endif /* GL_EXT_shader_clock */
 #ifdef GL_EXT_shader_framebuffer_fetch
   _glewInfo_GL_EXT_shader_framebuffer_fetch();
 #endif /* GL_EXT_shader_framebuffer_fetch */
