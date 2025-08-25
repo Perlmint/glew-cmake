@@ -1,6 +1,6 @@
 /*
 ** The OpenGL Extension Wrangler Library
-** Copyright (C) 2008-2024, Nigel Stewart <nigels[]nigels com>
+** Copyright (C) 2008-2025, Nigel Stewart <nigels[]nigels com>
 ** Copyright (C) 2002-2008, Milan Ikits <milan ikits[]ieee org>
 ** Copyright (C) 2002-2008, Marcelo E. Magallon <mmagallo[]debian org>
 ** Copyright (C) 2002, Lev Povalahev
@@ -1823,7 +1823,7 @@ GLXEW_VAR_EXPORT GLboolean __GLXEW_SUN_get_transparent_index;
 GLXEW_VAR_EXPORT GLboolean __GLXEW_SUN_video_resize;
 /* ------------------------------------------------------------------------ */
 
-GLEWAPI GLenum GLEWAPIENTRY glxewInit ();
+GLEWAPI GLenum GLEWAPIENTRY glxewInit (void);
 GLEWAPI GLboolean GLEWAPIENTRY glxewIsSupported (const char *name);
 
 #ifndef GLXEW_GET_VAR

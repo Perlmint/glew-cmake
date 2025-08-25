@@ -1,6 +1,6 @@
 /*
 ** The OpenGL Extension Wrangler Library
-** Copyright (C) 2008-2024, Nigel Stewart <nigels[]nigels com>
+** Copyright (C) 2008-2025, Nigel Stewart <nigels[]nigels com>
 ** Copyright (C) 2002-2008, Milan Ikits <milan ikits[]ieee org>
 ** Copyright (C) 2002-2008, Marcelo E. Magallon <mmagallo[]debian org>
 ** Copyright (C) 2002, Lev Povalahev
@@ -37,7 +37,12 @@
 #if defined(GLEW_EGL)
 #include <GL/eglew.h>
 #elif defined(GLEW_OSMESA)
+#ifndef GLAPI
 #define GLAPI extern
+#endif
+#ifndef APIENTRY
+#define APIENTRY
+#endif
 #include <GL/osmesa.h>
 #elif defined(_WIN32)
 #include <GL/wglew.h>
@@ -81,7 +86,7 @@ GLboolean glewCreateContext (struct createParams *params);
 
 GLboolean glewParseArgs (int argc, char** argv, struct createParams *);
 
-void glewDestroyContext ();
+void glewDestroyContext (void);
 
 /* ------------------------------------------------------------------------- */
 
@@ -4847,6 +4852,7 @@ static void _glewInfo_GL_EXT_direct_state_access (void)
   glewInfoFunc(fi, "glTextureImage1DEXT", glTextureImage1DEXT == NULL);
   glewInfoFunc(fi, "glTextureImage2DEXT", glTextureImage2DEXT == NULL);
   glewInfoFunc(fi, "glTextureImage3DEXT", glTextureImage3DEXT == NULL);
+  glewInfoFunc(fi, "glTexturePageCommitmentEXT", glTexturePageCommitmentEXT == NULL);
   glewInfoFunc(fi, "glTextureParameterIivEXT", glTextureParameterIivEXT == NULL);
   glewInfoFunc(fi, "glTextureParameterIuivEXT", glTextureParameterIuivEXT == NULL);
   glewInfoFunc(fi, "glTextureParameterfEXT", glTextureParameterfEXT == NULL);
@@ -18229,7 +18235,7 @@ static void wglewInfo ()
 
 #elif !defined(GLEW_EGL) && !defined(GLEW_OSMESA) /* _UNIX */
 
-static void glxewInfo ()
+static void glxewInfo (void)
 {
 #ifdef GLX_VERSION_1_2
   _glewInfo_GLX_VERSION_1_2();
@@ -18460,7 +18466,7 @@ static void glxewInfo ()
 
 #elif defined(GLEW_EGL)
 
-static void eglewInfo ()
+static void eglewInfo (void)
 {
 #ifdef EGL_VERSION_1_0
   _glewInfo_EGL_VERSION_1_0();
@@ -19175,7 +19181,6 @@ GLboolean glewCreateContext (struct createParams *params)
   EGLDeviceEXT devices[1];
   EGLint numDevices;
   EGLSurface  surface;
-  EGLint majorVersion, minorVersion;
   EGLint configAttribs[] = {
         EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
         EGL_RED_SIZE, 1,
@@ -19208,6 +19213,8 @@ GLboolean glewCreateContext (struct createParams *params)
   PFNEGLCREATECONTEXTPROC         createContext = NULL;
   PFNEGLMAKECURRENTPROC           makeCurrent = NULL;
   PFNEGLCREATEPBUFFERSURFACEPROC  createPbufferSurface = NULL;
+
+  (void) params; /* not used */
 
   /* Load necessary entry points */
   queryDevices         = (PFNEGLQUERYDEVICESEXTPROC)       eglGetProcAddress("eglQueryDevicesEXT");
@@ -19279,7 +19286,7 @@ GLboolean glewCreateContext (struct createParams *params)
   return GL_FALSE;
 }
 
-void glewDestroyContext ()
+void glewDestroyContext (void)
 {
   if (NULL != ctx) eglDestroyContext(display, ctx);
 }
@@ -19294,20 +19301,22 @@ static GLubyte *osmPixels = NULL;
 
 GLboolean glewCreateContext (struct createParams *params)
 {
+  (void) params; /* not used */
+
   ctx = OSMesaCreateContext(OSMESA_RGBA, NULL);
   if (NULL == ctx) return GL_TRUE;
   if (NULL == osmPixels)
   {
     osmPixels = (GLubyte *) calloc(osmWidth*osmHeight*4, 1);
   }
-  if (!OSMesaMakeCurrent(ctx, osmPixels, GL_UNSIGNED_BYTE, osmWidth, osmHeight))
+  if (!OSMesaMakeCurrent(ctx, osmPixels, osmFormat, osmWidth, osmHeight))
   {
       return GL_TRUE;
   }
   return GL_FALSE;
 }
 
-void glewDestroyContext ()
+void glewDestroyContext (void)
 {
   if (NULL != ctx) OSMesaDestroyContext(ctx);
 }
@@ -19392,7 +19401,7 @@ GLboolean glewCreateContext (struct createParams* params)
   return GL_FALSE;
 }
 
-void glewDestroyContext ()
+void glewDestroyContext (void)
 {
   if (NULL != rc) wglMakeCurrent(NULL, NULL);
   if (NULL != rc) wglDeleteContext(rc);
@@ -19450,7 +19459,7 @@ GLboolean glewCreateContext (struct createParams *params)
   return GL_FALSE;
 }
 
-void glewDestroyContext ()
+void glewDestroyContext (void)
 {
   CGLSetCurrentContext(octx);
   CGLReleaseContext(ctx);
@@ -19463,10 +19472,11 @@ void glewDestroyContext ()
 GLboolean glewCreateContext (struct createParams *params)
 {
   /* TODO: Haiku: We need to call C++ code here */
+  (void) params; /* not used */
   return GL_FALSE;
 }
 
-void glewDestroyContext ()
+void glewDestroyContext (void)
 {
   /* TODO: Haiku: We need to call C++ code here */
 }
@@ -19574,7 +19584,7 @@ GLboolean glewCreateContext (struct createParams *params)
   return GL_FALSE;
 }
 
-void glewDestroyContext ()
+void glewDestroyContext (void)
 {
   if (NULL != dpy && NULL != ctx) glXDestroyContext(dpy, ctx);
   if (NULL != dpy && 0 != wnd) XDestroyWindow(dpy, wnd);

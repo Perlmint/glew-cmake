@@ -1,6 +1,6 @@
 /*
 ** The OpenGL Extension Wrangler Library
-** Copyright (C) 2008-2024, Nigel Stewart <nigels[]nigels com>
+** Copyright (C) 2008-2025, Nigel Stewart <nigels[]nigels com>
 ** Copyright (C) 2002-2008, Milan Ikits <milan ikits[]ieee org>
 ** Copyright (C) 2002-2008, Marcelo E. Magallon <mmagallo[]debian org>
 ** Copyright (C) 2002, Lev Povalahev
@@ -162,24 +162,16 @@ struct wl_buffer;
 struct wl_display;
 struct wl_resource;
 
-#define EGL_DONT_CARE                     ((EGLint)-1)
-
-#define EGL_NO_CONTEXT                    ((EGLContext)0)
-#define EGL_NO_DISPLAY                    ((EGLDisplay)0)
-#define EGL_NO_IMAGE                      ((EGLImage)0)
-#define EGL_NO_SURFACE                    ((EGLSurface)0)
-#define EGL_NO_SYNC                       ((EGLSync)0)
-
-#define EGL_UNKNOWN                       ((EGLint)-1)
-
-#define EGL_DEFAULT_DISPLAY               ((EGLNativeDisplayType)0)
-
 EGLAPI __eglMustCastToProperFunctionPointerType EGLAPIENTRY eglGetProcAddress (const char *procname);
 /* ---------------------------- EGL_VERSION_1_0 ---------------------------- */
 
 #ifndef EGL_VERSION_1_0
 #define EGL_VERSION_1_0 1
 
+#define EGL_DONT_CARE EGL_CAST(EGLint,-1)
+#define EGL_NO_CONTEXT EGL_CAST(EGLContext,0)
+#define EGL_NO_DISPLAY EGL_CAST(EGLDisplay,0)
+#define EGL_NO_SURFACE EGL_CAST(EGLSurface,0)
 #define EGL_FALSE 0
 #define EGL_PBUFFER_BIT 0x0001
 #define EGL_TRUE 1
@@ -327,6 +319,7 @@ typedef EGLBoolean  ( * PFNEGLSWAPINTERVALPROC) (EGLDisplay  dpy, EGLint  interv
 #ifndef EGL_VERSION_1_2
 #define EGL_VERSION_1_2 1
 
+#define EGL_UNKNOWN EGL_CAST(EGLint,-1)
 #define EGL_OPENGL_ES_BIT 0x0001
 #define EGL_OPENVG_BIT 0x0002
 #define EGL_LUMINANCE_SIZE 0x303D
@@ -337,6 +330,7 @@ typedef EGLBoolean  ( * PFNEGLSWAPINTERVALPROC) (EGLDisplay  dpy, EGLint  interv
 #define EGL_RENDER_BUFFER 0x3086
 #define EGL_COLORSPACE 0x3087
 #define EGL_ALPHA_FORMAT 0x3088
+#define EGL_COLORSPACE_sRGB 0x3089
 #define EGL_COLORSPACE_LINEAR 0x308A
 #define EGL_ALPHA_FORMAT_NONPRE 0x308B
 #define EGL_ALPHA_FORMAT_PRE 0x308C
@@ -383,6 +377,7 @@ typedef EGLBoolean  ( * PFNEGLWAITCLIENTPROC) ( void );
 #define EGL_CONFORMANT 0x3042
 #define EGL_VG_COLORSPACE 0x3087
 #define EGL_VG_ALPHA_FORMAT 0x3088
+#define EGL_VG_COLORSPACE_sRGB 0x3089
 #define EGL_VG_COLORSPACE_LINEAR 0x308A
 #define EGL_VG_ALPHA_FORMAT_NONPRE 0x308B
 #define EGL_VG_ALPHA_FORMAT_PRE 0x308C
@@ -397,6 +392,7 @@ typedef EGLBoolean  ( * PFNEGLWAITCLIENTPROC) ( void );
 #ifndef EGL_VERSION_1_4
 #define EGL_VERSION_1_4 1
 
+#define EGL_DEFAULT_DISPLAY EGL_CAST(EGLNativeDisplayType,0)
 #define EGL_OPENGL_BIT 0x0008
 #define EGL_MULTISAMPLE_RESOLVE_BOX_BIT 0x0200
 #define EGL_SWAP_BEHAVIOR_PRESERVED_BIT 0x0400
@@ -418,6 +414,8 @@ typedef EGLContext  ( * PFNEGLGETCURRENTCONTEXTPROC) ( void );
 #ifndef EGL_VERSION_1_5
 #define EGL_VERSION_1_5 1
 
+#define EGL_NO_IMAGE EGL_CAST(EGLImage,0)
+#define EGL_NO_SYNC EGL_CAST(EGLSync,0)
 #define EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT 0x00000001
 #define EGL_SYNC_FLUSH_COMMANDS_BIT 0x0001
 #define EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT 0x00000002
@@ -553,6 +551,8 @@ typedef EGLClientBuffer ( * PFNEGLCREATENATIVECLIENTBUFFERANDROIDPROC) (const EG
 #ifndef EGL_ANDROID_get_frame_timestamps
 #define EGL_ANDROID_get_frame_timestamps 1
 
+#define EGL_TIMESTAMP_INVALID_ANDROID EGL_CAST(EGLnsecsANDROID,-1)
+#define EGL_TIMESTAMP_PENDING_ANDROID EGL_CAST(EGLnsecsANDROID,-2)
 #define EGL_TIMESTAMPS_ANDROID 0x3430
 #define EGL_COMPOSITE_DEADLINE_ANDROID 0x3431
 #define EGL_COMPOSITE_INTERVAL_ANDROID 0x3432
@@ -612,6 +612,7 @@ typedef EGLClientBuffer ( * PFNEGLGETNATIVECLIENTBUFFERANDROIDPROC) (const struc
 #ifndef EGL_ANDROID_native_fence_sync
 #define EGL_ANDROID_native_fence_sync 1
 
+#define EGL_NO_NATIVE_FENCE_FD_ANDROID -1
 #define EGL_SYNC_NATIVE_FENCE_ANDROID 0x3144
 #define EGL_SYNC_NATIVE_FENCE_FD_ANDROID 0x3145
 #define EGL_SYNC_NATIVE_FENCE_SIGNALED_ANDROID 0x3146
@@ -871,6 +872,7 @@ typedef EGLBoolean ( * PFNEGLCOMPOSITORSWAPPOLICYEXTPROC) (EGLint external_win_i
 #ifndef EGL_EXT_device_base
 #define EGL_EXT_device_base 1
 
+#define EGL_NO_DEVICE_EXT EGL_CAST(EGLDeviceEXT,0)
 #define EGL_BAD_DEVICE_EXT 0x322B
 #define EGL_DEVICE_EXT 0x322C
 
@@ -948,6 +950,7 @@ typedef EGLBoolean ( * PFNEGLQUERYDEVICEBINARYEXTPROC) (EGLDeviceEXT device, EGL
 #ifndef EGL_EXT_device_query
 #define EGL_EXT_device_query 1
 
+#define EGL_NO_DEVICE_EXT EGL_CAST(EGLDeviceEXT,0)
 #define EGL_BAD_DEVICE_EXT 0x322B
 #define EGL_DEVICE_EXT 0x322C
 
@@ -1188,6 +1191,8 @@ typedef EGLBoolean ( * PFNEGLQUERYDMABUFMODIFIERSEXTPROC) (EGLDisplay dpy, EGLin
 #ifndef EGL_EXT_output_base
 #define EGL_EXT_output_base 1
 
+#define EGL_NO_OUTPUT_LAYER_EXT EGL_CAST(EGLOutputLayerEXT,0)
+#define EGL_NO_OUTPUT_PORT_EXT EGL_CAST(EGLOutputPortEXT,0)
 #define EGL_BAD_OUTPUT_LAYER_EXT 0x322D
 #define EGL_BAD_OUTPUT_PORT_EXT 0x322E
 #define EGL_SWAP_INTERVAL_EXT 0x322F
@@ -1786,6 +1791,7 @@ typedef EGLBoolean ( * PFNEGLQUERYDISPLAYATTRIBKHRPROC) (EGLDisplay dpy, EGLint 
 #ifndef EGL_KHR_image
 #define EGL_KHR_image 1
 
+#define EGL_NO_IMAGE_KHR EGL_CAST(EGLImageKHR,0)
 #define EGL_NATIVE_PIXMAP_KHR 0x30B0
 
 typedef EGLImageKHR ( * PFNEGLCREATEIMAGEKHRPROC) (EGLDisplay dpy, EGLContext ctx, EGLenum target, EGLClientBuffer buffer, const EGLint* attrib_list);
@@ -1803,6 +1809,7 @@ typedef EGLBoolean ( * PFNEGLDESTROYIMAGEKHRPROC) (EGLDisplay dpy, EGLImageKHR i
 #ifndef EGL_KHR_image_base
 #define EGL_KHR_image_base 1
 
+#define EGL_NO_IMAGE_KHR EGL_CAST(EGLImageKHR,0)
 #define EGL_IMAGE_PRESERVED_KHR 0x30D2
 
 #define EGLEW_KHR_image_base EGLEW_GET_VAR(__EGLEW_KHR_image_base)
@@ -1920,6 +1927,8 @@ typedef EGLBoolean  ( * PFNEGLQUERYSURFACE64KHRPROC) (EGLDisplay  dpy, EGLSurfac
 #ifndef EGL_KHR_no_config_context
 #define EGL_KHR_no_config_context 1
 
+#define EGL_NO_CONFIG_KHR EGL_CAST(EGLConfig,0)
+
 #define EGLEW_KHR_no_config_context EGLEW_GET_VAR(__EGLEW_KHR_no_config_context)
 
 #endif /* EGL_KHR_no_config_context */
@@ -1989,6 +1998,7 @@ typedef EGLBoolean ( * PFNEGLSETDAMAGEREGIONKHRPROC) (EGLDisplay dpy, EGLSurface
 #ifndef EGL_KHR_reusable_sync
 #define EGL_KHR_reusable_sync 1
 
+#define EGL_NO_SYNC_KHR EGL_CAST(EGLSyncKHR,0)
 #define EGL_SYNC_FLUSH_COMMANDS_BIT_KHR 0x0001
 #define EGL_SYNC_STATUS_KHR 0x30F1
 #define EGL_SIGNALED_KHR 0x30F2
@@ -2020,6 +2030,7 @@ typedef EGLBoolean ( * PFNEGLSIGNALSYNCKHRPROC) (EGLDisplay dpy, EGLSyncKHR sync
 #ifndef EGL_KHR_stream
 #define EGL_KHR_stream 1
 
+#define EGL_NO_STREAM_KHR EGL_CAST(EGLStreamKHR,0)
 #define EGL_CONSUMER_LATENCY_USEC_KHR 0x3210
 #define EGL_PRODUCER_FRAME_KHR 0x3212
 #define EGL_CONSUMER_FRAME_KHR 0x3213
@@ -2098,6 +2109,8 @@ typedef EGLBoolean ( * PFNEGLSTREAMCONSUMERRELEASEKHRPROC) (EGLDisplay dpy, EGLS
 
 #ifndef EGL_KHR_stream_cross_process_fd
 #define EGL_KHR_stream_cross_process_fd 1
+
+#define EGL_NO_FILE_DESCRIPTOR_KHR EGL_CAST(EGLNativeFileDescriptorKHR,-1)
 
 typedef EGLStreamKHR ( * PFNEGLCREATESTREAMFROMFILEDESCRIPTORKHRPROC) (EGLDisplay dpy, EGLNativeFileDescriptorKHR file_descriptor);
 typedef EGLNativeFileDescriptorKHR ( * PFNEGLGETSTREAMFILEDESCRIPTORKHRPROC) (EGLDisplay dpy, EGLStreamKHR stream);
@@ -2769,6 +2782,7 @@ typedef EGLSyncKHR ( * PFNEGLCREATESTREAMSYNCNVPROC) (EGLDisplay dpy, EGLStreamK
 #ifndef EGL_NV_sync
 #define EGL_NV_sync 1
 
+#define EGL_NO_SYNC_NV EGL_CAST(EGLSyncNV,0)
 #define EGL_SYNC_FLUSH_COMMANDS_BIT_NV 0x0001
 #define EGL_SYNC_PRIOR_COMMANDS_COMPLETE_NV 0x30E6
 #define EGL_SYNC_STATUS_NV 0x30E7
