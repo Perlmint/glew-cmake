@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ##
-## Copyright (C) 2008-2024, Nigel Stewart <nigels[]nigels com>
+## Copyright (C) 2008-2025, Nigel Stewart <nigels[]nigels com>
 ## Copyright (C) 2002-2008, Marcelo E. Magallon <mmagallo[]debian org>
 ## Copyright (C) 2002-2008, Milan Ikits <milan ikits[]ieee org>
 ##
@@ -376,6 +376,12 @@ EOT
 # https://sourceforge.net/p/glew/bugs/242/
     cat >> $1/GL_EXT_direct_state_access <<EOT
     void glVertexArrayVertexAttribDivisorEXT (GLuint vaobj, GLuint index, GLuint divisor)
+EOT
+
+# add missing functions to GL_EXT_direct_state_access (GL_ARB_sparse_texture related)
+# https://github.com/nigels-com/glew/issues/445
+    cat >> $1/GL_EXT_direct_state_access <<EOT
+    void glTexturePageCommitmentEXT (GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLboolean commit)
 EOT
 
 # Filter out GL_UNSIGNED_INT and GL_FLOAT from GL_AMD_performance_monitor
