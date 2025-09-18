@@ -13971,6 +13971,28 @@ typedef void (GLAPIENTRY * PFNGLIMAGETRANSFORMPARAMETERIVHPPROC) (GLenum target,
 
 #endif /* GL_HP_texture_lighting */
 
+/* ------------------------ GL_HUAWEI_program_binary ----------------------- */
+
+#ifndef GL_HUAWEI_program_binary
+#define GL_HUAWEI_program_binary 1
+
+#define GL_HUAWEI_PROGRAM_BINARY 0x9771
+
+#define GLEW_HUAWEI_program_binary GLEW_GET_VAR(__GLEW_HUAWEI_program_binary)
+
+#endif /* GL_HUAWEI_program_binary */
+
+/* ------------------------ GL_HUAWEI_shader_binary ------------------------ */
+
+#ifndef GL_HUAWEI_shader_binary
+#define GL_HUAWEI_shader_binary 1
+
+#define GL_HUAWEI_SHADER_BINARY 0x9770
+
+#define GLEW_HUAWEI_shader_binary GLEW_GET_VAR(__GLEW_HUAWEI_shader_binary)
+
+#endif /* GL_HUAWEI_shader_binary */
+
 /* --------------------------- GL_IBM_cull_vertex -------------------------- */
 
 #ifndef GL_IBM_cull_vertex
@@ -26327,6 +26349,8 @@ GLEW_VAR_EXPORT GLboolean __GLEW_HP_convolution_border_modes;
 GLEW_VAR_EXPORT GLboolean __GLEW_HP_image_transform;
 GLEW_VAR_EXPORT GLboolean __GLEW_HP_occlusion_test;
 GLEW_VAR_EXPORT GLboolean __GLEW_HP_texture_lighting;
+GLEW_VAR_EXPORT GLboolean __GLEW_HUAWEI_program_binary;
+GLEW_VAR_EXPORT GLboolean __GLEW_HUAWEI_shader_binary;
 GLEW_VAR_EXPORT GLboolean __GLEW_IBM_cull_vertex;
 GLEW_VAR_EXPORT GLboolean __GLEW_IBM_multimode_draw_arrays;
 GLEW_VAR_EXPORT GLboolean __GLEW_IBM_rasterpos_clip;

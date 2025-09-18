@@ -6861,6 +6861,24 @@ static void _glewInfo_GL_HP_texture_lighting (void)
 
 #endif /* GL_HP_texture_lighting */
 
+#ifdef GL_HUAWEI_program_binary
+
+static void _glewInfo_GL_HUAWEI_program_binary (void)
+{
+  glewPrintExt("GL_HUAWEI_program_binary", GLEW_HUAWEI_program_binary, glewIsSupported("GL_HUAWEI_program_binary"), glewGetExtension("GL_HUAWEI_program_binary"));
+}
+
+#endif /* GL_HUAWEI_program_binary */
+
+#ifdef GL_HUAWEI_shader_binary
+
+static void _glewInfo_GL_HUAWEI_shader_binary (void)
+{
+  glewPrintExt("GL_HUAWEI_shader_binary", GLEW_HUAWEI_shader_binary, glewIsSupported("GL_HUAWEI_shader_binary"), glewGetExtension("GL_HUAWEI_shader_binary"));
+}
+
+#endif /* GL_HUAWEI_shader_binary */
+
 #ifdef GL_IBM_cull_vertex
 
 static void _glewInfo_GL_IBM_cull_vertex (void)
@@ -16729,6 +16747,12 @@ static void glewInfo (void)
 #ifdef GL_HP_texture_lighting
   _glewInfo_GL_HP_texture_lighting();
 #endif /* GL_HP_texture_lighting */
+#ifdef GL_HUAWEI_program_binary
+  _glewInfo_GL_HUAWEI_program_binary();
+#endif /* GL_HUAWEI_program_binary */
+#ifdef GL_HUAWEI_shader_binary
+  _glewInfo_GL_HUAWEI_shader_binary();
+#endif /* GL_HUAWEI_shader_binary */
 #ifdef GL_IBM_cull_vertex
   _glewInfo_GL_IBM_cull_vertex();
 #endif /* GL_IBM_cull_vertex */

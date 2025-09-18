@@ -4022,6 +4022,8 @@ GLboolean __GLEW_HP_convolution_border_modes = GL_FALSE;
 GLboolean __GLEW_HP_image_transform = GL_FALSE;
 GLboolean __GLEW_HP_occlusion_test = GL_FALSE;
 GLboolean __GLEW_HP_texture_lighting = GL_FALSE;
+GLboolean __GLEW_HUAWEI_program_binary = GL_FALSE;
+GLboolean __GLEW_HUAWEI_shader_binary = GL_FALSE;
 GLboolean __GLEW_IBM_cull_vertex = GL_FALSE;
 GLboolean __GLEW_IBM_multimode_draw_arrays = GL_FALSE;
 GLboolean __GLEW_IBM_rasterpos_clip = GL_FALSE;
@@ -5956,6 +5958,12 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_HP_texture_lighting
   "GL_HP_texture_lighting",
 #endif
+#ifdef GL_HUAWEI_program_binary
+  "GL_HUAWEI_program_binary",
+#endif
+#ifdef GL_HUAWEI_shader_binary
+  "GL_HUAWEI_shader_binary",
+#endif
 #ifdef GL_IBM_cull_vertex
   "GL_IBM_cull_vertex",
 #endif
@@ -7338,7 +7346,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[956];
+static GLboolean  _glewExtensionString[958];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8831,6 +8839,12 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_HP_texture_lighting
   &__GLEW_HP_texture_lighting,
+#endif
+#ifdef GL_HUAWEI_program_binary
+  &__GLEW_HUAWEI_program_binary,
+#endif
+#ifdef GL_HUAWEI_shader_binary
+  &__GLEW_HUAWEI_shader_binary,
 #endif
 #ifdef GL_IBM_cull_vertex
   &__GLEW_IBM_cull_vertex,
@@ -27336,6 +27350,23 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"texture_lighting", 16))
         {
           ret = GLEW_HP_texture_lighting;
+          continue;
+        }
+#endif
+      }
+      if (_glewStrSame2(&pos, &len, (const GLubyte*)"HUAWEI_", 7))
+      {
+#ifdef GL_HUAWEI_program_binary
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"program_binary", 14))
+        {
+          ret = GLEW_HUAWEI_program_binary;
+          continue;
+        }
+#endif
+#ifdef GL_HUAWEI_shader_binary
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_binary", 13))
+        {
+          ret = GLEW_HUAWEI_shader_binary;
           continue;
         }
 #endif
