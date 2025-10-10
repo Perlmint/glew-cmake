@@ -5401,6 +5401,20 @@ static void _glewInfo_GL_EXT_memory_object_win32 (void)
 
 #endif /* GL_EXT_memory_object_win32 */
 
+#ifdef GL_EXT_mesh_shader
+
+static void _glewInfo_GL_EXT_mesh_shader (void)
+{
+  GLboolean fi = glewPrintExt("GL_EXT_mesh_shader", GLEW_EXT_mesh_shader, glewIsSupported("GL_EXT_mesh_shader"), glewGetExtension("GL_EXT_mesh_shader"));
+
+  glewInfoFunc(fi, "glDrawMeshTasksEXT", glDrawMeshTasksEXT == NULL);
+  glewInfoFunc(fi, "glDrawMeshTasksIndirectEXT", glDrawMeshTasksIndirectEXT == NULL);
+  glewInfoFunc(fi, "glMultiDrawMeshTasksIndirectCountEXT", glMultiDrawMeshTasksIndirectCountEXT == NULL);
+  glewInfoFunc(fi, "glMultiDrawMeshTasksIndirectEXT", glMultiDrawMeshTasksIndirectEXT == NULL);
+}
+
+#endif /* GL_EXT_mesh_shader */
+
 #ifdef GL_EXT_misc_attribute
 
 static void _glewInfo_GL_EXT_misc_attribute (void)
@@ -16342,6 +16356,9 @@ static void glewInfo (void)
 #ifdef GL_EXT_memory_object_win32
   _glewInfo_GL_EXT_memory_object_win32();
 #endif /* GL_EXT_memory_object_win32 */
+#ifdef GL_EXT_mesh_shader
+  _glewInfo_GL_EXT_mesh_shader();
+#endif /* GL_EXT_mesh_shader */
 #ifdef GL_EXT_misc_attribute
   _glewInfo_GL_EXT_misc_attribute();
 #endif /* GL_EXT_misc_attribute */

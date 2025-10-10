@@ -2177,6 +2177,11 @@ PFNGLIMPORTMEMORYFDEXTPROC __glewImportMemoryFdEXT = NULL;
 PFNGLIMPORTMEMORYWIN32HANDLEEXTPROC __glewImportMemoryWin32HandleEXT = NULL;
 PFNGLIMPORTMEMORYWIN32NAMEEXTPROC __glewImportMemoryWin32NameEXT = NULL;
 
+PFNGLDRAWMESHTASKSEXTPROC __glewDrawMeshTasksEXT = NULL;
+PFNGLDRAWMESHTASKSINDIRECTEXTPROC __glewDrawMeshTasksIndirectEXT = NULL;
+PFNGLMULTIDRAWMESHTASKSINDIRECTCOUNTEXTPROC __glewMultiDrawMeshTasksIndirectCountEXT = NULL;
+PFNGLMULTIDRAWMESHTASKSINDIRECTEXTPROC __glewMultiDrawMeshTasksIndirectEXT = NULL;
+
 PFNGLMULTIDRAWARRAYSEXTPROC __glewMultiDrawArraysEXT = NULL;
 PFNGLMULTIDRAWELEMENTSEXTPROC __glewMultiDrawElementsEXT = NULL;
 
@@ -3887,6 +3892,7 @@ GLboolean __GLEW_EXT_map_buffer_range = GL_FALSE;
 GLboolean __GLEW_EXT_memory_object = GL_FALSE;
 GLboolean __GLEW_EXT_memory_object_fd = GL_FALSE;
 GLboolean __GLEW_EXT_memory_object_win32 = GL_FALSE;
+GLboolean __GLEW_EXT_mesh_shader = GL_FALSE;
 GLboolean __GLEW_EXT_misc_attribute = GL_FALSE;
 GLboolean __GLEW_EXT_multi_draw_arrays = GL_FALSE;
 GLboolean __GLEW_EXT_multi_draw_indirect = GL_FALSE;
@@ -5552,6 +5558,9 @@ static const char * _glewExtensionLookup[] = {
 #endif
 #ifdef GL_EXT_memory_object_win32
   "GL_EXT_memory_object_win32",
+#endif
+#ifdef GL_EXT_mesh_shader
+  "GL_EXT_mesh_shader",
 #endif
 #ifdef GL_EXT_misc_attribute
   "GL_EXT_misc_attribute",
@@ -7346,7 +7355,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[958];
+static GLboolean  _glewExtensionString[959];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8434,6 +8443,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_EXT_memory_object_win32
   &__GLEW_EXT_memory_object_win32,
+#endif
+#ifdef GL_EXT_mesh_shader
+  &__GLEW_EXT_mesh_shader,
 #endif
 #ifdef GL_EXT_misc_attribute
   &__GLEW_EXT_misc_attribute,
@@ -10417,6 +10429,7 @@ static GLboolean _glewInit_GL_EXT_map_buffer_range (void);
 static GLboolean _glewInit_GL_EXT_memory_object (void);
 static GLboolean _glewInit_GL_EXT_memory_object_fd (void);
 static GLboolean _glewInit_GL_EXT_memory_object_win32 (void);
+static GLboolean _glewInit_GL_EXT_mesh_shader (void);
 static GLboolean _glewInit_GL_EXT_multi_draw_arrays (void);
 static GLboolean _glewInit_GL_EXT_multi_draw_indirect (void);
 static GLboolean _glewInit_GL_EXT_multisample (void);
@@ -14592,6 +14605,22 @@ static GLboolean _glewInit_GL_EXT_memory_object_win32 (void)
 }
 
 #endif /* GL_EXT_memory_object_win32 */
+
+#ifdef GL_EXT_mesh_shader
+
+static GLboolean _glewInit_GL_EXT_mesh_shader (void)
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glDrawMeshTasksEXT = (PFNGLDRAWMESHTASKSEXTPROC)glewGetProcAddress((const GLubyte*)"glDrawMeshTasksEXT")) == NULL) || r;
+  r = ((glDrawMeshTasksIndirectEXT = (PFNGLDRAWMESHTASKSINDIRECTEXTPROC)glewGetProcAddress((const GLubyte*)"glDrawMeshTasksIndirectEXT")) == NULL) || r;
+  r = ((glMultiDrawMeshTasksIndirectCountEXT = (PFNGLMULTIDRAWMESHTASKSINDIRECTCOUNTEXTPROC)glewGetProcAddress((const GLubyte*)"glMultiDrawMeshTasksIndirectCountEXT")) == NULL) || r;
+  r = ((glMultiDrawMeshTasksIndirectEXT = (PFNGLMULTIDRAWMESHTASKSINDIRECTEXTPROC)glewGetProcAddress((const GLubyte*)"glMultiDrawMeshTasksIndirectEXT")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_EXT_mesh_shader */
 
 #ifdef GL_EXT_multi_draw_arrays
 
@@ -19036,6 +19065,9 @@ GLenum GLEWAPIENTRY glewContextInit (void)
 #ifdef GL_EXT_memory_object_win32
   if (glewExperimental || GLEW_EXT_memory_object_win32) GLEW_EXT_memory_object_win32 = !_glewInit_GL_EXT_memory_object_win32();
 #endif /* GL_EXT_memory_object_win32 */
+#ifdef GL_EXT_mesh_shader
+  if (glewExperimental || GLEW_EXT_mesh_shader) GLEW_EXT_mesh_shader = !_glewInit_GL_EXT_mesh_shader();
+#endif /* GL_EXT_mesh_shader */
 #ifdef GL_EXT_multi_draw_arrays
   if (glewExperimental || GLEW_EXT_multi_draw_arrays) GLEW_EXT_multi_draw_arrays = !_glewInit_GL_EXT_multi_draw_arrays();
 #endif /* GL_EXT_multi_draw_arrays */
@@ -26396,6 +26428,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"memory_object_win32", 19))
         {
           ret = GLEW_EXT_memory_object_win32;
+          continue;
+        }
+#endif
+#ifdef GL_EXT_mesh_shader
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"mesh_shader", 11))
+        {
+          ret = GLEW_EXT_mesh_shader;
           continue;
         }
 #endif
