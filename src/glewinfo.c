@@ -6005,6 +6005,15 @@ static void _glewInfo_GL_EXT_shader_pixel_local_storage2 (void)
 
 #endif /* GL_EXT_shader_pixel_local_storage2 */
 
+#ifdef GL_EXT_shader_realtime_clock
+
+static void _glewInfo_GL_EXT_shader_realtime_clock (void)
+{
+  glewPrintExt("GL_EXT_shader_realtime_clock", GLEW_EXT_shader_realtime_clock, glewIsSupported("GL_EXT_shader_realtime_clock"), glewGetExtension("GL_EXT_shader_realtime_clock"));
+}
+
+#endif /* GL_EXT_shader_realtime_clock */
+
 #ifdef GL_EXT_shader_samples_identical
 
 static void _glewInfo_GL_EXT_shader_samples_identical (void)
@@ -16524,6 +16533,9 @@ static void glewInfo (void)
 #ifdef GL_EXT_shader_pixel_local_storage2
   _glewInfo_GL_EXT_shader_pixel_local_storage2();
 #endif /* GL_EXT_shader_pixel_local_storage2 */
+#ifdef GL_EXT_shader_realtime_clock
+  _glewInfo_GL_EXT_shader_realtime_clock();
+#endif /* GL_EXT_shader_realtime_clock */
 #ifdef GL_EXT_shader_samples_identical
   _glewInfo_GL_EXT_shader_samples_identical();
 #endif /* GL_EXT_shader_samples_identical */

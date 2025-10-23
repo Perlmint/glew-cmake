@@ -3948,6 +3948,7 @@ GLboolean __GLEW_EXT_shader_io_blocks = GL_FALSE;
 GLboolean __GLEW_EXT_shader_non_constant_global_initializers = GL_FALSE;
 GLboolean __GLEW_EXT_shader_pixel_local_storage = GL_FALSE;
 GLboolean __GLEW_EXT_shader_pixel_local_storage2 = GL_FALSE;
+GLboolean __GLEW_EXT_shader_realtime_clock = GL_FALSE;
 GLboolean __GLEW_EXT_shader_samples_identical = GL_FALSE;
 GLboolean __GLEW_EXT_shader_texture_lod = GL_FALSE;
 GLboolean __GLEW_EXT_shadow_funcs = GL_FALSE;
@@ -5727,6 +5728,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_EXT_shader_pixel_local_storage2
   "GL_EXT_shader_pixel_local_storage2",
 #endif
+#ifdef GL_EXT_shader_realtime_clock
+  "GL_EXT_shader_realtime_clock",
+#endif
 #ifdef GL_EXT_shader_samples_identical
   "GL_EXT_shader_samples_identical",
 #endif
@@ -7355,7 +7359,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[959];
+static GLboolean  _glewExtensionString[960];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -8611,6 +8615,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #endif
 #ifdef GL_EXT_shader_pixel_local_storage2
   &__GLEW_EXT_shader_pixel_local_storage2,
+#endif
+#ifdef GL_EXT_shader_realtime_clock
+  &__GLEW_EXT_shader_realtime_clock,
 #endif
 #ifdef GL_EXT_shader_samples_identical
   &__GLEW_EXT_shader_samples_identical,
@@ -26820,6 +26827,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_pixel_local_storage2", 27))
         {
           ret = GLEW_EXT_shader_pixel_local_storage2;
+          continue;
+        }
+#endif
+#ifdef GL_EXT_shader_realtime_clock
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"shader_realtime_clock", 21))
+        {
+          ret = GLEW_EXT_shader_realtime_clock;
           continue;
         }
 #endif

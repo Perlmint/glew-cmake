@@ -12336,6 +12336,15 @@ typedef GLsizei (GLAPIENTRY * PFNGLGETFRAMEBUFFERPIXELLOCALSTORAGESIZEEXTPROC) (
 
 #endif /* GL_EXT_shader_pixel_local_storage2 */
 
+/* ---------------------- GL_EXT_shader_realtime_clock --------------------- */
+
+#ifndef GL_EXT_shader_realtime_clock
+#define GL_EXT_shader_realtime_clock 1
+
+#define GLEW_EXT_shader_realtime_clock GLEW_GET_VAR(__GLEW_EXT_shader_realtime_clock)
+
+#endif /* GL_EXT_shader_realtime_clock */
+
 /* -------------------- GL_EXT_shader_samples_identical -------------------- */
 
 #ifndef GL_EXT_shader_samples_identical
@@ -26361,6 +26370,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shader_io_blocks;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shader_non_constant_global_initializers;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shader_pixel_local_storage;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shader_pixel_local_storage2;
+GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shader_realtime_clock;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shader_samples_identical;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shader_texture_lod;
 GLEW_VAR_EXPORT GLboolean __GLEW_EXT_shadow_funcs;
