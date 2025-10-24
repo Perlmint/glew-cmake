@@ -5078,6 +5078,48 @@ static void _glewInfo_GL_EXT_fragment_lighting (void)
 
 #endif /* GL_EXT_fragment_lighting */
 
+#ifdef GL_EXT_fragment_shading_rate
+
+static void _glewInfo_GL_EXT_fragment_shading_rate (void)
+{
+  GLboolean fi = glewPrintExt("GL_EXT_fragment_shading_rate", GLEW_EXT_fragment_shading_rate, glewIsSupported("GL_EXT_fragment_shading_rate"), glewGetExtension("GL_EXT_fragment_shading_rate"));
+
+  glewInfoFunc(fi, "glFramebufferShadingRateEXT", glFramebufferShadingRateEXT == NULL);
+  glewInfoFunc(fi, "glGetFragmentShadingRatesEXT", glGetFragmentShadingRatesEXT == NULL);
+  glewInfoFunc(fi, "glShadingRateCombinerOpsEXT", glShadingRateCombinerOpsEXT == NULL);
+  glewInfoFunc(fi, "glShadingRateEXT", glShadingRateEXT == NULL);
+}
+
+#endif /* GL_EXT_fragment_shading_rate */
+
+#ifdef GL_EXT_fragment_shading_rate_attachment
+
+static void _glewInfo_GL_EXT_fragment_shading_rate_attachment (void)
+{
+  GLboolean fi = glewPrintExt("GL_EXT_fragment_shading_rate_attachment", GLEW_EXT_fragment_shading_rate_attachment, glewIsSupported("GL_EXT_fragment_shading_rate_attachment"), glewGetExtension("GL_EXT_fragment_shading_rate_attachment"));
+
+  glewInfoFunc(fi, "glFramebufferShadingRateEXT", glFramebufferShadingRateEXT == NULL);
+  glewInfoFunc(fi, "glGetFragmentShadingRatesEXT", glGetFragmentShadingRatesEXT == NULL);
+  glewInfoFunc(fi, "glShadingRateCombinerOpsEXT", glShadingRateCombinerOpsEXT == NULL);
+  glewInfoFunc(fi, "glShadingRateEXT", glShadingRateEXT == NULL);
+}
+
+#endif /* GL_EXT_fragment_shading_rate_attachment */
+
+#ifdef GL_EXT_fragment_shading_rate_primitive
+
+static void _glewInfo_GL_EXT_fragment_shading_rate_primitive (void)
+{
+  GLboolean fi = glewPrintExt("GL_EXT_fragment_shading_rate_primitive", GLEW_EXT_fragment_shading_rate_primitive, glewIsSupported("GL_EXT_fragment_shading_rate_primitive"), glewGetExtension("GL_EXT_fragment_shading_rate_primitive"));
+
+  glewInfoFunc(fi, "glFramebufferShadingRateEXT", glFramebufferShadingRateEXT == NULL);
+  glewInfoFunc(fi, "glGetFragmentShadingRatesEXT", glGetFragmentShadingRatesEXT == NULL);
+  glewInfoFunc(fi, "glShadingRateCombinerOpsEXT", glShadingRateCombinerOpsEXT == NULL);
+  glewInfoFunc(fi, "glShadingRateEXT", glShadingRateEXT == NULL);
+}
+
+#endif /* GL_EXT_fragment_shading_rate_primitive */
+
 #ifdef GL_EXT_framebuffer_blit
 
 static void _glewInfo_GL_EXT_framebuffer_blit (void)
@@ -6031,6 +6073,15 @@ static void _glewInfo_GL_EXT_shader_texture_lod (void)
 }
 
 #endif /* GL_EXT_shader_texture_lod */
+
+#ifdef GL_EXT_shader_texture_samples
+
+static void _glewInfo_GL_EXT_shader_texture_samples (void)
+{
+  glewPrintExt("GL_EXT_shader_texture_samples", GLEW_EXT_shader_texture_samples, glewIsSupported("GL_EXT_shader_texture_samples"), glewGetExtension("GL_EXT_shader_texture_samples"));
+}
+
+#endif /* GL_EXT_shader_texture_samples */
 
 #ifdef GL_EXT_shadow_funcs
 
@@ -16296,6 +16347,15 @@ static void glewInfo (void)
 #ifdef GL_EXT_fragment_lighting
   _glewInfo_GL_EXT_fragment_lighting();
 #endif /* GL_EXT_fragment_lighting */
+#ifdef GL_EXT_fragment_shading_rate
+  _glewInfo_GL_EXT_fragment_shading_rate();
+#endif /* GL_EXT_fragment_shading_rate */
+#ifdef GL_EXT_fragment_shading_rate_attachment
+  _glewInfo_GL_EXT_fragment_shading_rate_attachment();
+#endif /* GL_EXT_fragment_shading_rate_attachment */
+#ifdef GL_EXT_fragment_shading_rate_primitive
+  _glewInfo_GL_EXT_fragment_shading_rate_primitive();
+#endif /* GL_EXT_fragment_shading_rate_primitive */
 #ifdef GL_EXT_framebuffer_blit
   _glewInfo_GL_EXT_framebuffer_blit();
 #endif /* GL_EXT_framebuffer_blit */
@@ -16542,6 +16602,9 @@ static void glewInfo (void)
 #ifdef GL_EXT_shader_texture_lod
   _glewInfo_GL_EXT_shader_texture_lod();
 #endif /* GL_EXT_shader_texture_lod */
+#ifdef GL_EXT_shader_texture_samples
+  _glewInfo_GL_EXT_shader_texture_samples();
+#endif /* GL_EXT_shader_texture_samples */
 #ifdef GL_EXT_shadow_funcs
   _glewInfo_GL_EXT_shadow_funcs();
 #endif /* GL_EXT_shadow_funcs */
