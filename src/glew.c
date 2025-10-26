@@ -2066,16 +2066,6 @@ PFNGLGETFRAGMENTSHADINGRATESEXTPROC __glewGetFragmentShadingRatesEXT = NULL;
 PFNGLSHADINGRATECOMBINEROPSEXTPROC __glewShadingRateCombinerOpsEXT = NULL;
 PFNGLSHADINGRATEEXTPROC __glewShadingRateEXT = NULL;
 
-PFNGLFRAMEBUFFERSHADINGRATEEXTPROC __glewFramebufferShadingRateEXT = NULL;
-PFNGLGETFRAGMENTSHADINGRATESEXTPROC __glewGetFragmentShadingRatesEXT = NULL;
-PFNGLSHADINGRATECOMBINEROPSEXTPROC __glewShadingRateCombinerOpsEXT = NULL;
-PFNGLSHADINGRATEEXTPROC __glewShadingRateEXT = NULL;
-
-PFNGLFRAMEBUFFERSHADINGRATEEXTPROC __glewFramebufferShadingRateEXT = NULL;
-PFNGLGETFRAGMENTSHADINGRATESEXTPROC __glewGetFragmentShadingRatesEXT = NULL;
-PFNGLSHADINGRATECOMBINEROPSEXTPROC __glewShadingRateCombinerOpsEXT = NULL;
-PFNGLSHADINGRATEEXTPROC __glewShadingRateEXT = NULL;
-
 PFNGLBLITFRAMEBUFFEREXTPROC __glewBlitFramebufferEXT = NULL;
 
 PFNGLBLITFRAMEBUFFERLAYEREXTPROC __glewBlitFramebufferLayerEXT = NULL;
@@ -10464,8 +10454,6 @@ static GLboolean _glewInit_GL_EXT_external_buffer (void);
 static GLboolean _glewInit_GL_EXT_fog_coord (void);
 static GLboolean _glewInit_GL_EXT_fragment_lighting (void);
 static GLboolean _glewInit_GL_EXT_fragment_shading_rate (void);
-static GLboolean _glewInit_GL_EXT_fragment_shading_rate_attachment (void);
-static GLboolean _glewInit_GL_EXT_fragment_shading_rate_primitive (void);
 static GLboolean _glewInit_GL_EXT_framebuffer_blit (void);
 static GLboolean _glewInit_GL_EXT_framebuffer_blit_layers (void);
 static GLboolean _glewInit_GL_EXT_framebuffer_multisample (void);
@@ -14382,38 +14370,6 @@ static GLboolean _glewInit_GL_EXT_fragment_shading_rate (void)
 }
 
 #endif /* GL_EXT_fragment_shading_rate */
-
-#ifdef GL_EXT_fragment_shading_rate_attachment
-
-static GLboolean _glewInit_GL_EXT_fragment_shading_rate_attachment (void)
-{
-  GLboolean r = GL_FALSE;
-
-  r = ((glFramebufferShadingRateEXT = (PFNGLFRAMEBUFFERSHADINGRATEEXTPROC)glewGetProcAddress((const GLubyte*)"glFramebufferShadingRateEXT")) == NULL) || r;
-  r = ((glGetFragmentShadingRatesEXT = (PFNGLGETFRAGMENTSHADINGRATESEXTPROC)glewGetProcAddress((const GLubyte*)"glGetFragmentShadingRatesEXT")) == NULL) || r;
-  r = ((glShadingRateCombinerOpsEXT = (PFNGLSHADINGRATECOMBINEROPSEXTPROC)glewGetProcAddress((const GLubyte*)"glShadingRateCombinerOpsEXT")) == NULL) || r;
-  r = ((glShadingRateEXT = (PFNGLSHADINGRATEEXTPROC)glewGetProcAddress((const GLubyte*)"glShadingRateEXT")) == NULL) || r;
-
-  return r;
-}
-
-#endif /* GL_EXT_fragment_shading_rate_attachment */
-
-#ifdef GL_EXT_fragment_shading_rate_primitive
-
-static GLboolean _glewInit_GL_EXT_fragment_shading_rate_primitive (void)
-{
-  GLboolean r = GL_FALSE;
-
-  r = ((glFramebufferShadingRateEXT = (PFNGLFRAMEBUFFERSHADINGRATEEXTPROC)glewGetProcAddress((const GLubyte*)"glFramebufferShadingRateEXT")) == NULL) || r;
-  r = ((glGetFragmentShadingRatesEXT = (PFNGLGETFRAGMENTSHADINGRATESEXTPROC)glewGetProcAddress((const GLubyte*)"glGetFragmentShadingRatesEXT")) == NULL) || r;
-  r = ((glShadingRateCombinerOpsEXT = (PFNGLSHADINGRATECOMBINEROPSEXTPROC)glewGetProcAddress((const GLubyte*)"glShadingRateCombinerOpsEXT")) == NULL) || r;
-  r = ((glShadingRateEXT = (PFNGLSHADINGRATEEXTPROC)glewGetProcAddress((const GLubyte*)"glShadingRateEXT")) == NULL) || r;
-
-  return r;
-}
-
-#endif /* GL_EXT_fragment_shading_rate_primitive */
 
 #ifdef GL_EXT_framebuffer_blit
 
@@ -19121,12 +19077,6 @@ GLenum GLEWAPIENTRY glewContextInit (void)
 #ifdef GL_EXT_fragment_shading_rate
   if (glewExperimental || GLEW_EXT_fragment_shading_rate) GLEW_EXT_fragment_shading_rate = !_glewInit_GL_EXT_fragment_shading_rate();
 #endif /* GL_EXT_fragment_shading_rate */
-#ifdef GL_EXT_fragment_shading_rate_attachment
-  if (glewExperimental || GLEW_EXT_fragment_shading_rate_attachment) GLEW_EXT_fragment_shading_rate_attachment = !_glewInit_GL_EXT_fragment_shading_rate_attachment();
-#endif /* GL_EXT_fragment_shading_rate_attachment */
-#ifdef GL_EXT_fragment_shading_rate_primitive
-  if (glewExperimental || GLEW_EXT_fragment_shading_rate_primitive) GLEW_EXT_fragment_shading_rate_primitive = !_glewInit_GL_EXT_fragment_shading_rate_primitive();
-#endif /* GL_EXT_fragment_shading_rate_primitive */
 #ifdef GL_EXT_framebuffer_blit
   if (glewExperimental || GLEW_EXT_framebuffer_blit) GLEW_EXT_framebuffer_blit = !_glewInit_GL_EXT_framebuffer_blit();
 #endif /* GL_EXT_framebuffer_blit */

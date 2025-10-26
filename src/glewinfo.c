@@ -5096,12 +5096,7 @@ static void _glewInfo_GL_EXT_fragment_shading_rate (void)
 
 static void _glewInfo_GL_EXT_fragment_shading_rate_attachment (void)
 {
-  GLboolean fi = glewPrintExt("GL_EXT_fragment_shading_rate_attachment", GLEW_EXT_fragment_shading_rate_attachment, glewIsSupported("GL_EXT_fragment_shading_rate_attachment"), glewGetExtension("GL_EXT_fragment_shading_rate_attachment"));
-
-  glewInfoFunc(fi, "glFramebufferShadingRateEXT", glFramebufferShadingRateEXT == NULL);
-  glewInfoFunc(fi, "glGetFragmentShadingRatesEXT", glGetFragmentShadingRatesEXT == NULL);
-  glewInfoFunc(fi, "glShadingRateCombinerOpsEXT", glShadingRateCombinerOpsEXT == NULL);
-  glewInfoFunc(fi, "glShadingRateEXT", glShadingRateEXT == NULL);
+  glewPrintExt("GL_EXT_fragment_shading_rate_attachment", GLEW_EXT_fragment_shading_rate_attachment, glewIsSupported("GL_EXT_fragment_shading_rate_attachment"), glewGetExtension("GL_EXT_fragment_shading_rate_attachment"));
 }
 
 #endif /* GL_EXT_fragment_shading_rate_attachment */
@@ -5110,12 +5105,7 @@ static void _glewInfo_GL_EXT_fragment_shading_rate_attachment (void)
 
 static void _glewInfo_GL_EXT_fragment_shading_rate_primitive (void)
 {
-  GLboolean fi = glewPrintExt("GL_EXT_fragment_shading_rate_primitive", GLEW_EXT_fragment_shading_rate_primitive, glewIsSupported("GL_EXT_fragment_shading_rate_primitive"), glewGetExtension("GL_EXT_fragment_shading_rate_primitive"));
-
-  glewInfoFunc(fi, "glFramebufferShadingRateEXT", glFramebufferShadingRateEXT == NULL);
-  glewInfoFunc(fi, "glGetFragmentShadingRatesEXT", glGetFragmentShadingRatesEXT == NULL);
-  glewInfoFunc(fi, "glShadingRateCombinerOpsEXT", glShadingRateCombinerOpsEXT == NULL);
-  glewInfoFunc(fi, "glShadingRateEXT", glShadingRateEXT == NULL);
+  glewPrintExt("GL_EXT_fragment_shading_rate_primitive", GLEW_EXT_fragment_shading_rate_primitive, glewIsSupported("GL_EXT_fragment_shading_rate_primitive"), glewGetExtension("GL_EXT_fragment_shading_rate_primitive"));
 }
 
 #endif /* GL_EXT_fragment_shading_rate_primitive */
