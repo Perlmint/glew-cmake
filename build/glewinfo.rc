@@ -12,8 +12,8 @@
 // Version
 //
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION 2, 2, 0, 0
-PRODUCTVERSION 2, 2, 0, 0
+FILEVERSION 2, 3, 0, 0
+PRODUCTVERSION 2, 3, 0, 0
 FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
 #ifdef _DEBUG
 FILEFLAGS VS_FF_DEBUG
@@ -106,14 +106,14 @@ BEGIN
             "MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.\0"
             VALUE "CompanyName", "\0"
             VALUE "FileDescription", "Utility for verifying extension entry points\0"
-            VALUE "FileVersion", "2,2,0,0\0"
+            VALUE "FileVersion", "2,3,0,0\0"
             VALUE "InternalName", "glewinfo\0"
             VALUE "LegalCopyright", "(C) 2002-2019 Nigel Stewart & Milan Ikits & Marcelo Magallon\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", FILENAME "\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "The OpenGL Extension Wrangler Library\0"
-            VALUE "ProductVersion", "2,2,0,0\0"
+            VALUE "ProductVersion", "2,3,0,0\0"
             VALUE "SpecialBuild", "\0"
         END
     END
