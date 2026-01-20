@@ -117,7 +117,7 @@ else()
 endif()
 
 # OS Specific dependencies
-if(APPLE)
+if (APPLE AND ${CMAKE_SYSTEM_VERSION} VERSION_LESS "25.0.0")
 	find_library(AGL_LIBRARY AGL REQUIRED)
 	list(APPEND LIBRARIES ${AGL_LIBRARY})
 elseif(NOT WIN32)
