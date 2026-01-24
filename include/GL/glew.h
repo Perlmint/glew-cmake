@@ -216,7 +216,8 @@ typedef _W64 int ptrdiff_t;
  */
 
 #if defined(__APPLE__) || defined(__linux__)
-#  if defined(__cplusplus)
+/* GCC12 errors out when including <cstdint> with __cplusplus < 201103L */
+#  if defined(__cplusplus) && __cplusplus >= 201103L
 #    include <cstddef>
 #    include <cstdint>
 #  else
@@ -27001,10 +27002,10 @@ GLEW_VAR_EXPORT GLboolean __GLEW_WIN_swap_hint;
 /* GLEW version info */
 
 /*
-VERSION 2.3.0
+VERSION 2.3.1
 VERSION_MAJOR 2
 VERSION_MINOR 3
-VERSION_MICRO 0
+VERSION_MICRO 1
 */
 
 /* API */

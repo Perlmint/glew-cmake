@@ -23732,10 +23732,10 @@ const GLubyte * GLEWAPIENTRY glewGetString (GLenum name)
   static const GLubyte* _glewString[] =
   {
     (const GLubyte*)NULL,
-    (const GLubyte*)"2.3.0",
+    (const GLubyte*)"2.3.1",
     (const GLubyte*)"2",
     (const GLubyte*)"3",
-    (const GLubyte*)"0"
+    (const GLubyte*)"1"
   };
   const size_t max_string = sizeof(_glewString)/sizeof(*_glewString) - 1;
   return _glewString[(size_t)name > max_string ? 0 : (size_t)name];
