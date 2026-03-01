@@ -230,12 +230,12 @@ jobs:
     container: ubuntu:latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: apt update && DEBIAN_FRONTEND=noninteractive apt install -y git cmake gcc g++ libglu1-mesa-dev pkg-config libx11-dev libxext-dev git
+
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0
-
-    - name: Install dependencies
-      run: apt update && DEBIAN_FRONTEND=noninteractive apt install -y cmake gcc g++ libglu1-mesa-dev pkg-config libx11-dev libxext-dev git
 
     - name: Configure git
       run: |
