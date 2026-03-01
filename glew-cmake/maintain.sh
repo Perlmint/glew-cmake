@@ -46,6 +46,11 @@ else
   PUSH_ARG=""
 fi
 
+if [ -n "$(git status --porcelain)" ]; then
+  echo "Error: git repository is dirty. Commit or stash changes before running."
+  exit 1
+fi
+
 source_update () {
   GIT_BRANCH_NAME=$1
   # for recovery when test mode.
