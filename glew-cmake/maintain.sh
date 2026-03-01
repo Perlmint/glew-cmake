@@ -46,6 +46,12 @@ else
   PUSH_ARGS=()
 fi
 
+UPDATED_MAINT_BRANCHES_FILE=""
+MAINT_SOURCE_REF=""
+if [ "${MAINT_ONLY:-}" = "true" ]; then
+  MAINT_SOURCE_REF=$(git rev-parse HEAD)
+fi
+
 if [ -n "$(git status --porcelain)" ]; then
   echo "Error: git repository is dirty. Commit or stash changes before running."
   exit 1
@@ -108,9 +114,124 @@ source_update () {
 
   # when test mode, reset created commits
   if [ "${#PUSH_ARGS[@]}" -gt 0 ]; then
+    echo "Test mode snapshot: branch=$(git rev-parse --abbrev-ref HEAD) commit=$(git rev-parse HEAD)"
     echo "Reset commits"
     git reset --hard "HEAD~${PUSH_COUNT}"
   fi
+}
+
+create_maintenance_branch () {
+  local BASE_TAG=$1
+  local MAINT_BRANCH="${BASE_TAG}-maintenance"
+
+  if git branch -r | grep -q "origin/${MAINT_BRANCH}"; then
+    echo "Maintenance branch ${MAINT_BRANCH} already exists in origin, skipping"
+    return 0
+  fi
+
+  echo "Creating maintenance branch ${MAINT_BRANCH} from tag ${BASE_TAG}"
+  git branch "${MAINT_BRANCH}" "${BASE_TAG}"
+  git push "${PUSH_ARGS[@]}" origin "${MAINT_BRANCH}:${MAINT_BRANCH}"
+
+  # when test mode, clean up the local branch we just created
+  if [ "${#PUSH_ARGS[@]}" -gt 0 ]; then
+    echo "Test mode: deleting local maintenance branch ${MAINT_BRANCH}"
+    git branch -d "${MAINT_BRANCH}"
+  fi
+}
+
+tag_maintenance_patches () {
+  local BASE_TAG=$1
+  local MAINT_BRANCH="${BASE_TAG}-maintenance"
+  local BRANCH_UPDATED=0
+  local PATCH_NUM=0
+  local LAST_TAG LAST_TAG_COMMIT BRANCH_HEAD NEXT_PATCH_NUM NEW_PATCH_TAG
+
+  echo "Processing maintenance patches for ${BASE_TAG}"
+
+  git fetch --tags origin "${MAINT_BRANCH}" || true
+
+  if git branch | grep -q "${MAINT_BRANCH}"; then
+    git checkout -f "${MAINT_BRANCH}"
+    git pull --no-edit --progress origin "${MAINT_BRANCH}"
+  else
+    git checkout "origin/${MAINT_BRANCH}" -b "${MAINT_BRANCH}"
+  fi
+
+  # Apply glew-cmake-specific files from master (or PR HEAD in MAINT_ONLY mode)
+  git checkout "${MAINT_SOURCE_REF:-master}" -- CMakeLists.txt GeneratePkgConfig.cmake README.md
+  if [ "$(git diff --cached | wc -c)" -ne 0 ]; then
+    echo "glew-cmake files updated from master, committing"
+    git commit -m "Update glew-cmake files from master at $(TZ=GMT date)"
+    git push "${PUSH_ARGS[@]}" origin "${MAINT_BRANCH}:${MAINT_BRANCH}"
+    BRANCH_UPDATED=1
+  fi
+
+  # Find the highest existing patch number for this base tag
+  for PTAG in $(git tag | grep "^${BASE_TAG}-[0-9]" | sort -t- -k5 -n || true); do
+    CANDIDATE=${PTAG##"${BASE_TAG}-"}
+    if [ "${CANDIDATE}" -gt "${PATCH_NUM}" ] 2>/dev/null; then
+      PATCH_NUM=${CANDIDATE}
+    fi
+  done
+
+  if [ "${PATCH_NUM}" -eq 0 ]; then
+    LAST_TAG="${BASE_TAG}"
+  else
+    LAST_TAG="${BASE_TAG}-${PATCH_NUM}"
+  fi
+
+  LAST_TAG_COMMIT=$(git rev-parse "${LAST_TAG}")
+  BRANCH_HEAD=$(git rev-parse HEAD)
+
+  if [ "${LAST_TAG_COMMIT}" = "${BRANCH_HEAD}" ]; then
+    echo "No new commits on ${MAINT_BRANCH} since ${LAST_TAG}, skipping"
+    if [ "${BRANCH_UPDATED}" = 1 ] && [ -n "${UPDATED_MAINT_BRANCHES_FILE:-}" ]; then
+      echo "${MAINT_BRANCH}" >> "${UPDATED_MAINT_BRANCHES_FILE}"
+    fi
+    return 0
+  fi
+
+  NEXT_PATCH_NUM=$((PATCH_NUM + 1))
+  NEW_PATCH_TAG="${BASE_TAG}-${NEXT_PATCH_NUM}"
+  echo "Tagging ${MAINT_BRANCH} HEAD as ${NEW_PATCH_TAG}"
+  git tag "${NEW_PATCH_TAG}"
+  git push "${PUSH_ARGS[@]}" origin "${NEW_PATCH_TAG}"
+  BRANCH_UPDATED=1
+
+  # when test mode, undo local commit and tag
+  if [ "${#PUSH_ARGS[@]}" -gt 0 ]; then
+    echo "Test mode: deleting local patch tag ${NEW_PATCH_TAG}"
+    git tag -d "${NEW_PATCH_TAG}"
+    echo "Test mode snapshot: branch=$(git rev-parse --abbrev-ref HEAD) commit=$(git rev-parse HEAD)"
+    echo "Test mode: resetting local maintenance branch commits"
+    git reset --hard "origin/${MAINT_BRANCH}" 2>/dev/null || git reset --hard "${BASE_TAG}"
+  fi
+
+  if [ "${BRANCH_UPDATED}" = 1 ] && [ -n "${UPDATED_MAINT_BRANCHES_FILE:-}" ]; then
+    echo "${MAINT_BRANCH}" >> "${UPDATED_MAINT_BRANCHES_FILE}"
+  fi
+}
+
+process_maintenance_branches () {
+  echo "Processing all maintenance branches"
+
+  FILTERED_MAINT_BRANCHES=$(git branch -r | grep 'origin/glew-cmake-.*-maintenance' | sed 's|.*origin/||' || true)
+
+  if [ -z "${FILTERED_MAINT_BRANCHES}" ]; then
+    echo "No maintenance branches found in origin"
+    return 0
+  fi
+
+  UPDATED_MAINT_BRANCHES_FILE="${WORKSPACE}/updated_maint_branches.txt"
+  : > "${UPDATED_MAINT_BRANCHES_FILE}"
+
+  for MAINT_BR in ${FILTERED_MAINT_BRANCHES}; do
+    BASE_TAG="${MAINT_BR%-maintenance}"
+    tag_maintenance_patches "${BASE_TAG}"
+  done
+
+  echo "Updated maintenance branches written to ${UPDATED_MAINT_BRANCHES_FILE}"
 }
 
 import_tags () {
@@ -168,6 +289,7 @@ import_tags () {
         git commit -m"glew-cmake release from ${TAG}"
         NEW_TAG=${TAG//glew-/glew-cmake-}
         git tag "${NEW_TAG}"
+        create_maintenance_branch "${NEW_TAG}"
       else
         echo "No difference! something wrong"
       fi
@@ -185,18 +307,20 @@ import_tags () {
       do
         NEW_TAG=${TAG//glew-/glew-cmake-}
         git tag -d "${NEW_TAG}"
+        echo "Test mode snapshot: branch=$(git rev-parse --abbrev-ref HEAD) commit=$(git rev-parse HEAD)"
         git reset --hard HEAD~1
       done
     fi
   fi
 }
 
-# add remote when original repo is not found in local repo
-if ! git remote | grep -q original_repo; then
-  git remote add original_repo "${ORIGINAL_REPO_URL}"
+# add remote and fetch only when not in maintenance-only mode
+if [ -z "${MAINT_ONLY:-}" ] || [ "${MAINT_ONLY:-}" != "true" ]; then
+  if ! git remote | grep -q original_repo; then
+    git remote add original_repo "${ORIGINAL_REPO_URL}"
+  fi
+  git fetch -n original_repo
 fi
-
-git fetch -n original_repo
 
 branch_list () {
   eval "$2=\"$(git branch -r | grep "$1" | sed "s/\s\+$1\///g" | sed ':a;N;$!ba;s/\n/ /g')\""
@@ -241,6 +365,9 @@ join () {
 #  fi
 #done
 
-source_update master
+if [ -z "${MAINT_ONLY:-}" ] || [ "${MAINT_ONLY:-}" != "true" ]; then
+  source_update master
+  import_tags
+fi
 
-import_tags
+process_maintenance_branches
