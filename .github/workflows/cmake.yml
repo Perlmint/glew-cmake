@@ -223,3 +223,49 @@ jobs:
     - name: Build test
       shell: bash
       run: cmake --build .
+
+  build_maintenance:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    container: ubuntu:latest
+
+    steps:
+    - name: Install dependencies
+      run: apt update && DEBIAN_FRONTEND=noninteractive apt install -y git cmake gcc g++ libglu1-mesa-dev pkg-config libx11-dev libxext-dev git
+
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+        set-safe-directory: true
+
+    - name: Configure git
+      run: |
+        ls -alFh
+        git config --global user.email "ci@github.com"
+        git config --global user.name "CI"
+        git config --global --add safe.directory "${GITHUB_WORKSPACE}"
+
+    - name: Run maintain.sh in maintenance-only test mode
+      env:
+        MAINT_ONLY: "true"
+      run: |
+        export WORKSPACE="${GITHUB_WORKSPACE}"
+        chmod 755 glew-cmake/maintain.sh
+        ./glew-cmake/maintain.sh
+
+    - name: Build updated maintenance branches
+      run: |
+        if [ ! -s updated_maint_branches.txt ]; then
+          echo "No maintenance branches updated, skipping builds"
+          exit 0
+        fi
+        while IFS= read -r branch; do
+          [ -z "${branch}" ] && continue
+          echo "=== Building ${branch} ==="
+          git checkout "${branch}"
+          echo "Test mode snapshot: branch=${branch} commit=$(git rev-parse HEAD)"
+          mkdir build_maint
+          cmake $GITHUB_WORKSPACE -B build_maint -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+          cmake --build build_maint
+          rm -rf build_maint
+        done < updated_maint_branches.txt
