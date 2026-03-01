@@ -13,7 +13,7 @@ absolute_path () {
   shift
   local OUT=$1
   shift
-  pushd "$(dirname "$TARGET_FILE}")"
+  pushd "$(dirname "${TARGET_FILE}")"
   TARGET_FILE=$(basename "$TARGET_FILE")
 
   # Iterate down a (possible) chain of symlinks
@@ -41,9 +41,9 @@ if [ -z "${WORKSPACE:-}" ]; then
 fi
 
 if [ -z "${TEST_MODE:-}" ] || [ "${TEST_MODE:-}" != "false" ]; then
-  PUSH_ARG="--dry-run"
+  PUSH_ARGS=("--dry-run")
 else
-  PUSH_ARG=""
+  PUSH_ARGS=()
 fi
 
 if [ -n "$(git status --porcelain)" ]; then
@@ -52,14 +52,14 @@ if [ -n "$(git status --porcelain)" ]; then
 fi
 
 source_update () {
-  GIT_BRANCH_NAME=$1
+  local GIT_BRANCH_NAME=$1
   # for recovery when test mode.
-  PUSH_COUNT=0
+  local PUSH_COUNT=0
 
   echo "Checkout branch ${GIT_BRANCH_NAME}"
   git reset --hard
   git clean -f .
-  if [ "$(git branch | grep -c "$GIT_BRANCH_NAME")" = 0 ]; then
+  if ! git branch | grep -q "$GIT_BRANCH_NAME"; then
     git checkout "origin/${GIT_BRANCH_NAME}" -b "${GIT_BRANCH_NAME}"
   else
     git checkout -f "${GIT_BRANCH_NAME}"
@@ -76,7 +76,7 @@ source_update () {
     git checkout "${BEFORE_COMMIT}" -- README.md
     git add -f README.md README_glew.md
     git commit --amend -m "Merge ${ORIGINAL_REPO_URL} into ${GIT_BRANCH_NAME} HEAD at $(TZ=GMT date)"
-    git push "${PUSH_ARG}" origin "${GIT_BRANCH_NAME}:${GIT_BRANCH_NAME}"
+    git push "${PUSH_ARGS[@]}" origin "${GIT_BRANCH_NAME}:${GIT_BRANCH_NAME}"
     PUSH_COUNT=$((PUSH_COUNT + 1))
   fi
 
@@ -100,14 +100,14 @@ source_update () {
     echo "Sources updated"
     git commit -m"Generate Sources of ${GIT_BRANCH_NAME} updated at $(TZ=GMT date)"
     echo "Push to repository"
-    git push "${PUSH_ARG}" origin "${GIT_BRANCH_NAME}:${GIT_BRANCH_NAME}"
+    git push "${PUSH_ARGS[@]}" origin "${GIT_BRANCH_NAME}:${GIT_BRANCH_NAME}"
     PUSH_COUNT=$((PUSH_COUNT + 1))
   else
     echo "Differences Not found"
   fi
 
   # when test mode, reset created commits
-  if [ -n "$PUSH_ARG" ]; then
+  if [ "${#PUSH_ARGS[@]}" -gt 0 ]; then
     echo "Reset commits"
     git reset --hard "HEAD~${PUSH_COUNT}"
   fi
@@ -115,13 +115,13 @@ source_update () {
 
 import_tags () {
   echo "Fetch tags from origin repository(${ORIGINAL_REPO_URL})"
-  BEFORE_TAG_COUNT=$(git tag | wc -l | sed "s/^ \+//")
+  BEFORE_TAG_COUNT=$(git tag | wc -l | tr -d ' ')
   git fetch --tags --progress original_repo
-  AFTER_TAG_COUNT=$(git tag | wc -l | sed "s/^ \+//")
+  AFTER_TAG_COUNT=$(git tag | wc -l | tr -d ' ')
   NEW_VERSION_TAGS=$(diff -u <(git tag | grep glew-cmake- | sed s/glew-cmake/glew/) <(git tag | grep "glew-[0-9]") | grep ^+ | sed 1d | sed s/^+// || true)
   if [ ! "${BEFORE_TAG_COUNT}" -eq "${AFTER_TAG_COUNT}" ] || [ -n "${NEW_VERSION_TAGS}" ]; then
     echo "Tags updated"
-    git push "${PUSH_ARG}" --tags origin
+    git push "${PUSH_ARGS[@]}" --tags origin
 
     git checkout glew-cmake-release
     for TAG in $NEW_VERSION_TAGS
@@ -133,7 +133,7 @@ import_tags () {
       cd "$WORKSPACE/auto"
       COMMIT_TIME=$(git log -1 "${TAG}" --format=%ct)
       echo "Patch perl scripts for new version"
-      find bin -name '*.pl' -exec sed -i "s/do 'bin/use lib '.';\ndo 'bin/" {} \;
+      find bin -name '*.pl' -exec sed -i'' "s/do 'bin/use lib '.';\ndo 'bin/" {} \;
       echo "Remove registries"
       REGISTRIES=$(find . -name .git -type d -exec dirname {} \;)
       for REGISTRY in $REGISTRIES
@@ -173,13 +173,13 @@ import_tags () {
       fi
     done
 
-    git push "${PUSH_ARG}" origin glew-cmake-release
-    if [ -z "${PUSH_ARG}" ]; then
-      git push --tags "${PUSH_ARG}" origin
+    git push "${PUSH_ARGS[@]}" origin glew-cmake-release
+    if [ "${#PUSH_ARGS[@]}" -eq 0 ]; then
+      git push --tags origin
     fi
 
     # when test mode, reset created commits
-    if [ -n "${PUSH_ARG}" ]; then
+    if [ "${#PUSH_ARGS[@]}" -gt 0 ]; then
       echo "Reset commits for tags"
       for TAG in ${NEW_VERSION_TAGS}
       do
@@ -192,7 +192,7 @@ import_tags () {
 }
 
 # add remote when original repo is not found in local repo
-if [ "$(git remote | grep -c original_repo)" = 0 ]; then
+if ! git remote | grep -q original_repo; then
   git remote add original_repo "${ORIGINAL_REPO_URL}"
 fi
 
