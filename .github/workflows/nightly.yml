@@ -1,0 +1,28 @@
+name: Nightly Update
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  nightly-update:
+    runs-on: ubuntu-latest
+    container: perlmint/glew-cmake:20190922
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        persist-credentials: true
+        set-safe-directory: true
+
+    - name: Configure git
+      run: |
+        git config --global user.email "${{ secrets.GIT_USEREMAIL }}"
+        git config --global user.name "${{ secrets.GIT_USERNAME }}"
+
+    - name: Run maintain.sh
+      env:
+        TEST_MODE: "false"
+      run: ./glew-cmake/maintain.sh
