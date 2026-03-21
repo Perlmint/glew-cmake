@@ -66,6 +66,7 @@ source_update () {
   git reset --hard
   git clean -f .
   if ! git branch | grep -q "$GIT_BRANCH_NAME"; then
+    git fetch origin "${GIT_BRANCH_NAME}"
     git checkout "origin/${GIT_BRANCH_NAME}" -b "${GIT_BRANCH_NAME}"
   else
     git checkout -f "${GIT_BRANCH_NAME}"
@@ -73,7 +74,14 @@ source_update () {
   fi
   echo "Pull from origin repository(${ORIGINAL_REPO_URL})"
   BEFORE_COMMIT=$(git rev-parse HEAD)
-  git pull -s recursive -X theirs --no-edit --commit --progress original_repo "${GIT_BRANCH_NAME}"
+  git fetch --progress original_repo "${GIT_BRANCH_NAME}"
+  if ! git merge-base --is-ancestor HEAD "original_repo/${GIT_BRANCH_NAME}" 2>/dev/null && \
+     ! git merge-base HEAD "original_repo/${GIT_BRANCH_NAME}" > /dev/null 2>&1; then
+    echo "Warning: no common ancestor — resetting to upstream (likely upstream force-push)"
+    git reset --hard "original_repo/${GIT_BRANCH_NAME}"
+  else
+    git merge -s recursive -X theirs --no-edit "original_repo/${GIT_BRANCH_NAME}"
+  fi
   AFTER_COMMIT=$(git rev-parse HEAD)
   if [ "$BEFORE_COMMIT" != "$AFTER_COMMIT" ]; then
     echo "Source Updated"

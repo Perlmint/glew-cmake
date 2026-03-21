@@ -23,6 +23,8 @@ jobs:
       with:
         persist-credentials: true
         set-safe-directory: true
+        fetch-depth: 0
+        fetch-tags: true
 
     - name: Configure git
       run: |
