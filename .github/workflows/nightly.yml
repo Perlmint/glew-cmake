@@ -3,6 +3,13 @@ name: Nightly Update
 on:
   schedule:
     - cron: "0 0 * * *"
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "Run in test mode (dry-run, no actual pushes)"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -24,5 +31,5 @@ jobs:
 
     - name: Run maintain.sh
       env:
-        TEST_MODE: "false"
+        TEST_MODE: ${{ github.event_name == 'workflow_dispatch' && toJSON(inputs.test) || 'false' }}
       run: ./glew-cmake/maintain.sh
