@@ -7446,6 +7446,18 @@ static void _glewInfo_GL_MESA_framebuffer_swap_xy (void)
 
 #endif /* GL_MESA_framebuffer_swap_xy */
 
+#ifdef GL_MESA_map_buffer_client_pointer
+
+static void _glewInfo_GL_MESA_map_buffer_client_pointer (void)
+{
+  GLboolean fi = glewPrintExt("GL_MESA_map_buffer_client_pointer", GLEW_MESA_map_buffer_client_pointer, glewIsSupported("GL_MESA_map_buffer_client_pointer"), glewGetExtension("GL_MESA_map_buffer_client_pointer"));
+
+  glewInfoFunc(fi, "glAddClientPointerRangeMESA", glAddClientPointerRangeMESA == NULL);
+  glewInfoFunc(fi, "glReleaseClientPointerRangeMESA", glReleaseClientPointerRangeMESA == NULL);
+}
+
+#endif /* GL_MESA_map_buffer_client_pointer */
+
 #ifdef GL_MESA_pack_invert
 
 static void _glewInfo_GL_MESA_pack_invert (void)
@@ -12463,6 +12475,15 @@ static void _glewInfo_EGL_EXT_device_query_name (void)
 
 #endif /* EGL_EXT_device_query_name */
 
+#ifdef EGL_EXT_device_type
+
+static void _glewInfo_EGL_EXT_device_type (void)
+{
+  glewPrintExt("EGL_EXT_device_type", EGLEW_EXT_device_type, eglewIsSupported("EGL_EXT_device_type"), eglewGetExtension("EGL_EXT_device_type"));
+}
+
+#endif /* EGL_EXT_device_type */
+
 #ifdef EGL_EXT_display_alloc
 
 static void _glewInfo_EGL_EXT_display_alloc (void)
@@ -16977,6 +16998,9 @@ static void glewInfo (void)
 #ifdef GL_MESA_framebuffer_swap_xy
   _glewInfo_GL_MESA_framebuffer_swap_xy();
 #endif /* GL_MESA_framebuffer_swap_xy */
+#ifdef GL_MESA_map_buffer_client_pointer
+  _glewInfo_GL_MESA_map_buffer_client_pointer();
+#endif /* GL_MESA_map_buffer_client_pointer */
 #ifdef GL_MESA_pack_invert
   _glewInfo_GL_MESA_pack_invert();
 #endif /* GL_MESA_pack_invert */
@@ -18701,6 +18725,9 @@ static void eglewInfo (void)
 #ifdef EGL_EXT_device_query_name
   _glewInfo_EGL_EXT_device_query_name();
 #endif /* EGL_EXT_device_query_name */
+#ifdef EGL_EXT_device_type
+  _glewInfo_EGL_EXT_device_type();
+#endif /* EGL_EXT_device_type */
 #ifdef EGL_EXT_display_alloc
   _glewInfo_EGL_EXT_display_alloc();
 #endif /* EGL_EXT_display_alloc */

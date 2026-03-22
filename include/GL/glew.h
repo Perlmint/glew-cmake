@@ -15071,6 +15071,24 @@ typedef void (GLAPIENTRY * PFNGLGETFRAMEBUFFERPARAMETERIVMESAPROC) (GLenum targe
 
 #endif /* GL_MESA_framebuffer_swap_xy */
 
+/* ------------------- GL_MESA_map_buffer_client_pointer ------------------- */
+
+#ifndef GL_MESA_map_buffer_client_pointer
+#define GL_MESA_map_buffer_client_pointer 1
+
+#define GL_MAP_CLIENT_POINTER_BIT_MESA 0x4000
+#define GL_BUFFER_CLIENT_POINTER_SIZE_MESA 0x9790
+
+typedef void (GLAPIENTRY * PFNGLADDCLIENTPOINTERRANGEMESAPROC) (void* addr, GLsizeiptr size);
+typedef void * (GLAPIENTRY * PFNGLRELEASECLIENTPOINTERRANGEMESAPROC) (GLsizeiptr *size);
+
+#define glAddClientPointerRangeMESA GLEW_GET_FUN(__glewAddClientPointerRangeMESA)
+#define glReleaseClientPointerRangeMESA GLEW_GET_FUN(__glewReleaseClientPointerRangeMESA)
+
+#define GLEW_MESA_map_buffer_client_pointer GLEW_GET_VAR(__GLEW_MESA_map_buffer_client_pointer)
+
+#endif /* GL_MESA_map_buffer_client_pointer */
+
 /* -------------------------- GL_MESA_pack_invert -------------------------- */
 
 #ifndef GL_MESA_pack_invert
@@ -25012,6 +25030,9 @@ GLEW_FUN_EXPORT PFNGLREADBUFFERREGIONPROC __glewReadBufferRegion;
 GLEW_FUN_EXPORT PFNGLFRAMEBUFFERPARAMETERIMESAPROC __glewFramebufferParameteriMESA;
 GLEW_FUN_EXPORT PFNGLGETFRAMEBUFFERPARAMETERIVMESAPROC __glewGetFramebufferParameterivMESA;
 
+GLEW_FUN_EXPORT PFNGLADDCLIENTPOINTERRANGEMESAPROC __glewAddClientPointerRangeMESA;
+GLEW_FUN_EXPORT PFNGLRELEASECLIENTPOINTERRANGEMESAPROC __glewReleaseClientPointerRangeMESA;
+
 GLEW_FUN_EXPORT PFNGLRESIZEBUFFERSMESAPROC __glewResizeBuffersMESA;
 
 GLEW_FUN_EXPORT PFNGLWINDOWPOS2DMESAPROC __glewWindowPos2dMESA;
@@ -26587,6 +26608,7 @@ GLEW_VAR_EXPORT GLboolean __GLEW_MESA_bgra;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_framebuffer_flip_x;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_framebuffer_flip_y;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_framebuffer_swap_xy;
+GLEW_VAR_EXPORT GLboolean __GLEW_MESA_map_buffer_client_pointer;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_pack_invert;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_program_binary_formats;
 GLEW_VAR_EXPORT GLboolean __GLEW_MESA_resize_buffers;

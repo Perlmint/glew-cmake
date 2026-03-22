@@ -977,6 +977,21 @@ typedef EGLBoolean ( * PFNEGLQUERYDISPLAYATTRIBEXTPROC) (EGLDisplay dpy, EGLint 
 
 #endif /* EGL_EXT_device_query_name */
 
+/* -------------------------- EGL_EXT_device_type -------------------------- */
+
+#ifndef EGL_EXT_device_type
+#define EGL_EXT_device_type 1
+
+#define EGL_DEVICE_TYPE_EXT 0x3590
+#define EGL_DEVICE_TYPE_OTHER_EXT 0x3591
+#define EGL_DEVICE_TYPE_INTEGRATED_GPU_EXT 0x3592
+#define EGL_DEVICE_TYPE_DISCRETE_GPU_EXT 0x3593
+#define EGL_DEVICE_TYPE_CPU_EXT 0x3594
+
+#define EGLEW_EXT_device_type EGLEW_GET_VAR(__EGLEW_EXT_device_type)
+
+#endif /* EGL_EXT_device_type */
+
 /* ------------------------- EGL_EXT_display_alloc ------------------------- */
 
 #ifndef EGL_EXT_display_alloc
@@ -3185,6 +3200,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_openwf;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_persistent_id;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_query;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_query_name;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_device_type;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_display_alloc;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_explicit_device;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_gl_colorspace_bt2020_hlg;

@@ -2512,6 +2512,9 @@ PFNGLREADBUFFERREGIONPROC __glewReadBufferRegion = NULL;
 PFNGLFRAMEBUFFERPARAMETERIMESAPROC __glewFramebufferParameteriMESA = NULL;
 PFNGLGETFRAMEBUFFERPARAMETERIVMESAPROC __glewGetFramebufferParameterivMESA = NULL;
 
+PFNGLADDCLIENTPOINTERRANGEMESAPROC __glewAddClientPointerRangeMESA = NULL;
+PFNGLRELEASECLIENTPOINTERRANGEMESAPROC __glewReleaseClientPointerRangeMESA = NULL;
+
 PFNGLRESIZEBUFFERSMESAPROC __glewResizeBuffersMESA = NULL;
 
 PFNGLWINDOWPOS2DMESAPROC __glewWindowPos2dMESA = NULL;
@@ -4088,6 +4091,7 @@ GLboolean __GLEW_MESA_bgra = GL_FALSE;
 GLboolean __GLEW_MESA_framebuffer_flip_x = GL_FALSE;
 GLboolean __GLEW_MESA_framebuffer_flip_y = GL_FALSE;
 GLboolean __GLEW_MESA_framebuffer_swap_xy = GL_FALSE;
+GLboolean __GLEW_MESA_map_buffer_client_pointer = GL_FALSE;
 GLboolean __GLEW_MESA_pack_invert = GL_FALSE;
 GLboolean __GLEW_MESA_program_binary_formats = GL_FALSE;
 GLboolean __GLEW_MESA_resize_buffers = GL_FALSE;
@@ -6140,6 +6144,9 @@ static const char * _glewExtensionLookup[] = {
 #ifdef GL_MESA_framebuffer_swap_xy
   "GL_MESA_framebuffer_swap_xy",
 #endif
+#ifdef GL_MESA_map_buffer_client_pointer
+  "GL_MESA_map_buffer_client_pointer",
+#endif
 #ifdef GL_MESA_pack_invert
   "GL_MESA_pack_invert",
 #endif
@@ -7381,7 +7388,7 @@ static const char * _glewExtensionLookup[] = {
 
 
 /* Detected in the extension string or strings */
-static GLboolean  _glewExtensionString[964];
+static GLboolean  _glewExtensionString[965];
 /* Detected via extension string or experimental mode */
 static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_3DFX_multisample
@@ -9040,6 +9047,9 @@ static GLboolean* _glewExtensionEnabled[] = {
 #ifdef GL_MESA_framebuffer_swap_xy
   &__GLEW_MESA_framebuffer_swap_xy,
 #endif
+#ifdef GL_MESA_map_buffer_client_pointer
+  &__GLEW_MESA_map_buffer_client_pointer,
+#endif
 #ifdef GL_MESA_pack_invert
   &__GLEW_MESA_pack_invert,
 #endif
@@ -10538,6 +10548,7 @@ static GLboolean _glewInit_GL_KHR_parallel_shader_compile (void);
 static GLboolean _glewInit_GL_KHR_robustness (void);
 static GLboolean _glewInit_GL_KTX_buffer_region (void);
 static GLboolean _glewInit_GL_MESA_framebuffer_flip_y (void);
+static GLboolean _glewInit_GL_MESA_map_buffer_client_pointer (void);
 static GLboolean _glewInit_GL_MESA_resize_buffers (void);
 static GLboolean _glewInit_GL_MESA_window_pos (void);
 static GLboolean _glewInit_GL_NVX_conditional_render (void);
@@ -15731,6 +15742,20 @@ static GLboolean _glewInit_GL_MESA_framebuffer_flip_y (void)
 
 #endif /* GL_MESA_framebuffer_flip_y */
 
+#ifdef GL_MESA_map_buffer_client_pointer
+
+static GLboolean _glewInit_GL_MESA_map_buffer_client_pointer (void)
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glAddClientPointerRangeMESA = (PFNGLADDCLIENTPOINTERRANGEMESAPROC)glewGetProcAddress((const GLubyte*)"glAddClientPointerRangeMESA")) == NULL) || r;
+  r = ((glReleaseClientPointerRangeMESA = (PFNGLRELEASECLIENTPOINTERRANGEMESAPROC)glewGetProcAddress((const GLubyte*)"glReleaseClientPointerRangeMESA")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GL_MESA_map_buffer_client_pointer */
+
 #ifdef GL_MESA_resize_buffers
 
 static GLboolean _glewInit_GL_MESA_resize_buffers (void)
@@ -19328,6 +19353,9 @@ GLenum GLEWAPIENTRY glewContextInit (void)
 #ifdef GL_MESA_framebuffer_flip_y
   if (glewExperimental || GLEW_MESA_framebuffer_flip_y) GLEW_MESA_framebuffer_flip_y = !_glewInit_GL_MESA_framebuffer_flip_y();
 #endif /* GL_MESA_framebuffer_flip_y */
+#ifdef GL_MESA_map_buffer_client_pointer
+  if (glewExperimental || GLEW_MESA_map_buffer_client_pointer) GLEW_MESA_map_buffer_client_pointer = !_glewInit_GL_MESA_map_buffer_client_pointer();
+#endif /* GL_MESA_map_buffer_client_pointer */
 #ifdef GL_MESA_resize_buffers
   if (glewExperimental || GLEW_MESA_resize_buffers) GLEW_MESA_resize_buffers = !_glewInit_GL_MESA_resize_buffers();
 #endif /* GL_MESA_resize_buffers */
@@ -20045,6 +20073,7 @@ GLboolean __EGLEW_EXT_device_openwf = GL_FALSE;
 GLboolean __EGLEW_EXT_device_persistent_id = GL_FALSE;
 GLboolean __EGLEW_EXT_device_query = GL_FALSE;
 GLboolean __EGLEW_EXT_device_query_name = GL_FALSE;
+GLboolean __EGLEW_EXT_device_type = GL_FALSE;
 GLboolean __EGLEW_EXT_display_alloc = GL_FALSE;
 GLboolean __EGLEW_EXT_explicit_device = GL_FALSE;
 GLboolean __EGLEW_EXT_gl_colorspace_bt2020_hlg = GL_FALSE;
@@ -21233,6 +21262,9 @@ GLenum eglewInit (EGLDisplay display)
 #ifdef EGL_EXT_device_query_name
   EGLEW_EXT_device_query_name = _glewSearchExtension("EGL_EXT_device_query_name", extStart, extEnd);
 #endif /* EGL_EXT_device_query_name */
+#ifdef EGL_EXT_device_type
+  EGLEW_EXT_device_type = _glewSearchExtension("EGL_EXT_device_type", extStart, extEnd);
+#endif /* EGL_EXT_device_type */
 #ifdef EGL_EXT_display_alloc
   EGLEW_EXT_display_alloc = _glewSearchExtension("EGL_EXT_display_alloc", extStart, extEnd);
   if (glewExperimental || EGLEW_EXT_display_alloc) EGLEW_EXT_display_alloc = !_glewInit_EGL_EXT_display_alloc();
@@ -27859,6 +27891,13 @@ GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
           continue;
         }
 #endif
+#ifdef GL_MESA_map_buffer_client_pointer
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"map_buffer_client_pointer", 25))
+        {
+          ret = GLEW_MESA_map_buffer_client_pointer;
+          continue;
+        }
+#endif
 #ifdef GL_MESA_pack_invert
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"pack_invert", 11))
         {
@@ -32018,6 +32057,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"device_query_name", 17))
         {
           ret = EGLEW_EXT_device_query_name;
+          continue;
+        }
+#endif
+#ifdef EGL_EXT_device_type
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"device_type", 11))
+        {
+          ret = EGLEW_EXT_device_type;
           continue;
         }
 #endif
