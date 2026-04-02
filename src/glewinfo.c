@@ -1845,6 +1845,7 @@ static void _glewInfo_GL_ARB_direct_state_access (void)
   glewInfoFunc(fi, "glMapNamedBuffer", glMapNamedBuffer == NULL);
   glewInfoFunc(fi, "glMapNamedBufferRange", glMapNamedBufferRange == NULL);
   glewInfoFunc(fi, "glNamedBufferData", glNamedBufferData == NULL);
+  glewInfoFunc(fi, "glNamedBufferPageCommitmentARB", glNamedBufferPageCommitmentARB == NULL);
   glewInfoFunc(fi, "glNamedBufferStorage", glNamedBufferStorage == NULL);
   glewInfoFunc(fi, "glNamedBufferSubData", glNamedBufferSubData == NULL);
   glewInfoFunc(fi, "glNamedFramebufferDrawBuffer", glNamedFramebufferDrawBuffer == NULL);
@@ -4790,6 +4791,7 @@ static void _glewInfo_GL_EXT_direct_state_access (void)
   glewInfoFunc(fi, "glMultiTexSubImage2DEXT", glMultiTexSubImage2DEXT == NULL);
   glewInfoFunc(fi, "glMultiTexSubImage3DEXT", glMultiTexSubImage3DEXT == NULL);
   glewInfoFunc(fi, "glNamedBufferDataEXT", glNamedBufferDataEXT == NULL);
+  glewInfoFunc(fi, "glNamedBufferPageCommitmentEXT", glNamedBufferPageCommitmentEXT == NULL);
   glewInfoFunc(fi, "glNamedBufferStorageEXT", glNamedBufferStorageEXT == NULL);
   glewInfoFunc(fi, "glNamedBufferSubDataEXT", glNamedBufferSubDataEXT == NULL);
   glewInfoFunc(fi, "glNamedCopyBufferSubDataEXT", glNamedCopyBufferSubDataEXT == NULL);
