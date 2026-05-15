@@ -6668,7 +6668,11 @@ typedef void (GLAPIENTRY * PFNGLMEMORYBARRIERPROC) (GLbitfield barriers);
 #define GL_OBJECT_SHADER_SOURCE_LENGTH_ARB 0x8B88
 
 typedef char GLcharARB;
+#ifdef __APPLE__
+typedef void *GLhandleARB;
+#else
 typedef unsigned int GLhandleARB;
+#endif
 
 typedef void (GLAPIENTRY * PFNGLATTACHOBJECTARBPROC) (GLhandleARB containerObj, GLhandleARB obj);
 typedef void (GLAPIENTRY * PFNGLCOMPILESHADERARBPROC) (GLhandleARB shaderObj);
