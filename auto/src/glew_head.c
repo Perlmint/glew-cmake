@@ -113,11 +113,10 @@ void* NSGLGetProcAddress (const GLubyte *name)
     image = NSAddImage("/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL", NSADDIMAGE_OPTION_RETURN_ON_ERROR);
   }
   /* prepend a '_' for the Unix C symbol mangling convention */
-  { size_t nameLen = strlen((const char*)name);
-  symbolName = malloc(nameLen + 2);
+  symbolName = malloc(strlen((const char*)name) + 2);
   if (symbolName == NULL) return NULL;
+  strcpy(symbolName+1, (const char*)name);
   symbolName[0] = '_';
-  memcpy(symbolName+1, (const char*)name, nameLen + 1); }
   symbol = NULL;
   /* if (NSIsSymbolNameDefined(symbolName))
 	 symbol = NSLookupAndBindSymbol(symbolName); */
