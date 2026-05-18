@@ -181,6 +181,20 @@ typedef _W64 int ptrdiff_t;
 #  define _PTRDIFF_T_
 #endif
 
+/* Issue #403 - Matching khronos_intptr_t and khronos_ssize_t in khrplatform.h */
+
+#ifdef _WIN64
+typedef signed long long int GLintptr;
+typedef signed long long int GLsizeiptr;
+typedef signed long long int GLintptrARB;
+typedef signed long long int GLsizeiptrARB;
+#else
+typedef signed long int      GLintptr;
+typedef signed long int      GLsizeiptr;
+typedef signed long int      GLintptrARB;
+typedef signed long int      GLsizeiptrARB;
+#endif
+
 #ifndef GLAPI
 #  if defined(__MINGW32__) || defined(__CYGWIN__)
 #    define GLAPI extern
@@ -237,6 +251,13 @@ typedef _W64 int ptrdiff_t;
 #    include <stdint.h>
 #  endif
 #endif
+
+/* Issue #403 - Matching khronos_intptr_t and khronos_ssize_t in khrplatform.h */
+
+typedef signed long int GLintptr;
+typedef signed long int GLsizeiptr;
+typedef signed long int GLintptrARB;
+typedef signed long int GLsizeiptrARB;
 
 #define GLEW_APIENTRY_DEFINED
 #define APIENTRY
@@ -1686,9 +1707,6 @@ typedef void (GLAPIENTRY * PFNGLWINDOWPOS3SVPROC) (const GLshort *p);
 #define GL_DYNAMIC_READ 0x88E9
 #define GL_DYNAMIC_COPY 0x88EA
 #define GL_SAMPLES_PASSED 0x8914
-
-typedef ptrdiff_t GLintptr;
-typedef ptrdiff_t GLsizeiptr;
 
 typedef void (GLAPIENTRY * PFNGLBEGINQUERYPROC) (GLenum target, GLuint id);
 typedef void (GLAPIENTRY * PFNGLBINDBUFFERPROC) (GLenum target, GLuint buffer);
@@ -8065,9 +8083,6 @@ typedef void (GLAPIENTRY * PFNGLWEIGHTUSVARBPROC) (GLint size, GLushort *weights
 #define GL_DYNAMIC_DRAW_ARB 0x88E8
 #define GL_DYNAMIC_READ_ARB 0x88E9
 #define GL_DYNAMIC_COPY_ARB 0x88EA
-
-typedef ptrdiff_t GLintptrARB;
-typedef ptrdiff_t GLsizeiptrARB;
 
 typedef void (GLAPIENTRY * PFNGLBINDBUFFERARBPROC) (GLenum target, GLuint buffer);
 typedef void (GLAPIENTRY * PFNGLBUFFERDATAARBPROC) (GLenum target, GLsizeiptrARB size, const void *data, GLenum usage);
