@@ -10,19 +10,27 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flavour:
+          [
+            "-DCMAKE_BUILD_TYPE=Release -DGLEW_X11=Y -DGLEW_EGL=N -DBUILD_SHARED_LIBS=Y",
+            "-DCMAKE_BUILD_TYPE=Release -DGLEW_X11=N -DGLEW_EGL=Y -DBUILD_SHARED_LIBS=Y",
+          ]
     steps:
       - name: Install Dependencies
         run: |
           apt update
-          apt install -y libxmu-dev libxi-dev libgl-dev libegl1-mesa-dev dos2unix
+          apt install -y cmake ninja-build libxmu-dev libxi-dev libgl-dev libegl1-mesa-dev dos2unix clang-tidy
       - name: Git Checkout
         uses: actions/checkout@v6
       - name: Generate GLEW Sources
         run: |
           make -C auto clobber
           make extensions
-          make dist-src
-      - name: Build Binaries
+      - name: Lint
         run: |
-          make clean && SYSTEM=linux            make
-          make clean && SYSTEM=linux-egl        make
+          mkdir build_
+          cmake build/cmake -B build_ -G Ninja -DCLANG_TIDY=Y --fresh ${{ matrix.flavour }}
+          cmake --build build_
+          rm -Rf build_
