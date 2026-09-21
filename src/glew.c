@@ -243,6 +243,20 @@ static GLuint _glewStrCopy(char *d, const char *s, char c)
   return i;
 }
 
+/* Parse a run of ASCII decimal digits at the start of s, stopping at
+ * the first non-digit character (or NUL). Returns the parsed value,
+ * and, if n is non-NULL, the number of digit characters consumed
+ * (0 if s does not start with a digit). */
+static GLint _glewInteger (const GLubyte* s, GLuint* n)
+{
+  GLint v=0;
+  GLuint i=0;
+  if (s != NULL)
+    while (s[i] >= '0' && s[i] <= '9') { v = v*10 + (GLint)(s[i]-'0'); i++; }
+  if (n) *n = i;
+  return v;
+}
+
 #if !defined(GLEW_OSMESA)
 #if !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
@@ -18455,7 +18469,7 @@ GLenum GLEWAPIENTRY glewContextInit (void)
 {
   PFNGLGETSTRINGPROC getString;
   const GLubyte* s;
-  GLuint dot;
+  GLuint dot, majorDigits;
   GLint major, minor;
 
   #ifdef _WIN32
@@ -18468,17 +18482,23 @@ GLenum GLEWAPIENTRY glewContextInit (void)
 
   /* query opengl version */
   s = getString(GL_VERSION);
+  if (s == NULL)
+    return GLEW_ERROR_NO_GL_VERSION;
+
+  /* dot is the length of the string if no '.' is present -- guard
+   * against indexing past the end of the string in that case */
   dot = _glewStrCLen(s, '.');
-  if (dot == 0)
+  if (dot == 0 || s[dot] != '.')
     return GLEW_ERROR_NO_GL_VERSION;
 
-  major = s[dot-1]-'0';
-  minor = s[dot+1]-'0';
-
-  if (minor < 0 || minor > 9)
-    minor = 0;
-  if (major<0 || major>9)
+  /* parse major/minor as decimal numbers rather than assuming a
+   * single ASCII digit on either side of the dot, so multi-digit
+   * versions (e.g. a future "10.0") are handled correctly */
+  major = _glewInteger(s, &majorDigits);
+  if (majorDigits != dot)
     return GLEW_ERROR_NO_GL_VERSION;
+
+  minor = _glewInteger(s + dot + 1, NULL);
 
   if (major == 1 && minor == 0)
   {
