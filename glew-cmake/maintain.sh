@@ -40,11 +40,23 @@ if [ -z "${WORKSPACE:-}" ]; then
   echo "WORKSPACE=$WORKSPACE"
 fi
 
+# TEST_MODE defaults to on; only an explicit "false" enables real pushes.
 if [ -z "${TEST_MODE:-}" ] || [ "${TEST_MODE:-}" != "false" ]; then
-  PUSH_ARGS=("--dry-run")
+  IS_TEST_MODE=true
 else
-  PUSH_ARGS=()
+  IS_TEST_MODE=false
 fi
+
+# Push to the remote, unless running in test mode. In test mode all remote
+# writes are skipped: even a --dry-run push contacts the remote and authenticates,
+# which fails with HTTP 403 for read-only CI tokens.
+push_origin () {
+  if [ "${IS_TEST_MODE}" = "true" ]; then
+    echo "Test mode: skipping remote push: git push $*"
+    return 0
+  fi
+  git push "$@"
+}
 
 UPDATED_MAINT_BRANCHES_FILE=""
 MAINT_SOURCE_REF=""
@@ -90,7 +102,7 @@ source_update () {
     git checkout "${BEFORE_COMMIT}" -- README.md
     git add -f README.md README_glew.md
     git commit --amend -m "Merge ${ORIGINAL_REPO_URL} into ${GIT_BRANCH_NAME} HEAD at $(TZ=GMT date)"
-    git push "${PUSH_ARGS[@]}" origin "${GIT_BRANCH_NAME}:${GIT_BRANCH_NAME}"
+    push_origin origin "${GIT_BRANCH_NAME}:${GIT_BRANCH_NAME}"
     PUSH_COUNT=$((PUSH_COUNT + 1))
   fi
 
@@ -114,14 +126,14 @@ source_update () {
     echo "Sources updated"
     git commit -m"Generate Sources of ${GIT_BRANCH_NAME} updated at $(TZ=GMT date)"
     echo "Push to repository"
-    git push "${PUSH_ARGS[@]}" origin "${GIT_BRANCH_NAME}:${GIT_BRANCH_NAME}"
+    push_origin origin "${GIT_BRANCH_NAME}:${GIT_BRANCH_NAME}"
     PUSH_COUNT=$((PUSH_COUNT + 1))
   else
     echo "Differences Not found"
   fi
 
   # when test mode, reset created commits
-  if [ "${#PUSH_ARGS[@]}" -gt 0 ]; then
+  if [ "${IS_TEST_MODE}" = "true" ]; then
     echo "Test mode snapshot: branch=$(git rev-parse --abbrev-ref HEAD) commit=$(git rev-parse HEAD)"
     echo "Reset commits"
     git reset --hard "HEAD~${PUSH_COUNT}"
@@ -139,10 +151,10 @@ create_maintenance_branch () {
 
   echo "Creating maintenance branch ${MAINT_BRANCH} from tag ${BASE_TAG}"
   git branch "${MAINT_BRANCH}" "${BASE_TAG}"
-  git push "${PUSH_ARGS[@]}" origin "${MAINT_BRANCH}:${MAINT_BRANCH}"
+  push_origin origin "${MAINT_BRANCH}:${MAINT_BRANCH}"
 
   # when test mode, clean up the local branch we just created
-  if [ "${#PUSH_ARGS[@]}" -gt 0 ]; then
+  if [ "${IS_TEST_MODE}" = "true" ]; then
     echo "Test mode: deleting local maintenance branch ${MAINT_BRANCH}"
     git branch -d "${MAINT_BRANCH}"
   fi
@@ -171,7 +183,7 @@ tag_maintenance_patches () {
   if [ "$(git diff --cached | wc -c)" -ne 0 ]; then
     echo "glew-cmake files updated from master, committing"
     git commit -m "Update glew-cmake files from master at $(TZ=GMT date)"
-    git push "${PUSH_ARGS[@]}" origin "${MAINT_BRANCH}:${MAINT_BRANCH}"
+    push_origin origin "${MAINT_BRANCH}:${MAINT_BRANCH}"
     BRANCH_UPDATED=1
   fi
 
@@ -204,11 +216,11 @@ tag_maintenance_patches () {
   NEW_PATCH_TAG="${BASE_TAG}-${NEXT_PATCH_NUM}"
   echo "Tagging ${MAINT_BRANCH} HEAD as ${NEW_PATCH_TAG}"
   git tag "${NEW_PATCH_TAG}"
-  git push "${PUSH_ARGS[@]}" origin "${NEW_PATCH_TAG}"
+  push_origin origin "${NEW_PATCH_TAG}"
   BRANCH_UPDATED=1
 
   # when test mode, delete local tag only (keep branch commits for build test)
-  if [ "${#PUSH_ARGS[@]}" -gt 0 ]; then
+  if [ "${IS_TEST_MODE}" = "true" ]; then
     echo "Test mode: deleting local patch tag ${NEW_PATCH_TAG}"
     git tag -d "${NEW_PATCH_TAG}"
     echo "Test mode snapshot: branch=$(git rev-parse --abbrev-ref HEAD) commit=$(git rev-parse HEAD)"
@@ -248,7 +260,7 @@ import_tags () {
   NEW_VERSION_TAGS=$(diff -u <(git tag | grep glew-cmake- | sed s/glew-cmake/glew/) <(git tag | grep "glew-[0-9]") | grep ^+ | sed 1d | sed s/^+// || true)
   if [ ! "${BEFORE_TAG_COUNT}" -eq "${AFTER_TAG_COUNT}" ] || [ -n "${NEW_VERSION_TAGS}" ]; then
     echo "Tags updated"
-    git push "${PUSH_ARGS[@]}" --tags origin
+    push_origin --tags origin
 
     git checkout glew-cmake-release
     for TAG in $NEW_VERSION_TAGS
@@ -301,13 +313,13 @@ import_tags () {
       fi
     done
 
-    git push "${PUSH_ARGS[@]}" origin glew-cmake-release
-    if [ "${#PUSH_ARGS[@]}" -eq 0 ]; then
+    push_origin origin glew-cmake-release
+    if [ "${IS_TEST_MODE}" = "false" ]; then
       git push --tags origin
     fi
 
     # when test mode, reset created commits
-    if [ "${#PUSH_ARGS[@]}" -gt 0 ]; then
+    if [ "${IS_TEST_MODE}" = "true" ]; then
       echo "Reset commits for tags"
       for TAG in ${NEW_VERSION_TAGS}
       do

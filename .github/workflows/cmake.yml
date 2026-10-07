@@ -91,7 +91,7 @@ jobs:
       matrix:
         cmake:
           - 2.8.12.2
-          - 3.10.3
+          - 3.31.12
           - latest
     runs-on: ubuntu-latest
     container: ubuntu:latest
@@ -131,6 +131,10 @@ jobs:
         wget https://cmake.org/files/v${short_version}/cmake-${cmake}.tar.gz
         tar -xf cmake-${cmake}.tar.gz
         cd cmake-${cmake}
+        cmake_major=$(echo "${cmake}" | cut -d. -f1)
+        if [ "${cmake_major}" == "2" ]; then
+          export CFLAGS="${CFLAGS:+${CFLAGS} }-std=gnu99"
+        fi
         if [ "${cmake}" == "2.8.12.2" ]; then
           apt -y install patch
           patch -p1 << 'EOF'
