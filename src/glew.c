@@ -20134,6 +20134,7 @@ GLboolean __EGLEW_EXT_surface_CTA861_3_metadata = GL_FALSE;
 GLboolean __EGLEW_EXT_surface_SMPTE2086_metadata = GL_FALSE;
 GLboolean __EGLEW_EXT_surface_compression = GL_FALSE;
 GLboolean __EGLEW_EXT_swap_buffers_with_damage = GL_FALSE;
+GLboolean __EGLEW_EXT_swap_tearing_hint = GL_FALSE;
 GLboolean __EGLEW_EXT_sync_reuse = GL_FALSE;
 GLboolean __EGLEW_EXT_yuv_surface = GL_FALSE;
 GLboolean __EGLEW_HI_clientpixmap = GL_FALSE;
@@ -21398,6 +21399,9 @@ GLenum eglewInit (EGLDisplay display)
   EGLEW_EXT_swap_buffers_with_damage = _glewSearchExtension("EGL_EXT_swap_buffers_with_damage", extStart, extEnd);
   if (glewExperimental || EGLEW_EXT_swap_buffers_with_damage) EGLEW_EXT_swap_buffers_with_damage = !_glewInit_EGL_EXT_swap_buffers_with_damage();
 #endif /* EGL_EXT_swap_buffers_with_damage */
+#ifdef EGL_EXT_swap_tearing_hint
+  EGLEW_EXT_swap_tearing_hint = _glewSearchExtension("EGL_EXT_swap_tearing_hint", extStart, extEnd);
+#endif /* EGL_EXT_swap_tearing_hint */
 #ifdef EGL_EXT_sync_reuse
   EGLEW_EXT_sync_reuse = _glewSearchExtension("EGL_EXT_sync_reuse", extStart, extEnd);
   if (glewExperimental || EGLEW_EXT_sync_reuse) EGLEW_EXT_sync_reuse = !_glewInit_EGL_EXT_sync_reuse();
@@ -32322,6 +32326,13 @@ GLboolean eglewIsSupported (const char* name)
         if (_glewStrSame3(&pos, &len, (const GLubyte*)"swap_buffers_with_damage", 24))
         {
           ret = EGLEW_EXT_swap_buffers_with_damage;
+          continue;
+        }
+#endif
+#ifdef EGL_EXT_swap_tearing_hint
+        if (_glewStrSame3(&pos, &len, (const GLubyte*)"swap_tearing_hint", 17))
+        {
+          ret = EGLEW_EXT_swap_tearing_hint;
           continue;
         }
 #endif

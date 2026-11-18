@@ -1467,6 +1467,20 @@ typedef EGLBoolean ( * PFNEGLSWAPBUFFERSWITHDAMAGEEXTPROC) (EGLDisplay dpy, EGLS
 
 #endif /* EGL_EXT_swap_buffers_with_damage */
 
+/* ----------------------- EGL_EXT_swap_tearing_hint ----------------------- */
+
+#ifndef EGL_EXT_swap_tearing_hint
+#define EGL_EXT_swap_tearing_hint 1
+
+#define EGL_SWAP_TEARING_HINT_EXT 0x35A0
+#define EGL_SWAP_TEARING_HINT_VSYNC_EXT 0x35A1
+#define EGL_SWAP_TEARING_HINT_ASYNC_EXT 0x35A2
+#define EGL_SWAP_TEARING_HINT_DEFAULT_EXT 0x35A3
+
+#define EGLEW_EXT_swap_tearing_hint EGLEW_GET_VAR(__EGLEW_EXT_swap_tearing_hint)
+
+#endif /* EGL_EXT_swap_tearing_hint */
+
 /* --------------------------- EGL_EXT_sync_reuse -------------------------- */
 
 #ifndef EGL_EXT_sync_reuse
@@ -3234,6 +3248,7 @@ EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_surface_CTA861_3_metadata;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_surface_SMPTE2086_metadata;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_surface_compression;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_swap_buffers_with_damage;
+EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_swap_tearing_hint;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_sync_reuse;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_EXT_yuv_surface;
 EGLEW_VAR_EXPORT GLboolean __EGLEW_HI_clientpixmap;

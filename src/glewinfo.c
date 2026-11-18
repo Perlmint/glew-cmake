@@ -12807,6 +12807,15 @@ static void _glewInfo_EGL_EXT_swap_buffers_with_damage (void)
 
 #endif /* EGL_EXT_swap_buffers_with_damage */
 
+#ifdef EGL_EXT_swap_tearing_hint
+
+static void _glewInfo_EGL_EXT_swap_tearing_hint (void)
+{
+  glewPrintExt("EGL_EXT_swap_tearing_hint", EGLEW_EXT_swap_tearing_hint, eglewIsSupported("EGL_EXT_swap_tearing_hint"), eglewGetExtension("EGL_EXT_swap_tearing_hint"));
+}
+
+#endif /* EGL_EXT_swap_tearing_hint */
+
 #ifdef EGL_EXT_sync_reuse
 
 static void _glewInfo_EGL_EXT_sync_reuse (void)
@@ -18829,6 +18838,9 @@ static void eglewInfo (void)
 #ifdef EGL_EXT_swap_buffers_with_damage
   _glewInfo_EGL_EXT_swap_buffers_with_damage();
 #endif /* EGL_EXT_swap_buffers_with_damage */
+#ifdef EGL_EXT_swap_tearing_hint
+  _glewInfo_EGL_EXT_swap_tearing_hint();
+#endif /* EGL_EXT_swap_tearing_hint */
 #ifdef EGL_EXT_sync_reuse
   _glewInfo_EGL_EXT_sync_reuse();
 #endif /* EGL_EXT_sync_reuse */
